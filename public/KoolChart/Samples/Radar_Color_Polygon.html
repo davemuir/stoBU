@@ -1,0 +1,165 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="Content-Script-Type" content="text/javascript"/>
+<meta http-equiv="Content-Style-Type" content="text/css"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>KoolChart for HTML5</title>
+<link rel="stylesheet" type="text/css" href="./KoolChartSample.css"/>
+
+<!--  If you want to support IE 7/8, you'll need the conditional excanvas include. -->
+<!--[if IE]><script language="javascript" type="text/javascript" src="../KoolChart/JS/excanvas.js"></script><![endif]-->
+
+<!-- License Key -->
+<script language="javascript" type="text/javascript" src="../LicenseKey/KoolChartLicense.js"></script>
+
+<!-- KoolChart JavaScript library -->
+<script language="javascript" type="text/javascript" src="../KoolChart/JS/KoolRadarChart.js"></script>
+
+<script type="text/javascript">
+
+//----------------------- Here we start creating a chart. -----------------------
+
+//Sets the value of KoolOnLoadCallFunction to the name of a JS function (e.g. chartReadyHandler) that is called when the chart is ready to be created.
+var chartVars = "KoolOnLoadCallFunction=chartReadyHandler";
+
+//Creates the chart.
+//Parameters:  
+//1. Chart ID: You can use any name you like. 
+//2. DIV ID: The chart will be placed in this DIV.
+//3. chartVars: Variables used for creating the chart.
+//4. Chart width: Default value is 100%
+//5. Chart height: Default value is 100%
+KoolChart.create("chart1", "chartHolder", chartVars, "100%", "100%"); 
+
+//The JavaScript function which is set to the value of KoolOnLoadCallFunction.
+//This function will call two functions, setLayout() and setData() which are two main functions of KoolChart.
+//Parameters: 
+//1. ID: The Chart ID which is used as the first parameter of KoolChart.create().
+function chartReadyHandler(id) {
+	document.getElementById(id).setLayout(layoutStr);
+	document.getElementById(id).setData(chartData);
+}
+
+//Declares Layout
+var layoutStr = 
+				'<KoolChart backgroundColor="#FFFFFF" borderStyle="none" cornerRadius="5">'
+					+'<Options>'
+						+'<Caption text="Household Expenditure (Yearly)" fontFamily="Malgun Gothic"/>'
+						+'<SubCaption text="(2010~2013)" fontFamily="Malgun Gothic"/>'
+						+'<Legend useVisibleCheck="true" fontFamily="Malgun Gothic"/>'
+					+'</Options>'
+					+'<RadarChart id="chart1" isSeriesOnAxis="true" type="polygon" paddingTop="20" paddingBottom="20" showDataTips="true">'
+								+'<backgroundElements>'
+									+'<RadarGridLines direction="both" radarChangeCount="1">'
+									/*radarFill and radarAlternateFill will be displayed alternately.*/
+										+'<radarFill>'
+											+'<SolidColor color="#efefef"/>'
+										+'</radarFill>'
+										+'<radarAlternateFill>'
+											+'<SolidColor color="#fffffc"/>'
+										+'</radarAlternateFill>'
+										 +'<radialStroke>' 
+										 		/* sets the radial line */
+												+'<Stroke color="#000000" weight="1"/>'
+										+'</radialStroke>'
+										 +'<angularStroke>' 
+										 		/* sets the angular line */
+												+'<Stroke color="#FF0000" weight="1"/>'
+										+'</angularStroke>'
+									 +'</RadarGridLines>'
+								+'</backgroundElements>'
+								+'<radialAxisRenderers>'
+									/* Styles for the vertical axis */
+									+'<Axis2DRenderer horizontal="true" visible="true">'
+									/* sets the line style of the vertical axis */
+										+'<axisStroke>'
+											+'<Stroke weight="4" color="#FF6666"/>'
+										+'</axisStroke>'
+									/* sets the line style of tick */
+										+'<tickStroke>'
+											+'<Stroke weight="1" color="#FF6666" alpha="0.2"/>'
+										+'</tickStroke>'
+									+'</Axis2DRenderer>'
+									+'<Axis2DRenderer horizontal="false" visible="true">'
+										+'<axisStroke>'
+											+'<Stroke weight="4" color="#FF6666"/>'
+										+'</axisStroke>'
+										+'<tickStroke>'
+											+'<Stroke weight="1" color="#FF6666" alpha="0.2"/>'
+										+'</tickStroke>'
+									+'</Axis2DRenderer>'
+								+'</radialAxisRenderers>'
+								+'<radialAxis>'
+									+'<LinearAxis/>'
+								+'</radialAxis>'
+								+'<angularAxis>'
+									+'<CategoryAxis id="aAxis" categoryField="catName" displayName="Category"/>'
+								+'</angularAxis>'
+								+'<angularAxisRenderers>'
+									+'<AngularAxisRenderer axis="{aAxis}" axisTitleStyleName="axisTitle">'
+										+'<axisStroke>'
+											+'<Stroke weight="4" color="#FF3366"/>'
+										+'</axisStroke>'
+									+'</AngularAxisRenderer>'
+								+'</angularAxisRenderers>'
+							  +'<series>'
+								+'<RadarSeries field="year2010" displayName="2010" radius="6">'
+									+'<showDataEffect>'
+										+'<SeriesInterpolate/>'
+									+'</showDataEffect>'
+								+'</RadarSeries>'
+								+'<RadarSeries field="year2011" displayName="2011"  radius="6">'
+									+'<showDataEffect>'
+										+'<SeriesInterpolate/>'
+									+'</showDataEffect>'
+								+'</RadarSeries>'
+								+'<RadarSeries field="year2012" displayName="2012"  radius="6">'
+									+'<showDataEffect>'
+										+'<SeriesInterpolate/>'
+									+'</showDataEffect>'
+								+'</RadarSeries>'
+								+'<RadarSeries field="year2013" displayName="2013"  radius="6">'
+									+'<showDataEffect>'
+										+'<SeriesInterpolate/>'
+									+'</showDataEffect>'
+								+'</RadarSeries>'
+							  +'</series>'
+						+'</RadarChart>'
+				+'</KoolChart>';
+
+// Declares Dataset
+var chartData = [{"catName":"Food", "year2010":100, "year2011":100, "year2012":180, "year2013":150}
+				,{"catName":"Health Care", "year2010":80, "year2011":120, "year2012":200, "year2013":210}
+				,{"catName":"Transportation", "year2010":70, "year2011":115, "year2012":100, "year2013":240}
+				,{"catName":"Clothing", "year2010":80, "year2011":120, "year2012":140, "year2013":210}
+				,{"catName":"Education", "year2010":90, "year2011":160, "year2012":130, "year2013":200}
+				,{"catName":"Shelter", "year2010":100, "year2011":180, "year2012":165, "year2013":140}
+				,{"catName":"Leisure", "year2010":76, "year2011":120, "year2012":130, "year2013":170}
+				,{"catName":"Others", "year2010":80, "year2011":140, "year2012":140, "year2013":190}];
+	
+//----------------------- The end of the configuration for creating a chart. -----------------------
+
+</script>
+</head>
+<body>
+	<div id="content">
+		<!-- The DIV in which the chart is placed -->
+		<div id="chartHolder" style="width:600px; height:400px;">
+		</div>
+	</div>
+	<div id="footer">	
+		<font size="3"><b>This sample is to set the colors of Radar Chart.</b></font><br>	
+		
+<pre>
+<font color="#01BAC5">backgroundElements: Defines the background style of the chart. GridLines is the default method.
+radialAxisRenderers: Defines the renderer for radialAxis.
+	e.g.) sets the color, location and text style of the axis
+RadarSeries: sets the line style of the radar. sets the fill color of the radar, etc.</font>
+
+<font color="#ff0000">Please refer to the source code of Layout and HTML for the details.</font>
+</pre>
+		</div>
+</body>
+</html>

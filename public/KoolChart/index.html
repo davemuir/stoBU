@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="description" content="">
+<title>KoolChart</title>
+<link href="./Samples/Web/style.css" rel="stylesheet">
+<script type="text/javascript" src="./Samples/Web/JS/sample_info.js"></script>
+<script type="text/javascript" src="./Samples/Web/JS/util.js"></script>
+<script type="text/javascript">
+	
+	var active_menu,
+		active_main_li,
+		active_sub_li,
+		active_tab_li,
+		open_sub_menu = false,
+		displayNoneElem,
+		themePopTarget;
+
+	window.onload = function(){
+		createChartType();
+		createChartProp();
+		createImage();
+		addElementEvent();
+		addImageEvent();
+
+		checkChrome();
+	}
+
+</script>
+</head>
+<body>
+	<div id="wrap">
+		<div id="menu">
+			<div id="title">
+				<div id="home"><img src="./Samples/Web/Images/home.png"></div>
+				<span id="title_kor">KoolChart</span>
+				<span id="title_eng">(KoolChart for HTML5 v3.0)</span>
+			</div>
+			<div id="menu_content">
+				<div id="main_menu">
+					<div id="chart_type">
+						<div id="type_title" class="title non_active_menu"><span>CHART TYPES</span></div>
+						<div id="type_content">
+							<div id="default_type" class="liclass"></div>
+							<div id="premium_type"></div>
+						</div>
+					</div>
+					<div id="chart_prop">
+						<div id="prop_title" class="title non_active_menu"><span>CHART PROPERTIES</span></div>
+						<div id="prop_content">
+						</div>
+					</div>
+					<div id="tutorial" class="button button_tutorial">Tutorial</div>
+					<div id="footer2">Copyright © 2014<br> RiaMore All Rights Reserved.</div>
+					<div id="reference">
+						<a href="./Docs/api/index.html" target="_blank">KoolChart Reference</a><br/>
+						<a href="./Docs/KoolChart_User.pdf" target="_blank">KoolChart Manual</a>
+					</div>
+				</div>
+				<div id="sub_menu">
+					<div id="active_content_name"></div>
+					<div id="active_content_childs"></div>
+				</div>
+			</div>
+		</div>
+		<div id="content">
+			<div id="chart_sample">
+				<div id="content_title">
+					<span id="type_name"></span><br><span id="sample_name"></span>
+					<div id="theme_div">
+						<div style="float:right;" class="button button_theme" onclick="changeTheme('old')">Old</div>
+						<img id="pastel" src="./Samples/Web/Images/5.png" class="theme_img" onclick="changeTheme('pastel')"/>
+						<img id="lovely" src="./Samples/Web/Images/4.png" class="theme_img" onclick="changeTheme('lovely')"/>
+						<img id="modern" src="./Samples/Web/Images/3.png" class="theme_img" onclick="changeTheme('modern')"/>
+						<img id="cyber" src="./Samples/Web/Images/2.png" class="theme_img" onclick="changeTheme('cyber')"/>
+						<img id="simple" src="./Samples/Web/Images/1.png" class="theme_img" onclick="changeTheme('simple')"/>
+						<div class="button button_theme" style="float:right; margin-right:2px" onclick="changeTheme('default')">Default</div>
+					</div>
+				</div>
+				<div id="content_chart"></div>
+				<div id="update_div">
+					<div id="tab_div">
+						<ul id="tab_ul">
+							<li id="li_layout" class="non_active_li">Layout</li>
+							<li id="li_data" class="non_active_li">Data</li>
+							<li id="li_blank"></li>
+						</ul>
+					</div>
+					<div id="tarea_div">
+						<textarea id="tarea_layout" class="textarea"></textarea>
+						<textarea id="tarea_data" class="textarea"></textarea>
+						<span id="btn_update">update</span>
+					</div>
+				</div>
+			</div>
+			<div id="overview"></div>
+			<div id="tutorial_div">
+				<div onclick="endTutorial()" id="btn_close" class="button">X</div>
+				<div id="tutorial_title">KoolChart Tutorial</div>
+				<div id="tutorial_content"></div>
+				<div id="tutorial_next" class="button button_theme"></div>
+				<div id="tutorial_exp"></div>				
+			</div>
+			<!-- <div id="footer">Copyright © 2014 RiaMore All Rights Reserved.</div> -->
+		</div>
+	</div>
+	<div id="deemd" style="display:none;"></div>
+	<div id="deemd_alert" style="display:none;">
+		<div id="deemd_title">
+			Please be informed
+			<div id="deemd_close">X</div>
+		</div>
+		<div id="deemd_content"><div>
+	</div>
+</body>
+</html>

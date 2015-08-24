@@ -1,0 +1,144 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="Content-Script-Type" content="text/javascript"/>
+<meta http-equiv="Content-Style-Type" content="text/css"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>KoolChart for HTML5 - Image Chart</title>
+<link rel="stylesheet" type="text/css" href="./KoolChartSample.css"/>
+
+<!--  If you want to support IE 7/8, you'll need the conditional excanvas include. -->
+<!--[if IE]><script language="javascript" type="text/javascript" src="../KoolChart/JS/excanvas.js"></script><![endif]-->
+
+<!-- License Key -->
+<script language="javascript" type="text/javascript" src="../LicenseKey/KoolChartLicense.js"></script>
+
+<!-- KoolChart JavaScript library -->
+<script language="javascript" type="text/javascript" src="../KoolChart/JS/KoolImageChart.js"></script>
+
+<!-- Theme.js -->
+<script type="text/javascript" src="../KoolChart/Assets/Theme/theme.js"></script>
+
+<script type="text/javascript">
+
+//----------------------- Here we start creating a chart. -----------------------
+
+//Sets the value of KoolOnLoadCallFunction to the name of a JS function (e.g. chartReadyHandler) that is called when the chart is ready to be created.
+var chartVars = "KoolOnLoadCallFunction=chartReadyHandler";
+
+//Creates the chart.
+//Parameters:  
+//1. Chart ID: You can use any name you like. 
+//2. DIV ID: The chart will be placed in this DIV.
+//3. chartVars: Variables used for creating the chart.
+//4. Chart width: Default value is 100%
+//5. Chart height: Default value is 100%
+KoolChart.create("chart1", "chartHolder", chartVars, "100%", "100%"); 
+
+//The JavaScript function which is set to the value of KoolOnLoadCallFunction.
+//This function will call two functions, setLayout() and setData() which are two main functions of KoolChart.
+//Parameters: 
+//1. ID: The Chart ID which is used as the first parameter of KoolChart.create().
+function chartReadyHandler(id) {
+	document.getElementById(id).setLayout(layoutStr);
+	document.getElementById(id).setData(chartData);
+}
+
+//Declares Layout
+var layoutStr = 
+				'<KoolChart backgroundColor="0xFFFFFF" cornerRadius="12" borderStyle="none">'
+					+'<Options>'
+						+'<Caption text="Vehicle Sales (Yearly)" fontFamily="Malgun Gothic"/>'
+					+'</Options>'
+					+'<NumberFormatter id="numFmt"/>' 
+					+'<ImageChart id="chart" showDataTips="true" gutterLeft="20" gutterRight="20" showLabelVertically="true" fontFamily="Malgun Gothic">'
+					/* 
+						Creating the ImageChart node. 
+						showDataTips: Whether or not to show tooltips when you mouse over items.  
+					*/
+						+'<horizontalAxis>'
+							+'<CategoryAxis id="hAxis" categoryField="Year"/>'
+						+'</horizontalAxis>'
+						+'<verticalAxis>'
+							+'<LinearAxis id="vAxis"/>'
+						+'</verticalAxis>'
+						+'<series>'
+							+'<ImageSeries yField="Data1" imageDisplayType="singleRepeat" styleName="seriesStyle" formatter="{numFmt}">'
+					/* 
+						Creating the ImageSeries node as a child of the ImageChart node. 
+						imageDisplayType ┬ single: using one single image
+								 ├ singleRepeat: using repetitive single image
+								 └ multiple: using mutiple image
+					 */
+								+'<imgSource>'
+									+'<ImageSourceItem url="../KoolChart/Assets/Images/car_red.png"/>'
+								+'</imgSource>'
+								+'<showDataEffect>'
+									+'<SeriesSlide duration="1000" direction="up"/>'
+								+'</showDataEffect>'
+							+'</ImageSeries>'
+						+'</series>'
+						+'<verticalAxisRenderers>'
+							+'<Axis2DRenderer axis="{vAxis}" visible="false" includeInLayout="false"/>'
+						+'</verticalAxisRenderers>'
+					+'</ImageChart>'
+					+'<Style>'
+						+'.seriesStyle{labelPosition:outside;color:0x00CC99;fontSize:11;}'
+					+'</Style>'
+				+'</KoolChart>';
+
+// Declares Dataset
+var chartData = [{"Year":2009,"Data1":1000,"Data2":1500},
+				{"Year":2010,"Data1":1400,"Data2":1400},
+				{"Year":2011,"Data1":1500,"Data2":1200},
+				{"Year":2012,"Data1":1900,"Data2":1300},
+				{"Year":2013,"Data1":1400,"Data2":900}];
+	
+/**
+ * If you want to use themes provided with KoolChart version 3.0, call the following functions.
+ * otherwise, comment out or delete the following functions.
+ *
+ * -- The Themes registered in KoolChart.themes --
+ * - simple
+ * - cyber
+ * - modern
+ * - lovely
+ * - pastel
+ * - old
+ * -------------------------------------------------
+ *
+ * The KoolChart.themes variable is defined in theme.js
+ */
+KoolChart.registerTheme(KoolChart.themes);
+
+/**
+ * The function called when the theme button in the sample HTML is clicked.
+ * Parameter Values:
+ * - simple
+ * - cyber
+ * - modern
+ * - lovely
+ * - pastel
+ * - old
+ * - default
+ *
+ * default: Applies the default theme which is the basic design of KoolChart.
+ * old: Applies the design of KoolChart version 2.5.
+ */
+function KoolChartChangeTheme(theme){
+	document.getElementById("chart1").setTheme(theme);
+}
+
+//----------------------- The end of the configuration for creating a chart. -----------------------
+	
+</script>
+</head>
+<body>
+	<div id="content">
+		<!-- The DIV in which the chart is placed -->
+		<div id="chartHolder" style="width:600px; height:400px;">
+		</div>
+	</div>
+</body>
+</html>

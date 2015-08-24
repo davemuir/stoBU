@@ -1,0 +1,166 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="Content-Script-Type" content="text/javascript"/>
+<meta http-equiv="Content-Style-Type" content="text/css"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Kool Chart for HTML5</title>
+<link rel="stylesheet" type="text/css" href="./KoolChartSample.css"/>
+
+<!--  If you want to support IE 7/8, you'll need the conditional excanvas include. -->
+<!--[if IE]><script language="javascript" type="text/javascript" src="../KoolChart/JS/excanvas.js"></script><![endif]-->
+
+<!-- License Key -->
+<script language="javascript" type="text/javascript" src="../LicenseKey/KoolChartLicense.js"></script>
+
+<!-- KoolChart JavaScript library -->
+<script language="javascript" type="text/javascript" src="../KoolChart/JS/KoolChart.js"></script>
+
+<script type="text/javascript">
+
+//----------------------- Here we start creating a chart. -----------------------
+
+//Sets the value of KoolOnLoadCallFunction to the name of a JS function (e.g. chartReadyHandler) that is called when the chart is ready to be created.
+var chartVars = "KoolOnLoadCallFunction=chartReadyHandler";
+
+//Creates the chart.
+//Parameters:  
+//1. Chart ID: You can use any name you like. 
+//2. DIV ID: The chart will be placed in this DIV.
+//3. chartVars: Variables used for creating the chart.
+//4. Chart width: Default value is 100%
+//5. Chart height: Default value is 100%
+KoolChart.create("chart1", "chartHolder", chartVars, "100%", "100%"); 
+
+//The JavaScript function which is set to the value of KoolOnLoadCallFunction.
+//This function will call two functions, setLayout() and setData() which are two main functions of KoolChart.
+//Parameters: 
+//1. ID: The Chart ID which is used as the first parameter of KoolChart.create().
+function chartReadyHandler(id) {
+	document.getElementById(id).setLayout(layoutStr);
+	document.getElementById(id).setData(chartData);
+}
+
+//Declares Layout
+var layoutStr = 
+				'<KoolChart backgroundColor="0xFFFFFF" cornerRadius="12" borderStyle="none" paddingBottom="50">'
+					+'<Options>'
+						+'<Caption text="Annual Report"/>'
+					+'</Options>'
+					/* dataTipFunc is the name of a JS function. */
+					+'<Pie2DChart showDataTips="true" dataTipJsFunction="dataTipFunc">'
+					/* 
+						dataTipJsFunction: Sets the value of the property to the name of a JS function called when mouse over the items.
+						The returned value from the JS function is used as the toolTips.
+					*/
+						+'<series>'
+							+'<Pie2DSeries id="pieSeires" nameField="Month" field="Profit" labelPosition="inside" displayName="Month-Profit" color="#ffffff">'
+								+'<showDataEffect>'
+									+'<SeriesSlide direction="right" duration="1000"/>'
+								+'</showDataEffect>'
+							+'</Pie2DSeries>'
+						+'</series>'
+					+'</Pie2DChart>'
+				+'</KoolChart>';
+
+// Declares Dataset
+var chartData = [{"Month":"Jan","Profit":900},
+				{"Month":"Feb","Profit":1400},
+				{"Month":"Mar","Profit":1500},
+				{"Month":"Apr","Profit":1900},
+				{"Month":"May","Profit":1400},
+				{"Month":"Jun","Profit":2000},
+				{"Month":"Jul","Profit":1800},
+				{"Month":"Aug","Profit":2500},
+				{"Month":"Sep","Profit":3000},
+				{"Month":"Oct","Profit":2000},
+				{"Month":"Nov","Profit":2100},
+				{"Month":"Dec","Profit":1700}];
+
+/*
+// ---------------------- The user-defined function to be used to generate the toolTips (dataTipJsFunction)--------------------------------------------
+// The JavaScript function to be called to show tooltips (showDataTips="true").
+// Sets the value of labelJsFunction to the JavaScript function name in layouts
+
+// e.g.) <Column3DChart showDataTips="true" dataTipJsFunction="dataTipFunc">
+//
+// Parameters
+// seriesId: Series ID
+// seriesName: The name of the series, which is set as the value of the displayName property.
+// index: The index of the item in the series.
+// xName: The value of the displayName property in the horizontalAxis node.
+// yName: The value of the displayName property in the verticalAxis node.
+// data: The record of the dataset declared for creating the chart.
+// values: The value is an array and each element in the array is different depending on the chart type.
+			Bar2D(3D)Series		0: X-axis value, 1: Y-axis value
+			Column2D(3D)Series	0: X-axis value, 1: Y-axis value
+			Area2DSeries		0: X-axis value, 1: Y-axis value
+			Bubble3DSeries		0: X-axis value, 1: Y-axis value 2: radius
+			Line2DSeries		0: X-axis value, 1: Y-axis value
+			Pie2D(3D)Series		0: value, 1: percentage, 2: nameField
+*/
+function dataTipFunc(seriesId, seriesName, index, xName, yName, data, values)
+{
+	var percentVal = (Math.round(values[1]*100)) / 100;
+	return "<font color='#CC3300'>User-defined tooltips</font><br/>seriesId:"+seriesId
+			+"<br/><font color='#0000FF'>Current Data: </font>"
+			+"<b>"+seriesName+"</b>"
+			+"<br/>itemIndex:"+index
+			+"<br/>data : <br/>"+objectToString(data)
+			+"<br/>Month : "+values[2]
+			+"<br/>value : "+values[0]
+			+"<br/>Percent Value : "+ percentVal +"<font color='#FF0000'>%</font>";
+}
+
+function objectToString(d) {
+	var r = "";
+	for (var p in d) {
+		if (r.length > 0)
+			r += "<br/>";
+		r += "&nbsp;  "+d[p];
+	}
+	return r;
+}
+
+//----------------------- The end of the configuration for creating a chart. -----------------------
+
+</script>
+</head>
+<body>
+	<div id="content">
+		<!-- The DIV in which the chart is placed -->
+		<div id="chartHolder" style="width:600px; height:400px;">
+		</div>
+	</div>
+	<div id="footer">	
+		<font size="3"><b>This sample is to show how to make the user-defined tooltips for Pie Chart.</b></font><br>	
+		
+<pre>
+<font color="#01BAC5">If you want to display the user-defined tooptips, you need to set as showDataTips="true" and
+set the value of dataTipJsFunction property to the name of the JavaScript function.</font>
+
+<b>●Layout</b>
+&#60;Pie3DChart <font color="#ff0000">width</font>="450" <font color="#ff0000">height</font>="320" <font color="#ff0000">showDataTips</font>="true" <font color="#ff0000">dataTipJsFunction</font>="dataTipFunc"&#62;
+
+<b>●Script</b>
+<font color="#01BAC5">Parameters
+seriesId: Series ID
+seriesName: The name of the series, which is set as the value of the displayName property.
+index: The index of the item in the series.
+xName: The value of the displayName property in the horizontalAxis node.
+yName: The value of the displayName property in the verticalAxis node.
+data: The record of the dataset declared for creating the chart.
+values: The value is an array and each element in the array is different depending on the chart type.
+		Bar2D(3D)Series		0: X-axis value, 1: Y-axis value
+		Column2D(3D)Series	0: X-axis value, 1: Y-axis value
+		Area2DSeries		0: X-axis value, 1: Y-axis value
+		Bubble3DSeries		0: X-axis value, 1: Y-axis value 2: radius
+		Line2DSeries		0: X-axis value, 1: Y-axis value
+		Pie2D(3D)Series		0: value, 1: percentage, 2: nameField</font>
+
+Please refer to the html code for the details.
+</pre>
+		</div>
+</body>
+</html>

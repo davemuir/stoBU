@@ -1,0 +1,200 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="../../style.css" type="text/css" media="screen">
+<link rel="stylesheet" href="../../print.css" type="text/css" media="print">
+<meta content="RealTimeChart,eng.charts.RealTimeChart" name="keywords">
+<title>eng.charts.RealTimeChart</title>
+</head>
+<body>
+<script type="text/javascript" language="javascript" src="../../asdoc.js"></script><script type="text/javascript" language="javascript" src="../../cookies.js"></script><script type="text/javascript" language="javascript">
+<!--
+				asdocTitle = 'RealTimeChart - KoolChart for HTML5 Ver. 3.0 Reference By RiaMore Soft.';
+				var baseRef = '../../';
+				window.onload = configPage;
+			--></script>
+<table style="display:none" id="titleTable" cellspacing="0" cellpadding="0" class="titleTable">
+<tr>
+<td align="left" class="titleTableTitle">KoolChart for HTML5 Ver. 3.0 Reference</td><td align="right" class="titleTableTopNav"><a onclick="loadClassListFrame('../../all-classes.html')" href="../../package-summary.html">All&nbsp;Packages</a>&nbsp;|&nbsp;<a onclick="loadClassListFrame('../../all-classes.html')" href="../../class-summary.html">All&nbsp;Classes</a>&nbsp;|&nbsp;<a onclick="loadClassListFrame('../../index-list.html')" href="../../all-index-A.html">Index</a>&nbsp;|&nbsp;<a href="../../index.html?eng/charts/RealTimeChart.html&amp;eng/charts/class-list.html" id="framesLink1">Frames</a><a onclick="parent.location=document.location" href="" style="display:none" id="noFramesLink1">No&nbsp;Frames</a></td><td rowspan="3" align="right" class="titleTableLogo"><a href="www.koolchart.com"><img alt="KoolChart Logo" title="KoolChart Logo" class="logoImage" src="../../images/logo.png"></a></td>
+</tr>
+<tr class="titleTableRow2">
+<td align="left" id="subTitle" class="titleTableSubTitle">Class&nbsp;RealTimeChart</td><td align="right" id="subNav" class="titleTableSubNav"><a href="#styleSummary">Styles</a></td>
+</tr>
+<tr class="titleTableRow3">
+<td colspan="2">&nbsp;</td>
+</tr>
+</table>
+<script type="text/javascript" language="javascript">
+<!--
+if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Class RealTimeChart"); titleBar_setSubNav(false,false,true,false,false,false,false,false,false,false,false,false,false,false);}
+--></script>
+<div class="MainContent">
+<table cellspacing="0" cellpadding="0" class="classHeaderTable">
+<tr>
+<td class="classHeaderTableLabel">Package</td><td><a onclick="javascript:loadClassListFrame('class-list.html')" href="package-detail.html">eng.charts</a></td>
+</tr>
+<tr>
+<td class="classHeaderTableLabel">Class</td><td class="classSignature">public class RealTimeChart</td>
+</tr>
+</table>
+<p></p>
+   Real-time charts represent data based on the number of data or the time period.
+   Unlike other charts (data is refreshed when the dataProvider property is set.), the real-time chart attaches new data to the end of the previous data.
+   e.g. if you set as dataDisplayType="dataSize" and displayDataSize="10", then the latest 10 items will be displayed in the chart regardless of the number data.
+   If you set as dataDisplayType="time", then you have to set the property of the corresponding axis to the instance of the DateTimeAxis class (&lt;DateTimeAxis&gt;).
+   If you set as interval="10" and displayDataSize="60", then the chart will display data received within the last 60 seconds with the 10 seconds interval. The actual number of items to be displayed in the chart is 6.
+  
+  <p>The layout is as follows:</p>
+  
+  <pre>
+    &lt;KoolChart backgroundColor="0xFFFFFF" cornerRadius="12" borderStyle="solid"&gt;
+   &lt;Options&gt;
+    &lt;Caption text="Stock Monitoring" /&gt;
+    &lt;SubCaption text="Real Time Chart" fontSize="11" textAlign="right"/&gt;
+    &lt;Legend/&gt;
+   &lt;/Options&gt;
+    &lt;DateFormatter id="dateFmt" formatString="HH:NN:SS" /&gt; 
+   &lt;RealTimeChart id="chart" dataDisplayType="time"  timePeriod="60" interval="3" showDataTips="true"&gt;
+    &lt;backgroundElements&gt;
+     &lt;GridLines direction="both"/&gt;
+    &lt;/backgroundElements&gt; 
+    &lt;horizontalAxis&gt;
+       &lt;DateTimeAxis id="hAxis" dataUnits="seconds" labelUnits="seconds" dataInterval="3" interval="3" formatter="{dateFmt}" displayLocalTime="true"/&gt;
+    &lt;/horizontalAxis&gt;
+    &lt;series&gt;
+     &lt;Column2DSeries labelPosition="outside" yField="Volume" xField="Time" 
+      displayName="Trading Volume"
+      itemRenderer="GradientColumnItemRenderer"&gt;
+       &lt;filters&gt;
+          &lt;DropShadowFilter distance="3" color="0x666666" alpha=".8"/&gt;
+       &lt;/filters&gt;
+       &lt;fill&gt;
+       &lt;SolidColor color="0xB0C759"/&gt;
+       &lt;/fill&gt;
+      &lt;verticalAxis&gt;
+         &lt;LinearAxis id="vAxis1"  title="Volume" minimum="0" maximum="10000"/&gt;
+      &lt;/verticalAxis&gt; 
+     &lt;/Column2DSeries&gt;
+     &lt;Line2DSeries labelPosition="up" xField="Time" yField="Price" displayName="Stock Price" interpolateValues="false"
+        itemRenderer="mx.charts.renderers.CircleItemRenderer"  radius="5" fill="0xFFFF00"&gt;
+      &lt;filters&gt;
+       &lt;DropShadowFilter distance="3" color="0x666666" alpha="0.8"/&gt;
+      &lt;/filters&gt;
+      &lt;stroke&gt;
+       &lt;Stroke color="0xE48701" weight="2"/&gt;
+      &lt;/stroke&gt;
+      &lt;lineStroke&gt;
+        &lt;Stroke color="0xE48701" weight="4"/&gt;
+       &lt;/lineStroke&gt;
+        &lt;verticalAxis&gt;
+       &lt;LinearAxis id="vAxis2" title="Price" minimum="0" maximum="1000"/&gt;           
+      &lt;/verticalAxis&gt;
+     &lt;/Line2DSeries&gt;
+    &lt;/series&gt;
+    &lt;verticalAxisRenderers&gt;
+     &lt;Axis2DRenderer placement="left" axis="{vAxis1}"&gt;
+     &lt;/Axis2DRenderer&gt;
+     &lt;Axis2DRenderer placement="right" axis="{vAxis2}"&gt;
+     &lt;/Axis2DRenderer&gt;
+      &lt;/verticalAxisRenderers&gt;
+   &lt;/RealTimeChart&gt;
+   &lt;HttpServiceRepeater url="http://www.koolchart.com/realtimeSample/data4.php" target="{chart}" interval="3"  method="get"/&gt;
+  &lt;/KoolChart&gt;  
+  </pre>
+  <p></p>
+<br>
+<hr>
+</div>
+<a name="styleSummary"></a>
+<div class="summarySection">
+<div class="summaryTableTitle">Styles</div>
+<table id="summaryTableStyle" class="summaryTable " cellpadding="3" cellspacing="0">
+<tr>
+<th>&nbsp;</th><th colspan="2">Style</th><th>Description</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:dataDisplayType"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">dataDisplayType</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>String<br>
+  Sets the display type.
+  You can define the number of data to be displayed in the chart or the time interval during which the number of data received will be displayed in the chart.
+  If you set as dataDisplayType="time", the number of data received during the time interval will be displayed in the chart.
+  The default is dataSize.
+  </td><td class="summaryTableOwnerCol">RealTimeChart</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:displayCompleteCallFunction"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">displayCompleteCallFunction</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>String<br>
+ <p>Sets the JavaScript function to be called when the chart rendering is completed.</p>
+ The chart ID will be passed as parameter.
+ </td><td class="summaryTableOwnerCol">RealTimeChart</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:enablePattern"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">enablePattern</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>String<br>
+ <p>Sets patterns for visually impaired  users.</p>
+ The string, "usePattern=true", must be added to chartVars in the HTML file.<br>
+ and the value of the patternMode property must be "true" in Column2DChart.
+ </td><td class="summaryTableOwnerCol">RealTimeChart</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:interval"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">interval</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Number<br>
+  Sets the time interval when dataDisplayType="time".
+  The unit is second.
+  </td><td class="summaryTableOwnerCol">RealTimeChart</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:timePeriod"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">timePeriod</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Number<br>
+  Sets the time period when dataDisplayType="time".
+  It is the time period during which data is displayed in the chart.
+  e.g. if you set as timePeriod="60", the data received within 1 minute before the last data is received will be displayed in the chart.
+  The unit is second.
+  </td><td class="summaryTableOwnerCol">RealTimeChart</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:touchMoveEnable"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">touchMoveEnable</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Boolean<br>
+ <p>Indicates whether or not to create the touchMove event in the browser<br>
+ when users move a certain area of the chart with a finger.<br>
+ If the touchMove event is created in the browser<br>
+ then the chart can be scrolled when the touchMove event occurs<br>
+ otherwise the chart cannot be scrolled when the touchMove event occurs.</p>
+  The default value is <code>true</code>.</td><td class="summaryTableOwnerCol">RealTimeChart</td>
+</tr>
+</table>
+</div>
+<script type="text/javascript" language="javascript">
+<!--
+showHideInherited();
+--></script>
+<div class="MainContent">
+<br>
+<br>
+<hr>
+<br>
+<p></p>
+<center class="copyright">Copyright(c) 2012 RiaMore Soft, Inc. All Right Reserved</center>
+</div>
+</body>
+</html>
+<!--Copyright(c) 2012 RiaMore Soft, Inc. All Right Reserved-->

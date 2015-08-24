@@ -1,0 +1,158 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="Content-Script-Type" content="text/javascript"/>
+<meta http-equiv="Content-Style-Type" content="text/css"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>KoolChart for HTML5</title>
+<link rel="stylesheet" type="text/css" href="./KoolChartSample.css"/>
+
+<!--  If you want to support IE 7/8, you'll need the conditional excanvas include. -->
+<!--[if IE]><script language="javascript" type="text/javascript" src="../KoolChart/JS/excanvas.js"></script><![endif]-->
+
+<!-- License Key -->
+<script language="javascript" type="text/javascript" src="../LicenseKey/KoolChartLicense.js"></script>
+
+<!-- KoolChart JavaScript library -->
+<script language="javascript" type="text/javascript" src="../KoolChart/JS/KoolChart.js"></script>
+
+<script type="text/javascript">
+
+//----------------------- Here we start creating a chart. -----------------------
+
+//Sets the value of KoolOnLoadCallFunction to the name of a JS function (e.g. chartReadyHandler) that is called when the chart is ready to be created.
+var chartVars = "KoolOnLoadCallFunction=chartReadyHandler";
+
+//Creates the chart.
+//Parameters:  
+//1. Chart ID: You can use any name you like. 
+//2. DIV ID: The chart will be placed in this DIV.
+//3. chartVars: Variables used for creating the chart.
+//4. Chart width: Default value is 100%
+//5. Chart height: Default value is 100%
+KoolChart.create("chart1", "chartHolder", chartVars, "100%", "100%"); 
+
+//The JavaScript function which is set to the value of KoolOnLoadCallFunction.
+//This function will call two functions, setLayout() and setData() which are two main functions of KoolChart.
+//Parameters: 
+//1. ID: The Chart ID which is used as the first parameter of KoolChart.create().
+function chartReadyHandler(id) {
+	document.getElementById(id).setLayout(layoutStr);
+	document.getElementById(id).setData(chartData);
+}
+
+//Declares Layout
+var layoutStr = 
+				'<KoolChart backgroundColor="0xFFFFFF" borderStyle="none" cornerRadius="5">'
+					+'<Options>'
+						+'<Caption text="M.E.M.O"/>'
+					+'</Options>'
+					+'<NumberFormatter id="numfmt" useThousandsSeparator="true"/>'
+					+'<Bar2DChart showDataTips="true">'
+						+'<verticalAxis>'
+							+'<CategoryAxis id="vAxis" categoryField="Month"/>' 
+						+'</verticalAxis>'
+						+'<horizontalAxis>'
+							+'<LinearAxis formatter="{numfmt}"/>'
+						+'</horizontalAxis>'
+						+'<verticalAxisRenderers>'
+							+'<Axis2DRenderer  axis="{vAxis}" showLine="true"/>'
+						+'</verticalAxisRenderers>'
+						+'<series>'
+							+'<Bar2DSeries labelPosition="outside" xField="Profit" displayName="Profit">'
+								+'<showDataEffect>'
+									+'<SeriesInterpolate direction="right"/>' 
+								+'</showDataEffect>'
+							+'</Bar2DSeries>'
+						+'</series>'
+						+'<annotationElements>'
+							+'<CanvasElement>'
+								+'<Label width="140" height="22" bottom="70" right="0" textAlign="center" text="Example: Memo" fontSize="12" color="#000000" borderColor="#7D7F7E" borderThickness="2" borderStyle="none" backgroundColor="#faf20d" fontFamily="Arial"/>'
+								+'<Label width="160" height="50" bottom="0" right="0" textAlign="center" text="Example: Color&#xa;Size" fontSize="16" color="0xffffff" fontWeight="bold" borderColor="#555555" borderThickness="1" borderStyle="solid" backgroundColor="#0c88d0" backgroundAlpha="0.6" cornerRadius="6" fontFamily="Malgun Gothic"/>'
+							/* 
+								left: sets the marginal space from the left end of the chart.
+								right: sets the marginal space from the right end of the chart.
+								top: sets the marginal space from the top of the chart.
+								bottom: sets the marginal space from the bottom of the chart.
+								color: sets the text color
+								cornerRadius: sets the roundness of the border of the memo box.
+								fontFamily: sets the font name.
+								fontSize: sets the font size.
+								fontWeight: normal, bold
+								backgroundAlpha: sets the transparency of the background.
+								backgroundColor: sets the color of the background.
+								borderAlpha: sets the transparency of the border.
+								borderColor: sets the color of the border.
+								borderThickness: sets the thickness of the border.
+								textAlign: sets the text alignment. left, center, right
+								styleName: sets the style name.
+								line feed: &#xa;
+							*/
+							+'</CanvasElement>'
+						+'</annotationElements>'
+					+'</Bar2DChart>'
+				+'</KoolChart>';
+
+// Declares Dataset
+var chartData = [{"Month":"Jan","Profit":1000},
+				{"Month":"Feb","Profit":1400},
+				{"Month":"Mar","Profit":650},
+				{"Month":"Apr","Profit":1700},
+				{"Month":"May","Profit":1400},
+				{"Month":"Jun","Profit":2100},
+				{"Month":"Jul","Profit":2500},
+				{"Month":"Aug","Profit":1400},
+				{"Month":"Sep","Profit":1000},
+				{"Month":"Oct","Profit":2000},
+				{"Month":"Nov","Profit":650},
+				{"Month":"Dec","Profit":1000}];
+	
+//----------------------- The end of the configuration for creating a chart. -----------------------
+
+</script>
+</head>
+<body>
+	<div id="content">
+		<!-- The DIV in which the chart is placed -->
+		<div id="chartHolder" style="width:600px; height:400px;">
+		</div>
+	</div>
+	<div id="footer"><font size="3"><b>This sample is to show the memo with applying font, color and size.</b></font><br>
+<pre>
+<font color="#01BAC5"><b>Label</b>
+left: sets the marginal space from the left end of the chart.
+right: sets the marginal space from the right end of the chart.
+top: sets the marginal space from the top of the chart.
+bottom: sets the marginal space from the bottom of the chart.
+color: sets the text color
+cornerRadius: sets the roundness of the border of the memo box.
+fontFamily: sets the font name.
+fontSize: sets the font size.
+fontWeight: normal, bold
+backgroundAlpha: sets the transparency of the background.
+backgroundColor: sets the color of the background.
+borderAlpha: sets the transparency of the border.
+borderColor: sets the color of the border.
+borderThickness: sets the thickness of the border.
+textAlign: sets the text alignment. left, center, right
+styleName: sets the style name.
+line feed: &#xa;</font>
+
+<b>●Layout</b>
+<font color="#ff0000">Top</font>
+&#60;Label right="0" textAlign="center" text="Example: text size" fontFamily="Malgun Gothic" 
+textDecoration="underline" backgroundColor="0x9d4c64" fontSize="17" backgroundAlpha="0"/&#62;
+<font color="#ff0000">Middle</font>
+&#60;Label width="150" top="150" right="20" borderColor="0x0000ff"  text="Example: text color" 
+cornerRadius="10" fontSize="11" color="0xff0000" textAlign="center" backgroundColor="0xf5d6fc"/&#62;
+<font color="#ff0000">Bottom</font>
+&#60;Label width="200" height="60" top="230" right="20" textAlign="center" borderStyle="none"
+text="Example: Color&#xa;Size" fontSize="20" color="0xffffff" fontWeight="bold" 
+borderColor="0xcd5c5c" borderThickness="2"  ackgroundColor="0xf08080" backgroundAlpha="1"&#62;
+&#60;/Label&#62;
+</pre>
+		</div>
+</body>
+</html>
+

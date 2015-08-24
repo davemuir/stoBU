@@ -1,0 +1,120 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="Content-Script-Type" content="text/javascript"/>
+<meta http-equiv="Content-Style-Type" content="text/css"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Kool Chart for HTML5 -  Cloumn chart</title>
+<link rel="stylesheet" type="text/css" href="./KoolChartSample.css"/>
+
+<!--  If you want to support IE 7/8, you'll need the conditional excanvas include. -->
+<!--[if IE]><script language="javascript" type="text/javascript" src="../KoolChart/JS/excanvas.js"></script><![endif]-->
+
+<!-- License Key -->
+<script language="javascript" type="text/javascript" src="../LicenseKey/KoolChartLicense.js"></script>
+
+<!-- KoolChart JavaScript library -->
+<script language="javascript" type="text/javascript" src="../KoolChart/JS/KoolChart.js"></script>
+
+<!-- Theme.js -->
+<script type="text/javascript" src="../KoolChart/Assets/Theme/theme.js"></script>
+
+<script type="text/javascript">
+
+//----------------------- Here we start creating a chart. -----------------------
+
+//Sets the value of KoolOnLoadCallFunction to the name of a JS function (e.g. chartReadyHandler) that is called when the chart is ready to be created.
+var chartVars = "KoolOnLoadCallFunction=chartReadyHandler";
+
+//Creates the chart.
+//Parameters:  
+//1. Chart ID: You can use any name you like. 
+//2. DIV ID: The chart will be placed in this DIV.
+//3. chartVars: Variables used for creating the chart.
+//4. Chart width: Default value is 100%
+//5. Chart height: Default value is 100%
+KoolChart.create("chart1", "chartHolder", chartVars, "100%", "100%"); 
+
+//The JavaScript function which is set to the value of KoolOnLoadCallFunction.
+//This function will call two functions, setLayout() and setData() which are two main functions of KoolChart.
+//Parameters: 
+//1. ID: The Chart ID which is used as the first parameter of KoolChart.create().
+function chartReadyHandler(id) {
+	document.getElementById(id).setTheme("pastel");
+	document.getElementById(id).setLayout(layoutStr);
+	document.getElementById(id).setData(chartData);
+}
+
+//Declares Layout
+var layoutStr = 
+				'<KoolChart backgroundColor="0xFFFFFF" cornerRadius="12" borderStyle="none">'
+					+'<Options>'
+						+'<Caption text="World Top 10 - Fastest Growing Economies (2013)" />'
+						+'<SubCaption text="GDP Growth (In %)" textAlign="center" />'
+					+'</Options>'
+					+'<SeriesInterpolate id="ss"/>'
+					+'<Column2DChart showDataTips="true">'
+						+'<horizontalAxis>'
+							+'<CategoryAxis categoryField="Country"/>'
+						+'</horizontalAxis>'
+						+'<verticalAxis>'
+							+'<LinearAxis />'
+						+'</verticalAxis>'
+						+'<series>'
+							+'<Column2DSeries labelPosition="outside" yField="GDP" displayName="GDP Growth (In %)" showDataEffect="{ss}" itemRenderer="SemiCircleColumnItemRenderer" showValueLabels="[0,4,9]">'
+							+'</Column2DSeries>'
+						+'</series>'
+					+'</Column2DChart>'
+				+'</KoolChart>';
+
+// Declares Dataset
+var chartData = [{"Country":"South<br>Sudan", "GDP":32.06},
+				{"Country":"Libya", "GDP":20.19},
+				{"Country":"Sierra<br>Leone", "GDP":17.14},
+				{"Country":"Mongolia", "GDP":14.04},
+				{"Country":"Paraguay", "GDP":11},
+				{"Country":"Timor<br>Leste", "GDP":10},
+				{"Country":"Iraq", "GDP":9.04},
+				{"Country":"Panama", "GDP":8.98},
+				{"Country":"Gambia", "GDP":8.90},
+				{"Country":"Mozam-<br>bique", "GDP":8.4}];
+
+/**
+ * If you want to use themes provided with KoolChart version 3.0, call the following functions.
+ * otherwise, comment out or delete the following functions.
+ *
+ * -- The Themes registered in KoolChart.themes --
+ * - simple
+ * - cyber
+ * - modern
+ * - lovely
+ * - pastel
+ * - old
+ * -------------------------------------------------
+ *
+ * The KoolChart.themes variable is defined in theme.js
+ */
+KoolChart.registerTheme(KoolChart.themes);
+
+//----------------------- The end of the configuration for creating a chart. -----------------------
+	
+</script>
+</head>
+<body>
+	<div id="content">
+		<!-- The DIV in which the chart is placed -->
+		<div id="chartHolder" style="width:600px; height:400px;">
+		</div>
+	</div>
+	<div id="footer"><font size="3"><b>This sample is to show how to apply the theme to the chart.</b></font><br>
+<pre>
+<font color="#01BAC5">setTheme() must run before setLayout() and setData()</font>
+
+<b>●Script</b>
+<font color="#ff0000">document</font>.getElementById(id).setTheme(<font color="#ff00ff">"pastel"</font>);
+<font color="#ff0000">document</font>.getElementById(id).setLayout(layoutStr);
+<font color="#ff0000">document</font>.getElementById(id).setData(chartData);
+</pre>
+</body>
+</html>

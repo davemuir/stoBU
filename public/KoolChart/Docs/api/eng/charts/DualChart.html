@@ -1,0 +1,191 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="../../style.css" type="text/css" media="screen">
+<link rel="stylesheet" href="../../print.css" type="text/css" media="print">
+<meta content="DualChart,eng.charts.DualChart" name="keywords">
+<title>eng.charts.DualChart</title>
+</head>
+<body>
+<script type="text/javascript" language="javascript" src="../../asdoc.js"></script><script type="text/javascript" language="javascript" src="../../cookies.js"></script><script type="text/javascript" language="javascript">
+<!--
+				asdocTitle = 'DualChart - KoolChart for HTML5 Ver. 3.0 Reference By RiaMore Soft.';
+				var baseRef = '../../';
+				window.onload = configPage;
+			--></script>
+<table style="display:none" id="titleTable" cellspacing="0" cellpadding="0" class="titleTable">
+<tr>
+<td align="left" class="titleTableTitle">KoolChart for HTML5 Ver. 3.0 Reference</td><td align="right" class="titleTableTopNav"><a onclick="loadClassListFrame('../../all-classes.html')" href="../../package-summary.html">All&nbsp;Packages</a>&nbsp;|&nbsp;<a onclick="loadClassListFrame('../../all-classes.html')" href="../../class-summary.html">All&nbsp;Classes</a>&nbsp;|&nbsp;<a onclick="loadClassListFrame('../../index-list.html')" href="../../all-index-A.html">Index</a>&nbsp;|&nbsp;<a href="../../index.html?eng/charts/DualChart.html&amp;eng/charts/class-list.html" id="framesLink1">Frames</a><a onclick="parent.location=document.location" href="" style="display:none" id="noFramesLink1">No&nbsp;Frames</a></td><td rowspan="3" align="right" class="titleTableLogo"><a href="www.koolchart.com"><img alt="KoolChart Logo" title="KoolChart Logo" class="logoImage" src="../../images/logo.png"></a></td>
+</tr>
+<tr class="titleTableRow2">
+<td align="left" id="subTitle" class="titleTableSubTitle">Class&nbsp;DualChart</td><td align="right" id="subNav" class="titleTableSubNav"><a href="#styleSummary">Styles</a></td>
+</tr>
+<tr class="titleTableRow3">
+<td colspan="2">&nbsp;</td>
+</tr>
+</table>
+<script type="text/javascript" language="javascript">
+<!--
+if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Class DualChart"); titleBar_setSubNav(false,false,true,false,false,false,false,false,false,false,false,false,false,false);}
+--></script>
+<div class="MainContent">
+<table cellspacing="0" cellpadding="0" class="classHeaderTable">
+<tr>
+<td class="classHeaderTableLabel">Package</td><td><a onclick="javascript:loadClassListFrame('class-list.html')" href="package-detail.html">eng.charts</a></td>
+</tr>
+<tr>
+<td class="classHeaderTableLabel">Class</td><td class="classSignature">public class DualChart</td>
+</tr>
+</table>
+<p></p>
+  DualChart is composed of mainChart, subChart and dataSelector and can be configured as follows:
+  <pre>
+  &lt;KoolChart backgroundColor="0xFFFFFF" cornerRadius="12" borderStyle="solid"&gt;
+   &lt;DualChart&gt;
+    &lt;mainChart&gt;
+     &lt;Candlestick2DChart id="chart1" showDataTips="true" width="100%" height="100%"&gt;
+      &lt;horizontalAxis&gt;
+       &lt;CategoryAxis id="mainHAxis" categoryField="Date"/&gt;
+      &lt;/horizontalAxis&gt;
+      &lt;series&gt;
+       &lt;Candlestick2DSeries openField="open" closeField="close" highField="high" lowField="low" displayName="Candle"&gt;
+       &lt;/Candlestick2DSeries&gt;
+         &lt;/series&gt;
+     &lt;/Candlestick2DChart&gt;
+    &lt;/mainChart&gt;
+    &lt;subChart&gt;
+     &lt;Column2DChart id="sub"&gt;
+      &lt;horizontalAxis&gt;
+       &lt;CategoryAxis categoryField="Date" id="naviHAxis"  padding="0"/&gt; 
+      &lt;/horizontalAxis&gt;
+      &lt;verticalAxis&gt;
+       &lt;LinearAxis id="vAxis"/&gt;
+      &lt;/verticalAxis&gt;
+      &lt;series&gt;
+       &lt;Candle2DSeries name="A" yField="Data1"/&gt;
+      &lt;/series&gt;
+     &lt;/Column2DChart&gt;
+    &lt;/subChart&gt;
+    &lt;dataSelector&gt;
+     &lt;DualScrollBar visibleItemSize="30"/&gt;
+    &lt;/dataSelector&gt;
+   &lt;/DualChart&gt;
+  &lt;/KoolChart&gt;
+   </pre> 
+  <p></p>
+<br>
+<hr>
+</div>
+<a name="styleSummary"></a>
+<div class="summarySection">
+<div class="summaryTableTitle">Styles</div>
+<table id="summaryTableStyle" class="summaryTable " cellpadding="3" cellspacing="0">
+<tr>
+<th>&nbsp;</th><th colspan="2">Style</th><th>Description</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:dataSelector"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">dataSelector</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Object<br>
+  <p>Creates the scroll bar in DualChart. Only the DualScrollBar object can be used.</p>
+  </td><td class="summaryTableOwnerCol">DualChart</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:displayCompleteCallFunction"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">displayCompleteCallFunction</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>String<br>
+ <p>Sets the JavaScript function to be called when the chart rendering is completed.</p>
+ The chart ID will be passed as parameter.
+ </td><td class="summaryTableOwnerCol">DualChart</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:enablePattern"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">enablePattern</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>String<br>
+ <p>Sets patterns for visually impaired  users.</p>
+ The string, "usePattern=true", must be added to chartVars in the HTML file.<br>
+ and the value of the patternMode property must be "true" in Column2DChart.
+ </td><td class="summaryTableOwnerCol">DualChart</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:leftGutterSyncEnable"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">leftGutterSyncEnable</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Boolean<br>
+  <p>Adjusts the left margin of mainChart and subChart.</p>
+  </td><td class="summaryTableOwnerCol">DualChart</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:mainChart"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">mainChart</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Object<br>
+  <p>Sets the main chart used in DualChart.</p>
+  </td><td class="summaryTableOwnerCol">DualChart</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:rightGutterSyncEnable"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">rightGutterSyncEnable</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Boolean<br>
+  <p>Adjusts the right margin of mainChart and subChart.</p> 
+  </td><td class="summaryTableOwnerCol">DualChart</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:subChart"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">subChart</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Object<br>
+  <p>Sets the sub-chart used in DualChart.</p>
+  </td><td class="summaryTableOwnerCol">DualChart</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:subChartPosition"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">subChartPosition</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>String<br>
+  <p>Sets the position of subChart. The valid values are bottom and top.</p>
+   The default value is <code>bottom</code>.</td><td class="summaryTableOwnerCol">DualChart</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:touchMoveEnable"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">touchMoveEnable</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Boolean<br>
+ <p>Indicates whether or not to create the touchMove event in the browser<br>
+ when users move a certain area of the chart with a finger.<br>
+ If the touchMove event is created in the browser<br>
+ then the chart can be scrolled when the touchMove event occurs<br>
+ otherwise the chart cannot be scrolled when the touchMove event occurs.</p>
+  The default value is <code>true</code>.</td><td class="summaryTableOwnerCol">DualChart</td>
+</tr>
+</table>
+</div>
+<script type="text/javascript" language="javascript">
+<!--
+showHideInherited();
+--></script>
+<div class="MainContent">
+<br>
+<br>
+<hr>
+<br>
+<p></p>
+<center class="copyright">Copyright(c) 2012 RiaMore Soft, Inc. All Right Reserved</center>
+</div>
+</body>
+</html>
+<!--Copyright(c) 2012 RiaMore Soft, Inc. All Right Reserved-->

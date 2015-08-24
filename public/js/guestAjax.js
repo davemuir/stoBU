@@ -1,0 +1,62 @@
+$( document ).ready(function() {
+$('#guestWidget a img').bind("click", fbGuest);
+ window.setInterval(function(){
+      /// call your function here
+     	 var xhr = new XMLHttpRequest();
+		xhr.open('GET', '/onlineGuest', false);
+		xhr.send(null);
+		if (xhr.status == 200) {
+			var guestAppend = '';
+			var arr = JSON.parse(xhr.response.replace("<?", ""));
+			var arr = JSON.parse(xhr.response.replace("<?", ''));
+			for (var i = 0; i < arr.length; i++) {
+				if(arr[i]['online'] == true){
+					guestAppend +=  '<a  data-title="Lorem ipsum" data-image-preview="/less/assets/images/people/250/1.jpg" width="100" href="./guestProfile/'+arr[i]['_id']+'" class="pull-left border-none guestImg"><img  data-content="'+arr[i]['_id']+'" src="'+arr[i]['img']+'" alt="'+arr[i]['email']+'" title="'+arr[i]['name']+'" style="width:35px;"></a>';
+
+				}
+			}
+
+			$("#guestWidget").html(guestAppend + '<div class="clearfix"></div>');
+			$('#guestWidget a img').bind("click", fbGuest);
+		}
+
+}, 5000);
+
+$("#pastMonths").on('change',  function() {
+   				 charts.chart_lines_fill_nopoints_2.select($(this).val(), $("#pastYears").val());
+			});
+
+$("#pastYears").on('change',  function() {
+   				 charts.chart_lines_fill_nopoints_2.select($("#pastMonths").val(), $(this).val());
+			});
+});
+
+function fbGuest(){
+
+	var guestEmail = $(this).attr("alt");
+	var guest = $(this).attr("data-content");
+	// console.log(AppAccessToken);
+ var xhr = new XMLHttpRequest();
+		xhr.open('GET', '/fbModal?_id='+guest, false);
+		xhr.send(null);
+		if (xhr.status == 200) {
+			var arr = JSON.parse(xhr.response.replace("<?", ""));
+			FB.api(
+			"/"+arr['fbDataID'],
+			{access_token:arr['userAccess']},
+			function (response) {
+		    	  //console.log(AppAccessToken);
+
+		      if (response && !response.error) {
+		        /* handle the result */
+
+		        $('#responseFrame').html('<a target="_blank" href="'+response['link']+'">'+response['name'] +"</a></br>"+response['gender'].capitalize()+"</br>"+ response['locale']);
+		         // console.log(response);
+		      }
+		    }
+		);
+		}
+	// // console.log(AppAccessToken);
+	//
+
+}

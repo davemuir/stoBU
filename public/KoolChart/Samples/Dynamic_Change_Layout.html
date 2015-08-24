@@ -1,0 +1,145 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="Content-Script-Type" content="text/javascript"/>
+<meta http-equiv="Content-Style-Type" content="text/css"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>KoolChart for HTML5</title>
+<link rel="stylesheet" type="text/css" href="./KoolChartSample.css"/>
+
+<!--  If you want to support IE 7/8, you'll need the conditional excanvas include. -->
+<!--[if IE]><script language="javascript" type="text/javascript" src="../KoolChart/JS/excanvas.js"></script><![endif]-->
+
+<!-- License Key -->
+<script language="javascript" type="text/javascript" src="../LicenseKey/KoolChartLicense.js"></script>
+
+<!-- KoolChart JavaScript library -->
+<script language="javascript" type="text/javascript" src="../KoolChart/JS/KoolChart.js"></script>
+
+<script type="text/javascript">
+
+//----------------------- Here we start creating a chart. -----------------------
+
+//Sets the value of KoolOnLoadCallFunction to the name of a JS function (e.g. chartReadyHandler) that is called when the chart is ready to be created.
+var chartVars = "KoolOnLoadCallFunction=chartReadyHandler";
+
+//Creates the chart.
+//Parameters:  
+//1. Chart ID: You can use any name you like. 
+//2. DIV ID: The chart will be placed in this DIV.
+//3. chartVars: Variables used for creating the chart.
+//4. Chart width: Default value is 100%
+//5. Chart height: Default value is 100%
+KoolChart.create("chart1", "chartHolder", chartVars, "100%", "100%"); 
+
+//The JavaScript function which is set to the value of KoolOnLoadCallFunction.
+//This function will call two functions, setLayout() and setData() which are two main functions of KoolChart.
+//Parameters: 
+//1. ID: The Chart ID which is used as the first parameter of KoolChart.create().
+//Four callback functions can be used.
+//1. setLayout - Sets the String type layout (XML).
+//2. setData - Sets the Array type dataset.
+//3. setLayoutURL - Sets the URL of the layout (XML).
+//4. setDataURL - Sets the URL of the dataset (XML).
+function chartReadyHandler(id) {
+	//Example 1. String Type Layout, Array Type Dataset. 
+	document.getElementById(id).setLayout(layoutStr);
+	document.getElementById(id).setData(chartData);
+
+	//Example 2. URL of Layout (XML), Array Type Dataset.
+	//document.getElementById(id).setLayoutURL(layoutURL);
+	//document.getElementById(id).setData(chartData);
+	
+	//Example 3. String Type Layout, URL of Dataset (XML).
+	//document.getElementById(id).setLayout(layoutStr);
+	//document.getElementById(id).setDataURL(dataURL);
+	
+	//Example 4. URL of Layout, URL of Dataset
+	//document.getElementById(id).setLayoutURL(layoutURL);
+	//document.getElementById(id).setDataURL(dataURL);
+}
+
+// Declares Layout (URL, for line chart)
+var layoutURL = "./LayoutXml/Column_3D_Layout.xml";
+
+// Declares Layout (String, for column chart)
+var layoutStr = '<KoolChart cornerRadius="12">'
+					+'<Options>'
+						+'<Caption text="Monthly Report"/>'
+					+'</Options>'
+					+'<NumberFormatter id="numfmt" useThousandsSeparator="true"/>' 
+					+'<Line2DChart showDataTips="true">'
+						+'<horizontalAxis>'
+							+'<CategoryAxis categoryField="Month"/>'
+						+'</horizontalAxis>'
+						+'<verticalAxis>'
+							+'<LinearAxis interval="3000" formatter="{numfmt}"/>'
+						+'</verticalAxis>'
+						+'<series>'
+							+'<Line2DSeries yField="Profit" displayName="Profit" itemRenderer="CircleItemRenderer" radius="5">'
+								+'<showDataEffect>'
+									+'<SeriesInterpolate/>'
+								+'</showDataEffect>'
+							+'</Line2DSeries>'
+						+'</series>'
+					+'</Line2DChart>'
+				+'</KoolChart>';
+
+
+// Declares Layout (Array)
+var chartData = [{"Month":"Jan", "Profit":10000},
+				{"Month":"Feb", "Profit":15000},
+				{"Month":"Mar", "Profit":12000},
+				{"Month":"Apr", "Profit":30200},
+				{"Month":"May", "Profit":28000},
+				{"Month":"Jun", "Profit":12000},
+				{"Month":"Jul", "Profit":22000},
+				{"Month":"Aug", "Profit":13000},
+				{"Month":"Sep", "Profit":22000},
+				{"Month":"Oct", "Profit":29000},
+				{"Month":"Nov", "Profit":18000},
+				{"Month":"Dec", "Profit":30000} ];
+
+//Sets Layout (URL)
+function changeLayout()
+{
+    document.getElementById("chart1").setLayoutURL(layoutURL);
+}
+
+//Sets Layout (String)
+function changeLayout3()
+{
+    document.getElementById("chart1").setLayout(layoutStr);
+}
+
+//----------------------- The end of the configuration for creating a chart. -----------------------
+
+</script>
+</head>
+<body>
+	<div id="header">
+		<div class="button button_top" onclick="changeLayout()">Column Chart</div>
+		<div class="button button_top" onclick="changeLayout3()">Line Chart</div>		
+	</div>
+	<div id="content">
+		<!-- The DIV in which the chart is placed. -->
+		<div id="chartHolder" style="width:600px; height:400px;">		
+		</div>		
+	</div>
+	<div id="footer">
+		<font size="3"><b>This sample is for changing the chart type dynamically with the same dataset.</b></font>
+<pre>
+<font color="#01BAC5">Function for changing layout (Column Chart)</font>
+<font color="#0000ff">function</font> changeLayout(){
+&nbsp;&nbsp;&nbsp;&nbsp;document.getElementById("chart1").setLayoutURL(layoutURL);
+}
+
+<font color="#01BAC5">Function for changing layout (Line Chart)</font>
+<font color="#0000ff">function</font> changeLayout3(){
+&nbsp;&nbsp;&nbsp;&nbsp;document.getElementById("chart1").setLayout(layoutStr);
+}
+</pre>
+	</div>
+</body>
+</html>

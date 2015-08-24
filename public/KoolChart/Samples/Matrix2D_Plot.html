@@ -1,0 +1,314 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="Content-Script-Type" content="text/javascript"/>
+<meta http-equiv="Content-Style-Type" content="text/css"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>KoolChart for HTML5 - Matrix Chart</title>
+<link rel="stylesheet" type="text/css" href="./KoolChartSample.css"/>
+
+<!--  If you want to support IE 7/8, you'll need the conditional excanvas include. -->
+<!--[if IE]><script language="javascript" type="text/javascript" src="../KoolChart/JS/excanvas.js"></script><![endif]-->
+
+<!-- License Key -->
+<script language="javascript" type="text/javascript" src="../LicenseKey/KoolChartLicense.js"></script>
+
+<!-- KoolChart JavaScript library -->
+<script language="javascript" type="text/javascript" src="../KoolChart/JS/KoolMatrixChart.js"></script>
+
+<!-- Theme.js -->
+<script type="text/javascript" src="../KoolChart/Assets/Theme/theme.js"></script>
+
+<script type="text/javascript">
+
+//----------------------- Here we start creating a chart. -----------------------
+
+//Sets the value of KoolOnLoadCallFunction to the name of a JS function (e.g. chartReadyHandler) that is called when the chart is ready to be created.
+var chartVars = "KoolOnLoadCallFunction=chartReadyHandler";
+
+//Creates the chart.
+//Parameters:  
+//1. Chart ID: You can use any name you like. 
+//2. DIV ID: The chart will be placed in this DIV.
+//3. chartVars: Variables used for creating the chart.
+//4. Chart width: Default value is 100%
+//5. Chart height: Default value is 100%
+KoolChart.create("chart1", "chartHolder", chartVars, "100%", "100%"); 
+
+//The JavaScript function which is set to the value of KoolOnLoadCallFunction.
+//This function will call two functions, setLayout() and setData() which are two main functions of KoolChart.
+//Parameters: 
+//1. ID: The Chart ID which is used as the first parameter of KoolChart.create().
+function chartReadyHandler(id) {
+	document.getElementById(id).setLayout(layoutStr);
+	document.getElementById(id).setData(chartData);
+}
+
+//Declares Layout
+var layoutStr = 
+				'<KoolChart backgroundColor="0xFFFFFF" cornerRadius="12" borderStyle="none">'
+					+'<Options>'
+						+'<Caption text="Housing Prices (Yearly)" fontFamily="Malgun Gothic"/>'
+					+'</Options>'
+					+'<SeriesSlide id="ss"/>'
+					+'<NumberFormatter id="nft"/>'
+					+'<Matrix2DChart showDataTips="true" type="plot" selectionMode="single" dataTipJsFunction="tipFunc" fontFamily="Malgun Gothic">'
+						+'<backgroundElements>'
+							+'<GridLines direction="horizontal" horizontalChangeCount="2">'
+								+'<horizontalStroke>'
+									+'<Stroke color="0x000000"/>'
+								+'</horizontalStroke>'
+								+'<horizontalFill>'	
+									+'<SolidColor color="0xeaeaea"/>'
+								+'</horizontalFill>'
+								+'<horizontalAlternateFill>'
+									+'<SolidColor color="0xffffff"/>'
+								+'</horizontalAlternateFill>'
+							+'</GridLines>'
+						+'</backgroundElements>'
+						+'<verticalAxis>'
+							+'<LinearAxis id="vAxis" interval="0.5" maximum="5" labelJsFunction="vertiJsFunc"/>'
+						+'</verticalAxis>'
+						+'<horizontalAxis>'
+							+'<LinearAxis id="hAxis" interval="0.5" maximum="4" labelJsFunction="horiJsFunc"/>'
+						+'</horizontalAxis>'
+						+'<series>'
+							+'<Matrix2DSeries  xField="Data_x" yField="Data_y" zField="Data" renderer="rectangle" showDataEffect="{ss}" labelPosition="inside" insideLabelJsFunction="labelJsFunc" fillJsFunction="fillJsFunc"/>'
+						+'</series>'
+						+'<verticalAxisRenderers>'
+							+'<Axis2DRenderer axis="{vAxis}" tickPlacement="none" styleName="font" minorTickPlacement="none" fontFamily="Malgun Gothic"/>'
+						+'</verticalAxisRenderers>'
+						+'<horizontalAxisRenderers>'
+							+'<Axis2DRenderer axis="{hAxis}" tickPlacement="none" styleName="font" minorTickPlacement="none" fontFamily="Malgun Gothic" showLine="true"/>'
+						+'</horizontalAxisRenderers>'
+					+'</Matrix2DChart>'
+					+'<Box width="100%" horizontalAlign="center">'
+						+'<SubLegend direction="horizontal" markerWidth="10" markerHeight="10" fontFamily="Malgun Gothic">'
+							+'<LegendItem label="Over 500 thousands" fill="0x00ffff">'
+								+'<marker markerFill="0xff0000"/>'
+							+'</LegendItem>'
+							+'<LegendItem label="Over 700 thousands" fill="0x00ff00">'
+								+'<marker markerFill="0xff0000"/>'
+							+'</LegendItem>'
+							+'<LegendItem label="Over 1 million" fill="0xff0000">'
+								+'<marker markerFill="0xff0000"/>'
+							+'</LegendItem>'
+						+'</SubLegend>'
+					+'</Box>'
+				+'</KoolChart>';
+
+// Declares Dataset
+var chartData = [{"Data_x":0.5,"Data_y":2.5,"Data":5300},
+				{"Data_x":0.5,"Data_y":3.5,"Data":5100},
+				{"Data_x":0.5,"Data_y":4.5,"Data":6700},
+				{"Data_x":1.5,"Data_y":4.5,"Data":7300},
+				{"Data_x":1.5,"Data_y":1.5,"Data":8100},
+				{"Data_x":1.5,"Data_y":0.5,"Data":5700},
+				{"Data_x":2.5,"Data_y":1.5,"Data":9700},
+				{"Data_x":2.5,"Data_y":3.5,"Data":13000},
+				{"Data_x":2.5,"Data_y":2.5,"Data":11000},
+				{"Data_x":3.5,"Data_y":2.5,"Data":9800},
+				{"Data_x":3.5,"Data_y":4.5,"Data":8800},
+				{"Data_x":3.5,"Data_y":1.5,"Data":6200},
+				{"Data_x":0.5,"Data_y":1.5,"Data":7700},
+				{"Data_x":1.5,"Data_y":3.5,"Data":16000},
+				{"Data_x":2.5,"Data_y":4.5,"Data":6000}];
+
+/*
+// ------------------------- The user-defined function to be used to format the axis label -----------------------------------------------------
+// The JavaScript function to be called to generate the user-defined label.
+// Sets the value of the labelJsFunction property to the name of a JS function.
+//
+// e.g.) <verticalAxis>
+//			<LinearAxis displayName="Amount" labelJsFunction="axisLabelFunc"/> 
+// </verticalAxis>
+//
+// Parameters
+// id: The ID of the axis
+// value: The axis label of the item 
+*/
+function vertiJsFunc(id, value)
+{
+	if(value==0.5)
+		return "City A";
+	else if(value==1.5)
+		return "City B";
+	else if(value==2.5)
+		return "City C";
+	else if(value==3.5)
+		return "City D";
+	else if(value==4.5)
+		return "City E";
+	else 
+		return "";
+}
+
+
+function horiJsFunc(id, value)
+{
+	if(value==0.5)
+		return "2010";
+	else if(value==1.5)
+		return "2011";
+	else if(value==2.5)
+		return "2012";
+	else if(value==3.5)
+		return "2013";
+	else
+		return "";
+}
+
+/*
+//-------------------- fillJsFunction ----------------------------------------------------------------
+// The JS function called to fill the colors by the user-defined logic.
+// Sets the value of the fillJsFunction property to the name of a JS function.
+//
+// e.g.) <Area2DSeries yField="Profit" fillJsFunction="fillJsFunc">
+//
+// Parameters:
+// seriesId: Series ID 
+// index: The index of the item in the series.
+// data: The record of the dataset declared for creating the chart.
+// values: The value of the item. The value is an array and each element in the array is different depending on the chart type.
+	Bar2D(3D)Series      0: X-axis value, 1: Y-axis value
+	Column2D(3D)Series   0: X-axis value, 1: Y-axis value
+	Area2DSeries         0: X-axis value, 1: Y-axis value
+	Bubble3DSeries       0: X-axis value, 1: Y-axis value 2: radius
+	Line2DSeries         0: X-axis value, 1: Y-axis value
+	Pie2D(3D)Series      0: value, 1: percentage, 2: nameField
+*/
+function fillJsFunc(seriesId, index, param, values)
+{
+	if(values[2] < 7000)
+		return "0x00ffff";
+	else if(values[2] >= 7000 && values[2] < 10000)
+		return "0x00ff00";
+	else if(values[2] >= 10000)
+		return "0xff0000";
+}
+
+/*
+// ------------------------- The user-defined function to format the numeric value (label) -----------------------------------------------------
+// The JS function called to generate the user-defined label.
+// Sets the value of the insideLabelJsFunction (if labelPosition = "inside") property to the name of a JS function.
+//
+// e.g.) <Column2DSeries yField="Profit" labelPosition="inside" insideLabelJsFunction="seriesLabelFunc">
+//
+// Parameters
+// seriesID: Series ID
+// index: The index of the item in the series.
+// data: The record of the dataset declared for creating the chart.
+// values: The value of the item. The value is an array and each element in the array is different depending on the chart type.
+
+	Pie2DSeries,Pie3DSeries				0: value, 1: percentage
+	Bubble3DSeries,Matrix2DSeries   	0: X-axis value, 1: Y-axis value, 2: Z-axis value
+	All series except Pie and Bubble   	0: X-axis value, 1: Y-axis value, 2: min value
+	* min value is applicable only when type is '100%' or 'stacked'. When type is 'stacked", min has the initial value of the stack.
+//
+*/
+function labelJsFunc(seriesId, index, data, values)
+{
+	if(values[2] >= 1000){
+		var value = values[2];
+		var first = value.substring(0, 1);
+		var last = value.substring(1, 2);
+		return first+"."+last+" million";
+	} else
+		//return setComma(values[2])+"";
+		return values[2]+" thousands";
+}
+
+function setComma(str) {
+	var retStr = Number(String(str).replace(/\..*|[^\d]/g, "")).toLocaleString();
+	if(navigator.userAgent.indexOf("MSIE") > -1){
+		retStr = retStr.slice(0,-3);
+	}
+	return retStr;
+}
+
+/*
+// ---------------------- The user-defined function to be used to generate the toolTips (dataTipJsFunction)--------------------------------------------
+// The JavaScript function to be called to show tooltips (showDataTips="true").
+// Sets the value of labelJsFunction to the JavaScript function name in layouts
+
+// e.g.) <Column3DChart showDataTips="true" dataTipJsFunction="dataTipFunc">
+//
+// Parameters
+// seriesId: Series ID
+// seriesName: The name of the series, which is set as the value of the displayName property.
+// index: The index of the item in the series.
+// xName: The value of the displayName property in the horizontalAxis node.
+// yName: The value of the displayName property in the verticalAxis node.
+// data: The record of the dataset declared for creating the chart.
+// values: The value of the item. The value is an array and each element in the array is different depending on the chart type.
+			Bar2D(3D)Series		0: X-axis value, 1: Y-axis value
+			Column2D(3D)Series	0: X-axis value, 1: Y-axis value
+			Area2DSeries		0: X-axis value, 1: Y-axis value
+			Bubble3DSeries		0: X-axis value, 1: Y-axis value 2: radius
+			Line2DSeries		0: X-axis value, 1: Y-axis value
+			Pie2D(3D)Series		0: value, 1: percentage, 2: nameField
+*/
+function tipFunc(seriesId, seriesName, index, xName, yName, data, values)
+{
+	var hori = horiJsFunc(seriesId,values[0]);
+	var verti =	vertiJsFunc(seriesId,values[1]);
+	var seriesName;
+	
+	if(values[2] < 700)
+		seriesName = "Over 500 thousands";
+	else if(values[2] >= 700 && values[2] < 1000)
+		seriesName = "Over 700 thousands";
+	else if(values[2] >= 1000)
+		seriesName = "Over 1 million";
+	
+	return "<font color='#0000ff'>"+seriesName+"</font><br/>"+hori+"<br/>"+verti+"<br/>"+values[2]+" thousands";
+}
+
+/**
+ * If you want to use themes provided with KoolChart version 3.0, call the following functions.
+ * otherwise, comment out or delete the following functions.
+ *
+ * -- The Themes registered in KoolChart.themes --
+ * - simple
+ * - cyber
+ * - modern
+ * - lovely
+ * - pastel
+ * - old
+ * -------------------------------------------------
+ *
+ * The KoolChart.themes variable is defined in theme.js
+ */
+KoolChart.registerTheme(KoolChart.themes);
+
+/**
+ * The function called when the theme button in the sample HTML is clicked.
+ * Parameter Values:
+ * - simple
+ * - cyber
+ * - modern
+ * - lovely
+ * - pastel
+ * - old
+ * - default
+ *
+ * default: Applies the default theme which is the basic design of KoolChart.
+ * old: Applies the design of KoolChart version 2.5.
+ */
+function KoolChartChangeTheme(theme){
+	document.getElementById("chart1").setTheme(theme);
+}
+
+//----------------------- The end of the configuration for creating a chart. -----------------------
+	
+</script>
+</head>
+<body>
+	<div id="content">
+		<!-- The DIV in which the chart is placed -->
+		<div id="chartHolder" style="width:600px; height:400px;">
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,137 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="Content-Script-Type" content="text/javascript"/>
+<meta http-equiv="Content-Style-Type" content="text/css"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>KoolChart for HTML5 - Bar Chart</title>
+<link rel="stylesheet" type="text/css" href="./KoolChartSample.css"/>
+
+<!--  If you want to support IE 7/8, you'll need the conditional excanvas include. -->
+<!--[if IE]><script language="javascript" type="text/javascript" src="../KoolChart/JS/excanvas.js"></script><![endif]-->
+
+<!-- License Key -->
+<script language="javascript" type="text/javascript" src="../LicenseKey/KoolChartLicense.js"></script>
+
+<!-- KoolChart JavaScript library -->
+<script language="javascript" type="text/javascript" src="../KoolChart/JS/KoolChart.js"></script>
+
+<!-- Theme.js -->
+<script type="text/javascript" src="../KoolChart/Assets/Theme/theme.js"></script>
+
+<script type="text/javascript">
+
+//----------------------- Here we start creating a chart. -----------------------
+
+//Sets the value of KoolOnLoadCallFunction to the name of a JS function (e.g. chartReadyHandler) that is called when the chart is ready to be created.
+var chartVars = "KoolOnLoadCallFunction=chartReadyHandler";
+
+//Creates the chart.
+//Parameters:  
+//1. Chart ID: You can use any name you like. 
+//2. DIV ID: The chart will be placed in this DIV.
+//3. chartVars: Variables used for creating the chart.
+//4. Chart width: Default value is 100%
+//5. Chart height: Default value is 100%
+KoolChart.create("chart1", "chartHolder", chartVars, "100%", "100%"); 
+
+//The JavaScript function which is set to the value of KoolOnLoadCallFunction.
+//This function will call two functions, setLayout() and setData() which are two main functions of KoolChart.
+//Parameters: 
+//1. ID: The Chart ID which is used as the first parameter of KoolChart.create().
+function chartReadyHandler(id) {
+	document.getElementById(id).setLayout(layoutStr);
+	document.getElementById(id).setData(chartData);
+}
+
+//Declares Layout
+var layoutStr = 
+				'<KoolChart backgroundColor="0xFFFFFF" cornerRadius="12" borderStyle="none">'
+					+'<Options>'
+						+'<Caption text="GDP Growth of the BRICS Countries"/>'
+						+'<SubCaption text="From 2011 To 2013 (Annual %)" textAlign="center" />'
+						+'<Legend defaultMouseOverAction="false" useVisibleCheck="true"/>'
+					+'</Options>'
+					+'<Bar2DChart showDataTips="true">'
+						+'<horizontalAxis>'
+							+'<LinearAxis />'
+						+'</horizontalAxis>'
+						+'<verticalAxis>'
+							+'<CategoryAxis categoryField="Country"/>' 
+						+'</verticalAxis>'
+						+'<series>'
+						/* Creating multiple Bar2DSeries */
+							+'<Bar2DSeries labelPosition="inside" showValueLabels="[3]" xField="2011" displayName="2011" itemRenderer="SemiCircleBarItemRenderer" color="#ffffff">'
+								+'<showDataEffect>'
+									+'<SeriesInterpolate direction="right"/>' 
+								+'</showDataEffect>'
+							+'</Bar2DSeries>'
+							+'<Bar2DSeries labelPosition="inside" showValueLabels="[3]" xField="2012" displayName="2012" itemRenderer="SemiCircleBarItemRenderer" color="#ffffff">'
+								+'<showDataEffect>'
+									+'<SeriesInterpolate direction="right"/>' 
+								+'</showDataEffect>'
+							+'</Bar2DSeries>'
+							+'<Bar2DSeries labelPosition="inside" showValueLabels="[3]" xField="2013" displayName="2013" itemRenderer="SemiCircleBarItemRenderer" color="#ffffff">'
+								+'<showDataEffect>'
+									+'<SeriesInterpolate direction="right"/>' 
+								+'</showDataEffect>'
+							+'</Bar2DSeries>'
+						+'</series>'
+					+'</Bar2DChart>'
+				+'</KoolChart>';
+
+//Declares Dataset
+var chartData = [{"Country":"Brazil", "2011":2.7, "2012":1, "2013":2.5},
+                 {"Country":"Russia", "2011":4.3, "2012":3.4, "2013":1.3},
+                 {"Country":"India", "2011":6.6, "2012":4.7, "2013":5.0},
+                 {"Country":"China", "2011":9.3, "2012":7.7, "2013":7.7},
+                 {"Country":"South Africa", "2011":3.6, "2012":2.5, "2013":1.9}];
+
+/**
+ * If you want to use themes provided with KoolChart version 3.0, call the following functions.
+ * otherwise, comment out or delete the following functions.
+ *
+ * -- The Themes registered in KoolChart.themes --
+ * - simple
+ * - cyber
+ * - modern
+ * - lovely
+ * - pastel
+ * - old
+ * -------------------------------------------------
+ *
+ * The KoolChart.themes variable is defined in theme.js
+ */
+KoolChart.registerTheme(KoolChart.themes);
+
+/**
+ * The function called when the theme button in the sample HTML is clicked.
+ * Parameter Values:
+ * - simple
+ * - cyber
+ * - modern
+ * - lovely
+ * - pastel
+ * - old
+ * - default
+ *
+ * default: Applies the default theme which is the basic design of KoolChart.
+ * old: Applies the design of KoolChart version 2.5.
+ */
+function KoolChartChangeTheme(theme){
+	document.getElementById("chart1").setTheme(theme);
+}
+
+//----------------------- The end of the configuration for creating a chart. -----------------------
+
+</script>
+</head>
+<body>
+	<div id="content">
+		<!-- The DIV in which the chart is placed -->
+		<div id="chartHolder" style="width:600px; height:400px;">
+		</div>
+	</div>
+</body>
+</html>

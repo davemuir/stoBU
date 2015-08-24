@@ -1,0 +1,127 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="Content-Script-Type" content="text/javascript"/>
+<meta http-equiv="Content-Style-Type" content="text/css"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>KoolChart for HTML5</title>
+<link rel="stylesheet" type="text/css" href="./KoolChartSample.css"/>
+
+<!--  If you want to support IE 7/8, you'll need the conditional excanvas include. -->
+<!--[if IE]><script language="javascript" type="text/javascript" src="../KoolChart/JS/excanvas.js"></script><![endif]-->
+
+<!-- License Key -->
+<script language="javascript" type="text/javascript" src="../LicenseKey/KoolChartLicense.js"></script>
+
+<!-- KoolChart JavaScript library -->
+<script language="javascript" type="text/javascript" src="../KoolChart/JS/KoolChart.js"></script>
+
+<script type="text/javascript">
+
+//----------------------- Here we start creating a chart. -----------------------
+
+//Sets the value of KoolOnLoadCallFunction to the name of a JS function (e.g. chartReadyHandler) that is called when the chart is ready to be created.
+var chartVars = "KoolOnLoadCallFunction=chartReadyHandler";
+
+//Creates the chart.
+//Parameters:  
+//1. Chart ID: You can use any name you like. 
+//2. DIV ID: The chart will be placed in this DIV.
+//3. chartVars: Variables used for creating the chart.
+//4. Chart width: Default value is 100%
+//5. Chart height: Default value is 100%
+KoolChart.create("chart1", "chartHolder", chartVars, "100%", "100%"); 
+
+//The JavaScript function which is set to the value of KoolOnLoadCallFunction.
+//This function will call two functions, setLayout() and setData() which are two main functions of KoolChart.
+//Parameters: 
+//1. ID: The Chart ID which is used as the first parameter of KoolChart.create().
+function chartReadyHandler(id) {
+	document.getElementById(id).setLayout(layoutStr);
+	document.getElementById(id).setData(chartData);
+}
+
+//Declares Layout
+var layoutStr = 
+				'<KoolChart styleName="KoolChartStyle">'
+					+'<Options>'
+						+'<Caption text="Rainfall" styleName="captionStyle"/>'
+						+'<SubCaption text="RiaMore Soft" textAlign="center" styleName="subCaptionStyle"/>'
+					+'</Options>'
+					+'<NumberFormatter id="numFmt" precision="0"/>'
+					+'<Line2DChart showDataTips="true" dataTipDisplayMode="axis" paddingTop="0" styleName="chartStyle" axisTitleStyleName="chartAxisStyle">'
+						+'<horizontalAxis>'
+							+'<CategoryAxis categoryField="Month" title="CategoryAxis"/>'
+						+'</horizontalAxis>'
+						+'<verticalAxis>'
+							+'<LinearAxis minimum="70" maximum="100" interval="5" title="LinearAxis"/>'
+						+'</verticalAxis>'
+						+'<series>'
+							+'<Line2DSeries yField="Vancouver" displayName="Vancouver">'
+								+'<showDataEffect>'
+									+'<SeriesInterpolate/> '
+								+'</showDataEffect>'
+							+'</Line2DSeries>'
+						+'</series>'
+						+'<annotationElements>'
+							+'<CrossRangeZoomer backgroundColor="0xeb494a" borderColor="0xeb494a" enableZooming="false" horizontalLabelFormatter="{numFmt}" horizontalStrokeEnable="false">'
+								+'<verticalStroke>'
+									+'<Stroke color="0xeb494a" />'
+								+'</verticalStroke>'
+							+'</CrossRangeZoomer>'
+						+'</annotationElements>'
+					+'</Line2DChart>'
+					+'<Style>'
+						+'.KoolChartStyle{backgroundColor:#FFFFFF;borderColor:#666600;cornerRadius:0;borderThickness:2;borderStyle:solid;}'
+						+'.captionStyle{fontFamily:"Malgun Gothic";textDecoration:underline;fontWeight:normal;fontSize:14;color:#FF0000;}'
+						+'.subCaptionStyle{fontFamily:Tahoma;fontStyle:italic;fontSize:12;color:#777777;}'
+						+'.chartAxisStyle{fontSize:12;color:#FF6600;fontFamily:Tahoma;}'
+					+'</Style>'
+				+'</KoolChart>';
+
+// Declares Dataset
+var chartData = [{"Month":"Jan", "Vancouver":80},
+				{"Month":"Feb", "Vancouver":90},
+				{"Month":"Mar", "Vancouver":83},
+				{"Month":"Apr", "Vancouver":81},
+				{"Month":"May", "Vancouver":87},
+				{"Month":"Jun", "Vancouver":89},
+				{"Month":"Jul", "Vancouver":86},
+				{"Month":"Aug", "Vancouver":92},
+				{"Month":"Sep", "Vancouver":88},
+				{"Month":"Oct", "Vancouver":84},
+				{"Month":"Nov", "Vancouver":87},
+				{"Month":"Dec", "Vancouver":90}];
+
+//----------------------- The end of the configuration for creating a chart. -----------------------
+
+</script>
+</head>
+<body>
+	<div id="content">
+		<!-- The DIV in which the chart is placed -->
+		<div id="chartHolder" style="width:600px; height:400px;">
+		</div>
+	</div>
+	<div id="footer"><font size="3"><b>This sample is to display title and subtitle with CSS.</b></font><br>
+<pre>
+<b>●Layout</b>
+&#60;Options&#62;
+	&#60;Caption text="Rainfall" textAlign="center" <font color="#ff0000">styleName="captionStyle"</font>/&#62;
+	<font color="#01BAC5">styleName: applies the style of the name ("captionStyle") which is defined in Caption.</font>
+	&#60;SubCaption text="Vancouver has a moderate oceanic climate" textAlign="center" <font color="#ff0000">styleName="subCaptionStyle"</font>/&#62;
+	<font color="#01BAC5">styleName: applies the style of the name ("subCaptionStyle") which is defined in SubCaption.</font>
+&#60;/Options&#62;
+
+&#60;Style&#62;
+	.KoolChartStyle{backgroundColor:#FFFFFF;borderColor:#666600;cornerRadius:0;borderThickness:2;borderStyle:solid;}
+	.<font color="#ff0000">captionStyle</font>{fontFamily:Malgun Gothic;textDecoration:underline;fontWeight:normal;
+			fontSize:14;color:#FF0000;}
+	.<font color="#ff0000">subCaptionStyle</font>{fontFamily:Tahoma;fontStyle:italic;fontSize:12;color:#777777;}
+	.chartAxisStyle{fontSize:12;color:#FF6600;fontFamily:Tahoma;}
+&#60;/Style&#62;
+</pre>
+		</div>
+</body>
+</html>

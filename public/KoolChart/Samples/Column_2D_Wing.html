@@ -1,0 +1,160 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="Content-Script-Type" content="text/javascript"/>
+<meta http-equiv="Content-Style-Type" content="text/css"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>KoolChart for HTML5 - Wing Chart</title>
+<link rel="stylesheet" type="text/css" href="./KoolChartSample.css"/>
+
+<!--  If you want to support IE 7/8, you'll need the conditional excanvas include. -->
+<!--[if IE]><script language="javascript" type="text/javascript" src="../KoolChart/JS/excanvas.js"></script><![endif]-->
+
+<!-- License Key -->
+<script language="javascript" type="text/javascript" src="../LicenseKey/KoolChartLicense.js"></script>
+
+<!-- KoolChart JavaScript library -->
+<script language="javascript" type="text/javascript" src="../KoolChart/JS/KoolWingChart.js"></script>
+
+<!-- Theme.js -->
+<script type="text/javascript" src="../KoolChart/Assets/Theme/theme.js"></script>
+
+<script type="text/javascript">
+
+//----------------------- Here we start creating a chart. -----------------------
+
+//Sets the value of KoolOnLoadCallFunction to the name of a JS function (e.g. chartReadyHandler) that is called when the chart is ready to be created.
+var chartVars = "KoolOnLoadCallFunction=chartReadyHandler";
+
+//Creates the chart.
+//Parameters:  
+//1. Chart ID: You can use any name you like. 
+//2. DIV ID: The chart will be placed in this DIV.
+//3. chartVars: Variables used for creating the chart.
+//4. Chart width: Default value is 100%
+//5. Chart height: Default value is 100%
+KoolChart.create("chart1", "chartHolder", chartVars, "100%", "100%"); 
+
+//The JavaScript function which is set to the value of KoolOnLoadCallFunction.
+//This function will call two functions, setLayout() and setData() which are two main functions of KoolChart.
+//Parameters: 
+//1. ID: The Chart ID which is used as the first parameter of KoolChart.create().
+function chartReadyHandler(id) {
+	document.getElementById(id).setLayout(layoutStr);
+	document.getElementById(id).setData(chartData);
+}
+
+//Declares Layout
+var layoutStr = 
+				'<KoolChart backgroundColor="0xFFFFFF" cornerRadius="5">'
+					+'<Options>'
+						+'<Caption text="Comparing monthly sales TV vs. Phone" fontFamily="Malgun Gothic"/>'
+						+'<SubCaption text="(Unit: US$ million.)" textAlign="center" />'
+					+'</Options>'
+					+'<NumberFormatter id="numFmt" precision="0"/>'
+					+'<Box width="100%" height="100%" direction="horizontal">'
+						+'<Box height="100%" width="30"  direction="vertical">'
+							+'<Box height="100%" backgroundAlpha="0">'
+								+'<Label verticalCenter="0" color="0x777777" text="TV" styleName="labelStyle" backgroundAlpha="0"/>'
+							+'</Box>'
+							+'<Box  height="100%" backgroundAlpha="0">'
+								+'<Label verticalCenter="0" color="0x777777" text="Phone" styleName="labelStyle" backgroundAlpha="0"/>'
+							+'</Box>'
+						+'</Box>'
+						/* Defines Column2DWingChart */
+						+'<Column2DWingChart width="100%" height="100%" showDataTips="true" fontFamily="Malgun Gothic">'
+							+'<horizontalAxis>'
+								+'<CategoryAxis id="hAxis1" categoryField="Month"/>'
+							+'</horizontalAxis>'
+							+'<series>'
+							/* 
+								The Column2DWingSeries node should be defined for the series of Column2DWingChart.
+								Normal column charts have only one data field, yField. In Wing Column Charts an additional data field, yFieldOpp, must be defined.
+									- yField: drawn to the up
+									- yFieldOpp: drawn to the down 
+							*/
+								
+								+'<Column2DWingSeries yField="sales1" yFieldOpp="sales2" labelPosition="outside" showValueLabels="[5,6,7]" showValueLabelsOpp="[5,6,7]">'
+									+'<showDataEffect>'
+										+'<WingSeriesInterpolate duration="1000"/>'
+									+'</showDataEffect>'
+								+'</Column2DWingSeries>'
+							+'</series>'
+							/* annotationElements for the up side*/
+							+'<annotationElements>'
+								+'<CrossRangeZoomer horizontalLabelFormatter="{numFmt}"/>'
+							+'</annotationElements>'
+							/* annotationElements for the down side*/
+							+'<annotationElementsOpp>'
+								+'<CrossRangeZoomer verticalAxisOppEnable="true" verticalLabelPlacement="top" horizontalLabelFormatter="{numFmt}"/>'
+								/* If you set the value of verticalAxisOppEnable to true, the value of vertical label of crosshair will be same to the value of vertical axis. */
+							+'</annotationElementsOpp>'
+						+'</Column2DWingChart>'
+					+'</Box>'
+					+'<Style>'
+						+'.labelStyle{fontSize:11;fontWeight:bold;fontFamily:"Malgun Gothic";}'
+					+'</Style>'
+				+'</KoolChart>';
+
+//Declares Dataset
+var chartData = [{"Month":"Jan","sales1":1000,"sales2":1500},
+				{"Month":"Feb","sales1":1400,"sales2":1400},
+				{"Month":"Mar","sales1":1500,"sales2":1200},
+				{"Month":"Apr","sales1":1900,"sales2":1300},
+				{"Month":"May","sales1":1400,"sales2":900},
+				{"Month":"Jun","sales1":2000,"sales2":500},
+				{"Month":"Jul","sales1":1800,"sales2":1400},
+				{"Month":"Aug","sales1":2500,"sales2":800},
+				{"Month":"Sep","sales1":3000,"sales2":1900},
+				{"Month":"Oct","sales1":2000,"sales2":2300},
+				{"Month":"Nov","sales1":2100,"sales2":2400},
+				{"Month":"Dec","sales1":1700,"sales2":1900}];
+
+/**
+ * If you want to use themes provided with KoolChart version 3.0, call the following functions.
+ * otherwise, comment out or delete the following functions.
+ *
+ * -- The Themes registered in KoolChart.themes --
+ * - simple
+ * - cyber
+ * - modern
+ * - lovely
+ * - pastel
+ * - old
+ * -------------------------------------------------
+ *
+ * The KoolChart.themes variable is defined in theme.js
+ */
+KoolChart.registerTheme(KoolChart.themes);
+
+/**
+ * The function called when the theme button in the sample HTML is clicked.
+ * Parameter Values:
+ * - simple
+ * - cyber
+ * - modern
+ * - lovely
+ * - pastel
+ * - old
+ * - default
+ *
+ * default: Applies the default theme which is the basic design of KoolChart.
+ * old: Applies the design of KoolChart version 2.5.
+ */
+function KoolChartChangeTheme(theme){
+	document.getElementById("chart1").setTheme(theme);
+}
+
+//----------------------- The end of the configuration for creating a chart. -----------------------
+
+</script>
+</head>
+<body>
+	<div id="content">
+		<!-- The DIV in which the chart is placed -->
+		<div id="chartHolder" style="width:600px; height:400px;">
+		</div>
+	</div>
+</body>
+</html>

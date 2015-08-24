@@ -1,0 +1,130 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="Content-Script-Type" content="text/javascript"/>
+<meta http-equiv="Content-Style-Type" content="text/css"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>KoolChart for HTML5</title>
+<link rel="stylesheet" type="text/css" href="./KoolChartSample.css"/>
+
+<!--  If you want to support IE 7/8, you'll need the conditional excanvas include. -->
+<!--[if IE]><script language="javascript" type="text/javascript" src="../KoolChart/JS/excanvas.js"></script><![endif]-->
+
+<!-- License Key -->
+<script language="javascript" type="text/javascript" src="../LicenseKey/KoolChartLicense.js"></script>
+
+<!-- KoolChart JavaScript library -->
+<script language="javascript" type="text/javascript" src="../KoolChart/JS/KoolChart.js"></script>
+
+<script type="text/javascript">
+
+//----------------------- Here we start creating a chart. -----------------------
+
+//Sets the value of KoolOnLoadCallFunction to the name of a JS function (e.g. chartReadyHandler) that is called when the chart is ready to be created.
+var chartVars = "KoolOnLoadCallFunction=chartReadyHandler";
+
+//Creates the chart.
+//Parameters:  
+//1. Chart ID: You can use any name you like. 
+//2. DIV ID: The chart will be placed in this DIV.
+//3. chartVars: Variables used for creating the chart.
+//4. Chart width: Default value is 100%
+//5. Chart height: Default value is 100%
+KoolChart.create("chart1", "chartHolder", chartVars, "100%", "100%"); 
+
+//The JavaScript function which is set to the value of KoolOnLoadCallFunction.
+//This function will call two functions, setLayout() and setData() which are two main functions of KoolChart.
+//Parameters: 
+//1. ID: The Chart ID which is used as the first parameter of KoolChart.create().
+function chartReadyHandler(id) {
+	document.getElementById(id).setLayout(layoutStr);
+	document.getElementById(id).setData(chartData);
+}
+
+//Declares Layout
+var layoutStr = 
+				'<KoolChart backgroundColor="0xFFFFFF" cornerRadius="12" borderStyle="none">'
+					+'<Options>'
+						+'<Caption text="Monthly Report"/>' 
+					+'</Options>'
+					+'<DateFormatter id="dateFmt" formatString="YYYY-MM-DD"/>'
+					/*  
+						Sets DateFormatter
+						formatString: For example, if you want to display date as 2009/12/01, you need to define the formatter as "YYYY/MM/DD".
+									┌──────────────────────────────┐
+									│ Y │ Year  │ YY=05,YYYY=2013  │
+									│ M │ Month │ M=7,MM=07,MMM=Jul│
+									│ D │ Day   │ D=4,DD=05		   │
+									│ H │ Hour  │ H=1,HH=01		   │
+									│ N │ Minute│ N=1,NN=01		   │
+									│ S │ Second│ SS=30			   │
+									└──────────────────────────────┘
+					*/
+					+'<NumberFormatter id="curFmt"/>'
+					+'<Line2DChart showDataTips="true" fontSize="11">'
+						+'<horizontalAxis>'
+							+'<DateTimeAxis id="hAxis" dataUnits="days" labelUnits="days" interval="4" formatter="{dateFmt}" alignLabelsToUnits="false" displayLocalTime="true"/>' 
+						+'</horizontalAxis>'
+						+'<verticalAxis>'
+							+'<LinearAxis formatter="{curFmt}" interval="3000"/>'
+						+'</verticalAxis>'
+						+'<series>'
+							+'<Line2DSeries xField="Date" yField="Profit" displayName="Profit">'
+								+'<showDataEffect>'
+									+'<SeriesInterpolate/>' 
+								+'</showDataEffect>'
+							+'</Line2DSeries>'
+						+'</series>'
+						+'<horizontalAxisRenderers>'
+							+'<Axis2DRenderer axis="{hAxis}" showLine="true" fontFamily="Malgun Gothic"/>'
+						+'</horizontalAxisRenderers>'
+					+'</Line2DChart>'
+				+'</KoolChart>';
+
+// Declares Dataset
+var chartData = [{"Date":"2013/01/31","Profit":10000},
+				{"Date":"2013/02/28","Profit":14000},
+				{"Date":"2013/03/31","Profit":15000},
+				{"Date":"2013/04/30","Profit":19000},
+				{"Date":"2013/05/31","Profit":14000},
+				{"Date":"2013/06/30","Profit":20000},
+				{"Date":"2013/07/31","Profit":18000},
+				{"Date":"2013/08/31","Profit":25000},
+				{"Date":"2013/09/30","Profit":30000},
+				{"Date":"2013/10/31","Profit":20000},
+				{"Date":"2013/11/30","Profit":21000},
+				{"Date":"2013/12/31","Profit":17000}];
+
+//----------------------- The end of the configuration for creating a chart. -----------------------
+
+</script>
+</head>
+<body>
+	<div id="content">
+		<!-- The DIV in which the chart is placed -->
+		<div id="chartHolder" style="width:600px; height:400px;">
+		</div>
+	</div>
+	<div id="footer">	
+		<font size="3"><b>This sample is to display date as the format of YYYY-MM-DD.</b></font>
+<pre>
+<font color="#01BAC5"><b>DateFormatter</b>
+formatString: For example, if you want to display date as 2009/12/01, 
+you need to define the formatter as "YYYY/MM/DD".
+	┌──────────────────────────────┐
+	│ Y │ Year  │ YY=05,YYYY=2013  │ 
+	│ M │ Month │ M=7,MM=07,MMM=Jul│
+	│ D │ Day   │ D=4,DD=05	       │
+	│ H │ Hour  │ H=1,HH=01	       │
+	│ N │ Minute│ N=1,NN=01	       │
+	│ S │ Second│ SS=30            │
+	└──────────────────────────────┘</font>
+
+<b>●Layout</b>
+&#60;DateFormatter id="dateFmt" <font color="#ff0000">formatString="YYYY-MM-DD"</font>/&#62;
+
+</pre>
+		</div>
+</body>
+</html>

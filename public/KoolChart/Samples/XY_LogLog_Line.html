@@ -1,0 +1,154 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="Content-Script-Type" content="text/javascript"/>
+<meta http-equiv="Content-Style-Type" content="text/css"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>KoolChart for HTML5</title>
+<link rel="stylesheet" type="text/css" href="./KoolChartSample.css"/>
+
+<!--  If you want to support IE 7/8, you'll need the conditional excanvas include. -->
+<!--[if IE]><script language="javascript" type="text/javascript" src="../KoolChart/JS/excanvas.js"></script><![endif]-->
+
+<!-- License Key -->
+<script language="javascript" type="text/javascript" src="../LicenseKey/KoolChartLicense.js"></script>
+
+<!-- KoolChart JavaScript library -->
+<script language="javascript" type="text/javascript" src="../KoolChart/JS/KoolChart.js"></script>
+
+<script type="text/javascript">
+
+//----------------------- Here we start creating a chart. -----------------------
+
+//Sets the value of KoolOnLoadCallFunction to the name of a JS function (e.g. chartReadyHandler) that is called when the chart is ready to be created.
+var chartVars = "KoolOnLoadCallFunction=chartReadyHandler";
+
+//Creates the chart.
+//Parameters:  
+//1. Chart ID: You can use any name you like. 
+//2. DIV ID: The chart will be placed in this DIV.
+//3. chartVars: Variables used for creating the chart.
+//4. Chart width: Default value is 100%
+//5. Chart height: Default value is 100%
+KoolChart.create("chart1", "chartHolder", chartVars, "100%", "100%"); 
+
+//The JavaScript function which is set to the value of KoolOnLoadCallFunction.
+//This function will call two functions, setLayout() and setData() which are two main functions of KoolChart.
+//Parameters: 
+//1. ID: The Chart ID which is used as the first parameter of KoolChart.create().
+function chartReadyHandler(id) {
+	document.getElementById(id).setLayout(layoutStr);
+	document.getElementById(id).setData(chartData);
+}
+
+// Declares Layout
+var layoutStr = 
+				'<KoolChart backgroundColor="0xFFFFFF" cornerRadius="12" borderStyle="none">'
+					+'<Options>'
+						+'<Caption text="Logarithmic Chart"/>' 
+					+'</Options>'
+					+'<NumberFormatter id="numFmt"/>'
+					+'<Plot2DChart showDataTips="true">'
+						+'<horizontalAxis>'
+							+'<LogAxis id="vAxis" title="Log Axis" formatter="{numFmt}" baseAtZero="false" interval="10" minimum="100" maximum="1000000"/>'
+						/* 
+							Y-Axis: LogAxis Properties.
+							interval: unit = multiplier of 10
+							minimum: the minimum value of the axis.
+							maximum: the maximum value of the axis.
+							title: the title of the axis.
+							labelJsFunction: the user-defined function for the label of the axis.
+							displayName: the name of the axis. It is displayed in datatips.
+							baseAtZero : whether or not to set the value of minimim (or maximum) to "0".
+						*/
+						+'</horizontalAxis>'
+						+'<series>'
+							+'<Line2DSeries xField="xData" yField="field1" displayName="Data 1" formatter="{numFmt}">'
+								+'<verticalAxis>'
+									+'<LogAxis id="vAxis1" title="Log Axis" formatter="{numFmt}" baseAtZero="false" interval="10" maximum="1000000"/>'
+								+'</verticalAxis>'
+								+'<lineStroke>'
+									+'<Stroke weight="2" color="0xe48701"/>'
+								+'</lineStroke>'
+								+'<showDataEffect>'
+									+'<SeriesSlide/>'
+								+'</showDataEffect>'
+							+'</Line2DSeries>'
+							+'<Line2DSeries xField="xData" yField="field2" displayName="Data 2" formatter="{numFmt}" verticalAxis="{vAxis1}">'
+								+'<lineStroke>'
+									+'<Stroke weight="2" color="0x1b95d9"/>'
+								+'</lineStroke>'
+								+'<showDataEffect>'
+									+'<SeriesSlide/>'
+								+'</showDataEffect>'
+							+'</Line2DSeries>'
+							+'<Line2DSeries xField="xData" yField="field3" displayName="Data 3" formatter="{numFmt}" verticalAxis="{vAxis1}">'
+								+'<lineStroke>'
+									+'<Stroke weight="2" color="0xa5bc4e"/>'
+								+'</lineStroke>'
+								+'<showDataEffect>'
+									+'<SeriesSlide/>'
+								+'</showDataEffect>'
+							+'</Line2DSeries>'
+							+'<Plot2DSeries xField="xData" yField="field4"  displayName="Data 4" itemRenderer="CircleItemRenderer">'
+								+'<verticalAxis>'
+									+'<LogAxis id="vAxis2" title="Log Axis" formatter="{numFmt}" baseAtZero="false" interval="10" minimum="100" maximum="10000000"/>'
+						/* 
+							Y-Axis: LogAxis Properties.
+							interval: unit = multiplier of 10
+							minimum: the minimum value of the axis.
+							maximum: the maximum value of the axis.
+							title: the title of the axis.
+							labelJsFunction: the user-defined function for the label of the axis.
+							displayName: the name of the axis. It is displayed in datatips.
+							baseAtZero : whether or not to set the value of minimim (or maximum) to "0".
+						*/
+								+'</verticalAxis>'
+								+'<showDataEffect>'
+									+'<SeriesSlide/>'
+								+'</showDataEffect>'
+							+'</Plot2DSeries>'
+						+'</series>'
+						+'<verticalAxisRenderers>'
+							+'<Axis2DRenderer axis="{vAxis1}"/>' 
+							+'<Axis2DRenderer axis="{vAxis2}"/>' 
+						+'</verticalAxisRenderers>'
+					+'</Plot2DChart>'
+				+'</KoolChart>';
+
+// Declares Dataset
+var chartData = [{"xData":1000,"field1":10000,"field2":85000,"field3":150000,"field4":200000},
+				{"xData":2000,"field1":20000,"field2":75000,"field3":100000,"field4":170000},
+				{"xData":5000,"field1":30000,"field2":63000,"field3":100000,"field4":220000},
+				{"xData":10000,"field1":40000,"field2":55000,"field3":150000,"field4":160000},
+				{"xData":15000,"field1":50000,"field2":50000,"field3":100000,"field4":200000},
+				{"xData":20000,"field1":60000,"field2":46000,"field3":100000,"field4":170000},
+				{"xData":30000,"field1":70000,"field2":34000,"field3":100000,"field4":200000},
+				{"xData":40000,"field1":80000,"field2":20000,"field3":100000,"field4":230000},
+				{"xData":100000,"field1":90000,"field2":9000,"field3":100000,"field4":200000}];
+
+//----------------------- The end of the configuration for creating a chart. -----------------------
+
+</script>
+</head>
+<body>
+	<div id="content">
+		<!-- The DIV in which the chart is placed -->
+		<div id="chartHolder" style="width:600px; height:400px;">
+		</div>
+		<div id="footer">
+			<font size="3"><b>X-Axis, Y-Axis: LogAxis (for big numbers)</b></font>
+<pre>
+<font color="#01BAC5">interval: unit = multiplier of 10
+minimum: the minimum value of the axis.
+maximum: the maximum value of the axis.
+title: the title of the axis.
+labelJsFunction: the user-defined function for the label of the axis.
+displayName: the name of the axis. It is displayed in datatips.
+baseAtZero : whether or not to set the value of minimim (or maximum) to "0".</font>
+</pre>
+		</div>
+	</div>
+</body>
+</html>

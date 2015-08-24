@@ -1,0 +1,238 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="Content-Script-Type" content="text/javascript"/>
+<meta http-equiv="Content-Style-Type" content="text/css"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>KoolChart for HTML5 - Matrix Chart</title>
+<link rel="stylesheet" type="text/css" href="./KoolChartSample.css"/>
+
+<!--  If you want to support IE 7/8, you'll need the conditional excanvas include. -->
+<!--[if IE]><script language="javascript" type="text/javascript" src="../KoolChart/JS/excanvas.js"></script><![endif]-->
+
+<!-- License Key -->
+<script language="javascript" type="text/javascript" src="../LicenseKey/KoolChartLicense.js"></script>
+
+<!-- KoolChart JavaScript library -->
+<script language="javascript" type="text/javascript" src="../KoolChart/JS/KoolMatrixChart.js"></script>
+
+<!-- Theme.js -->
+<script type="text/javascript" src="../KoolChart/Assets/Theme/theme.js"></script>
+
+<script type="text/javascript">
+
+//----------------------- Here we start creating a chart. -----------------------
+
+//Sets the value of KoolOnLoadCallFunction to the name of a JS function (e.g. chartReadyHandler) that is called when the chart is ready to be created.
+var chartVars = "KoolOnLoadCallFunction=chartReadyHandler";
+
+//Creates the chart.
+//Parameters:  
+//1. Chart ID: You can use any name you like. 
+//2. DIV ID: The chart will be placed in this DIV.
+//3. chartVars: Variables used for creating the chart.
+//4. Chart width: Default value is 100%
+//5. Chart height: Default value is 100%
+KoolChart.create("chart1", "chartHolder", chartVars, "100%", "100%"); 
+
+//The JavaScript function which is set to the value of KoolOnLoadCallFunction.
+//This function will call two functions, setLayout() and setData() which are two main functions of KoolChart.
+//Parameters: 
+//1. ID: The Chart ID which is used as the first parameter of KoolChart.create().
+function chartReadyHandler(id) {
+	document.getElementById(id).setLayout(layoutStr);
+	document.getElementById(id).setData(chartData);
+}
+
+//Declares Layout
+var layoutStr = 
+				'<KoolChart backgroundColor="0xFFFFFF" cornerRadius="12" borderStyle="none">'
+					+'<Options>'
+						+'<Caption text="Food Grade" fontFamily="Malgun Gothic"/>'
+						+'<Legend defaultMouseOverAction="true" fontFamily="Malgun Gothic"/>'
+					+'</Options>'
+					+'<SeriesSlide id="ss"/>'
+					+'<Matrix2DChart showDataTips="true" type="fill" selectionMode="single" legendOver="true" dataTipJsFunction="tipFunc" fontFamily="Malgun Gothic">'
+						+'<backgroundElements>'
+							+'<GridLines direction="horizontal" horizontalChangeCount="2">'
+								+'<horizontalStroke>'
+									+'<Stroke color="0x000000"/>'
+								+'</horizontalStroke>'
+							+'</GridLines>'
+						+'</backgroundElements>'
+						+'<verticalAxis>'
+							+'<LinearAxis id="vAxis" interval="0.5" maximum="5" labelJsFunction="vertiJsFunc"/>'
+						+'</verticalAxis>'
+						+'<horizontalAxis>'
+							+'<LinearAxis id="hAxis" interval="0.5" maximum="4" labelJsFunction="horiJsFunc"/>'
+						+'</horizontalAxis>'
+						+'<series>'
+							+'<Matrix2DSeries xField="Data1_x" yField="Data1_y" zField="Data1" renderer="rectangle" showDataEffect="{ss}" labelPosition="inside" displayName="Food A" insideLabelJsFunction="labelJsFunc" styleName="seriesFont"/>'
+							+'<Matrix2DSeries xField="Data2_x" yField="Data2_y" zField="Data2" renderer="rectangle" showDataEffect="{ss}" labelPosition="inside" displayName="Food B" insideLabelJsFunction="labelJsFunc" styleName="seriesFont"/>'
+							+'<Matrix2DSeries xField="Data3_x" yField="Data3_y" zField="Data3" renderer="rectangle" showDataEffect="{ss}" labelPosition="inside" displayName="Food C" insideLabelJsFunction="labelJsFunc" styleName="seriesFont"/>'
+						+'</series>'
+						+'<verticalAxisRenderers>'
+							+'<Axis2DRenderer axis="{vAxis}" tickPlacement="none" styleName="font" minorTickPlacement="none"/>'
+						+'</verticalAxisRenderers>'
+						+'<horizontalAxisRenderers>'
+							+'<Axis2DRenderer axis="{hAxis}" tickPlacement="none" styleName="font" minorTickPlacement="none" showLine="true"/>'
+						+'</horizontalAxisRenderers>'
+					+'</Matrix2DChart>'
+					+'<Style>'
+						+'.font{fontFamily:"Malgun Gothic";fontSize:11;}'
+						+'.seriesFont{fontSize:11;}'
+					+'</Style>'
+				+'</KoolChart>';
+
+// Declares Dataset
+var chartData = [{"Data1_x":0.5,"Data1_y":2.5,"Data1":4,"Data2_x":0.5,"Data2_y":3.5,"Data2":5,"Data3_x":0.5,"Data3_y":4.5,"Data3":6},
+				{"Data1_x":1.5,"Data1_y":4.5,"Data1":2,"Data2_x":1.5,"Data2_y":1.5,"Data2":6,"Data3_x":1.5,"Data3_y":0.5,"Data3":6},
+				{"Data1_x":2.5,"Data1_y":1.5,"Data1":3,"Data2_x":2.5,"Data2_y":3.5,"Data2":7,"Data3_x":2.5,"Data3_y":2.5,"Data3":6},
+				{"Data1_x":3.5,"Data1_y":2.5,"Data1":10,"Data2_x":3.5,"Data2_y":4.5,"Data2":8,"Data3_x":3.5,"Data3_y":1.5,"Data3":6},
+				{"Data1_x":0.5,"Data1_y":1.5,"Data1":9,"Data2_x":1.5,"Data2_y":3.5,"Data2":8,"Data3_x":2.5,"Data3_y":4.5,"Data3":6}];
+
+/*
+//------------------------- The user-defined function to be used to format the axis label -----------------------------------------------------
+//The JavaScript function to be called to generate the user-defined label.
+//Sets the value of the labelJsFunction property to the name of a JS function.
+//
+//e.g.) <verticalAxis>
+//			<LinearAxis displayName="Amount" labelJsFunction="axisLabelFunc"/> 
+//</verticalAxis>
+//
+//Parameters
+//id: The ID of the axis
+//value: The axis label of the item 
+*/
+function vertiJsFunc(id, value)
+{
+	if(value==0.5)
+		return "Grade E";
+	else if(value==1.5)
+		return "Grade D";
+	else if(value==2.5)
+		return "Grade C";
+	else if(value==3.5)
+		return "Grade B";
+	else if(value==4.5)
+		return "Grade A";
+	else
+		return "";
+}
+
+
+function horiJsFunc(id, value)
+{
+	if(value==0.5)
+		return "Store A";
+	else if(value==1.5)
+		return "Store B";
+	else if(value==2.5)
+		return "Store C";
+	else if(value==3.5)
+		return "Store D";
+	else 
+		return "";
+}
+
+/*
+//------------------------- The user-defined function to format the numeric value (label) -----------------------------------------------------
+//The JS function called to generate the user-defined label.
+//Sets the value of the insideLabelJsFunction (if labelPosition = "inside") property to the name of a JS function.
+//
+//e.g.) <Column2DSeries yField="Profit" labelPosition="inside" insideLabelJsFunction="seriesLabelFunc">
+//
+//Parameters
+//seriesID: Series ID
+//index: The index of the item in the series.
+//data: The record of the dataset declared for creating the chart.
+//values: The value of the item. The value is an array and each element in the array is different depending on the chart type.
+
+	Pie2DSeries,Pie3DSeries				0: value, 1: percentage
+	Bubble3DSeries,Matrix2DSeries   	0: X-axis value, 1: Y-axis value, 2: Z-axis value
+	All series except Pie and Bubble   	0: X-axis value, 1: Y-axis value, 2: min value
+	* min value is applicable only when type is '100%' or 'stacked'. When type is 'stacked", min has the initial value of the stack.
+//
+*/
+function labelJsFunc(seriesId, index, data, values)
+{
+	return values[2]+" Ea";
+}
+
+/*
+// ---------------------- The user-defined function to be used to generate the toolTips (dataTipJsFunction)--------------------------------------------
+// The JavaScript function to be called to show tooltips (showDataTips="true").
+// Sets the value of labelJsFunction to the JavaScript function name in layouts
+
+// e.g.) <Column3DChart showDataTips="true" dataTipJsFunction="dataTipFunc">
+//
+// Parameters
+// seriesId: Series ID
+// seriesName: The name of the series, which is set as the value of the displayName property.
+// index: The index of the item in the series.
+// xName: The value of the displayName property in the horizontalAxis node.
+// yName: The value of the displayName property in the verticalAxis node.
+// data: The record of the dataset declared for creating the chart.
+// values: The value is an array and each element in the array is different depending on the chart type.
+			Bar2D(3D)Series		0: X-axis value, 1: Y-axis value
+			Column2D(3D)Series	0: X-axis value, 1: Y-axis value
+			Area2DSeries		0: X-axis value, 1: Y-axis value
+			Bubble3DSeries		0: X-axis value, 1: Y-axis value 2: radius
+			Line2DSeries		0: X-axis value, 1: Y-axis value
+			Pie2D(3D)Series		0: value, 1: percentage, 2: nameField
+*/
+function tipFunc(seriesId, seriesName, index, xName, yName, data, values)
+{
+	var hori = horiJsFunc(seriesId,values[0]);
+	var verti =	vertiJsFunc(seriesId,values[1]);
+	return "<font color='#0000ff' face='Malgun Gothic'>"+seriesName+"</font><br/>"+hori+"<br/>"+verti+"<br/>"+values[2]+" Ea";
+}
+
+/**
+ * If you want to use themes provided with KoolChart version 3.0, call the following functions.
+ * otherwise, comment out or delete the following functions.
+ *
+ * -- The Themes registered in KoolChart.themes --
+ * - simple
+ * - cyber
+ * - modern
+ * - lovely
+ * - pastel
+ * - old
+ * -------------------------------------------------
+ *
+ * The KoolChart.themes variable is defined in theme.js
+ */
+KoolChart.registerTheme(KoolChart.themes);
+
+/**
+ * The function called when the theme button in the sample HTML is clicked.
+ * Parameter Values:
+ * - simple
+ * - cyber
+ * - modern
+ * - lovely
+ * - pastel
+ * - old
+ * - default
+ *
+ * default: Applies the default theme which is the basic design of KoolChart.
+ * old: Applies the design of KoolChart version 2.5.
+ */
+function KoolChartChangeTheme(theme){
+	document.getElementById("chart1").setTheme(theme);
+}
+
+//----------------------- The end of the configuration for creating a chart. -----------------------
+	
+</script>
+</head>
+<body>
+	<div id="content">
+		<!-- The DIV in which the chart is placed -->
+		<div id="chartHolder" style="width:600px; height:400px;">
+		</div>
+	</div>
+</body>
+</html>

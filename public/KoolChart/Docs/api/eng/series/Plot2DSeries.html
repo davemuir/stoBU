@@ -1,0 +1,337 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="../../style.css" type="text/css" media="screen">
+<link rel="stylesheet" href="../../print.css" type="text/css" media="print">
+<meta content="Plot2DSeries,eng.series.Plot2DSeries" name="keywords">
+<title>eng.series.Plot2DSeries</title>
+</head>
+<body>
+<script type="text/javascript" language="javascript" src="../../asdoc.js"></script><script type="text/javascript" language="javascript" src="../../cookies.js"></script><script type="text/javascript" language="javascript">
+<!--
+				asdocTitle = 'Plot2DSeries - KoolChart for HTML5 Ver. 3.0 Reference By RiaMore Soft.';
+				var baseRef = '../../';
+				window.onload = configPage;
+			--></script>
+<table style="display:none" id="titleTable" cellspacing="0" cellpadding="0" class="titleTable">
+<tr>
+<td align="left" class="titleTableTitle">KoolChart for HTML5 Ver. 3.0 Reference</td><td align="right" class="titleTableTopNav"><a onclick="loadClassListFrame('../../all-classes.html')" href="../../package-summary.html">All&nbsp;Packages</a>&nbsp;|&nbsp;<a onclick="loadClassListFrame('../../all-classes.html')" href="../../class-summary.html">All&nbsp;Classes</a>&nbsp;|&nbsp;<a onclick="loadClassListFrame('../../index-list.html')" href="../../all-index-A.html">Index</a>&nbsp;|&nbsp;<a href="../../index.html?eng/series/Plot2DSeries.html&amp;eng/series/class-list.html" id="framesLink1">Frames</a><a onclick="parent.location=document.location" href="" style="display:none" id="noFramesLink1">No&nbsp;Frames</a></td><td rowspan="3" align="right" class="titleTableLogo"><a href="www.koolchart.com"><img alt="KoolChart Logo" title="KoolChart Logo" class="logoImage" src="../../images/logo.png"></a></td>
+</tr>
+<tr class="titleTableRow2">
+<td align="left" id="subTitle" class="titleTableSubTitle">Class&nbsp;Plot2DSeries</td><td align="right" id="subNav" class="titleTableSubNav"><a href="#styleSummary">Styles</a></td>
+</tr>
+<tr class="titleTableRow3">
+<td colspan="2">&nbsp;</td>
+</tr>
+</table>
+<script type="text/javascript" language="javascript">
+<!--
+if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Class Plot2DSeries"); titleBar_setSubNav(false,false,true,false,false,false,false,false,false,false,false,false,false,false);}
+--></script>
+<div class="MainContent">
+<table cellspacing="0" cellpadding="0" class="classHeaderTable">
+<tr>
+<td class="classHeaderTableLabel">Package</td><td><a onclick="javascript:loadClassListFrame('class-list.html')" href="package-detail.html">eng.series</a></td>
+</tr>
+<tr>
+<td class="classHeaderTableLabel">Class</td><td class="classSignature">public class Plot2DSeries</td>
+</tr>
+</table>
+<p></p>
+ The Plot2DSeries class (&lt;Plot2DSeries&gt;) is the series of the Plot2DChart node (&lt;Plot2DChart&gt;).
+ <br>The Plot2DSeries class (&lt;Plot2DSeries&gt;) represents data as a series of shapes at the x, y coordinates.<br>
+ 
+ <p>The layout is as follows:</p>
+ <pre>
+ &lt;KoolChart backgroundColor="0xFFFFEE"  cornerRadius="12" borderStyle="solid"&gt;
+   &lt;Options&gt;
+    &lt;Caption text="Annual Report"/&gt;
+  &lt;/Options&gt;
+  &lt;Plot2DChart showDataTips="true"&gt;
+    &lt;horizontalAxis&gt;
+     &lt;CategoryAxis categoryField="Month" /&gt;
+    &lt;/horizontalAxis&gt;
+    &lt;series&gt;
+     &lt;Plot2DSeries yField="Profit"/&gt;
+     &lt;Plot2DSeries yField="Cost" /&gt;
+     &lt;Plot2DSeries yField="Revenue" /&gt;
+    &lt;/series&gt;
+   &lt;/Plot2DChart&gt;
+  &lt;/KoolChart&gt;
+ </pre>
+ <p></p>
+<br>
+<hr>
+</div>
+<a name="styleSummary"></a>
+<div class="summarySection">
+<div class="summaryTableTitle">Styles</div>
+<table id="summaryTableStyle" class="summaryTable " cellpadding="3" cellspacing="0">
+<tr>
+<th>&nbsp;</th><th colspan="2">Style</th><th>Description</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:color"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">color</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>uint &nbsp; <span class="label">Format: </span>Color<br>
+ <p>Sets the character color.</p>
+  The default value is <code>0x0B333C</code>.</td><td class="summaryTableOwnerCol">Plot2DSeries</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:displayName"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">displayName</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>String<br>
+ <p>Sets the series name. It is displayed in tooltips (datatips) and also displayed in the legend.</p>
+ </td><td class="summaryTableOwnerCol">Plot2DSeries</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:fill"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">fill</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Object<br>
+  Sets the fill color to be used to fill items by the item renderer.
+ </td><td class="summaryTableOwnerCol">Plot2DSeries</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:fillJsFunction"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">fillJsFunction</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>String<br>
+ Sets the JavaScript function to be called to fill colors generated by the user-defined logic.
+ <p>Sets the value of the fillJsFunction property to the name of the JavaScript function.</p>
+ 
+ <pre>
+ e.g. &lt;Plot2DSeries field="Profit" fillJsFunction="fillJsFunc"&gt;
+ </pre>
+ 
+ <p>The signature of <code>fillJsFunction</code> is as follows:</p>
+ 
+ <pre>
+ <i>function_name</i>(index, values) { ... }
+ </pre>
+ 
+ <ul>
+ <code>index</code>: The item index in the series.<br>
+ <code>values</code>: The item value. The value is an array and each element in the array is different depending on the chart type.<br>
+ <ul>
+  <li>Bar2D(3D)Series (Bar2DSeries, Bar3DSeries) 0: X-axis value, 1: Y-axis value</li>
+  <li>Column2D(3D)Series (Column2DSeries, Column3DSeries) 0: X-axis value, 1: Y-axis value</li>
+  <li>Area2DSeries (Area2DSeries) 0: X-axis value, 1: Y-axis value</li>
+  <li>Bubble3DSeries (Bubble3DSeries) 0: X-axis value, 1: Y-axis value 2: radius</li>
+  <li>Line2DSeries (Line2DSeries) 0: X-axis value, 1: Y-axis value</li>
+  <li>Pie2D(3D)Series (Pie2DSeries, Pie3DSeries) 0: value, 1: percentage, 2: nameField</li>
+  <li>If the minField is defined in From-To charts, the last index of values is minField.</li>
+  <li>Matrix2DSeries (Matrix2DSeries) 0: X-axis value, 1: Y-axis value, 2: Z-axis value</li>
+  <li>Plot2DSeries (Plot2DSeries) 0: X-axis value, 1: Y-axis value</li>
+ </ul>
+</td><td class="summaryTableOwnerCol">Plot2DSeries</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:fills"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">fills</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Array<br>
+  Sets the array of fill color objects used by each item renderer.<br>
+  If the number of array elements is less than the number of items, then the colors defined in the array will be repeatedly used to fill items.
+  e.g. if the number of items in the series is 10 and the number of fill color objects is 5, then each of 5 colors will be used to fill the first 5 items and the 5 colors will be used again to fill the other items.
+   <pre>
+    &lt;Area2DSeries ... &gt;
+     &lt;fills&gt;
+      &lt;SolidColor color="0xCC66FF"/&gt;
+      &lt;SolidColor color="0x9966CC"/&gt;
+      &lt;SolidColor color="0x9999CC"/&gt;
+     &lt;/fills&gt;
+    &lt;/Area2DSeries&gt;
+   </pre>
+ </td><td class="summaryTableOwnerCol">Plot2DSeries</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:fontFamily"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">fontFamily</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>String<br>
+ <p>Sets the font name. The system font is the default font.</p>
+  The default value is <code>"Verdana"</code>.</td><td class="summaryTableOwnerCol">Plot2DSeries</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:fontSize"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">fontSize</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Number &nbsp; <span class="label">Format: </span>Length<br>
+ <p>Sets the font size.</p>
+  The default value is <code>12</code>.</td><td class="summaryTableOwnerCol">Plot2DSeries</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:fontStyle"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">fontStyle</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>String<br>
+ <p>Indicates whether or not to use the italic font. The valid values are normal and italic.</p>
+  The default value is <code>"normal"</code>.</td><td class="summaryTableOwnerCol">Plot2DSeries</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:fontWeight"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">fontWeight</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>String<br>
+ <p>Indicates whether or not to use the bold font. The valid values are normal and bold.</p>
+  The default value is <code>"bold"</code>.</td><td class="summaryTableOwnerCol">Plot2DSeries</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:horizontalAxis"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">horizontalAxis</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Object<br>
+ Sets the horizontal axis for series. If not defined, the horizontalAxis class defined in the Chart level (Area2DChart, Bar2DChart, etc) will be used.
+ </td><td class="summaryTableOwnerCol">Plot2DSeries</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:id"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">id</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>String<br>
+ <p>Sets id. id is an unique identifier defined by users.</p>
+ You can access to an object by using id.<br>
+ </td><td class="summaryTableOwnerCol">Plot2DSeries</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:itemRenderer"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">itemRenderer</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Object<br>
+ <p>Sets the item renderer.</p>
+ <p>The valid values are as follows:</p>
+ <li>DiamondItemRenderer</li>
+ <li>CircleItemRenderer</li>
+ <li>TriangleItemRenderer</li>
+ <li>CrossItemRenderer</li>
+ <li>XShapeItemRenderer</li>
+ <li>IShapeItemRenderer</li>
+ <li>RectangleItemRenderer</li>
+ 
+  The default value is <code>null</code>.</td><td class="summaryTableOwnerCol">Plot2DSeries</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:radius"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">radius</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Number &nbsp; <span class="label">Format: </span>Length<br>
+ <p>Sets the radius size of items.</p>
+  The default value is <code>4</code>.</td><td class="summaryTableOwnerCol">Plot2DSeries</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:showDataEffect"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">showDataEffect</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Object<br>
+ Sets the animation effect. The default value is SeriesSlide.
+ </td><td class="summaryTableOwnerCol">Plot2DSeries</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:sortOnXField"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">sortOnXField</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Boolean<br>
+ Indicates whether or not to sort automatically on the X-axis data.
+ If the value is false, then the display order will be the declaration order of the data members.
+  The default value is <code>true</code>.</td><td class="summaryTableOwnerCol">Plot2DSeries</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:sortOnYField"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">sortOnYField</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Boolean<br>
+ Indicates whether or not to sort automatically on the Y-axis data.
+ If the value is false, then the display order will be the declaration order of the data members.
+  The default value is <code>true</code>.</td><td class="summaryTableOwnerCol">Plot2DSeries</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:stroke"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">stroke</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Object<br>
+ Sets the border line of items. The valid value is Stroke.
+ </td><td class="summaryTableOwnerCol">Plot2DSeries</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:styleName"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">styleName</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>String<br>
+ <p>Sets the style name to be defined in the Style node (&lt;Style&gt;).</p>
+ </td><td class="summaryTableOwnerCol">Plot2DSeries</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:verticalAxis"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">verticalAxis</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Object<br>
+ Sets the vertical axis for series. If not defined, the verticalAxis class defined in the Chart level (Area2DChart, Bar2DChart, etc) will be used.
+ </td><td class="summaryTableOwnerCol">Plot2DSeries</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:visible"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">visible</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Boolean<br>
+ <p>Indicates whether or not to show series in charts.</p>
+  The default value is <code>true</code>.</td><td class="summaryTableOwnerCol">Plot2DSeries</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:xField"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">xField</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>String<br>
+ <p>Sets the field name of the horizontal axis (horizontalAxis).</p>
+ </td><td class="summaryTableOwnerCol">Plot2DSeries</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:yField"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">yField</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>String<br>
+ <p>Sets the field name of the vertical axis (verticalAxis).</p>
+ </td><td class="summaryTableOwnerCol">Plot2DSeries</td>
+</tr>
+</table>
+</div>
+<script type="text/javascript" language="javascript">
+<!--
+showHideInherited();
+--></script>
+<div class="MainContent">
+<br>
+<br>
+<hr>
+<br>
+<p></p>
+<center class="copyright">Copyright(c) 2012 RiaMore Soft, Inc. All Right Reserved</center>
+</div>
+</body>
+</html>
+<!--Copyright(c) 2012 RiaMore Soft, Inc. All Right Reserved-->

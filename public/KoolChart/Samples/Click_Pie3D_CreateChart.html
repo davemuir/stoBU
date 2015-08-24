@@ -1,0 +1,189 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="Content-Script-Type" content="text/javascript"/>
+<meta http-equiv="Content-Style-Type" content="text/css"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Kool Chart for HTML5</title>
+<link rel="stylesheet" type="text/css" href="./KoolChartSample.css"/>
+
+<!--  If you want to support IE 7/8, you'll need the conditional excanvas include. -->
+<!--[if IE]><script language="javascript" type="text/javascript" src="../KoolChart/JS/excanvas.js"></script><![endif]-->
+
+<!-- License Key -->
+<script language="javascript" type="text/javascript" src="../LicenseKey/KoolChartLicense.js"></script>
+
+<!-- KoolChart JavaScript library -->
+<script language="javascript" type="text/javascript" src="../KoolChart/JS/KoolChart.js"></script>
+
+<script type="text/javascript">
+
+//----------------------- Here we start creating a chart. -----------------------
+
+//Sets the value of KoolOnLoadCallFunction to the name of a JS function (e.g. chartReadyHandler) that is called when the chart is ready to be created.
+var chartVars = "KoolOnLoadCallFunction=chartReadyHandler";
+var chartVars2;
+
+//Creates the chart.
+//Parameters:  
+//1. Chart ID: You can use any name you like. 
+//2. DIV ID: The chart will be placed in this DIV.
+//3. chartVars: Variables used for creating the chart.
+//4. Chart width: Default value is 100%
+//5. Chart height: Default value is 100%
+KoolChart.create("chart1", "chartHolder", chartVars, "100%", "100%"); 
+KoolChart.create("chart2", "chartHolder2", chartVars2, "100%", "100%"); 
+
+//The JavaScript function which is set to the value of KoolOnLoadCallFunction.
+//This function will call two functions, setLayout() and setData() which are two main functions of KoolChart.
+//Parameters: 
+//1. ID: The Chart ID which is used as the first parameter of KoolChart.create().
+function chartReadyHandler(id) {
+	document.getElementById(id).setLayout(layoutStr);
+	document.getElementById(id).setData(chartData);
+}
+
+//Declares Layout
+var layoutStr = 
+				'<KoolChart backgroundColor="0xFFFFFF" cornerRadius="12" borderStyle="none">'
+					+'<Options>'
+						+'<Caption text=""/>' 
+						+'<SubCaption paddingTop="25" textAlign="right" fontSize="11" text="Please click the slice." fontFamily="Malgun Gothic"/>'
+					+'</Options>'
+					+'<Pie2DChart showDataTips="true" itemClickJsFunction="chartClickHanlder">'
+					/* itemClickJsFunction: Sets the name of the JavaScript function which is called when the item is clicked. */
+						+'<series>'
+							+'<Pie2DSeries id="pie2DSeries" nameField="Month" field="Output">'
+								+'<showDataEffect>'
+									+'<SeriesSlide direction="left" duration="1000" elementOffset="0"/>'
+								+'</showDataEffect>'
+							+'</Pie2DSeries>'
+						+'</series>'
+					+'</Pie2DChart>'
+				+'</KoolChart>';
+
+var layoutStr2 = 
+				'<KoolChart backgroundColor="0xFFFFFF" cornerRadius="12" borderStyle="none">'
+					+'<Column2DChart showDataTips="true">'
+						+'<horizontalAxis>'
+							+'<CategoryAxis categoryField="Month"/>' 
+						+'</horizontalAxis>'
+						+'<series>'
+						/*
+							Sets the value of the type property to "stacked".
+							clustered: The data elements of each series are displayed as it is.(Default)
+							stacked: The data elements of each series are displayed as a stack.
+							overlaid: The data elements of each series are displayed overlaid. "overlaid" is mainly used to indicate the target point and the current point. 
+							100%: The data elements of each series are displayed as a horizontal stack by calculating a percentage of the sum of series.
+						*/
+							+'<Column2DSet type="stacked">'
+								+'<series>'
+								/* Creating multiple Column2DSeries */
+									+'<Column2DSeries labelPosition="inside" yField="Profit" displayName="Profit">'
+										+'<showDataEffect>'
+											+'<SeriesInterpolate/>' 
+										+'</showDataEffect>'
+									+'</Column2DSeries>'
+									+'<Column2DSeries labelPosition="inside" yField="Cost" displayName="Cost">'
+										+'<showDataEffect>'
+											+'<SeriesInterpolate/>' 
+										+'</showDataEffect>'
+									+'</Column2DSeries>'
+									+'<Column2DSeries labelPosition="inside" yField="Revenue" displayName="Revenue">'
+										+'<showDataEffect>'
+											+'<SeriesInterpolate/>' 
+										+'</showDataEffect>'
+									+'</Column2DSeries>'
+								+'</series>'
+							+'</Column2DSet>'
+						+'</series>'
+					+'</Column2DChart>'
+				+'</KoolChart>';
+
+// Declares Dataset
+var chartData = [{"Month":"2013-01", "Output":15},
+				{"Month":"2013-02", "Output":10},
+				{"Month":"2013-03", "Output":20},
+				{"Month":"2013-04", "Output":30},
+				{"Month":"2013-05", "Output":40},
+				{"Month":"2013-06", "Output":50}];
+	
+var chartData2 = [{"Month":"2013-01", "Profit":10, "Cost":200, "Revenue":150},
+				{"Month":"2013-02", "Profit":20,"Cost":200, "Revenue":150},
+				{"Month":"2013-03", "Profit":30, "Cost":200, "Revenue":150},
+				{"Month":"2013-04", "Profit":40, "Cost":200, "Revenue":150},
+				{"Month":"2013-05", "Profit":50, "Cost":200, "Revenue":150},
+				{"Month":"2013-06", "Profit":60, "Cost":200, "Revenue":150},
+				{"Month":"2013-07", "Profit":70, "Cost":200, "Revenue":150},
+				{"Month":"2013-08", "Profit":80, "Cost":200, "Revenue":150},
+				{"Month":"2013-09", "Profit":90, "Cost":200, "Revenue":150},
+				{"Month":"2013-10", "Profit":100, "Cost":200, "Revenue":150},
+				{"Month":"2013-11", "Profit":110, "Cost":200, "Revenue":150},
+				{"Month":"2013-12", "Profit":120, "Cost":200, "Revenue":150}];
+
+/*
+// -------------------- itemClickJsFunction ----------------------------------------------------------------
+// The JS function called when the item is clicked.
+// Sets the value of the itemClickJsFunction property to the name of a JS function.
+// e.g.) <Column3DChart showDataTips="true" itemClickJsFunction="chartItemClickHandler">
+//
+// Parameters:
+// seriesId: Series ID
+// displayText: The tooltips shown when the mouse over the item.
+// index: The index of the clicked item in the series.
+// data: The record of the dataset declared for creating the chart.
+// values: The value of the item. The value is an array and each element in the array is different depending on the chart type.
+			BarSeries     0: X-axis value, 1: Y-axis value
+			ColumnSeries  0: X-axis value, 1: Y-axis value
+			AreaSeries    0: X-axis value, 1: Y-axis value
+			BubbleSeries  0: X-axis value, 1: Y-axis value, 2: radius
+			LineSeries    0: X-axis value, 1: Y-axis value
+			PieSeries     0: value
+*/
+function chartClickHanlder(seriesId, displayText, index, data, values)
+{
+	alert("seriesId:"+seriesId+"\ndisplayText:"+displayText+"\nindex:"+index+"\ndata:"+data['Month']+"\nvalues:"+values[0]);
+
+	//Sets the layout and dataset to create the chart dynamically.
+	document.getElementById("chart2").setLayout(layoutStr2);
+	document.getElementById("chart2").setData(chartData2);
+}
+
+//----------------------- The end of the configuration for creating a chart. -----------------------
+
+</script>
+</head>
+<body>
+	<div id="content" style="width:600px;height:300px;">
+		<!-- The DIV in which the chart is placed -->
+		<div id="chartHolder" style="float:left; width:280px; height:300px;">
+		</div>
+		<!-- The DIV in which the chart is placed -->
+		<div id="chartHolder2" style="float:left; width:280px; height:300px;">
+		</div>
+	</div>
+	<div id="footer">	
+		<font size="3"><b>This sample is to show how to create the chart dynamically when you click the item.</b></font>	
+<pre>
+<font color="#01BAC5">itemClickJsFunction: Sets the name of the JavaScript function 
+which is called when the item is clicked.
+In this sample, the JavaScript function (chartItemClickHandler) creates a new chart</font>
+
+<b>●Layout</b>
+&#60;Pie2DChart showDataTips="true" <font color="#ff0000">itemClickJsFunction="chartClickHanlder"</font>&#62;
+
+<b>●Script</b>
+<font color="#0000ff">function</font> <font color="#ff0000">chartClickHanlder</font>(seriesId, displayText, index, data, values)
+{
+	alert(seriesId:"+seriesId+"\ndisplayText:"+displayText+"\nindex:"+index+
+	"\ndata:"+data['Month']+"\nvalues:"+values[0]);
+
+	<font color="#01BAC5">Sets the layout and dataset to create the chart dynamically.</font>
+	<font color="#ff0000">document.getElementById("chart2").setLayout(layoutStr2);
+	document.getElementById("chart2").setData(chartData2);</font>
+}
+</pre>
+		</div>
+</body>
+</html>

@@ -1,0 +1,165 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="Content-Script-Type" content="text/javascript"/>
+<meta http-equiv="Content-Style-Type" content="text/css"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>KoolChart for HTML5 - Line Chart</title>
+<link rel="stylesheet" type="text/css" href="./KoolChartSample.css"/>
+
+<!--  If you want to support IE 7/8, you'll need the conditional excanvas include. -->
+<!--[if IE]><script language="javascript" type="text/javascript" src="../KoolChart/JS/excanvas.js"></script><![endif]-->
+
+<!-- License Key -->
+<script language="javascript" type="text/javascript" src="../LicenseKey/KoolChartLicense.js"></script>
+
+<!-- KoolChart JavaScript library -->
+<script language="javascript" type="text/javascript" src="../KoolChart/JS/KoolChart.js"></script>
+
+<!-- The CSS style for KoolChart (This CSS style is required for only Legend, Preloader, Scroll Chart and History Chart) -->
+<link rel="stylesheet" type="text/css" href="../KoolChart/Assets/Css/KoolChart.css"/>
+
+<script type="text/javascript">
+
+//----------------------- Here we start creating a chart. -----------------------
+
+// Sets the value of KoolOnLoadCallFunction to the name of a JS function (e.g. chartReadyHandler) that is called when the chart is ready to be created.
+var chartVars = "KoolOnLoadCallFunction=chartReadyHandler";
+// Adds the string, usePattern=true, to chartVars
+chartVars += "&usePattern=true";
+
+// Sets the directory path of the pattern images
+KoolChart.patternImageBaseUrl = "../KoolChart/Assets/Patterns/";
+
+// An array of strings containing the names of the image files to use.
+KoolChart.patternImagesUrl = [
+	"diagonal_ltr.png",
+	"diagonal_rtl.png",
+	"diagonal.png",
+	"horizontal.png",
+	"vertical.png",
+	"both.png",
+	"up.png",
+	"right.png",
+	"horizontal_curve.png",
+	"vertical_curve.png",
+	"horizontal_pipe.png",
+	"vertical_pipe.png",
+	"rectangle.png",
+	"circle.png",
+	"diamond.png",
+	"triangle.png",
+	"down_triangle.png",
+	"cross.png",
+	"rectangle2.png",
+	"circle.png"
+];
+
+//Creates the chart.
+//Parameters:  
+//1. Chart ID: You can use any name you like. 
+//2. DIV ID: The chart will be placed in this DIV.
+//3. chartVars: Variables used for creating the chart.
+//4. Chart width: Default value is 100%
+//5. Chart height: Default value is 100%
+KoolChart.create("chart1", "chartHolder", chartVars, "100%", "100%"); 
+
+//The JavaScript function which is set to the value of KoolOnLoadCallFunction.
+//This function will call two functions, setLayout() and setData() which are two main functions of KoolChart.
+//Parameters: 
+//1. ID: The Chart ID which is used as the first parameter of KoolChart.create().
+function chartReadyHandler(id) {
+	document.getElementById(id).setLayout(layoutStr);
+	document.getElementById(id).setData(chartData);
+}
+
+var layoutStr = '<KoolChart backgroundColor="0xFFFFFF" borderStyle="none">'
+					+'<Options>'
+						+'<Caption text="Pattern of Line 2D Chart"/>'
+						+'<Legend defaultMouseOverAction="true"/>'
+					+'</Options>'
+					+'<NumberFormatter id="numFmt" precision="0" useThousandsSeparator="true"/>'
+					+'<Line2DChart showDataTips="true" enablePattern="true">'
+						+'<horizontalAxis>'
+							+'<CategoryAxis categoryField="Period" padding="0.5"/>'
+						+'</horizontalAxis>'
+						+'<verticalAxis>'
+							+'<LinearAxis interval="20" formatter="{numFmt}"/>'
+						+'</verticalAxis>'
+						+'<series>'
+							+'<Line2DSeries yField="iPhone" form="segment" lineStyle="dashLine" dashLinePattern="7" itemRenderer="RectangleItemRenderer" radius="6" displayName="iPhone">'
+								+'<showDataEffect>'
+									+'<SeriesInterpolate/>' 
+								+'</showDataEffect>'
+							+'</Line2DSeries>'
+							+'<Line2DSeries yField="iPad" form="segment" lineStyle="dashLine" dashLinePattern="3" itemRenderer="CircleItemRenderer" radius="6" displayName="iPad">'
+								+'<showDataEffect>'
+									+'<SeriesInterpolate/>' 
+								+'</showDataEffect>'
+							+'</Line2DSeries>'
+							+'<Line2DSeries yField="Mac" form="segment" itemRenderer="DiamondItemRenderer" radius="6" displayName="Mac">'
+								+'<showDataEffect>'
+									+'<SeriesInterpolate/>' 
+								+'</showDataEffect>'
+							+'</Line2DSeries>'
+						+'</series>'
+					+'</Line2DChart>'
+				+'</KoolChart>';
+
+var chartData = [{"Period":"Q1 / 12", "iPhone":37, "iPad":15, "Mac":15},
+                 {"Period":"Q2 / 12", "iPhone":35, "iPad":11, "Mac":13},
+                 {"Period":"Q3 / 12", "iPhone":26, "iPad":17, "Mac":17},
+                 {"Period":"Q4 / 12", "iPhone":26, "iPad":14, "Mac":19},
+                 {"Period":"Q1 / 13", "iPhone":47, "iPad":22, "Mac":21},
+                 {"Period":"Q2 / 13", "iPhone":37, "iPad":19, "Mac":12},
+                 {"Period":"Q3 / 13", "iPhone":31, "iPad":14, "Mac":11},
+                 {"Period":"Q4 / 13", "iPhone":33, "iPad":14, "Mac":13},
+                 {"Period":"Q1 / 14", "iPhone":51, "iPad":26, "Mac":13},
+                 {"Period":"Q2 / 14", "iPhone":43, "iPad":16, "Mac":14}];
+
+// Applying patterns for visually impaired  users
+function accessibilityPattern(e){
+	var enable = true,
+		elem = e.target || e.srcElement;
+
+	if(elem.innerHTML == "Apply Pattern"){
+		elem.innerHTML = "Disapply Pattern";
+	}else{
+		elem.innerHTML = "Apply Pattern";
+		enable = false;
+	}
+	document.getElementById("chart1").accessibilityPattern(enable);
+}
+
+//----------------------- The end of the configuration for creating a chart. -----------------------
+
+</script>
+</head>
+<body>
+	<div id="header">
+		<div class="button button_top" onclick="accessibilityPattern(event);">Disapply Pattern</div>
+	</div>
+	<div id="content">
+		<!-- The DIV in which the chart is placed -->
+		<div id="chartHolder" style="width:600px; height:400px;">
+		</div>
+	</div>
+	<div id="footer"><font size="3"><b>This sample is to show how to apply patterns for visually impaired  users.</b></font><br>
+<pre>
+<font color="#01BAC5">As visually impaired users hardly recognize colors,    
+the density of dots in the line helps visually impaired users understand the chart data.</font>
+
+<b>●Layout</b>
+&#60;Line2DSeries yField="Profit" form="segment" <font color="#ff0000">lineStyle="dashLine" dashLinePattern="2"</font>
+itemRenderer="RectangleItemRenderer" radius="6" displayName="Profit"/&#62;
+
+&#60;Line2DSeries yField="Cost" form="segment" <font color="#ff0000">lineStyle="dashLine" dashLinePattern="7" </font>
+itemRenderer="CircleItemRenderer" radius="6" displayName="Cost"/&#62;
+
+&#60;Line2DSeries yField="Revenue" form="segment" <font color="#ff0000">lineStyle="dashLine" dashLinePattern="15" </font>
+itemRenderer="DiamondItemRenderer" radius="6" displayName="Revenue"/&#62;
+</pre>
+		</div>
+</body>
+</html>

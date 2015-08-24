@@ -1,0 +1,164 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="Content-Script-Type" content="text/javascript"/>
+<meta http-equiv="Content-Style-Type" content="text/css"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>KoolChart for HTML5 - Scroll Chart</title>
+<link rel="stylesheet" type="text/css" href="./KoolChartSample.css"/>
+
+<!--  If you want to support IE 7/8, you'll need the conditional excanvas include. -->
+<!--[if IE]><script language="javascript" type="text/javascript" src="../KoolChart/JS/excanvas.js"></script><![endif]-->
+
+<!-- License Key -->
+<script language="javascript" type="text/javascript" src="../LicenseKey/KoolChartLicense.js"></script>
+
+<!-- KoolChart JavaScript library -->
+<script language="javascript" type="text/javascript" src="../KoolChart/JS/KoolScrollChart.js"></script>
+
+<!-- The CSS style for KoolChart (This CSS style is required for only Legend, Preloader, Scroll Chart and History Chart) -->
+<link rel="stylesheet" type="text/css" href="../KoolChart/Assets/Css/KoolChart.css"/>
+
+<!-- Theme.js -->
+<script type="text/javascript" src="../KoolChart/Assets/Theme/theme.js"></script>
+
+<script type="text/javascript">
+
+//----------------------- Here we start creating a chart. -----------------------
+
+//Sets the value of KoolOnLoadCallFunction to the name of a JS function (e.g. chartReadyHandler) that is called when the chart is ready to be created.
+var chartVars = "KoolOnLoadCallFunction=chartReadyHandler";
+
+//Creates the chart.
+//Parameters:  
+//1. Chart ID: You can use any name you like. 
+//2. DIV ID: The chart will be placed in this DIV.
+//3. chartVars: Variables used for creating the chart.
+//4. Chart width: Default value is 100%
+//5. Chart height: Default value is 100%
+KoolChart.create("chart1", "chartHolder", chartVars, "100%", "100%"); 
+
+//The JavaScript function which is set to the value of KoolOnLoadCallFunction.
+//This function will call two functions, setLayout() and setData() which are two main functions of KoolChart.
+//Parameters: 
+//1. ID: The Chart ID which is used as the first parameter of KoolChart.create().
+function chartReadyHandler(id) {
+	document.getElementById(id).setLayout(layoutStr);
+	document.getElementById(id).setData(chartData);
+}
+
+// 스트링 형식으로 레이아웃 정의.
+var layoutStr = 
+				'<KoolChart backgroundColor="0xFFFFFF" borderStyle="none" cornerRadius="5">'
+					+'<Options>'
+						+'<Caption text="Scroll Chart - Column2D"/>'
+					+'</Options>'
+					+'<NumberFormatter id="numfmt" useThousandsSeparator="true"/>'
+					+'<Column2DChart showDataTips="true" gutterRight="10">' 
+				/* 
+					Creating the Column2DChart node. 
+					showDataTips: Whether or not to show tooltips when you mouse over items.  
+				*/
+						 +'<series>'
+							 +'<Column2DSeries labelPosition="outside" yField="Data1" displayName="Data1" itemRenderer="SemiCircleColumnItemRenderer"/>'
+						 +'</series>'
+						 +'<horizontalAxis>'
+							+'<CategoryLinearAxis id="hAxis" categoryField="Gu"/>'
+				/* Creating the CategoryLinearAxis node as a child node of the verticalAxis node. */
+						 +'</horizontalAxis>'
+						 +'<horizontalAxisRenderers>'
+							+'<ScrollableAxisRenderer axis="{hAxis}" visibleItemSize="10" scrollSensitivity="4"/>'
+				/* Creating the ScrollableAxisRenderer node as a child node of the horizontalAxisRenderers node. */				
+						 +'</horizontalAxisRenderers>'
+						 +'<verticalAxis>'
+							+'<LinearAxis formatter="{numFmt}"/>'
+						+'</verticalAxis>'
+					+'</Column2DChart>'
+				+'</KoolChart>';
+
+//Declares Dataset
+var chartData = [{"City":"City A","Data1":1000},
+				{"City":"City B","Data1":1400},
+				{"City":"City C","Data1":1500},
+				{"City":"City D","Data1":1900},
+				{"City":"City E","Data1":1400},
+				{"City":"City F","Data1":2000},
+				{"City":"City G","Data1":1800},
+				{"City":"City H","Data1":2500},
+				{"City":"City I","Data1":3000},
+				{"City":"City J","Data1":2000},
+				{"City":"City K","Data1":2100},
+				{"City":"City L","Data1":1700},
+				{"City":"City M","Data1":1000},
+				{"City":"City N","Data1":1400},
+				{"City":"City O","Data1":1500},
+				{"City":"City P","Data1":1900},
+				{"City":"City Q","Data1":1400},
+				{"City":"City R","Data1":2000},
+				{"City":"City S","Data1":1800},
+				{"City":"City T","Data1":2500},
+				{"City":"City U","Data1":0},
+				{"City":"City V","Data1":2000},
+				{"City":"City W","Data1":2100},
+				{"City":"City X","Data1":1700}];
+	
+/**
+ * If you want to use themes provided with KoolChart version 3.0, call the following functions.
+ * otherwise, comment out or delete the following functions.
+ *
+ * -- The Themes registered in KoolChart.themes --
+ * - simple
+ * - cyber
+ * - modern
+ * - lovely
+ * - pastel
+ * - old
+ * -------------------------------------------------
+ *
+ * The KoolChart.themes variable is defined in theme.js
+ */
+KoolChart.registerTheme(KoolChart.themes);
+
+/**
+ * The function called when the theme button in the sample HTML is clicked.
+ * Parameter Values:
+ * - simple
+ * - cyber
+ * - modern
+ * - lovely
+ * - pastel
+ * - old
+ * - default
+ *
+ * default: Applies the default theme which is the basic design of KoolChart.
+ * old: Applies the design of KoolChart version 2.5.
+ */
+function KoolChartChangeTheme(theme){
+	document.getElementById("chart1").setTheme(theme);
+}
+
+
+// 스크롤 차트가 나타내는 아이템 갯수를 변경합니다.
+function changeVisibleItem(){
+	var size = document.getElementById("txt").value;
+	document.getElementById("chart1").visibleItemSize(size);
+}
+
+//----------------------- The end of the configuration for creating a chart. -----------------------
+
+</script>
+</head>
+<body>
+	<div style="float:right;">
+		<input type="text" id="txt" style="width:25px;" maxLength="2" value="10"/>
+		<input type="button" value="Change Number of Items" style="width:119px;" onclick="changeVisibleItem();"/>
+	</div>
+	<div id="content">
+		<!-- The DIV in which the chart is placed -->
+		<div id="chartHolder" style="width:600px; height:400px;">
+		</div>
+	</div>
+</body>
+</html>
+

@@ -1,0 +1,117 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="Content-Script-Type" content="text/javascript"/>
+<meta http-equiv="Content-Style-Type" content="text/css"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>KoolChart for HTML5</title>
+<link rel="stylesheet" type="text/css" href="./KoolChartSample.css"/>
+
+<!--  If you want to support IE 7/8, you'll need the conditional excanvas include. -->
+<!--[if IE]><script language="javascript" type="text/javascript" src="../KoolChart/JS/excanvas.js"></script><![endif]-->
+
+<!-- License Key -->
+<script language="javascript" type="text/javascript" src="../LicenseKey/KoolChartLicense.js"></script>
+
+<!-- KoolChart JavaScript library -->
+<script language="javascript" type="text/javascript" src="../KoolChart/JS/KoolChart.js"></script>
+
+<script type="text/javascript">
+
+//----------------------- Here we start creating a chart. -----------------------
+
+//Sets the value of KoolOnLoadCallFunction to the name of a JS function (e.g. chartReadyHandler) that is called when the chart is ready to be created.
+var chartVars = "KoolOnLoadCallFunction=chartReadyHandler";
+
+//Creates the chart.
+//Parameters:  
+//1. Chart ID: You can use any name you like. 
+//2. DIV ID: The chart will be placed in this DIV.
+//3. chartVars: Variables used for creating the chart.
+//4. Chart width: Default value is 100%
+//5. Chart height: Default value is 100%
+KoolChart.create("chart1", "chartHolder", chartVars, "100%", "100%"); 
+
+//The JavaScript function which is set to the value of KoolOnLoadCallFunction.
+//This function will call two functions, setLayout() and setData() which are two main functions of KoolChart.
+//Parameters: 
+//1. ID: The Chart ID which is used as the first parameter of KoolChart.create().
+function chartReadyHandler(id) {
+	document.getElementById(id).setLayout(layoutStr);
+	document.getElementById(id).setData(chartData);
+}
+
+// Declares Layout
+var layoutStr = 
+				'<KoolChart backgroundColor="0xFFFFFF" cornerRadius="12" borderStyle="none">'
+					+'<Options>'
+						+'<Caption text="Monthly Report"/>'
+						+'<Legend/>'
+					+'</Options>'
+					+'<NumberFormatter id="numfmt" useThousandsSeparator="true"/>' 
+					+'<Column2DChart showDataTips="true">'
+						+'<horizontalAxis>'
+							+'<CategoryAxis id="hAxis" categoryField="Month" padding="0.5"/>' 
+						+'</horizontalAxis>'
+						+'<horizontalAxisRenderers>'
+							+'<Axis2DRenderer axis="{hAxis}" placement="top" showLine="true"/>'
+						+'</horizontalAxisRenderers>'
+						+'<verticalAxis>'
+							+'<LinearAxis  direction="inverted" interval="400" formatter="{numfmt}"/>'
+						+'</verticalAxis>'
+						+'<series>'
+							+'<Column2DSeries yField="Profit" labelPosition="up" displayName="Profit">'
+								+'<showDataEffect>'
+									+'<SeriesZoom relativeTo="chart" horiontalFocus="left" verticalFocus="top" duration="1200" elementOffset="60"/>'
+								+'</showDataEffect>'
+							+'</Column2DSeries>'
+							+'<Column2DSeries yField="Cost" labelPosition="up" displayName="Cost">'
+								+'<showDataEffect>'
+									+'<SeriesZoom relativeTo="chart" horiontalFocus="left" verticalFocus="top" duration="1200" elementOffset="60"/>'
+								+'</showDataEffect>'
+							+'</Column2DSeries>'
+							+'<Column2DSeries yField="Revenue" labelPosition="up" displayName="Revenue">'
+								+'<showDataEffect>'
+									+'<SeriesZoom relativeTo="chart" horiontalFocus="left" verticalFocus="top" duration="1200" elementOffset="60"/>'
+								+'</showDataEffect>'
+							+'</Column2DSeries>'
+						+'</series>'
+					+'</Column2DChart>'
+				+'</KoolChart>';
+
+// Declares Dataset
+var chartData = [{"Month":"Jan","Profit":1000,"Cost":1500,"Revenue":2300},
+				{"Month":"Feb","Profit":1400,"Cost":1400,"Revenue":1200},
+				{"Month":"Mar","Profit":1500,"Cost":1200,"Revenue":1600},
+				{"Month":"Apr","Profit":1900,"Cost":1300,"Revenue":1300},
+				{"Month":"May","Profit":1400,"Cost":900,"Revenue":1000},
+				{"Month":"Jun","Profit":2000,"Cost":1000,"Revenue":1200}];
+
+//----------------------- The end of the configuration for creating a chart. -----------------------
+
+</script>
+</head>
+<body>
+<div id="content">
+	<!-- The DIV in which the chart is placed -->
+	<div id="chartHolder" style="width:600px; height:400px;">
+	</div>
+	<div id="footer">	
+		<font size="3"><b>This sample is to display the inverted Y-axis. </b></font>
+<pre>
+<b>●Layout</b>
+&#60;horizontalAxis&#62;
+	&#60;CategoryAxis id="<font color="#ff0000">hAxis</font>" categoryField="Month" padding="0.5"/&#62;
+&#60;/horizontalAxis&#62;
+&#60;horizontalAxisRenderers&#62;
+	&#60;Axis2DRenderer axis="{<font color="#ff0000">hAxis</font>}" <font color="#ff0000">placement="top"</font>/&#62;
+&#60;/horizontalAxisRenderers&#62;
+&#60;verticalAxis&#62;
+	&#60;LinearAxis  <font color="#ff0000">direction="inverted"</font>/&#62;
+&#60;/verticalAxis&#62;
+</pre>
+	</div>
+</div>
+</body>
+</html>

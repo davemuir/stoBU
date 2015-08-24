@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<KoolChart backgroundColor="0xFFFFFF">
+	<Options>
+		<Caption text="Monthly Report"/>
+	</Options>
+	<NumberFormatter id="numFmt" precision="0" useThousandsSeparator="true"/>
+	<Column3DChart showDataTips="true">
+		<horizontalAxis>
+			<CategoryAxis categoryField="Month"/> 
+		</horizontalAxis>
+		<verticalAxis>
+			<LinearAxis formatter="{numFmt}"/>
+		</verticalAxis>
+		<series>
+			<Column3DSeries labelPosition="outside" yField="Profit" displayName="Profit" showValueLabels="[5,6,7]" outsideLabelYOffset="-6">
+				<showDataEffect>
+					<SeriesInterpolate/> 
+				</showDataEffect>
+			</Column3DSeries>
+		</series>
+		<annotationElements>
+			<CrossRangeZoomer enableZooming="false" zoomType="horizontal" horizontalLabelFormatter="{numFmt}" />
+		</annotationElements>
+	</Column3DChart>
+</KoolChart>

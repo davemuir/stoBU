@@ -1,0 +1,122 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="Content-Script-Type" content="text/javascript"/>
+<meta http-equiv="Content-Style-Type" content="text/css"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>KoolChart for HTML5 - Real-Time Chart</title>
+<link rel="stylesheet" type="text/css" href="./KoolChartSample.css"/>
+
+<!--  If you want to support IE 7/8, you'll need the conditional excanvas include. -->
+<!--[if IE]><script language="javascript" type="text/javascript" src="../KoolChart/JS/excanvas.js"></script><![endif]-->
+
+<!-- License Key -->
+<script language="javascript" type="text/javascript" src="../LicenseKey/KoolChartLicense.js"></script>
+
+<!-- KoolChart JavaScript library -->
+<script language="javascript" type="text/javascript" src="../KoolChart/JS/KoolRealtimeChart.js"></script>
+
+<script type="text/javascript">
+
+//----------------------- Here we start creating a chart. -----------------------
+
+//Sets the value of KoolOnLoadCallFunction to the name of a JS function (e.g. chartReadyHandler) that is called when the chart is ready to be created.
+var chartVars = "KoolOnLoadCallFunction=chartReadyHandler";
+
+//Creates the chart.
+//Parameters:  
+//1. Chart ID: You can use any name you like. 
+//2. DIV ID: The chart will be placed in this DIV.
+//3. chartVars: Variables used for creating the chart.
+//4. Chart width: Default value is 100%
+//5. Chart height: Default value is 100%
+KoolChart.create("chart1", "chartHolder", chartVars, "100%", "100%"); 
+
+//The JavaScript function which is set to the value of KoolOnLoadCallFunction.
+//This function will call two functions, setLayout() and setData() which are two main functions of KoolChart.
+//Parameters: 
+//1. ID: The Chart ID which is used as the first parameter of KoolChart.create().
+function chartReadyHandler(id) {
+	document.getElementById(id).setLayout(layoutStr);
+}
+
+var layoutStr = 
+				'<KoolChart backgroundColor="0xFFFFFF" cornerRadius="12" borderStyle="none">'
+					+'<Options>'
+						+'<Caption text="Zooming" fontFamily="Malgun Gothic"/>'
+						+'<SubCaption text="Click the left mouse button and drag to select the area you want to zoom." textAlign="right" fontSize="11" fontFamily="Malgun Gothic"/>'
+					+'</Options>'
+					+'<NumberFormatter id="numfmt" useThousandsSeparator="true"/>'
+					+'<NumberFormatter id="numFmt" precision="0"/>'
+					+'<DateFormatter id="dateFmt" formatString="HH:NN:SS"/>'
+					+'<RealTimeChart id="chart" dataDiplayType="time" fontSize="11" timePeriod="60" interval="3" showDataTips="true">'
+						+'<horizontalAxis>'
+							+'<DateTimeAxis id="hAxis" dataUnits="seconds" labelUnits="seconds" dataInterval="3" interval="2" formatter="{dateFmt}" displayLocalTime="true"/>'
+						+'</horizontalAxis>'
+						+'<verticalAxis>'
+							+'<LinearAxis id="vAxis" formatter="{numFmt}"/>'
+						+'</verticalAxis>'
+						+'<series>'
+							+'<Line2DSeries labelPosition="up" yField="Volume" xField="Time" displayName="Profit"/>'
+						+'</series>'
+						+'<annotationElements>'
+							+'<CrossRangeZoomer backgroundColor="0xeb494a" borderColor="0xeb494a" zoomType="horizontal" horizontalLabelFormatter="{numFmt}" verticalLabelFormatter="{dateFmt}" enableZooming="true">'
+								+'<verticalStroke>'
+									+'<Stroke color="0xeb494a" />'
+								+'</verticalStroke>'
+								+'<horizontalStroke>'
+									+'<Stroke color="0xeb494a" />'
+								+'</horizontalStroke>'
+							+'</CrossRangeZoomer>'
+						/* 
+							CrossRangeZoomer Properties 
+							zoomType: sets the desired axis for zoomming. (horizontal, vertical, both)
+							horizontalLabelFormatter: the formatter for the label of the horizontal line of crosshairs.
+							verticalLabelFormatter: the formatter for the label of the vertical line of crosshairs.
+							enableZooming: whether or not to use the zoom feature
+							enableCrossHair: whether or not to use crosshairs.
+							useDualCrossXLabel: whether or not to display two axes labels (it is available when dual axes are defined)
+							useDualCrossYLabel: whether or not to display two axes labels (it is available when dual axes are defined)
+							verticalLabelPlacement : the position for the label of the vertical line of crosshairs. (top, bottom)
+							horizontalLabelPlacement: the position for the label of the horizontal line of crosshairs. (left, right)
+						*/
+						+'</annotationElements>'
+					+'</RealTimeChart>'
+					+'<HttpServiceRepeater url="http://demo.riamore.net/demo/chart/data4.jsp" target="{chart}" interval="3" method="get"/>'
+				+'</KoolChart>';
+
+//----------------------- The end of the configuration for creating a chart. -----------------------
+
+</script>
+</head>
+<body>
+	<div id="content">
+		<!-- The DIV in which the chart is placed -->
+		<div id="chartHolder" style="width:600px; height:400px;">
+		</div>
+	</div>
+	<div id="footer">	
+		<font size="3"><b>This sample is to show how to Zoom in Real-time Chart.</b></font>	
+<pre>
+<font color="#01BAC5"><b>CrossRangeZoomer</b>
+zoomType: sets the desired axis for zoomming. (horizontal, vertical, both)
+horizontalLabelFormatter: the formatter for the label of the horizontal line of crosshairs.
+verticalLabelFormatter: the formatter for the label of the vertical line of crosshairs.
+enableZooming: whether or not to use the zoom feature
+enableCrossHair: whether or not to use crosshairs.
+useDualCrossXLabel: whether or not to display two axes labels (it is available when dual axes are defined)
+useDualCrossYLabel: whether or not to display two axes labels (it is available when dual axes are defined)
+verticalLabelPlacement : the position for the label of the vertical line of crosshairs. (top, bottom)
+horizontalLabelPlacement: the position for the label of the horizontal line of crosshairs. (left, right)</font>
+
+<b>●Layout</b>
+&#60;annotationElements&#62;
+	&#60;CrossRangeZoomer <font color="#ff0000">zoomType="horizontal"</font> horizontalLabelFormatter="{numFmt}"
+	verticalLabelFormatter="{dateFmt}" enableZooming="true"/&#62;
+&#60;/annotationElements&#62;
+</pre>
+		</div>
+</body>
+</html>
+

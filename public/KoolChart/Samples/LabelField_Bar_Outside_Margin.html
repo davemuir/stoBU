@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="Content-Script-Type" content="text/javascript"/>
+<meta http-equiv="Content-Style-Type" content="text/css"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>KoolChart for HTML5 - Bar chart</title>
+<link rel="stylesheet" type="text/css" href="./KoolChartSample.css"/>
+
+<!--  If you want to support IE 7/8, you'll need the conditional excanvas include. -->
+<!--[if IE]><script language="javascript" type="text/javascript" src="../KoolChart/JS/excanvas.js"></script><![endif]-->
+
+<!-- License Key -->
+<script language="javascript" type="text/javascript" src="../LicenseKey/KoolChartLicense.js"></script>
+
+<!-- KoolChart JavaScript library -->
+<script language="javascript" type="text/javascript" src="../KoolChart/JS/KoolChart.js"></script>
+
+<script type="text/javascript">
+
+//----------------------- Here we start creating a chart. -----------------------
+
+//Sets the value of KoolOnLoadCallFunction to the name of a JS function (e.g. chartReadyHandler) that is called when the chart is ready to be created.
+var chartVars = "KoolOnLoadCallFunction=chartReadyHandler";
+
+//Creates the chart.
+//Parameters:  
+//1. Chart ID: You can use any name you like. 
+//2. DIV ID: The chart will be placed in this DIV.
+//3. chartVars: Variables used for creating the chart.
+//4. Chart width: Default value is 100%
+//5. Chart height: Default value is 100%
+KoolChart.create("chart1", "chartHolder", chartVars, "100%", "100%"); 
+
+//The JavaScript function which is set to the value of KoolOnLoadCallFunction.
+//This function will call two functions, setLayout() and setData() which are two main functions of KoolChart.
+//Parameters: 
+//1. ID: The Chart ID which is used as the first parameter of KoolChart.create().
+function chartReadyHandler(id) {
+	document.getElementById(id).setLayout(layoutStr);
+	document.getElementById(id).setData(chartData);
+}
+
+//Declares Layout
+var layoutStr = 
+				'<KoolChart backgroundColor="0xFFFFFF" cornerRadius="12" borderStyle="none">'
+					+'<Options>'
+						+'<Caption text="RainFall" />'
+						+'<SubCaption text="( mm )" textAlign="right" />'
+						+'<Legend />'
+					+'</Options>'
+					+'<Bar2DChart showDataTips="true" maximumLabelPadding="30">'
+						+'<horizontalAxis>'
+							+'<LinearAxis minimum="70" maximum="100" interval="5"/>'
+						+'</horizontalAxis>'
+						+'<verticalAxis>'
+							+'<CategoryAxis categoryField="Month"/>' 
+						+'</verticalAxis>'
+						+'<series>'
+							+'<Bar2DSeries labelPosition="outside" xField="Vancouver" displayName="Vancouver" showValueLabels="[5,6,7]" itemRenderer="SemiCircleBarItemRenderer">'
+								+'<showDataEffect>'
+									+'<SeriesInterpolate direction="right"/>' 
+								+'</showDataEffect>'
+							+'</Bar2DSeries>'
+						+'</series>'
+					+'</Bar2DChart>'
+				+'</KoolChart>';
+
+// Declares Dataset
+var chartData = [{"Month":"Jan", "Vancouver":80},
+				{"Month":"Feb", "Vancouver":90},
+				{"Month":"Mar", "Vancouver":83},
+				{"Month":"Apr", "Vancouver":81},
+				{"Month":"May", "Vancouver":87},
+				{"Month":"Jun", "Vancouver":89},
+				{"Month":"Jul", "Vancouver":86},
+				{"Month":"Aug", "Vancouver":100},
+				{"Month":"Sep", "Vancouver":88},
+				{"Month":"Oct", "Vancouver":84},
+				{"Month":"Nov", "Vancouver":87},
+				{"Month":"Dec", "Vancouver":90}];
+
+
+//----------------------- The end of the configuration for creating a chart. -----------------------
+
+</script>
+</head>
+<body>
+	<div id="content">
+		<!-- The DIV in which the chart is placed -->
+		<div id="chartHolder" style="width:600px; height:400px;">
+		</div>
+	</div>
+	<div id="footer">	
+		<font size="3"><b>>This sample is to display the value label outside the bar.</b></font><br>	
+		
+<pre>
+<font color="#01BAC5">If labelPosition="outside" and the maximum property of the X-axis is set,
+the value labels close to the maximum could be trimmed.
+To avoid this problem, you can set the maximumLabelPadding property.</font>
+
+<b>●Layout</b>
+&#60;Bar2DCahrt <font color="#ff0000">maximumLabelPadding</font>="30" <font color="#ff0000">yField</font>="Profit" 
+		<font color="#ff0000">form</font>="curve" <font color="#ff0000">color</font>="0xeca614" /&#62;
+</pre>
+	</div>
+</body>
+</html>

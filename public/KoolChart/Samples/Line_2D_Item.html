@@ -1,0 +1,171 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="Content-Script-Type" content="text/javascript"/>
+<meta http-equiv="Content-Style-Type" content="text/css"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>KoolChart for HTML5 - Line chart</title>
+<link rel="stylesheet" type="text/css" href="./KoolChartSample.css"/>
+
+<!--  If you want to support IE 7/8, you'll need the conditional excanvas include. -->
+<!--[if IE]><script language="javascript" type="text/javascript" src="../KoolChart/JS/excanvas.js"></script><![endif]-->
+
+<!-- License Key -->
+<script language="javascript" type="text/javascript" src="../LicenseKey/KoolChartLicense.js"></script>
+
+<!-- KoolChart JavaScript library -->
+<script language="javascript" type="text/javascript" src="../KoolChart/JS/KoolChart.js"></script>
+
+<!-- Theme.js -->
+<script type="text/javascript" src="../KoolChart/Assets/Theme/theme.js"></script>
+
+<script type="text/javascript">
+
+//----------------------- Here we start creating a chart. -----------------------
+
+//Sets the value of KoolOnLoadCallFunction to the name of a JS function (e.g. chartReadyHandler) that is called when the chart is ready to be created.
+var chartVars = "KoolOnLoadCallFunction=chartReadyHandler";
+
+//Creates the chart.
+//Parameters:  
+//1. Chart ID: You can use any name you like. 
+//2. DIV ID: The chart will be placed in this DIV.
+//3. chartVars: Variables used for creating the chart.
+//4. Chart width: Default value is 100%
+//5. Chart height: Default value is 100%
+KoolChart.create("chart1", "chartHolder", chartVars, "100%", "100%"); 
+
+//The JavaScript function which is set to the value of KoolOnLoadCallFunction.
+//This function will call two functions, setLayout() and setData() which are two main functions of KoolChart.
+//Parameters: 
+//1. ID: The Chart ID which is used as the first parameter of KoolChart.create().
+function chartReadyHandler(id) {
+	document.getElementById(id).setLayout(layoutStr);
+	document.getElementById(id).setData(chartData);
+}
+
+//Declares Layout
+var layoutStr = 
+				'<KoolChart cornerRadius="12" backgroundColor="0xffffff" borderStyle="none">'
+				+'<Options>'
+					+'<Caption text="Price Indices of Meats ($ Per Kilogram)"/>'
+					+'<SubCaption text="World Bank Commodity Price Data in 2013" textAlign="center" />'
+					+'<Legend defaultMouseOverAction="false" useVisibleCheck="true"/>'
+				+'</Options>'
+				+'<NumberFormatter id="numFmt" precision="0"/>'
+				+'<Line2DChart showDataTips="true" dataTipDisplayMode="axis" paddingTop="0">'
+					+'<horizontalAxis>'
+						+'<CategoryAxis categoryField="Month"/>'
+					+'</horizontalAxis>'
+					+'<verticalAxis>'
+						+'<LinearAxis />'
+					+'</verticalAxis>'
+					+'<series>'
+					/* 
+						itemRenderer draws the shape at the data point.
+						In this example, itemRenderer draws the diamond shape ("DiamondItemRenderer"). 
+						You can find all the shapes currently available in KoolChart from the sample for the "Legend" example.
+					*/
+						+'<Line2DSeries labelPosition="up" yField="Sheep" fill="#ffffff" radius="5" displayName="Sheep" showValueLabels="[3,5]" itemRenderer="DiamondItemRenderer">'
+						/* The color for the border of the shape */
+							+'<stroke>'
+								+'<Stroke color="#fe6500" weight="1"/>'
+							+'</stroke>'
+							+'<showDataEffect>'
+								+'<SeriesInterpolate/>'
+							+'</showDataEffect>'
+						+'</Line2DSeries>'
+						+'<Line2DSeries labelPosition="up" yField="Beef" fill="#ffffff" radius="5" displayName="Beef" showValueLabels="[6]" itemRenderer="CircleItemRenderer">'
+						/* The value of the itemRenderer property is "CircleItemRenderer". */
+							+'<stroke>'
+								+'<Stroke color="#ffb801" weight="1"/>'
+							+'</stroke>'
+							+'<showDataEffect>'
+								+'<SeriesInterpolate/>'
+							+'</showDataEffect>'
+						+'</Line2DSeries>'
+						+'<Line2DSeries labelPosition="up" yField="Chicken" fill="#ffffff" radius="5" displayName="Chicken" showValueLabels="[7]" itemRenderer="TriangleItemRenderer">'
+						/* The value of the itemRenderer property is "TriangleItemRenderer". */
+							+'<stroke>'
+								+'<Stroke color="#5fc502" weight="1"/>'
+							+'</stroke>'
+							+'<showDataEffect>'
+								+'<SeriesInterpolate/>'
+							+'</showDataEffect>'
+						+'</Line2DSeries>'
+					+'</series>'
+					+'<annotationElements>'
+						+'<CrossRangeZoomer zoomType="horizontal" fontSize="11" color="0xFFFFFF" horizontalLabelFormatter="{numFmt}" verticalLabelPlacement="bottom" horizontalLabelPlacement="left" enableZooming="false" enableCrossHair="true" backgroundColor="0xeb494a" borderColor="0xeb494a">'
+								+'<verticalStroke>'
+									+'<Stroke color="0xeb494a" />'
+								+'</verticalStroke>'								
+								+'<horizontalStroke>'
+									+'<Stroke color="0xeb494a" />'
+								+'</horizontalStroke>'
+						+'</CrossRangeZoomer>'
+					+'</annotationElements>'
+				+'</Line2DChart>'
+			+'</KoolChart>';
+
+// Declares Dataset
+var chartData = [{"Month":"Jan", "Beef":4.31, "Chicken":2.19, "Sheep":5.75},
+				{"Month":"Feb", "Beef":4.28, "Chicken":2.21, "Sheep":5.49},
+				{"Month":"Mar", "Beef":4.23, "Chicken":2.24, "Sheep":5.35},
+				{"Month":"Apr", "Beef":4.26, "Chicken":2.26, "Sheep":5.43},
+				{"Month":"May", "Beef":4.20, "Chicken":2.29, "Sheep":5.43},
+				{"Month":"Jun", "Beef":3.87, "Chicken":2.33, "Sheep":5.50},
+				{"Month":"Jul", "Beef":3.90, "Chicken":2.35, "Sheep":5.39},
+				{"Month":"Aug", "Beef":3.88, "Chicken":2.35, "Sheep":5.50},
+				{"Month":"Sep", "Beef":3.88, "Chicken":2.34, "Sheep":5.79},
+				{"Month":"Oct", "Beef":3.93, "Chicken":2.32, "Sheep":5.99},
+				{"Month":"Nov", "Beef":4.04, "Chicken":2.31, "Sheep":6.04},
+				{"Month":"Dec", "Beef":4.11, "Chicken":2.30, "Sheep":6.14}];
+
+/**
+ * If you want to use themes provided with KoolChart version 3.0, call the following functions.
+ * otherwise, comment out or delete the following functions.
+ *
+ * -- The Themes registered in KoolChart.themes --
+ * - simple
+ * - cyber
+ * - modern
+ * - lovely
+ * - pastel
+ * - old
+ * -------------------------------------------------
+ *
+ * The KoolChart.themes variable is defined in theme.js
+ */
+KoolChart.registerTheme(KoolChart.themes);
+
+/**
+ * The function called when the theme button in the sample HTML is clicked.
+ * Parameter Values:
+ * - simple
+ * - cyber
+ * - modern
+ * - lovely
+ * - pastel
+ * - old
+ * - default
+ *
+ * default: Applies the default theme which is the basic design of KoolChart.
+ * old: Applies the design of KoolChart version 2.5.
+ */
+function KoolChartChangeTheme(theme){
+	document.getElementById("chart1").setTheme(theme);
+}
+
+//----------------------- The end of the configuration for creating a chart. -----------------------
+
+</script>
+</head>
+<body>
+	<div id="content">
+		<!-- The DIV in which the chart is placed -->
+		<div id="chartHolder" style="width:600px; height:400px;">
+		</div>
+	</div>
+</body>
+</html>

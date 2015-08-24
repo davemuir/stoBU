@@ -1,0 +1,317 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="../../style.css" type="text/css" media="screen">
+<link rel="stylesheet" href="../../print.css" type="text/css" media="print">
+<meta content="RadarChart,eng.charts.RadarChart" name="keywords">
+<title>eng.charts.RadarChart</title>
+</head>
+<body>
+<script type="text/javascript" language="javascript" src="../../asdoc.js"></script><script type="text/javascript" language="javascript" src="../../cookies.js"></script><script type="text/javascript" language="javascript">
+<!--
+				asdocTitle = 'RadarChart - KoolChart for HTML5 Ver. 3.0 Reference By RiaMore Soft.';
+				var baseRef = '../../';
+				window.onload = configPage;
+			--></script>
+<table style="display:none" id="titleTable" cellspacing="0" cellpadding="0" class="titleTable">
+<tr>
+<td align="left" class="titleTableTitle">KoolChart for HTML5 Ver. 3.0 Reference</td><td align="right" class="titleTableTopNav"><a onclick="loadClassListFrame('../../all-classes.html')" href="../../package-summary.html">All&nbsp;Packages</a>&nbsp;|&nbsp;<a onclick="loadClassListFrame('../../all-classes.html')" href="../../class-summary.html">All&nbsp;Classes</a>&nbsp;|&nbsp;<a onclick="loadClassListFrame('../../index-list.html')" href="../../all-index-A.html">Index</a>&nbsp;|&nbsp;<a href="../../index.html?eng/charts/RadarChart.html&amp;eng/charts/class-list.html" id="framesLink1">Frames</a><a onclick="parent.location=document.location" href="" style="display:none" id="noFramesLink1">No&nbsp;Frames</a></td><td rowspan="3" align="right" class="titleTableLogo"><a href="www.koolchart.com"><img alt="KoolChart Logo" title="KoolChart Logo" class="logoImage" src="../../images/logo.png"></a></td>
+</tr>
+<tr class="titleTableRow2">
+<td align="left" id="subTitle" class="titleTableSubTitle">Class&nbsp;RadarChart</td><td align="right" id="subNav" class="titleTableSubNav"><a href="#styleSummary">Styles</a></td>
+</tr>
+<tr class="titleTableRow3">
+<td colspan="2">&nbsp;</td>
+</tr>
+</table>
+<script type="text/javascript" language="javascript">
+<!--
+if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Class RadarChart"); titleBar_setSubNav(false,false,true,false,false,false,false,false,false,false,false,false,false,false);}
+--></script>
+<div class="MainContent">
+<table cellspacing="0" cellpadding="0" class="classHeaderTable">
+<tr>
+<td class="classHeaderTableLabel">Package</td><td><a onclick="javascript:loadClassListFrame('class-list.html')" href="package-detail.html">eng.charts</a></td>
+</tr>
+<tr>
+<td class="classHeaderTableLabel">Class</td><td class="classSignature">public class RadarChart</td>
+</tr>
+</table>
+<p></p>
+ Radar charts display multivariate data in the form of a two-dimensional chart of three or more quantitative variables represented on axes.<br>
+ The types are as follows:
+ <li>"polygon" - Represents data as the polygon that consists of the same number of points as the number of data.</li>
+ <li>"circle" - Represents data as the circle regardless of the number of data.</li>
+  
+ <p>One or more RadarSeries have to be assigned to the series node.</p>
+ 
+ <p>The layout is as follows:</p>
+ <pre>
+ &lt;KoolChart backgroundColor="0xFFFFEE"  cornerRadius="12" borderStyle="solid"&gt;
+   &lt;Options&gt;
+    &lt;Caption text="Radar Chart"/&gt;
+  &lt;/Options&gt;
+   &lt;RadarChart id="chart1"
+              isSeriesOnAxis="false"
+              type="polygon"
+     paddingTop="20"
+     paddingBottom="20"
+              showDataTips="true"&gt;
+     &lt;series&gt;
+      ...
+      ...
+     &lt;/series&gt;
+   &lt;/RadarChart&gt;
+ &lt;KoolChart&gt;
+ </pre>
+ <p></p>
+<br>
+<hr>
+</div>
+<a name="styleSummary"></a>
+<div class="summarySection">
+<div class="summaryTableTitle">Styles</div>
+<table id="summaryTableStyle" class="summaryTable " cellpadding="3" cellspacing="0">
+<tr>
+<th>&nbsp;</th><th colspan="2">Style</th><th>Description</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:angularAxis"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">angularAxis</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Object<br>
+  Sets the axis for the category.<br>
+  The valid value is CategoryAxis.
+  </td><td class="summaryTableOwnerCol">RadarChart</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:angularAxisRenderers"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">angularAxisRenderers</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Object<br>
+  Sets the renderer of angularAxis.<br>
+  e.g. if you want to change the location, color and text style of angularAxis, then you need to define the renderer.
+  The valid object is AngularAxisRenderer.
+  </td><td class="summaryTableOwnerCol">RadarChart</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:color"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">color</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>uint &nbsp; <span class="label">Format: </span>Color<br>
+ <p>Sets the character color.</p>
+  The default value is <code>0x0B333C</code>.</td><td class="summaryTableOwnerCol">RadarChart</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:displayCompleteCallFunction"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">displayCompleteCallFunction</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>String<br>
+ <p>Sets the JavaScript function to be called when the chart rendering is completed.</p>
+ The chart ID will be passed as parameter.
+ </td><td class="summaryTableOwnerCol">RadarChart</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:enablePattern"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">enablePattern</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>String<br>
+ <p>Sets patterns for visually impaired  users.</p>
+ The string, "usePattern=true", must be added to chartVars in the HTML file.<br>
+ and the value of the patternMode property must be "true" in Column2DChart.
+ </td><td class="summaryTableOwnerCol">RadarChart</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:fontFamily"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">fontFamily</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>String<br>
+ <p>Sets the font name. The system font is the default font.</p>
+  The default value is <code>"Verdana"</code>.</td><td class="summaryTableOwnerCol">RadarChart</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:fontSize"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">fontSize</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Number &nbsp; <span class="label">Format: </span>Length<br>
+ <p>Sets the font size.</p>
+  The default value is <code>12</code>.</td><td class="summaryTableOwnerCol">RadarChart</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:fontStyle"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">fontStyle</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>String<br>
+ <p>Indicates whether or not to use the italic font. The valid values are normal and italic.</p>
+  The default value is <code>"normal"</code>.</td><td class="summaryTableOwnerCol">RadarChart</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:fontWeight"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">fontWeight</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>String<br>
+ <p>Indicates whether or not to use the bold font. The valid values are normal and bold.</p>
+  The default value is <code>"bold"</code>.</td><td class="summaryTableOwnerCol">RadarChart</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:id"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">id</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>String<br>
+ <p>Sets id. id is an unique identifier defined by users.</p>
+ You can access to an object by using id.<br>
+ </td><td class="summaryTableOwnerCol">RadarChart</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:isSeriesOnAxis"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">isSeriesOnAxis</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Boolean<br>
+ <p>Indicates whether or not to draw the series on radialAxis.</p>
+  The default value is <code>true</code>.</td><td class="summaryTableOwnerCol">RadarChart</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:paddingBottom"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">paddingBottom</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Number &nbsp; <span class="label">Format: </span>Length<br>
+ <p>Sets the size of the bottom margin.</p>
+  The default value is <code>0</code>.</td><td class="summaryTableOwnerCol">RadarChart</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:paddingLeft"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">paddingLeft</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Number &nbsp; <span class="label">Format: </span>Length<br>
+ <p>Sets the size of the left margin.</p>
+  The default value is <code>0</code>.</td><td class="summaryTableOwnerCol">RadarChart</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:paddingRight"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">paddingRight</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Number &nbsp; <span class="label">Format: </span>Length<br>
+ <p>Sets the size of the right margin.</p>
+  The default value is <code>0</code>.</td><td class="summaryTableOwnerCol">RadarChart</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:paddingTop"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">paddingTop</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Number &nbsp; <span class="label">Format: </span>Length<br>
+ <p>Sets the size of the top margin.</p>
+  The default value is <code>3</code>.</td><td class="summaryTableOwnerCol">RadarChart</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:radialAxis"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">radialAxis</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Object<br>
+  Sets the axis for the radius of the radar.<br>
+  The valid valus is LinearAxis.
+  </td><td class="summaryTableOwnerCol">RadarChart</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:radialAxisRenderers"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">radialAxisRenderers</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Object<br>
+  Sets the renderer of radialAxis.<br>
+  e.g. if you want to change the location, color and text style of radialAxis, then you need to define the renderer.
+  The valid object is Axis2DRenderer.
+  </td><td class="summaryTableOwnerCol">RadarChart</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:series"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">series</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Object<br>
+  Sets the series. The valid object is RadarSeries.
+  </td><td class="summaryTableOwnerCol">RadarChart</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:showDataTips"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">showDataTips</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Boolean<br>
+ <p>Indicates whether or not to display tooltips when mouse over items.</p>
+  The default value is <code>false</code>.</td><td class="summaryTableOwnerCol">RadarChart</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:startAngle"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">startAngle</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Number<br>
+ <p>Sets the start angle for the first item of the series.</p>
+ The default is 0. (The 3 o'clock direction.)
+ </td><td class="summaryTableOwnerCol">RadarChart</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:styleName"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">styleName</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>String<br>
+ <p>Sets the name of the CSS style to be defined in the Style node (&lt;Style&gt;).</p>
+ </td><td class="summaryTableOwnerCol">RadarChart</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:touchMoveEnable"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">touchMoveEnable</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Boolean<br>
+ <p>Indicates whether or not to create the touchMove event in the browser<br>
+ when users move a certain area of the chart with a finger.<br>
+ If the touchMove event is created in the browser<br>
+ then the chart can be scrolled when the touchMove event occurs<br>
+ otherwise the chart cannot be scrolled when the touchMove event occurs.</p>
+  The default value is <code>true</code>.</td><td class="summaryTableOwnerCol">RadarChart</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:type"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">type</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>String<br>
+ <p>Sets the display type. The valid values are polygon and circle.</p>
+  The default value is <code>"polygon"</code>.</td><td class="summaryTableOwnerCol">RadarChart</td>
+</tr>
+</table>
+</div>
+<script type="text/javascript" language="javascript">
+<!--
+showHideInherited();
+--></script>
+<div class="MainContent">
+<br>
+<br>
+<hr>
+<br>
+<p></p>
+<center class="copyright">Copyright(c) 2012 RiaMore Soft, Inc. All Right Reserved</center>
+</div>
+</body>
+</html>
+<!--Copyright(c) 2012 RiaMore Soft, Inc. All Right Reserved-->

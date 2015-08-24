@@ -1,0 +1,69 @@
+﻿KoolChart for HTML5 License Agreement
+
+This is a legal agreement between the end user ("You") and RiaMore Soft, Inc ("Licensor") 
+which has the copyright of KoolChart for HTML5 ("Product").
+By installing the Product on PC, server or mobile devices (smartphone, tablet, etc) ("Device"), You are consenting to be bound by this agreement.
+If You do not agree to all of the terms of this agreement, please remove the Product from the Device.
+
+
+1. The Rights of Using
+
+- Trial Version: Your license to a trial version has limit on the period, and the watermark will appear 
+  at the top corners of the chart. This license can be used for evaluation purposes only.
+  The Licensor grants You to install or deploy the Product without any modification of the Product, and
+  using, deploying, selling or lending by extracting or copying any part of the Product is not permitted. 
+
+- Licensed Version: If You purchased a licensed version of the Product, Licensor grants You the legal right
+  to use. This license is a perpetual license to use and is limited to the authorized server.
+  Licensor grants You to install the Product on the authorized server only. Installing on the non-authorized server
+  or using, deploying, selling or lending by extracting or copying any part of the Product is not permitted.
+  But copying the Product to the non-authorized server is permitted for backup purposes only.
+  
+ Reverse assembling, reverse engineering, decompiling or derivative works of the Product is not permitted.
+
+
+2. Limited Warranty
+
+Once You install a licensed version of the Product on the Device, You cannot have the refund for any reason.
+You must be aware of the refund policy of Licensor and make sure the necessity of the licensed version before purchasing
+by the thorough evaluation of a trial version.
+If You purchased a licensed version of the Product, Licensor agrees to provide You with technical support services
+which include periodic distribution of bug fixes and minor enhancements scheduled by Licensor for the warranty period.
+Technical support inquiries are accepted during normal business hours and Licensor will attempt to respond to inquiries 
+within the same business day. Technical support is not provided for problems due to computer viruses, hardware related issues, 
+or conflicts with other software products.
+If You use a trial version of the Product, Licensor will provide limited technical support services and will not provide
+any warranty or indemnification due to the Product related problems.
+  
+
+3. Copyright
+
+The Licensor is the owner of the copyright of the Product, all of its derivatives, title and 
+accompanying materials are the exclusive property of Licensor. 
+
+
+4. Limitation of Liability
+
+The Licensor shall not be held liable for any consequential damages including but not limited to loss of profits or credits, 
+loss of savings or revenue, loss of data, punitive damages, loss of use of the product, and injury to property, 
+resulting from the purchase or use of the Product.
+
+
+5. Sales Rights in Japan
+
+Heuron (http://heuron.com) has the exclusive rights for sales and technical supports of the Product in Japan.
+
+
+6. General
+
+This Agreement is between You and Licensor and will be governed by and construed in accordance with the laws of Korea. 
+This Agreement has the priority over any prior written or verbal contract and will not be modified without a signed 
+document by the legal agent of Licensor. 
+
+
+7. Exception
+
+This Product includes "explorer canvas (excanvas.js, http://code.google.com/p/explorercanvas/)" written by Google.
+The explorer canvas is licensed by "Apache License 2.0 (http://www.apache.org/licenses/LICENSE-2.0)" and 
+is used to support Microsoft's IE 7 and 8.
+"Apache License 2.0" has the priority over this license agreement for the explorer canvas (excanvas.js).

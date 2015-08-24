@@ -1,0 +1,163 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="Content-Script-Type" content="text/javascript"/>
+<meta http-equiv="Content-Style-Type" content="text/css"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>KoolChart for HTML5 - Target vs Actual Chart</title>
+<link rel="stylesheet" type="text/css" href="./KoolChartSample.css"/>
+
+<!--  If you want to support IE 7/8, you'll need the conditional excanvas include. -->
+<!--[if IE]><script language="javascript" type="text/javascript" src="../KoolChart/JS/excanvas.js"></script><![endif]-->
+
+<!-- License Key -->
+<script language="javascript" type="text/javascript" src="../LicenseKey/KoolChartLicense.js"></script>
+
+<!-- KoolChart JavaScript library -->
+<script language="javascript" type="text/javascript" src="../KoolChart/JS/KoolChart.js"></script>
+
+<!-- Theme.js -->
+<script type="text/javascript" src="../KoolChart/Assets/Theme/theme.js"></script>
+
+<script type="text/javascript">
+
+//----------------------- Here we start creating a chart. -----------------------
+
+//Sets the value of KoolOnLoadCallFunction to the name of a JS function (e.g. chartReadyHandler) that is called when the chart is ready to be created.
+var chartVars = "KoolOnLoadCallFunction=chartReadyHandler";
+
+//Creates the chart.
+//Parameters:  
+//1. Chart ID: You can use any name you like. 
+//2. DIV ID: The chart will be placed in this DIV.
+//3. chartVars: Variables used for creating the chart.
+//4. Chart width: Default value is 100%
+//5. Chart height: Default value is 100%
+KoolChart.create("chart1", "chartHolder", chartVars, "100%", "100%"); 
+
+//The JavaScript function which is set to the value of KoolOnLoadCallFunction.
+//This function will call two functions, setLayout() and setData() which are two main functions of KoolChart.
+//Parameters: 
+//1. ID: The Chart ID which is used as the first parameter of KoolChart.create().
+function chartReadyHandler(id) {
+	document.getElementById(id).setLayout(layoutStr);
+	document.getElementById(id).setData(chartData);
+}
+
+//Declares Layout
+var layoutStr = 
+				'<KoolChart backgroundColor="0xFFFFFF" cornerRadius="12" borderStyle="none">'
+					+'<Options>'
+						+'<Caption text="Target vs Actual Chart" fontFamily="Malgun Gothic"/>'
+						+'<SubCaption text="Cylinder Type"/>'
+					+'</Options>'
+					+'<NumberFormatter id="numfmt" useThousandsSeparator="true"/>' 
+					+'<Combination3DChart showDataTips="true">'
+					/* 
+						Creating the Combination3DChart node. 
+						showDataTips: Whether or not to show tooltips when you mouse over items in the chart.
+					*/
+						+'<horizontalAxis>'
+							+'<CategoryAxis categoryField="Month"/>' 
+						+'</horizontalAxis>'
+						+'<verticalAxis>'
+							+'<LinearAxis  formatter="{numfmt}"/>'
+						+'</verticalAxis>'
+						+'<series>'
+						/* The important thing when creating the Target vs Actual chart is that the actual (VTarget2DResultSeries) should be defined first. */
+						/* Actual */
+							+'<VTarget3DResultSeries yField="Result" displayName="Result">'
+							/* The Target3DResultSeries node is created as a child node of the Combination3DChart node. */
+								+'<showDataEffect>'
+								/* Creating the showDataEffect node to use animation effects. */
+									+'<SeriesInterpolate/>' 
+									/* 
+										The SeriesInterpolate effect moves the graphics that represent the existing data in a series to the new points.
+										<Common properties>						
+											- elementOffset: the delay time of the effect. default:20
+											- minimumElementDuration: the minimum amount of time which is taken to complete the effect for each element. default:0
+											- offset: the delay time of the effect starting. default:0
+											- perElementOffset: the delay time of the starting for each element.
+									*/
+								+'</showDataEffect>'
+							+'</VTarget3DResultSeries>'
+							/* Target */
+							+'<VTarget3DGoalSeries yField="Goal" displayName="Goal" labelPosition="outside" showValueLabels="[5,6,7]" outsideLabelYOffset="-10">'
+							/* The Target2DGoalSeries node should be defined after the Target2DResultSeries node. */
+								+'<showDataEffect>'
+									+'<SeriesInterpolate/>' 
+								+'</showDataEffect>'
+								+'<fill>'
+									+'<SolidColor color="#FBDBAD"/>'
+								+'</fill>'
+								+'<stroke>'
+									+'<Stroke color="#FBDBAD"/>'
+								+'</stroke>'
+							+'</VTarget3DGoalSeries>'
+							/* Only two (Actual, Target) series should be defined in the Target vs Actual chart. */
+						+'</series>'
+					+'</Combination3DChart>'
+				+'</KoolChart>';
+
+//Declares Dataset
+var chartData = [{"Month":"Jan","Goal":1000,"Result":1500},
+				{"Month":"Feb","Goal":1400,"Result":1400},
+				{"Month":"Mar","Goal":1500,"Result":1200},
+				{"Month":"Apr","Goal":1900,"Result":1300},
+				{"Month":"May","Goal":1400,"Result":900},
+				{"Month":"Jun","Goal":2000,"Result":500},
+				{"Month":"Jul","Goal":1800,"Result":1400},
+				{"Month":"Aug","Goal":2500,"Result":800},
+				{"Month":"Sep","Goal":3000,"Result":1900},
+				{"Month":"Oct","Goal":2000,"Result":2300},
+				{"Month":"Nov","Goal":2100,"Result":2400},
+				{"Month":"Dec","Goal":1700,"Result":1900}];
+	
+/**
+ * If you want to use themes provided with KoolChart version 3.0, call the following functions.
+ * otherwise, comment out or delete the following functions.
+ *
+ * -- The Themes registered in KoolChart.themes --
+ * - simple
+ * - cyber
+ * - modern
+ * - lovely
+ * - pastel
+ * - old
+ * -------------------------------------------------
+ *
+ * The KoolChart.themes variable is defined in theme.js
+ */
+KoolChart.registerTheme(KoolChart.themes);
+
+/**
+ * The function called when the theme button in the sample HTML is clicked.
+ * Parameter Values:
+ * - simple
+ * - cyber
+ * - modern
+ * - lovely
+ * - pastel
+ * - old
+ * - default
+ *
+ * default: Applies the default theme which is the basic design of KoolChart.
+ * old: Applies the design of KoolChart version 2.5.
+ */
+function KoolChartChangeTheme(theme){
+	document.getElementById("chart1").setTheme(theme);
+}
+
+//----------------------- The end of the configuration for creating a chart. -----------------------
+	
+</script>
+</head>
+<body>
+	<div id="content">
+		<!-- The DIV in which the chart is placed -->
+		<div id="chartHolder" style="width:600px; height:400px;">
+		</div>
+	</div>
+</body>
+</html>

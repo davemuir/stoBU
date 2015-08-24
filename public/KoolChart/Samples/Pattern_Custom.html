@@ -1,0 +1,214 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="Content-Script-Type" content="text/javascript"/>
+<meta http-equiv="Content-Style-Type" content="text/css"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>KoolChart for HTML5</title>
+<link rel="stylesheet" type="text/css" href="./KoolChartSample.css"/>
+
+<!--  If you want to support IE 7/8, you'll need the conditional excanvas include. -->
+<!--[if IE]><script language="javascript" type="text/javascript" src="../KoolChart/JS/excanvas.js"></script><![endif]-->
+
+<!-- License Key -->
+<script language="javascript" type="text/javascript" src="../LicenseKey/KoolChartLicense.js"></script>
+
+<!-- KoolChart JavaScript library -->
+<script language="javascript" type="text/javascript" src="../KoolChart/JS/KoolChart.js"></script>
+
+<!-- The CSS style for KoolChart (This CSS style is required for only Legend, Preloader, Scroll Chart and History Chart) -->
+<link rel="stylesheet" type="text/css" href="../KoolChart/Assets/Css/KoolChart.css"/>
+
+<script type="text/javascript">
+
+//----------------------- Here we start creating a chart. -----------------------
+
+// Sets the value of KoolOnLoadCallFunction to the name of a JS function (e.g. chartReadyHandler) that is called when the chart is ready to be created.
+var chartVars = "KoolOnLoadCallFunction=chartReadyHandler";
+// Adds the string, usePattern=true, to chartVars
+chartVars += "&usePattern=true";
+
+//Sets the directory path of the pattern images
+KoolChart.patternImageBaseUrl = "../KoolChart/Assets/Patterns/";
+
+// An array of strings containing the names of the image files to use.
+KoolChart.patternImagesUrl = [
+	"diagonal_ltr.png",
+	"diagonal_rtl.png",
+	"diagonal.png",
+	"horizontal.png",
+	"vertical.png",
+	"both.png",
+	"up.png",
+	"right.png",
+	"horizontal_curve.png",
+	"vertical_curve.png",
+	"horizontal_pipe.png",
+	"vertical_pipe.png",
+	"rectangle.png",
+	"circle.png",
+	"diamond.png",
+	"triangle.png",
+	"down_triangle.png",
+	"cross.png",
+	"rectangle2.png",
+	"circle.png"
+];
+
+//Creates the chart.
+//Parameters:  
+//1. Chart ID: You can use any name you like. 
+//2. DIV ID: The chart will be placed in this DIV.
+//3. chartVars: Variables used for creating the chart.
+//4. Chart width: Default value is 100%
+//5. Chart height: Default value is 100%
+KoolChart.create("chart1", "chartHolder", chartVars, "100%", "100%"); 
+
+//The JavaScript function which is set to the value of KoolOnLoadCallFunction.
+//This function will call two functions, setLayout() and setData() which are two main functions of KoolChart.
+//Parameters: 
+//1. ID: The Chart ID which is used as the first parameter of KoolChart.create().
+function chartReadyHandler(id) {
+	document.getElementById(id).setLayout(layoutStr);
+	document.getElementById(id).setData(chartData);
+}
+
+var layoutStr = '<KoolChart backgroundColor="0xFFFFFF" borderStyle="none">'
+					+'<Options>'
+						+'<Caption text="You can specify the patterns based on the values." fontFamily="Malgun Gothic"/>'
+					+'</Options>'
+					+'<NumberFormatter id="numfmt" useThousandsSeparator="true"/>'
+					/* Sets the value of the patternMode property to true. */
+					+'<Column2DChart showDataTips="true" patternMode="true">'
+						+'<horizontalAxis>'
+							+'<CategoryAxis categoryField="Month"/>'
+						+'</horizontalAxis>'
+						+'<verticalAxis>'
+							+'<LinearAxis interval="300" formatter="{numfmt}"/>'
+						+'</verticalAxis>'
+						+'<series>'
+							/* Sets the value of the patternJsFunction property to the JS function name */
+							+'<Column2DSeries yField="Profit" displayName="Profit" patternJsFunction="patternFunc">'
+								+'<showDataEffect>'
+									+'<SeriesSlide duration="1000" direction="up"/>' 
+								+'</showDataEffect>'
+							+'</Column2DSeries>'
+						+'</series>'
+					+'</Column2DChart>'
+				+'</KoolChart>';
+
+var chartData = [{"Month":"Jan","Profit":1000},
+				{"Month":"Feb","Profit":1400},
+				{"Month":"Mar","Profit":1500},
+				{"Month":"Apr","Profit":1900},
+				{"Month":"May","Profit":1400},
+				{"Month":"Jun","Profit":2000},
+				{"Month":"Jul","Profit":1800},
+				{"Month":"Aug","Profit":2500},
+				{"Month":"Sep","Profit":3000},
+				{"Month":"Oct","Profit":2000},
+				{"Month":"Nov","Profit":2100},
+				{"Month":"Dec","Profit":1700}];
+
+// patternJsFunction
+// id: Series ID
+// values: The value is an array and each element in the array is different depending on the chart type.
+//			Line2DSeries : 0: X-axis value, 1: Y-axis value
+//			Column2D(3D)Seires : 0: X-axis value, 1: Y-axis value
+//			Column2DWingSeries : 0: X-axis value, 1: Y-axis value
+//			Bar2D(3D)Series : 0: X-axis value, 1: Y-axis value
+//			Bar2DWingSeries : 0: X-axis value, 1: Y-axis value
+//			Plot2DSeries : 0: X-axis value, 1: Y-axis value
+//			Bubble3DSeries : 0: X-axis value, 1: Y-axis value, 2: radius
+//			Matrix2DSeries : 0: : X-axis value, 1: Y-axis value, 2: Z-axis value
+//			CircularGaguge, HalfCircularGauge: : X-axis value
+//			Area2DSeries, RadarSeries: null
+// patternIndex: The total number of patterns provided by KoolChart.
+//
+// Index value: Real value (pattern)
+// 0: ▨
+// 1: ▧
+// 2: ▩
+// 3: ▤
+// 4: ▥
+// 5: ▦
+// 6: ∧ 
+// 7: >
+// 8: ~
+// 9: ∫
+// 10: horizontal pipe
+// 11: vertical pipe
+// 12: □
+// 13: O
+// 14: ◇
+// 15: △
+// 16: ▽
+// 17: +
+// 18: ▣
+// 19: ⊙
+function patternFunc(id, values, patternIndex)
+{
+	if(values[1] <= 1500)
+		return 5;
+	else if(values[1] >= 1500 && values[1] <= 2500)
+		return 14;
+	else
+		return 19;
+	return 0;
+}
+
+//Applying patterns for visually impaired  users
+function accessibilityPattern(e){
+	var enable = true,
+		elem = e.target || e.srcElement;
+
+	if(elem.innerHTML == "Apply Pattern"){
+		elem.innerHTML = "Disapply Pattern";
+	}else{
+		elem.innerHTML = "Apply Pattern";
+		enable = false;
+	}
+	document.getElementById("chart1").accessibilityPattern(enable);
+}
+
+
+//----------------------- The end of the configuration for creating a chart. -----------------------
+
+</script>
+</head>
+<body>
+	<div id="header">
+		<div class="button button_top" onclick="accessibilityPattern(event);">Disapply Pattern</div>
+	</div>
+	<div id="content">
+		<!-- The DIV in which the chart is placed -->
+		<div id="chartHolder" style="width:600px; height:400px;">
+		</div>
+	</div>
+	<div id="footer">	
+	<font size="3"><b>This sample is to show how to apply the patterns based on the values.</b></font><br>
+<pre>
+
+<b>●Layout</b>
+&#60;Column2DSeries yField="Profit" displayName="Profit" <font color="#ff0000">patternJsFunction="patternFunc"</font>&#62;
+
+<b>●Script</b>
+<font color="#0000ff">var</font> chartVars = "KoolOnLoadCallFunction=chartReadyHandler";
+<font color="#01BAC5">If you want to apply patterns, please add the string, usePattern=true, to chartVars</font>
+<font color="#ff0000">chartVars += "&usePattern=true";</font>
+
+<font color="#0000ff">function</font> patternFunc(id, values, patternIndex)
+{
+	if(values[1] <= 1500)
+		return 5;
+	else if(values[1] >= 1500 && values[1] <= 2500)
+		return 14;
+	else
+		return 19;
+	return 0;
+}
+</pre>
+		</div>
+</body>
+</html>

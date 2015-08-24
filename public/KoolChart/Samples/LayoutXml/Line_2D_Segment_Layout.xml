@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<KoolChart backgroundColor="0xFFFFFF" borderStyle="none">
+	<Options>
+		<Caption text="Monthly Report"/>
+	</Options>
+	<NumberFormatter id="numFmt" precision="0" useThousandsSeparator="true"/>
+	<Line2DChart showDataTips="true">
+		<horizontalAxis>
+			<CategoryAxis categoryField="Month" padding="0"/>
+		</horizontalAxis>
+		<verticalAxis>
+			<LinearAxis interval="300" formatter="{numFmt}"/>
+		</verticalAxis>
+		<series>
+			<Line2DSeries yField="Profit" form="segment">
+				<showDataEffect>
+					<SeriesInterpolate/> 
+				</showDataEffect>
+			</Line2DSeries>
+		</series>
+	</Line2DChart>
+</KoolChart>

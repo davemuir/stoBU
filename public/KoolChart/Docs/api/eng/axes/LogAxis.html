@@ -1,0 +1,184 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="../../style.css" type="text/css" media="screen">
+<link rel="stylesheet" href="../../print.css" type="text/css" media="print">
+<meta content="LogAxis,eng.axes.LogAxis" name="keywords">
+<title>eng.axes.LogAxis</title>
+</head>
+<body>
+<script type="text/javascript" language="javascript" src="../../asdoc.js"></script><script type="text/javascript" language="javascript" src="../../cookies.js"></script><script type="text/javascript" language="javascript">
+<!--
+				asdocTitle = 'LogAxis - KoolChart for HTML5 Ver. 3.0 Reference By RiaMore Soft.';
+				var baseRef = '../../';
+				window.onload = configPage;
+			--></script>
+<table style="display:none" id="titleTable" cellspacing="0" cellpadding="0" class="titleTable">
+<tr>
+<td align="left" class="titleTableTitle">KoolChart for HTML5 Ver. 3.0 Reference</td><td align="right" class="titleTableTopNav"><a onclick="loadClassListFrame('../../all-classes.html')" href="../../package-summary.html">All&nbsp;Packages</a>&nbsp;|&nbsp;<a onclick="loadClassListFrame('../../all-classes.html')" href="../../class-summary.html">All&nbsp;Classes</a>&nbsp;|&nbsp;<a onclick="loadClassListFrame('../../index-list.html')" href="../../all-index-A.html">Index</a>&nbsp;|&nbsp;<a href="../../index.html?eng/axes/LogAxis.html&amp;eng/axes/class-list.html" id="framesLink1">Frames</a><a onclick="parent.location=document.location" href="" style="display:none" id="noFramesLink1">No&nbsp;Frames</a></td><td rowspan="3" align="right" class="titleTableLogo"><a href="www.koolchart.com"><img alt="KoolChart Logo" title="KoolChart Logo" class="logoImage" src="../../images/logo.png"></a></td>
+</tr>
+<tr class="titleTableRow2">
+<td align="left" id="subTitle" class="titleTableSubTitle">Class&nbsp;LogAxis</td><td align="right" id="subNav" class="titleTableSubNav"><a href="#styleSummary">Styles</a></td>
+</tr>
+<tr class="titleTableRow3">
+<td colspan="2">&nbsp;</td>
+</tr>
+</table>
+<script type="text/javascript" language="javascript">
+<!--
+if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Class LogAxis"); titleBar_setSubNav(false,false,true,false,false,false,false,false,false,false,false,false,false,false);}
+--></script>
+<div class="MainContent">
+<table cellspacing="0" cellpadding="0" class="classHeaderTable">
+<tr>
+<td class="classHeaderTableLabel">Package</td><td><a onclick="javascript:loadClassListFrame('class-list.html')" href="package-detail.html">eng.axes</a></td>
+</tr>
+<tr>
+<td class="classHeaderTableLabel">Class</td><td class="classSignature">public class LogAxis</td>
+</tr>
+</table>
+<p></p>
+ The LogAxis class (&lt;LogAxis&gt;) is useful when your data values span orders of magnitude.
+ <br>The log base is 10.
+ <p></p>
+<br>
+<hr>
+</div>
+<a name="styleSummary"></a>
+<div class="summarySection">
+<div class="summaryTableTitle">Styles</div>
+<table id="summaryTableStyle" class="summaryTable " cellpadding="3" cellspacing="0">
+<tr>
+<th>&nbsp;</th><th colspan="2">Style</th><th>Description</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:baseAtZero"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">baseAtZero</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Boolean<br>
+ <p>Indicates whether or not to set the start value of the axis to 0. e.g. if all the values in the series are positive, then the minimum value will be 0. If all the values in the series are negative, then the maximum value will be 0.</p>
+  The default value is <code>true</code>.</td><td class="summaryTableOwnerCol">LogAxis</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:displayName"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">displayName</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>String<br>
+ <p>Sets the axis name. It is displayed in datatips (tooltips).</p>
+ </td><td class="summaryTableOwnerCol">LogAxis</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:formatter"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">formatter</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Object<br>
+ <p>Sets the formatter for formatting values.</p>
+ </td><td class="summaryTableOwnerCol">LogAxis</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:id"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">id</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>String<br>
+ <p>Sets id. id is an unique identifier defined by users.</p>
+ You can access to an object by using id.<br>
+ </td><td class="summaryTableOwnerCol">LogAxis</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:interval"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">interval</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Number<br>
+ <p>Sets the interval between two consecutive data as the multiplier of 10. e.g. if you set as interval="2", the interval will be 100.</p>
+ </td><td class="summaryTableOwnerCol">LogAxis</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:labelJsFunction"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">labelJsFunction</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>String<br>
+ 
+ Sets the JavaScript function to be called to display the user-defined label.<br>
+ Sets the value of the labelJsFunction property to the name of the JavaScript function as follows:
+ <pre>
+ e.g. &lt;horizontalAxis&gt;
+        &lt;LogAxis id="hAxis" labelJsFunction="axisLabelFunc" /&gt;
+    &lt;/horizontalAxis&gt;
+ </pre>
+ <p>The signature of <code>labelJsFunction</code> is as follows:
+ 
+ <pre>
+ <i>function_name</i>(value) { ... }
+  <code>value</code>: The value of the label for the current item.
+  </pre>
+</td><td class="summaryTableOwnerCol">LogAxis</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:maximum"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">maximum</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Number<br>
+ <p>Sets the maximum value of the axis label.</p>
+ </td><td class="summaryTableOwnerCol">LogAxis</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:minimum"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">minimum</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Number<br>
+ <p>Sets the minimum value of the axis label.</p>
+ </td><td class="summaryTableOwnerCol">LogAxis</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:minorInterval"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">minorInterval</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Number<br>
+ <p>Sets the interval between two consecutive minor ticks.</p>
+ </td><td class="summaryTableOwnerCol">LogAxis</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:padding"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">padding</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Number<br>
+ <p>Sets the value which is added to the minimum or maximum value of the axis.</p>
+  The default value is <code>0</code>.</td><td class="summaryTableOwnerCol">LogAxis</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:title"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">title</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>String<br>
+ <p>Sets the axis title. The title of the vertical axis is displayed lengthwise.</p> 
+ </td><td class="summaryTableOwnerCol">LogAxis</td>
+</tr>
+</table>
+</div>
+<script type="text/javascript" language="javascript">
+<!--
+showHideInherited();
+--></script>
+<div class="MainContent">
+<br>
+<br>
+<hr>
+<br>
+<p></p>
+<center class="copyright">Copyright(c) 2012 RiaMore Soft, Inc. All Right Reserved</center>
+</div>
+</body>
+</html>
+<!--Copyright(c) 2012 RiaMore Soft, Inc. All Right Reserved-->

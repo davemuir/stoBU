@@ -1,0 +1,117 @@
+/* Scrollbar Div */
+.KoolChart__ScrollBar {
+}
+
+/* Horizontal scrollbar track Div */
+.KoolChart__HScrollTrack {
+	background-color:#f2f2f2;
+	border:1px solid #e7e7e7;
+}
+
+/* Horizontal scrollbar thumb Div */
+.KoolChart__HScrollThumb {
+	cursor:pointer;
+	border:1px solid #cfcfcf;
+	background:url("./h_scroll_thumb.png");
+}
+
+/* Horizontal scrollbar thumb Div - hover */
+.KoolChart__HScrollThumb:hover{
+	background:url("./h_scroll_thumb_hover.png");
+}
+
+/* Horizontal scrollbar thumb header Div  */
+.KoolChart__HScrollThumbHeader{
+}
+
+/* Horizontal scrollbar right arrow Div  */
+.KoolChart__HScrollUpArrow {
+	border:1px solid #e7e7e7;
+	border-right:none;
+	background:#f2f2f2 url("./left_arrow.png") no-repeat center center;
+	cursor:pointer;
+}
+
+/* Horizontal scrollbar left arrow Div  */
+.KoolChart__HScrollDownArrow {
+	border:1px solid #e7e7e7;
+	border-left:none;
+	background:#f2f2f2 url("./right_arrow.png") no-repeat center center;
+	cursor:pointer;
+}
+
+/* Vertical scrollbar track Div */
+.KoolChart__VScrollTrack {
+	background-color:#f2f2f2;
+	border:1px solid #e7e7e7;
+}
+
+.KoolChart__VScrollThumb {
+	cursor:pointer;
+	border:1px solid #cfcfcf;
+	background:url("./v_scroll_thumb.png");
+}
+
+.KoolChart__VScrollThumb:hover{
+	background:url("./v_scroll_thumb_hover.png");
+}
+
+.KoolChart__VScrollThumbHeader{
+}
+
+.KoolChart__VScrollUpArrow {
+	border:1px solid #e7e7e7;
+	border-bottom:none;
+	background:#f2f2f2 url("./up_arrow.png") no-repeat center center;
+	cursor:pointer;
+}
+
+.KoolChart__VScrollDownArrow {
+	border:1px solid #e7e7e7;
+	border-top:none;
+	background:#f2f2f2 url("./down_arrow.png") no-repeat center center;
+	cursor:pointer;
+}
+
+/* History chart range selector thumb */
+.KoolChart__ChartRangeSelector_Thumb {
+	background:url("./selector.png") no-repeat;
+	cursor:col-resize;
+}
+
+/* Preloader Div */
+.KoolChart__Preloader {
+	top:0px;
+	left:0px;
+	z-index:2;
+	width:100%;
+	height:100%;
+	opacity:0.7;
+	filter: progid:DXImageTransform.Microsoft.Alpha(opacity=70); 
+	background:url("./loader.gif") 50% 50% no-repeat #FFF;
+}
+
+.KoolChart__DataEditor_CloseButton{
+	background:url("./close_btn.png") no-repeat;
+}
+
+.KoolChart__DataEditor_CloseButton:hover{
+	background:url("./hover_close_btn.png") no-repeat;
+}
+
+.KoolChart__PrevButton{
+	background:url("./slide_left.png") no-repeat 50% 50%;
+}
+
+.KoolChart__NextButton{
+	background:url("./slide_right.png") no-repeat 50% 50%;
+}
+
+/* Slide button */
+.KoolChart__Button{
+	background:url("./slide_button.png") no-repeat;
+}
+
+.KoolChart__Active_Button{
+	background:url("./slide_active_button.png") no-repeat;
+}

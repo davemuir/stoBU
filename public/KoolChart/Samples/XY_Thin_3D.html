@@ -1,0 +1,119 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="Content-Script-Type" content="text/javascript"/>
+<meta http-equiv="Content-Style-Type" content="text/css"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>KoolChart for HTML5</title>
+<link rel="stylesheet" type="text/css" href="./KoolChartSample.css"/>
+
+<!--  If you want to support IE 7/8, you'll need the conditional excanvas include. -->
+<!--[if IE]><script language="javascript" type="text/javascript" src="../KoolChart/JS/excanvas.js"></script><![endif]-->
+
+<!-- License Key -->
+<script language="javascript" type="text/javascript" src="../LicenseKey/KoolChartLicense.js"></script>
+
+<!-- KoolChart JavaScript library -->
+<script language="javascript" type="text/javascript" src="../KoolChart/JS/KoolChart.js"></script>
+
+<script type="text/javascript">
+
+//----------------------- Here we start creating a chart. -----------------------
+
+//Sets the value of KoolOnLoadCallFunction to the name of a JS function (e.g. chartReadyHandler) that is called when the chart is ready to be created.
+var chartVars = "KoolOnLoadCallFunction=chartReadyHandler";
+
+//Creates the chart.
+//Parameters:  
+//1. Chart ID: You can use any name you like. 
+//2. DIV ID: The chart will be placed in this DIV.
+//3. chartVars: Variables used for creating the chart.
+//4. Chart width: Default value is 100%
+//5. Chart height: Default value is 100%
+KoolChart.create("chart1", "chartHolder", chartVars, "100%", "100%"); 
+
+//The JavaScript function which is set to the value of KoolOnLoadCallFunction.
+//This function will call two functions, setLayout() and setData() which are two main functions of KoolChart.
+//Parameters: 
+//1. ID: The Chart ID which is used as the first parameter of KoolChart.create().
+function chartReadyHandler(id) {
+	document.getElementById(id).setLayout(layoutStr);
+	document.getElementById(id).setData(chartData);
+}
+
+// Declares Layout
+var layoutStr = 
+				'<KoolChart backgroundColor="0xFFFFFF" paddingTop="40" cornerRadius="12" borderStyle="none">'
+					+'<Column3DChart cubeDepth="12" cubeAngleRatio="0.7" showDataTips="true">'
+						+'<horizontalAxis>'
+							+'<LinearAxis id="hAxis" interval="1" title="Month" padding="1" labelJsFunction="horiFunc"/>'
+						+'</horizontalAxis>'
+						+'<verticalAxis>'
+							+'<LinearAxis id="vAxis" title="Profit" maximum="2200"/>'
+						+'</verticalAxis>'
+						+'<series>'
+							+'<Column3DSeries yField="Profit" labelPosition="outside" itemRenderer="CylinderItemRenderer" outsideLabelYOffset="-10">'
+								+'<showDataEffect>'
+									+'<SeriesInterpolate/>' 
+								+'</showDataEffect>'
+							+'</Column3DSeries>'
+						+'</series>'
+						+'<verticalAxisRenderers>'
+							+'<Axis3DRenderer axis="{vAxis}" tickPlacement="none" minorTickPlacement="none" showLabels="false" >'
+								+'<axisStroke>'
+									+'<Stroke color="0xba97a2" weight="1"/>'
+								+'</axisStroke>'
+							+'</Axis3DRenderer>'
+						+'</verticalAxisRenderers>'
+						+'<horizontalAxisRenderers>'
+							+'<Axis3DRenderer axis="{hAxis}" styleName="labelStyle">'
+								+'<axisStroke>'
+									+'<Stroke color="0xba97a2" weight="1"/>'
+								+'</axisStroke>'
+							+'</Axis3DRenderer>'
+						+'</horizontalAxisRenderers>'
+					+'</Column3DChart>'
+					+'<Style>'
+				+'.labelStyle{fontSize:12;}'
+				+'</Style>'
+				+'</KoolChart>';
+
+// Declares Dataset
+var chartData = [{"Month":"Jan-Feb","Profit":900},
+				{"Month":"Mar-Apr","Profit":1400},
+				{"Month":"May-Jun","Profit":1500},
+				{"Month":"Jul-Aug","Profit":1900},
+				{"Month":"Sep-Oct","Profit":1400},
+				{"Month":"Nov-Dec","Profit":2000}];
+
+function horiFunc(id, value)
+{
+	if(value==0)
+		return "Jan - Feb";
+	else if(value==1)
+		return "Mar-Apr";
+	else if(value==2)
+		return "May-Jun";
+	else if(value==3)
+		return "Jul-Aug";
+	else if(value==4)
+		return "Sep-Oct";
+	else if(value==5)
+		return "Nov-Dec";
+	else
+		return "";
+}
+
+//----------------------- The end of the configuration for creating a chart. -----------------------
+
+</script>
+</head>
+<body>
+	<div id="content">
+		<!-- The DIV in which the chart is placed -->
+		<div id="chartHolder" style="width:600px; height:400px;">
+		</div>
+	</div>
+</body>
+</html>

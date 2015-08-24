@@ -1,0 +1,223 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="Content-Script-Type" content="text/javascript"/>
+<meta http-equiv="Content-Style-Type" content="text/css"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>KoolChart for HTML5</title>
+<link rel="stylesheet" type="text/css" href="./KoolChartSample.css"/>
+
+<!--  If you want to support IE 7/8, you'll need the conditional excanvas include. -->
+<!--[if IE]><script language="javascript" type="text/javascript" src="../KoolChart/JS/excanvas.js"></script><![endif]-->
+
+<!-- License Key -->
+<script language="javascript" type="text/javascript" src="../LicenseKey/KoolChartLicense.js"></script>
+
+<!-- KoolChart JavaScript library -->
+<script language="javascript" type="text/javascript" src="../KoolChart/JS/KoolChart.js"></script>
+
+<!-- The CSS style for KoolChart (This CSS style is required for only Legend, Preloader, Scroll Chart and History Chart) -->
+<link rel="stylesheet" type="text/css" href="../KoolChart/Assets/Css/KoolChart.css"/>
+
+<script type="text/javascript">
+
+//----------------------- Here we start creating a chart. -----------------------
+
+//Sets the value of KoolOnLoadCallFunction to the name of a JS function (e.g. chartReadyHandler) that is called when the chart is ready to be created.
+var chartVars = "KoolOnLoadCallFunction=chartReadyHandler";
+
+//Data Editor will be used
+chartVars += "&useDataEditor=true";
+
+// Sets the directory path of the data editor
+KoolChart.dataEditorUrl = "../KoolChart/JS/editablegrid-2.0.1.js";
+
+//Creates the chart.
+//Parameters:  
+//1. Chart ID: You can use any name you like. 
+//2. DIV ID: The chart will be placed in this DIV.
+//3. chartVars: Variables used for creating the chart.
+//4. Chart width: Default value is 100%
+//5. Chart height: Default value is 100%
+KoolChart.create("chart1", "chartHolder", chartVars, "100%", "100%"); 
+
+//The JavaScript function which is set to the value of KoolOnLoadCallFunction.
+//This function will call two functions, setLayout() and setData() which are two main functions of KoolChart.
+//Parameters: 
+//1. ID: The Chart ID which is used as the first parameter of KoolChart.create().
+function chartReadyHandler(id)
+{
+	document.getElementById(id).setLayout(layoutStr);
+	document.getElementById(id).setData(chartData);
+}	
+	
+//Declares Layout
+var layoutStr = 
+				'<KoolChart backgroundColor="0xFFFFFF" borderStyle="none">'
+					+'<NumberFormatter id="numFmt" precision="0"/>'
+					+'<Options>'
+						+'<Caption text="Sales Report"/>'
+						+'<DataEditor showOnInit="true" formatter="{numFmt}" editorHeight="96" reverseRow="true" styleName="gridStyle"/>' 
+					/* 
+						Data Editor
+						showOnInit: whether or not to show the data editor with the chart.
+						useCloseButton: whether or not to show the close button at the top-right of the editor.
+						editorHeight: Sets the height of the editor.
+						borderColor: Sets the border color of the editor.
+						fontFamily: Sets the font name.
+						fontWeight: Sets the font weight. normal | bold
+						fontSize: Sets the font size.
+						color: Sets the font color.
+						headerColors: Sets the color of the header.
+						headerHeight: Sete the height of the header.
+						reverseRow: Whether or not to display data in the reverse order of the chart data.
+						showHeader: Whether or not to show the header.
+						textAlign: Sets the alignment of text in the editor. left | center | right
+						verticalAlign: Sets the vertical alignment of text in the cell. top | middle | bottom
+						styleName: Sets the style name of the data editor.
+						minColumnWidth: Sets the minimum size of the column.
+					*/
+					+'</Options>'
+					+'<NumberFormatter id="numfmt" useThousandsSeparator="true"/>'
+					+'<Column2DChart showDataTips="true" selectionMode="single">'
+						+'<horizontalAxis>'
+							+'<CategoryAxis categoryField="Period" />' 
+						+'</horizontalAxis>'
+						+'<verticalAxis>'
+							+'<LinearAxis formatter="{numfmt}"/>'
+						+'</verticalAxis>'
+						+'<series>'
+							+'<Column2DSet type="stacked" showTotalLabel="true" totalLabelJsFunction="totalFunc" fontFamily="Myriad">'
+								+'<series>'
+									+'<Column2DSeries showValueLabels="[4,6]" labelPosition="inside" showLabelVertically="true" yField="iPhone" displayName="iPhone">'
+										+'<showDataEffect>'
+											+'<SeriesInterpolate/>'
+										+'</showDataEffect>'
+									+'</Column2DSeries>'
+									+'<Column2DSeries showValueLabels="[4,6]" labelPosition="inside" showLabelVertically="true" yField="iPad" displayName="iPad">'
+										+'<showDataEffect>'
+											+'<SeriesInterpolate/>'
+										+'</showDataEffect>'
+									+'</Column2DSeries>'
+									+'<Column2DSeries showValueLabels="[4,6]" labelPosition="inside" showLabelVertically="true" yField="Mac" displayName="Mac">'
+										+'<showDataEffect>'
+											+'<SeriesInterpolate/>'
+										+'</showDataEffect>'
+									+'</Column2DSeries>'
+								+'</series>'
+							+'</Column2DSet>'
+						+'</series>'
+					+'</Column2DChart>'
+					+'<Style>'
+						+'.gridStyle{'
+							+'color:#378F8B;'
+							+'alternatingItemColors:#e3e4e4,#e3e4e4;'
+							+'headerColors:#7dcad0,#7dcad0;'
+							+'headerStyleName:gridHeaderStyle;'
+							+'horizontalGridLines:true;'
+							+'horizontalGridLineColor:#5C8484;'
+							+'selectionColor:#ADC1C1;'
+							+'rollOverColor:#CC9999;'
+							+'fontWeight:bold;'
+							+'fontSize:11;'
+							+'verticalAlign:middle;'
+							+'verticalGridLineColor:#5C8484;'
+						+'}'
+						+'.gridHeaderStyle{'
+							+'color:#fefefe;'
+						+'}'
+					+'</Style>'
+				+'</KoolChart>';
+
+// Declares Dataset
+var chartData = [{"Period":"Q1 / 12", "iPhone":37, "iPad":15, "Mac":15},
+                 {"Period":"Q2 / 12", "iPhone":35, "iPad":11, "Mac":13},
+                 {"Period":"Q3 / 12", "iPhone":26, "iPad":17, "Mac":17},
+                 {"Period":"Q4 / 12", "iPhone":26, "iPad":14, "Mac":19},
+                 {"Period":"Q1 / 13", "iPhone":47, "iPad":22, "Mac":21},
+                 {"Period":"Q2 / 13", "iPhone":37, "iPad":19, "Mac":12},
+                 {"Period":"Q3 / 13", "iPhone":31, "iPad":14, "Mac":11},
+                 {"Period":"Q4 / 13", "iPhone":33, "iPad":14, "Mac":13},
+                 {"Period":"Q1 / 14", "iPhone":51, "iPad":26, "Mac":13},
+                 {"Period":"Q2 / 14", "iPhone":43, "iPad":16, "Mac":14}];
+	
+//----------------------- The end of the configuration for creating a chart. -----------------------
+
+//Getting the snapshot of the chart using Base64 encoding.
+function GetSnapshot(){
+	if(compIE()){
+		// This function returns the chart image by using Base64 encoding.
+		var base64src = document.getElementById("chart1").getSnapshot();
+
+		var data = document.getElementById("data");
+		var extension = document.getElementById("extension");
+		
+		// extension
+		extension.value = "png";
+		
+		// source
+		data.value = base64src;
+
+		// Saving the image file by decoding the Base64-encoded string at the server side.
+		document.getElementById("sumForm").submit();
+	}
+}
+
+//Popup to save the image file
+function saveAsImage(){
+	if(compIE()){
+		var holder = document.getElementById("chartHolder"),
+			holderW = holder.offsetWidth + 10, // chartHolder width
+			holderH = holder.offsetHeight + 30, // chartHolder height
+			base64src = document.getElementById("chart1").saveAsImage(), // The image data of the chart
+			imageWindow = window.open("./Save_Image.html","_blank","width="+holderW+", height="+holderH); // The popup window to which the image is saved
+		imageWindow.document.write("<img src='"+base64src+"'/>");
+		imageWindow.document.write("<div style='font:100%/1.4 Verdana, Arial, Helvetica, sans-serif;'>Mouse Right Click -> Save as Image<div>");
+	}
+}
+
+function compIE(){
+	var agent = navigator.userAgent;
+	if(agent.indexOf("MSIE 7.0") > -1 || agent.indexOf("MSIE 8.0") > - 1 || agent.indexOf("Trident 4.0") > -1){
+		alert("Sending the chart image to the server and saving the image file are not supported in IE7,8.");
+		return false;
+	}
+	if(document.documentMode && document.documentMode <= 5){
+		alert("Sending the chart image to the server and saving the image file are not supported in Quirks mode.");
+		return false;
+	}
+	return true;
+}
+
+function totalFunc(index, data, value){
+	if(index == 6 || index == 4)
+		return value;
+	return "";
+}
+
+</script>
+</head>
+<body>	
+	<form id="sumForm" name="sumForm" action="http://www.koolchart.com/hsyu/html5Upload.php" method="post">
+		<input type="hidden" id="data" name="data" type="text"/>
+		<input type="hidden" id="extension" name="extension" value="png"/>
+	</form>
+	<div id="header">
+		<div class="button button_top" onclick="GetSnapshot();">Send to Server</div>
+		<div class="button button_top" onclick="saveAsImage();">Save as Image</div>
+	</div>
+	<div id="content">
+		<!-- The DIV in which the chart is placed -->
+		<div id="chartHolder" style="width:600px; height:400px;">
+		</div>
+	</div>
+	<div id="footer">	
+	<br><br><font color="#ff0000" size="4"><b>Sending the chart image to the server and saving the image file are not supported in IE7,8.<br>
+	Please refer to the HTML file for the details.</b></font>
+		
+<pre>
+</pre>
+		</div>
+</body>
+</html>

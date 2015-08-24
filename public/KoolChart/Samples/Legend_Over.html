@@ -1,0 +1,160 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="Content-Script-Type" content="text/javascript"/>
+<meta http-equiv="Content-Style-Type" content="text/css"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>KoolChart for HTML5</title>
+<link rel="stylesheet" type="text/css" href="./KoolChartSample.css"/>
+
+<!--  If you want to support IE 7/8, you'll need the conditional excanvas include. -->
+<!--[if IE]><script language="javascript" type="text/javascript" src="../KoolChart/JS/excanvas.js"></script><![endif]-->
+
+<!-- License Key -->
+<script language="javascript" type="text/javascript" src="../LicenseKey/KoolChartLicense.js"></script>
+
+<!-- KoolChart JavaScript library -->
+<script language="javascript" type="text/javascript" src="../KoolChart/JS/KoolChart.js"></script>
+
+<!-- The CSS style for KoolChart (This CSS style is required for only Legend, Preloader, Scroll Chart and History Chart) -->
+<link rel="stylesheet" type="text/css" href="../KoolChart/Assets/Css/KoolChart.css"/>
+
+<script type="text/javascript">
+
+//----------------------- Here we start creating a chart. -----------------------
+
+//Sets the value of KoolOnLoadCallFunction to the name of a JS function (e.g. chartReadyHandler) that is called when the chart is ready to be created.
+var chartVars = "KoolOnLoadCallFunction=chartReadyHandler";
+
+//Creates the chart.
+//Parameters:  
+//1. Chart ID: You can use any name you like. 
+//2. DIV ID: The chart will be placed in this DIV.
+//3. chartVars: Variables used for creating the chart.
+//4. Chart width: Default value is 100%
+//5. Chart height: Default value is 100%
+KoolChart.create("chart1", "chartHolder", chartVars, "100%", "100%"); 
+
+//The JavaScript function which is set to the value of KoolOnLoadCallFunction.
+//This function will call two functions, setLayout() and setData() which are two main functions of KoolChart.
+//Parameters: 
+//1. ID: The Chart ID which is used as the first parameter of KoolChart.create().
+function chartReadyHandler(id) {
+	document.getElementById(id).setLayout(layoutStr);
+	document.getElementById(id).setData(chartData);
+}
+
+//Declares Layout
+var layoutStr = 
+		'<KoolChart backgroundColor="0xFFFFFF" paddingRight="10" borderStyle="none" cornerRadius="5">'
+			+'<Options>'
+				+'<Caption text="Annual Report"/>'
+				+'<Legend position="right" useVisibleCheck="true" enableFilter="true" direction="vertical" labelPlacement="right" markerWidth="12" markerHeight="12" width="110" height="130" verticalScrollPolicy="on"/>'
+			/* 
+				- The properties of Legend -
+				useVisibleCheck: whether or not to use the checkbox. you can not use the checkbox in Pie (or Doughnut) Chart.
+				defaultMouseOverAction : whether or not to use the default action when mouse over on the legend.
+				position - bottom, left, right, top: the location of the legend. The valid values are left, right, top and bottom.
+				direction - horizontal, vertical: the direction of the text. The valid values are horizontal and vertical.
+				hAlign - center, left, right: the horizontal alignment of the items. The valid values are left, center and right. default: center
+				vAlign - middle, top, bottom: the vertical alignment of the items. The valid values are top, middle and bottom. default: middle
+				labelPlacement - right, left, top, bottom: the location of the labels.
+				backgorundColor: the background color. 
+				color: the color of the label.
+				fontSize: the size of the font.
+				fontWeight - bold, normal, default: normal
+				fontStyle - italic,noraml, default: noraml
+				textDecoration - none, undeerline, default: normal
+				paddingLeft: the size of the left margin. default: 0
+				paddingRight: the size of the right margin. default: 0
+				paddingTop: the size of the top margin. default: 0
+				paddingBottom: the size of the bottom margin. default: 0
+				verticalGap: the vertical gap between each items. default: 6
+				horizontalGap: the horizontal gap between each items (checkbox, marker, text). default:8
+			*/
+			+'</Options>'
+			+'<NumberFormatter id="numfmt" useThousandsSeparator="true"/>'
+			+'<Line2DChart paddingLeft="10" showDataTips="true" selectionMode="single">'
+				+'<horizontalAxis>'
+					+'<CategoryAxis categoryField="Month" title="Month"/>'
+				+'</horizontalAxis>'
+				+'<verticalAxis>'
+					+'<LinearAxis title="Profit" formatter="{numfmt}"/>'
+				+'</verticalAxis>'
+				+'<series>'
+					+'<Line2DSeries yField="Data1" displayName="Data1">'
+						+'<showDataEffect>'
+						+'<SeriesInterpolate/>'
+						+'</showDataEffect>'
+					+'</Line2DSeries>'
+					+'<Line2DSeries yField="Data2" displayName="Data2">'
+						+'<showDataEffect>'
+						+'<SeriesInterpolate/>'
+						+'</showDataEffect>'
+					+'</Line2DSeries>'
+					+'<Line2DSeries yField="Data3" displayName="Data3">'
+						+'<showDataEffect>'
+						+'<SeriesInterpolate/>'
+						+'</showDataEffect>'
+					+'</Line2DSeries>'
+					+'<Line2DSeries yField="Data4" displayName="Data4">'
+						+'<showDataEffect>'
+						+'<SeriesInterpolate/>'
+						+'</showDataEffect>'
+					+'</Line2DSeries>'
+					+'<Line2DSeries yField="Data5" displayName="Data5">'
+						+'<showDataEffect>'
+						+'<SeriesInterpolate/>'
+						+'</showDataEffect>'
+					+'</Line2DSeries>'
+					+'<Line2DSeries yField="Data6" displayName="Data6">'
+						+'<showDataEffect>'
+						+'<SeriesInterpolate/>'
+						+'</showDataEffect>'
+					+'</Line2DSeries>'
+					+'<Line2DSeries yField="Data7" displayName="Data7">'
+						+'<showDataEffect>'
+						+'<SeriesInterpolate/>'
+						+'</showDataEffect>'
+					+'</Line2DSeries>'
+					+'<Line2DSeries yField="Data8" displayName="Data8">'
+						+'<showDataEffect>'
+						+'<SeriesInterpolate/>'
+						+'</showDataEffect>'
+					+'</Line2DSeries>'
+				+'</series>'
+			+'</Line2DChart>'
+		+'</KoolChart>';
+
+// Declares Dataset
+var chartData = [{"Month":"Jan","Data1":1000,"Data2":1500,"Data3":2300,"Data4":900,"Data5":1560,"Data6":1700,"Data7":1110,"Data8":1300,"Data9":1200},
+				{"Month":"Feb","Data1":1400,"Data2":1900,"Data3":1200,"Data4":2300,"Data5":880,"Data6":1780,"Data7":1120,"Data8":990,"Data9":1700},
+				{"Month":"Mar","Data1":1500,"Data2":1200,"Data3":1600,"Data4":2300,"Data5":740,"Data6":1990,"Data7":1320,"Data8":1100,"Data9":-1560},
+				{"Month":"Apr","Data1":1900,"Data2":1300,"Data3":1300,"Data4":2300,"Data5":590,"Data6":2200,"Data7":2110,"Data8":1500,"Data9":-1770},
+				{"Month":"May","Data1":1400,"Data2":900,"Data3":1000,"Data4":2300,"Data5":1200,"Data6":900,"Data7":1700,"Data8":1500,"Data9":-500},
+				{"Month":"Jun","Data1":2000,"Data2":1000,"Data3":1200,"Data4":2300,"Data5":660,"Data6":1500,"Data7":1430,"Data8":1500,"Data9":2200}];
+
+//----------------------- The end of the configuration for creating a chart. -----------------------
+
+</script>
+</head>
+<body>
+	<div id="content">
+		<!-- The DIV in which the chart is placed -->
+		<div id="chartHolder" style="width:600px; height:400px;">
+		</div>
+	</div>
+	<div id="footer"><font size="3"><b>This sample is to show how to add the scroll bar to legend.</b></font><br><br>
+<pre>
+<font color="#01BAC5">You will want to add the scroll bar to legend when items overlap the legend box.</font>
+
+<b>●Layout</b>
+&#60;Legend position="right" useVisibleCheck="true" enableFilter="true" 
+		direction="vertical" labelPlacement="right" markerWidth="12" 
+		markerHeight="12" <font color="#ff0000">width="110" height="130" verticalScrollPolicy="on"</font>/&#62;
+
+</pre>
+		</div>
+</body>
+</html>

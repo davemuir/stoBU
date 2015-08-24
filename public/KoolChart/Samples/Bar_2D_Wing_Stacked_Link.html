@@ -1,0 +1,144 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="Content-Script-Type" content="text/javascript"/>
+<meta http-equiv="Content-Style-Type" content="text/css"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>KoolChart for HTML5 - Wing Chart</title>
+<link rel="stylesheet" type="text/css" href="./KoolChartSample.css"/>
+
+<!--  If you want to support IE 7/8, you'll need the conditional excanvas include. -->
+<!--[if IE]><script language="javascript" type="text/javascript" src="../KoolChart/JS/excanvas.js"></script><![endif]-->
+
+<!-- License Key -->
+<script language="javascript" type="text/javascript" src="../LicenseKey/KoolChartLicense.js"></script>
+
+<!-- KoolChart JavaScript library -->
+<script language="javascript" type="text/javascript" src="../KoolChart/JS/KoolWingChart.js"></script>
+
+<!-- Theme.js -->
+<script type="text/javascript" src="../KoolChart/Assets/Theme/theme.js"></script>
+
+<script type="text/javascript">
+
+//----------------------- Here we start creating a chart. -----------------------
+
+//Sets the value of KoolOnLoadCallFunction to the name of a JS function (e.g. chartReadyHandler) that is called when the chart is ready to be created.
+var chartVars = "KoolOnLoadCallFunction=chartReadyHandler";
+
+//Creates the chart.
+//Parameters:  
+//1. Chart ID: You can use any name you like. 
+//2. DIV ID: The chart will be placed in this DIV.
+//3. chartVars: Variables used for creating the chart.
+//4. Chart width: Default value is 100%
+//5. Chart height: Default value is 100%
+KoolChart.create("chart1", "chartHolder", chartVars, "100%", "100%"); 
+
+//The JavaScript function which is set to the value of KoolOnLoadCallFunction.
+//This function will call two functions, setLayout() and setData() which are two main functions of KoolChart.
+//Parameters: 
+//1. ID: The Chart ID which is used as the first parameter of KoolChart.create().
+function chartReadyHandler(id) {
+	document.getElementById(id).setLayout(layoutStr);
+	document.getElementById(id).setData(chartData);
+}
+
+//Declares Layout
+var layoutStr = 
+				'<KoolChart backgroundColor="0xFFFFFF" cornerRadius="5">'
+					+'<Options>'
+						+'<Caption text="Comparing donations this year vs. last year" fontFamily="Malgun Gothic" paddingBottom="2"/>'
+						+'<Legend width="150" fontFamily="Malgun Gothic"/>'
+					+'</Options>'
+					+'<Box width="100%" direction="horizontal" fontSize="11" fontWeight="bold">'
+						+'<Box width="100%" height="10" horizontalAlign="center" backgroundAlpha="0">'
+							+'<Label width="100%" color="0x777777" text="Last year" fontFamily="Malgun Gothic" backgroundAlpha="0"/>'
+						+'</Box>'
+						+'<Box width="100%" horizontalAlign="center" backgroundAlpha="0">'
+							+'<Label width="100%" color="0x777777" text="This year" fontFamily="Malgun Gothic" backgroundAlpha="0"/>'
+						+'</Box>'
+					+'</Box>'
+					/* Defines Bar2DWingChart */
+					+'<Bar2DWingChart showDataTips="true" type="stacked" fontFamily="Malgun Gothic">'
+						+'<verticalAxis>'
+							+'<CategoryAxis categoryField="Month"/>'
+						+'</verticalAxis>'
+						+'<series>'
+							+'<Bar2DWingSeries xField="group1" xFieldOpp="group2" labelPosition="inside" lineToEachItems="true" displayName="Group" showValueLabels="[4,5]" showValueLabelsOpp="[4,5]" color="#ffffff">'
+								+'<showDataEffect>'
+									+'<WingSeriesInterpolate duration="1000"/>'
+								+'</showDataEffect>'
+							+'</Bar2DWingSeries>'
+							+'<Bar2DWingSeries xField="individual1" xFieldOpp="individual2" labelPosition="inside" lineToEachItems="true" displayName="Individual" showValueLabels="[4,5]" showValueLabelsOpp="[4,5]" color="#ffffff">'
+								+'<showDataEffect>'
+									+'<WingSeriesInterpolate duration="1000"/>'
+								+'</showDataEffect>'
+							+'</Bar2DWingSeries>'
+						+'</series>'
+					+'</Bar2DWingChart>'					
+				+'</KoolChart>';
+
+//Declares Dataset
+var chartData = [
+					{"Month":"Jan","group1":1000,"individual1":1500,"group2":1020,"individual2":1300},
+					{"Month":"Feb","group1":1400,"individual1":1400,"group2":1200,"individual2":2300},
+					{"Month":"Mar","group1":1500,"individual1":1200,"group2":1100,"individual2":900},
+					{"Month":"Apr","group1":1900,"individual1":1300,"group2":2100,"individual2":2200},
+					{"Month":"May","group1":1400,"individual1":900,"group2":1100,"individual2":500},
+					{"Month":"Jun","group1":2000,"individual1":500,"group2":1100,"individual2":2500},
+					{"Month":"Jul","group1":1800,"individual1":1400,"group2":100,"individual2":900},
+					{"Month":"Aug","group1":2500,"individual1":800,"group2":1200,"individual2":2200},
+					{"Month":"Sep","group1":3000,"individual1":1900,"group2":660,"individual2":780},
+					{"Month":"Oct","group1":2000,"individual1":2300,"group2":970,"individual2":530},
+					{"Month":"Nov","group1":2100,"individual1":2400,"group2":900,"individual2":1900},
+					{"Month":"Dec","group1":1700,"individual1":1900,"group2":1100,"individual2":500}];
+
+/**
+ * If you want to use themes provided with KoolChart version 3.0, call the following functions.
+ * otherwise, comment out or delete the following functions.
+ *
+ * -- The Themes registered in KoolChart.themes --
+ * - simple
+ * - cyber
+ * - modern
+ * - lovely
+ * - pastel
+ * - old
+ * -------------------------------------------------
+ *
+ * The KoolChart.themes variable is defined in theme.js
+ */
+KoolChart.registerTheme(KoolChart.themes);
+
+/**
+ * The function called when the theme button in the sample HTML is clicked.
+ * Parameter Values:
+ * - simple
+ * - cyber
+ * - modern
+ * - lovely
+ * - pastel
+ * - old
+ * - default
+ *
+ * default: Applies the default theme which is the basic design of KoolChart.
+ * old: Applies the design of KoolChart version 2.5.
+ */
+function KoolChartChangeTheme(theme){
+	document.getElementById("chart1").setTheme(theme);
+}
+
+//----------------------- The end of the configuration for creating a chart. -----------------------
+
+</script>
+</head>
+<body>
+	<div id="content">
+		<!-- The DIV in which the chart is placed -->
+		<div id="chartHolder" style="width:600px; height:400px;">
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,227 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="Content-Script-Type" content="text/javascript"/>
+<meta http-equiv="Content-Style-Type" content="text/css"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>KoolChart for HTML5</title>
+<link rel="stylesheet" type="text/css" href="./KoolChartSample.css"/>
+
+<!--  If you want to support IE 7/8, you'll need the conditional excanvas include. -->
+<!--[if IE]><script language="javascript" type="text/javascript" src="../KoolChart/JS/excanvas.js"></script><![endif]-->
+
+<!-- License Key -->
+<script language="javascript" type="text/javascript" src="../LicenseKey/KoolChartLicense.js"></script>
+
+<!-- KoolChart JavaScript library -->
+<script language="javascript" type="text/javascript" src="../KoolChart/JS/KoolChart.js"></script>
+
+<script type="text/javascript">
+
+//----------------------- Here we start creating a chart. -----------------------
+
+//Sets the value of KoolOnLoadCallFunction to the name of a JS function (e.g. chartReadyHandler) that is called when the chart is ready to be created.
+var chartVars = "KoolOnLoadCallFunction=chartReadyHandler";
+
+//Creates the chart.
+//Parameters:  
+//1. Chart ID: You can use any name you like. 
+//2. DIV ID: The chart will be placed in this DIV.
+//3. chartVars: Variables used for creating the chart.
+//4. Chart width: Default value is 100%
+//5. Chart height: Default value is 100%
+KoolChart.create("chart1", "chartHolder", chartVars, "100%", "100%"); 
+
+//The JavaScript function which is set to the value of KoolOnLoadCallFunction.
+//This function will call two functions, setLayout() and setData() which are two main functions of KoolChart.
+//Parameters: 
+//1. ID: The Chart ID which is used as the first parameter of KoolChart.create().
+function chartReadyHandler(id) {
+	document.getElementById(id).setLayout(layoutStr);
+	document.getElementById(id).setData(chartData);
+}
+
+//Declares Layout
+var layoutStr = 
+				'<KoolChart backgroundColor="0xFFFFFF" cornerRadius="12" borderStyle="none">'
+					+'<Options>'
+						+'<Caption text="Zooming" fontFamily="Malgun Gothic"/>'
+						+'<SubCaption text="Click the left mouse button and drag to select the area you want to zoom." textAlign="right" fontSize="11" fontFamily="Malgun Gothic"/>'
+					+'</Options>'
+					+'<NumberFormatter id="numFmt" precision="0" useThousandsSeparator="true"/>'
+					+'<Plot2DChart showDataTips="true">'
+						+'<verticalAxis>'
+							+'<LinearAxis id="vAxis" formatter="{numFmt}"/>'
+						+'</verticalAxis>'
+						+'<series>'
+							+'<Plot2DSeries xField="Price" yField="Cost" displayName="Price">'
+								+'<showDataEffect>'
+									+'<SeriesZoom   relativeTo="series" elementOffset="0" duration="700"/>'
+								+'</showDataEffect>'
+							+'</Plot2DSeries>'
+						+'</series>'
+						+'<backgroundElements>'
+							+'<GridLines verticalShowOrigin="false"/>'
+						+'</backgroundElements>'
+						+'<annotationElements>'
+							+'<CrossRangeZoomer zoomType="both" horizontalLabelFormatter="{numFmt}" verticalLabelFormatter="{numFmt}" enableZooming="true" enableCrossHair="true" backgroundColor="0xeb494a" borderColor="0xeb494a">'
+								+'<verticalStroke>'
+									+'<Stroke color="0xeb494a" />'
+								+'</verticalStroke>'
+								+'<horizontalStroke>'
+									+'<Stroke color="0xeb494a" />'
+								+'</horizontalStroke>'
+							+'</CrossRangeZoomer>'
+						/* 
+							CrossRangeZoomer Properties 
+							zoomType: sets the desired axis for zoomming. (horizontal, vertical, both)
+							horizontalLabelFormatter: the formatter for the label of the horizontal line of crosshairs.
+							verticalLabelFormatter: the formatter for the label of the vertical line of crosshairs.
+							enableZooming: whether or not to use the zoom feature
+							enableCrossHair: whether or not to use crosshairs.
+							useDualCrossXLabel: whether or not to display two axes labels (it is available when dual axes are defined)
+							useDualCrossYLabel: whether or not to display two axes labels (it is available when dual axes are defined)
+							verticalLabelPlacement : the position for the label of the vertical line of crosshairs. (top, bottom)
+							horizontalLabelPlacement: the position for the label of the horizontal line of crosshairs. (left, right)
+						*/
+						+'</annotationElements>'
+					+'</Plot2DChart>'
+				+'</KoolChart>';
+
+// Declares Dataset
+var chartData = [{"Index":0,"Price":231,"Cost":32,"Sales":263},
+				{"Index":1,"Price":144,"Cost":231,"Sales":275},
+				{"Index":2,"Price":417,"Cost":100,"Sales":517},
+				{"Index":3,"Price":50,"Cost":248,"Sales":33},
+				{"Index":4,"Price":544,"Cost":72,"Sales":641},
+				{"Index":5,"Price":707,"Cost":878,"Sales":589},
+				{"Index":6,"Price":916,"Cost":737,"Sales":405},
+				{"Index":7,"Price":337,"Cost":506,"Sales":342},
+				{"Index":8,"Price":921,"Cost":374,"Sales":905},
+				{"Index":9,"Price":839,"Cost":984,"Sales":551},
+				{"Index":10,"Price":576,"Cost":264,"Sales":947},
+				{"Index":11,"Price":534,"Cost":374,"Sales":781},
+				{"Index":12,"Price":918,"Cost":56,"Sales":477},
+				{"Index":13,"Price":674,"Cost":37,"Sales":818},
+				{"Index":14,"Price":493,"Cost":638,"Sales":305},
+				{"Index":15,"Price":707,"Cost":507,"Sales":575},
+				{"Index":16,"Price":257,"Cost":200,"Sales":27},
+				{"Index":17,"Price":97,"Cost":853,"Sales":56},
+				{"Index":18,"Price":84,"Cost":13,"Sales":873},
+				{"Index":19,"Price":622,"Cost":921,"Sales":809},
+				{"Index":20,"Price":392,"Cost":373,"Sales":626},
+				{"Index":21,"Price":214,"Cost":267,"Sales":387},
+				{"Index":22,"Price":26,"Cost":307,"Sales":823},
+				{"Index":23,"Price":710,"Cost":614,"Sales":690},
+				{"Index":24,"Price":172,"Cost":758,"Sales":569},
+				{"Index":25,"Price":642,"Cost":177,"Sales":256},
+				{"Index":26,"Price":591,"Cost":106,"Sales":570},
+				{"Index":27,"Price":410,"Cost":405,"Sales":946},
+				{"Index":28,"Price":639,"Cost":583,"Sales":646},
+				{"Index":29,"Price":179,"Cost":793,"Sales":593},
+				{"Index":30,"Price":606,"Cost":148,"Sales":222},
+				{"Index":31,"Price":843,"Cost":669,"Sales":214},
+				{"Index":32,"Price":577,"Cost":596,"Sales":448},
+				{"Index":33,"Price":329,"Cost":988,"Sales":30},
+				{"Index":34,"Price":603,"Cost":187,"Sales":604},
+				{"Index":35,"Price":193,"Cost":267,"Sales":296},
+				{"Index":36,"Price":614,"Cost":562,"Sales":970},
+				{"Index":37,"Price":43,"Cost":523,"Sales":286},
+				{"Index":38,"Price":603,"Cost":246,"Sales":327},
+				{"Index":39,"Price":227,"Cost":669,"Sales":804},
+				{"Index":40,"Price":479,"Cost":933,"Sales":701},
+				{"Index":41,"Price":367,"Cost":753,"Sales":471},
+				{"Index":42,"Price":125,"Cost":152,"Sales":546},
+				{"Index":43,"Price":704,"Cost":349,"Sales":117},
+				{"Index":44,"Price":340,"Cost":564,"Sales":16},
+				{"Index":45,"Price":214,"Cost":353,"Sales":781},
+				{"Index":46,"Price":532,"Cost":195,"Sales":11},
+				{"Index":47,"Price":707,"Cost":54,"Sales":981},
+				{"Index":48,"Price":548,"Cost":545,"Sales":142},
+				{"Index":49,"Price":989,"Cost":712,"Sales":799},
+				{"Index":50,"Price":85,"Cost":970,"Sales":887},
+				{"Index":51,"Price":972,"Cost":102,"Sales":427},
+				{"Index":52,"Price":896,"Cost":972,"Sales":981},
+				{"Index":53,"Price":664,"Cost":593,"Sales":13},
+				{"Index":54,"Price":700,"Cost":460,"Sales":457},
+				{"Index":55,"Price":576,"Cost":255,"Sales":959},
+				{"Index":56,"Price":490,"Cost":847,"Sales":222},
+				{"Index":57,"Price":865,"Cost":370,"Sales":549},
+				{"Index":58,"Price":581,"Cost":772,"Sales":474},
+				{"Index":59,"Price":378,"Cost":587,"Sales":281},
+				{"Index":60,"Price":605,"Cost":644,"Sales":926},
+				{"Index":61,"Price":966,"Cost":664,"Sales":486},
+				{"Index":62,"Price":121,"Cost":4,"Sales":766},
+				{"Index":63,"Price":707,"Cost":84,"Sales":40},
+				{"Index":64,"Price":681,"Cost":723,"Sales":520},
+				{"Index":65,"Price":201,"Cost":83,"Sales":507},
+				{"Index":66,"Price":984,"Cost":762,"Sales":545},
+				{"Index":67,"Price":333,"Cost":318,"Sales":542},
+				{"Index":68,"Price":317,"Cost":976,"Sales":372},
+				{"Index":69,"Price":760,"Cost":392,"Sales":337},
+				{"Index":70,"Price":565,"Cost":683,"Sales":108},
+				{"Index":71,"Price":974,"Cost":626,"Sales":232},
+				{"Index":72,"Price":57,"Cost":385,"Sales":280},
+				{"Index":73,"Price":965,"Cost":47,"Sales":804},
+				{"Index":74,"Price":714,"Cost":868,"Sales":976},
+				{"Index":75,"Price":464,"Cost":359,"Sales":828},
+				{"Index":76,"Price":872,"Cost":309,"Sales":418},
+				{"Index":77,"Price":664,"Cost":224,"Sales":507},
+				{"Index":78,"Price":336,"Cost":912,"Sales":574},
+				{"Index":79,"Price":301,"Cost":631,"Sales":555},
+				{"Index":80,"Price":126,"Cost":351,"Sales":231},
+				{"Index":81,"Price":425,"Cost":559,"Sales":844},
+				{"Index":82,"Price":427,"Cost":28,"Sales":680},
+				{"Index":83,"Price":471,"Cost":467,"Sales":958},
+				{"Index":84,"Price":708,"Cost":218,"Sales":963},
+				{"Index":85,"Price":250,"Cost":65,"Sales":594},
+				{"Index":86,"Price":705,"Cost":334,"Sales":359},
+				{"Index":87,"Price":766,"Cost":980,"Sales":284},
+				{"Index":88,"Price":309,"Cost":926,"Sales":958},
+				{"Index":89,"Price":64,"Cost":90,"Sales":587},
+				{"Index":90,"Price":789,"Cost":307,"Sales":723},
+				{"Index":91,"Price":962,"Cost":655,"Sales":49},
+				{"Index":92,"Price":843,"Cost":649,"Sales":6},
+				{"Index":93,"Price":826,"Cost":309,"Sales":486},
+				{"Index":94,"Price":252,"Cost":15,"Sales":208},
+				{"Index":95,"Price":272,"Cost":308,"Sales":931},
+				{"Index":96,"Price":755,"Cost":442,"Sales":735},
+				{"Index":97,"Price":729,"Cost":495,"Sales":26},
+				{"Index":98,"Price":859,"Cost":599,"Sales":435},
+				{"Index":99,"Price":986,"Cost":700,"Sales":166}];
+	
+//----------------------- The end of the configuration for creating a chart. -----------------------
+
+</script>
+</head>
+<body>
+	<div id="content">
+		<!-- The DIV in which the chart is placed -->
+		<div id="chartHolder" style="width:600px; height:400px;">
+		</div>
+	</div>
+	<div id="footer">	
+		<font size="3"><b>This sample is to show how to Zoom in Plot Chart.</b></font>	
+<pre>
+<font color="#01BAC5"><b>CrossRangeZoomer</b>
+zoomType: sets the desired axis for zoomming. (horizontal, vertical, both)
+horizontalLabelFormatter: the formatter for the label of the horizontal line of crosshairs.
+verticalLabelFormatter: the formatter for the label of the vertical line of crosshairs.
+enableZooming: whether or not to use the zoom feature
+enableCrossHair: whether or not to use crosshairs.
+useDualCrossXLabel: whether or not to display two axes labels (it is available when dual axes are defined)
+useDualCrossYLabel: whether or not to display two axes labels (it is available when dual axes are defined)
+verticalLabelPlacement : the position for the label of the vertical line of crosshairs. (top, bottom)
+horizontalLabelPlacement: the position for the label of the horizontal line of crosshairs. (left, right)</font>
+
+<b>●Layout</b>
+&#60;annotationElements&#62;
+	&#60;CrossRangeZoomer <font color="#ff0000">zoomType="both"</font> horizontalLabelFormatter="{numFmt}" 
+	sverticalLabelFormatter="{numFmt}" enableZooming="true" enableCrossHair="true"/&#62;
+&#60;/annotationElements&#62;
+</pre>
+		</div>
+</body>
+</html>
+

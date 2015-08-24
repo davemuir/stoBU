@@ -1,0 +1,256 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="Content-Script-Type" content="text/javascript"/>
+<meta http-equiv="Content-Style-Type" content="text/css"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>KoolChart for HTML5 - Candlestick Chart</title>
+<link rel="stylesheet" type="text/css" href="./KoolChartSample.css"/>
+
+<!--  If you want to support IE 7/8, you'll need the conditional excanvas include. -->
+<!--[if IE]><script language="javascript" type="text/javascript" src="../KoolChart/JS/excanvas.js"></script><![endif]-->
+
+<!-- License Key -->
+<script language="javascript" type="text/javascript" src="../LicenseKey/KoolChartLicense.js"></script>
+
+<!-- KoolChart JavaScript library -->
+<script language="javascript" type="text/javascript" src="../KoolChart/JS/KoolCandleChart.js"></script>
+
+<!-- The CSS style for KoolChart (This CSS style is required for only Legend, Preloader, Scroll Chart and History Chart) -->
+<link rel="stylesheet" type="text/css" href="../KoolChart/Assets/Css/KoolChart.css"/>
+
+<!-- Theme.js -->
+<script type="text/javascript" src="../KoolChart/Assets/Theme/theme.js"></script>
+
+<script type="text/javascript">
+
+//----------------------- Here we start creating a chart. -----------------------
+
+//Sets the value of KoolOnLoadCallFunction to the name of a JS function (e.g. chartReadyHandler) that is called when the chart is ready to be created.
+var chartVars = "KoolOnLoadCallFunction=chartReadyHandler";
+
+//Creates the chart.
+//Parameters:  
+//1. Chart ID: You can use any name you like. 
+//2. DIV ID: The chart will be placed in this DIV.
+//3. chartVars: Variables used for creating the chart.
+//4. Chart width: Default value is 100%
+//5. Chart height: Default value is 100%
+KoolChart.create("chart1", "chartHolder", chartVars, "100%", "100%"); 
+
+var dataURL = "http://www.koolchart.com/hsyu/makeLazyData.php?index=";
+
+//The JavaScript function which is set to the value of KoolOnLoadCallFunction.
+//This function will call two functions, setLayout() and setData() which are two main functions of KoolChart.
+//Parameters: 
+//1. ID: The Chart ID which is used as the first parameter of KoolChart.create().
+function chartReadyHandler(id) {
+	document.getElementById(id).setLayout(layoutStr);
+	document.getElementById(id).setDataURL(dataURL + 0);
+}
+
+//Number of visible items in the chart
+var visibleItemSize = 20;
+
+//Declares Layout
+var layoutStr = '<KoolChart backgroundColor="0xFFFFFF" cornerRadius="12" borderStyle="none">'
+					+'<Options>'
+						+'<Caption text="When the scroll bar reaches the end, " fontSize="12" color="#999999" fontFamily="Malgun Gothic"/>'
+						+'<SubCaption text="drag to left the screen to pull more data into the chart." fontSize="12" fontFamily="Malgun Gothic"/>'
+					+'</Options>'
+					+'<NumberFormatter id="nft" precision="0"/>'
+					/*	
+						Sets DualChart
+						mainChart - Sets the main chart in DualChart.
+						subChart - Sets the sub-chart in DualChart.
+						dataSelector - Sets the amount of the data shown in the candlestick chart.
+						leftGutterSyncEnalbe - Adjusts the left margin of mainChart and subChart.
+						rightGuttersSyncEnable - Adjusts the right margin of mainChart and subChart.
+					*/
+					+'<DualChart leftGutterSyncEnable="true" rightGutterSyncEnable="true">'
+						+'<mainChart>'
+						/* 
+							Defines CandleLine2DChart 
+							lazyJsFunction - Sets the JavaScript function name to be called when the scroll bar reaches the end by dragging the chart area.
+						*/
+							+'<CandleLine2DChart showDataTips="true" paddingBottom="0" lazyJsFunction="lazyDataFunc">'
+								+'<horizontalAxis>'
+									+'<CategoryAxis id="hAxis" categoryField="index"/>'
+								+'</horizontalAxis>'
+								+'<verticalAxis>'
+									+'<LinearAxis baseAtZero="false" formatter="{nft}"/>'
+								+'</verticalAxis>'
+								+'<series>'
+								/*	
+									Defines CandleLine2DSeries
+									yField - Sets the field name for the data.
+								*/
+									+'<CandleLine2DSeries yField="data1" showMaxValueLabel="true" showMinValueLabel="true" upLabelJsFunction="maxLabelFunc" downLabelJsFunction="minLabelFunc">'
+										+'<lineStroke>'
+											+'<Stroke color="#ff812d" weight="2"/>'
+										+'</lineStroke>'
+									+'</CandleLine2DSeries>'
+								+'</series>'
+								+'<horizontalAxisRenderers>'
+									+'<Axis2DRenderer placement="bottom" axis="{hAxis}" showLine="true" tickLength="0"/>'
+								+'</horizontalAxisRenderers>'
+							+'</CandleLine2DChart>'
+						+'</mainChart>'
+						+'<subChart>'
+						// Sets the size of the sub-chart. (Sets the height of the column2D chart to 20% of the total size.)
+							+'<Column2DChart showDataTips="true" height="20%" paddingTop="0" paddingBottom="0" gutterTop="4">'	
+								+'<horizontalAxis>'
+									+'<CategoryAxis id="hAxis" categoryField="index"/>'
+								+'</horizontalAxis>'
+								+'<verticalAxis>'
+									+'<LinearAxis id="vAxis" formatter="{nft}"/>'
+								+'</verticalAxis>'
+								+'<series>'
+									+'<Column2DSeries yField="trdvolume">'
+										+'<fill>'
+											+'<SolidColor color="#00c0c7"/>'
+										+'</fill>'
+									+'</Column2DSeries>'
+								+'</series>'
+								+'<horizontalAxisRenderers>'
+									+'<Axis2DRenderer axis="{hAxis}" showLabels="false" showLine="true" tickLength="0"/>'
+								+'</horizontalAxisRenderers>'
+							+'</Column2DChart>'
+						+'</subChart>'
+						+'<dataSelector>'
+						/*
+							DualScrollBar - Defines DualScrollBar to create the scroll bars in the main chart and the sub-chart.
+							visibleItemSize - Sets the number of item shown in the chart.
+							inverted - Sets the direction to reverse for the scroll.
+						*/
+							+'<DualScrollBar visibleItemSize="'+visibleItemSize+'"/>'
+						+'</dataSelector>'
+					+'</DualChart>'
+				+'</KoolChart>';
+
+var xhr, // ajax object
+	index = 19; // The total number of data which is finished being displayed.
+
+//JavaScript function to be called to change the number of items in the chart.
+function changeVisibleItem(value){
+	visibleItemSize += value;
+	if(visibleItemSize > index)
+		visibleItemSize = index;
+	else if(visibleItemSize < 10)
+		visibleItemSize = 10;
+	document.getElementById("chart1").visibleItemSize(visibleItemSize);
+}
+
+/*
+// Callback function, the name of which is set to the value of the lazyJsFunction property.
+// When the scroll bar reaches the end by dragging the chart area, this callback function will run.
+// You can fetch the new data by calling this function.
+// Parameter
+// id: ID of the chart.
+*/
+function lazyDataFunc(id){
+	var param = {};
+	// Sets the url to fetch data
+	param.url = dataURL + (index + 1);
+	// Callback function
+	param.success = function(){
+		var data;
+		if(xhr.readyState == 4 && xhr.status >= 200 && xhr.status < 300){
+			if(xhr.responseXML.xml)
+				data = xhr.responseXML.xml;
+			else
+				data = xhr.responseXML;
+			document.getElementById(id).setData(data,"push");
+			index += 20; // Data Size: 20
+		}
+	}
+	ajax(param);
+}
+
+//JavaScript function for maxLabelJsFunction
+function maxLabelFunc(seriesId, index, data, values){
+	var max = getTypeNum(values.slice(1,values.length));
+	return '<font color="#FF0000" face="arial">Highest</font>: ' + max[0];
+}
+
+//JavaScript function for minLabelJsFunction
+function minLabelFunc(seriesId, index, data, values){
+	var min = getTypeNum(values.slice(1,values.length));
+	return '<font color="#0054FF" face="arial">Lowest</font>: ' + min[min.length - 1];
+}
+
+function getTypeNum(){
+	return Array.prototype.slice.call(arguments, 0).sort()[0];
+}
+
+// ajax
+function ajax(options){
+	if(window.ActiveXObject)
+		xhr = new ActiveXObject("Microsoft.XMLHTTP");
+	else
+		xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = options.success;
+
+	xhr.open("get", options.url, true);
+	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	
+	try{
+		xhr.send(null);
+	}catch(e){
+		alert(e.message);
+	}
+}
+
+
+/**
+ * If you want to use themes provided with KoolChart version 3.0, call the following functions.
+ * otherwise, comment out or delete the following functions.
+ *
+ * -- The Themes registered in KoolChart.themes --
+ * - simple
+ * - cyber
+ * - modern
+ * - lovely
+ * - pastel
+ * - old
+ * -------------------------------------------------
+ *
+ * The KoolChart.themes variable is defined in theme.js
+ */
+KoolChart.registerTheme(KoolChart.themes);
+
+/**
+ * The function called when the theme button in the sample HTML is clicked.
+ * Parameter Values:
+ * - simple
+ * - cyber
+ * - modern
+ * - lovely
+ * - pastel
+ * - old
+ * - default
+ *
+ * default: Applies the default theme which is the basic design of KoolChart.
+ * old: Applies the design of KoolChart version 2.5.
+ */
+function KoolChartChangeTheme(theme){
+	document.getElementById("chart1").setTheme(theme);
+}
+
+//----------------------- The end of the configuration for creating a chart. -----------------------
+	
+</script>
+</head>
+<body>
+	<div id="header">
+		<div class="button button_top" onclick="changeVisibleItem(10)">-</div>
+		<div class="button button_top" onclick="changeVisibleItem(-10)">+</div>
+	</div>
+	<div id="content">
+		<!-- The DIV in which the chart is placed -->
+		<div id="chartHolder" style="width:600px; height:400px;">
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,201 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="Content-Script-Type" content="text/javascript"/>
+<meta http-equiv="Content-Style-Type" content="text/css"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Kool Chart for HTML5 - Bubble chart</title>
+<link rel="stylesheet" type="text/css" href="./KoolChartSample.css"/>
+
+<!--  If you want to support IE 7/8, you'll need the conditional excanvas include. -->
+<!--[if IE]><script language="javascript" type="text/javascript" src="../KoolChart/JS/excanvas.js"></script><![endif]-->
+
+<!-- License Key -->
+<script language="javascript" type="text/javascript" src="../LicenseKey/KoolChartLicense.js"></script>
+
+<!-- KoolChart JavaScript library -->
+<script language="javascript" type="text/javascript" src="../KoolChart/JS/KoolChart.js"></script>
+
+<script type="text/javascript">
+
+//----------------------- Here we start creating a chart. -----------------------
+
+//Sets the value of KoolOnLoadCallFunction to the name of a JS function (e.g. chartReadyHandler) that is called when the chart is ready to be created.
+var chartVars = "KoolOnLoadCallFunction=chartReadyHandler";
+
+//Creates the chart.
+//Parameters:  
+//1. Chart ID: You can use any name you like. 
+//2. DIV ID: The chart will be placed in this DIV.
+//3. chartVars: Variables used for creating the chart.
+//4. Chart width: Default value is 100%
+//5. Chart height: Default value is 100%
+KoolChart.create("chart1", "chartHolder", chartVars, "100%", "100%"); 
+
+//The JavaScript function which is set to the value of KoolOnLoadCallFunction.
+//This function will call two functions, setLayout() and setData() which are two main functions of KoolChart.
+//Parameters: 
+//1. ID: The Chart ID which is used as the first parameter of KoolChart.create().
+function chartReadyHandler(id) {
+	document.getElementById(id).setLayout(layoutStr);
+	document.getElementById(id).setData(chartData);
+}
+
+//Declares Layout
+var layoutStr = 
+				'<KoolChart backgroundColor="0xFFFFFF" cornerRadius="12" borderStyle="none">'
+					+'<Options>'
+						+'<Caption text="Setting the fill color by using user-defined JavaScript function" fontFamily="Malgun Gothic"/>'
+						+'<SubCaption text="Different colors based on value" textAlign="right" fontSize="11" fontFamily="Malgun Gothic"/>'
+					+'</Options>'
+					+'<NumberFormatter id="numFmt" useThousandsSeparator="true"/>'
+					+'<Bubble3DChart showDataTips="true" showLabelVertically="true">'
+						+'<horizontalAxis>'
+							+'<LinearAxis id="hAxis" maximum="3500"/>'
+						+'</horizontalAxis>'
+						+'<verticalAxis>'
+							+'<LinearAxis id="vAxis" maximum="3500" formatter="{numFmt}"/>'
+						+'</verticalAxis>'
+						+'<series>'
+							+'<Bubble3DSeries yField="A_Profit" xField="A_Cost" radiusField="A_Revenue" formatter="{numFmt}" fillJsFunction="fillJsFunc" styleName="seriesStyle">'
+							/* fillJsFunction: User-defined JavaScript function. It returns a hexadecimal color code based on value */
+								+'<showDataEffect>'
+									+'<SeriesZoom/>'
+								+'</showDataEffect>'
+							+'</Bubble3DSeries>'
+							+'<Bubble3DSeries yField="B_Profit" xField="B_Cost" radiusField="B_Revenue" formatter="{numFmt}" fillJsFunction="fillJsFunc" styleName="seriesStyle">'
+								+'<showDataEffect>'
+									+'<SeriesZoom/>'
+								+'</showDataEffect>'
+							+'</Bubble3DSeries>'
+							+'<Bubble3DSeries yField="C_Profit" xField="C_Cost" radiusField="C_Revenue" formatter="{numFmt}" fillJsFunction="fillJsFunc" styleName="seriesStyle">'
+								+'<showDataEffect>'
+									+'<SeriesZoom/>'
+								+'</showDataEffect>'
+							+'</Bubble3DSeries>'
+						+'</series>'
+						+'<backgroundElements>'
+							+'<GridLines horizontalShowOrigin="false" />'
+						+'</backgroundElements>'
+					+'</Bubble3DChart>'
+					+'<Box horizontalAlign="center" width="100%">'
+						+'<SubLegend direction="horizontal">'
+							+'<LegendItem label="More than 2,000" fontWeight="bold">'
+								+'<stroke>'
+									+'<Stroke weight="1" color="0x000000"/>'
+								+'</stroke>'
+								+'<fill>'
+									+'<SolidColor color="0xFF3366"/>'
+								+'</fill>'
+							+'</LegendItem>'
+							+'<LegendItem label="More than 1,000" fontWeight="bold">'
+								+'<stroke>'
+									+'<Stroke weight="1" color="0x000000"/>'
+								+'</stroke>'
+								+'<fill>'
+									+'<SolidColor color="0xFFFF33"/>'
+								+'</fill>'
+							+'</LegendItem>'
+							+'<LegendItem label="Less than 1,000" fontWeight="bold">'
+								+'<stroke>'
+									+'<Stroke weight="1" color="0x000000"/>'
+								+'</stroke>'
+								+'<fill>'
+									+'<SolidColor color="0xFF9999"/>'
+								+'</fill>'
+							+'</LegendItem>'
+						 +'</SubLegend>'
+					+'</Box>'
+					+'<Style>'
+					+'.seriesStyle { labelPosition:inside;fontSize:11;paddingTop:4;color:0x393939;}'
+					+'</Style>'
+				+'</KoolChart>';
+
+// Declares Dataset
+var chartData = [{"A_Profit":500,"A_Cost":2800,"A_Revenue":3300,"B_Profit":1000,"B_Cost":600,"B_Revenue":2600,"C_Profit":2900,"C_Cost":500,"C_Revenue":3400},
+	{"A_Profit":1000,"A_Cost":2000,"A_Revenue":3000,"B_Profit":1600,"B_Cost":1700,"B_Revenue":3300,"C_Profit":2200,"C_Cost":2700,"C_Revenue":4900},
+	{"A_Profit":1600,"A_Cost":300,"A_Revenue":1900,"B_Profit":2200,"B_Cost":2000,"B_Revenue":4200,"C_Profit":900,"C_Cost":2700,"C_Revenue":3600},
+	{"A_Profit":2800,"A_Cost":1400,"A_Revenue":4200,"B_Profit":2600,"B_Cost":2700,"B_Revenue":5300,"C_Profit":2400,"C_Cost":1700,"C_Revenue":4100},
+	{"A_Profit":1600,"A_Cost":1200,"A_Revenue":2800,"B_Profit":800,"B_Cost":1700,"B_Revenue":2500,"C_Profit":1600,"C_Cost":3000,"C_Revenue":4600},
+	{"A_Profit":900,"A_Cost":700,"A_Revenue":1600,"B_Profit":600,"B_Cost":700,"B_Revenue":1300,"C_Profit":600,"C_Cost":700,"C_Revenue":1300},
+	{"A_Profit":2300,"A_Cost":1700,"A_Revenue":5000,"B_Profit":300,"B_Cost":700,"B_Revenue":1000,"C_Profit":2000,"C_Cost":700,"C_Revenue":2700},
+	{"A_Profit":900,"A_Cost":1200,"A_Revenue":2100,"B_Profit":1800,"B_Cost":2400,"B_Revenue":4200,"C_Profit":1300,"C_Cost":800,"C_Revenue":2100}];
+	
+/*
+//-------------------- fillJsFunction ----------------------------------------------------------------
+//The JS function called to fill the colors by the user-defined logic.
+//Sets the value of the fillJsFunction property to the name of a JS function.
+//
+//e.g.) <Bubble3DSeries yField="A_Profit" fillJsFunction="fillJsFunc">
+//
+//Parameters:
+//seriesId: Series ID 
+//index: The index of the item in the series.
+//data: The record of the dataset declared for creating the chart.
+//values: The value is an array and each element in the array is different depending on the chart type.
+		Bar2D(3D)Series      0: X-axis value, 1: Y-axis value
+		Column2D(3D)Series   0: X-axis value, 1: Y-axis value
+		Area2DSeries         0: X-axis value, 1: Y-axis value
+		Bubble3DSeries       0: X-axis value, 1: Y-axis value 2: radius
+		Line2DSeries         0: X-axis value, 1: Y-axis value
+		Pie2D(3D)Series      0: value, 1: percentage, 2: nameField
+
+//If you define minField in the From-To chart, the last index of the value is minField.
+*/
+function fillJsFunc(seriesId, index, data, values)
+{
+	if(values[2] > 2000)
+		return "#FF3366";
+	else if(values[2] > 1000)
+		return "0xFFFF33";
+	else
+		return "0xFF9999";	
+}
+
+//----------------------- The end of the configuration for creating a chart. -----------------------
+
+</script>
+</head>
+<body>
+	<div id="content">
+		<!-- The DIV in which the chart is placed -->
+		<div id="chartHolder" style="width:600px; height:450px;">
+		</div>
+	</div>
+	<div id="footer">	
+		<font size="3"><b>This sample is to set the fill color by using user-defined JavaScript function.</b></font><br><br>
+		The JavaScript function returns a hexadecimal color code based on value.<br>
+		You need to set the value of fillJsFunction to the name of the JavaScript function.
+		
+<pre>
+<b>●Layout</b>
+&#60;Bubble3DSeries yField="Profit" <font color="#ff0000">fillJsFunction="fillJsFunc"</font>/&#62;
+
+<b>●Script</b>
+<font color="#01BAC5">
+Parameters:
+seriesId: Series ID 
+index: The index of the item in the series.
+data: The record of the dataset declared for creating the chart.
+values: The value is an array and each element in the array is different depending on the chart type.
+	Bar2D(3D)Series      0: X-axis value, 1: Y-axis value
+	Column2D(3D)Series   0: X-axis value, 1: Y-axis value
+	Area2DSeries         0: X-axis value, 1: Y-axis value
+	Bubble3DSeries       0: X-axis value, 1: Y-axis value 2: radius
+	Line2DSeries         0: X-axis value, 1: Y-axis value
+	Pie2D(3D)Series      0: value, 1: percentage, 2: nameField
+</font>
+<font color="#0000ff">function</font> fillJsFunc(seriesId, index, data, values)
+{
+	if(values[2] > 2000)
+		return "#FF3366";
+	else if(values[2] > 1000)
+		return "0xFFFF33";
+	else
+		return "0xFF9999";	
+}
+</pre>
+		</div>
+</body>
+</html>

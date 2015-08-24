@@ -1,0 +1,138 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="Content-Script-Type" content="text/javascript"/>
+<meta http-equiv="Content-Style-Type" content="text/css"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>KoolChart for HTML5 - Doughnut Chart</title>
+<link rel="stylesheet" type="text/css" href="./KoolChartSample.css"/>
+
+<!--  If you want to support IE 7/8, you'll need the conditional excanvas include. -->
+<!--[if IE]><script language="javascript" type="text/javascript" src="../KoolChart/JS/excanvas.js"></script><![endif]-->
+
+<!-- License Key -->
+<script language="javascript" type="text/javascript" src="../LicenseKey/KoolChartLicense.js"></script>
+
+<!-- KoolChart JavaScript library -->
+<script language="javascript" type="text/javascript" src="../KoolChart/JS/KoolChart.js"></script>
+
+<!-- Theme.js -->
+<script type="text/javascript" src="../KoolChart/Assets/Theme/theme.js"></script>
+
+<script type="text/javascript">
+
+//----------------------- Here we start creating a chart. -----------------------
+
+//Sets the value of KoolOnLoadCallFunction to the name of a JS function (e.g. chartReadyHandler) that is called when the chart is ready to be created.
+var chartVars = "KoolOnLoadCallFunction=chartReadyHandler";
+
+//Creates the chart.
+//Parameters:  
+//1. Chart ID: You can use any name you like. 
+//2. DIV ID: The chart will be placed in this DIV.
+//3. chartVars: Variables used for creating the chart.
+//4. Chart width: Default value is 100%
+//5. Chart height: Default value is 100%
+KoolChart.create("chart1", "chartHolder", chartVars, "100%", "100%"); 
+
+//The JavaScript function which is set to the value of KoolOnLoadCallFunction.
+//This function will call two functions, setLayout() and setData() which are two main functions of KoolChart.
+//Parameters: 
+//1. ID: The Chart ID which is used as the first parameter of KoolChart.create().
+function chartReadyHandler(id) {
+	document.getElementById(id).setLayout(layoutStr);
+	document.getElementById(id).setData(chartData);
+}
+
+//Declares Layout
+var layoutStr = 
+				'<KoolChart backgroundColor="0xFFFFFF" cornerRadius="12" borderStyle="none">'
+					+'<Options>'
+						+'<Caption text="Exports of Goods and Services of the BRICS countries"/>'
+						+'<SubCaption text="2011 (in billion US$)"/>'
+						+'<Legend />'
+					+'</Options>'
+					+'<Pie3DChart showDataTips="true" innerRadius="0.3" depth="50" paddingLeft="100" paddingTop="50" paddingRight="100" paddingBottom="50">'
+					/* 
+						Creating the Pie2DChart node. 
+						showDataTips: Whether or not to show tooltips when you mouse over items in the chart.
+						innerRadius : Sets the size of the empty space at the center of the pie chart. The valid range is 0.1 ~ 0.9.
+					*/
+						+'<series>'
+							+'<Pie3DSeries nameField="Country" field="Export" startAngle="-120" renderDirection="clockwise" labelPosition="inside" color="#ffffff">'
+							/* Creating the Pie3DSeries node as a child node of the Pie3DChart node. */
+								+'<showDataEffect>'
+								/* Creating the showDataEffect node to use animation effects. */
+									+'<SeriesSlide direction="right" duration="1000"/>'
+									/* 
+										The SeriesInterpolate effect moves the graphics that represent the data points in the series to the new data points. 
+										<Common properties>						
+											- elementOffset: the delay time of the effect. default:20
+											- minimumElementDuration: the minimum amount of time to be taken to complete the effect. default: 0
+											- offset: the delay time of starting the effect. default:0
+											- perElementOffset: the delay time of starting the effect for each element.
+										
+										<SeriesSlide property>
+											- direction: "left", "right", "up", "down" (the default value is "left")
+									*/
+								+'</showDataEffect>'
+							+'</Pie3DSeries>'
+						+'</series>'
+					+'</Pie3DChart>'
+				+'</KoolChart>';
+
+//Declares Dataset
+var chartData = [{"Country":"Brazil", "Export":294},
+				{"Country":"Russia", "Export":576},
+				{"Country":"India", "Export":449},
+				{"Country":"China", "Export":2088},
+				{"Country":"South Africa", "Export":124}];
+
+/**
+ * If you want to use themes provided with KoolChart version 3.0, call the following functions.
+ * otherwise, comment out or delete the following functions.
+ *
+ * -- The Themes registered in KoolChart.themes --
+ * - simple
+ * - cyber
+ * - modern
+ * - lovely
+ * - pastel
+ * - old
+ * -------------------------------------------------
+ *
+ * The KoolChart.themes variable is defined in theme.js
+ */
+KoolChart.registerTheme(KoolChart.themes);
+
+/**
+ * The function called when the theme button in the sample HTML is clicked.
+ * Parameter Values:
+ * - simple
+ * - cyber
+ * - modern
+ * - lovely
+ * - pastel
+ * - old
+ * - default
+ *
+ * default: Applies the default theme which is the basic design of KoolChart.
+ * old: Applies the design of KoolChart version 2.5.
+ */
+function KoolChartChangeTheme(theme){
+	document.getElementById("chart1").setTheme(theme);
+}
+
+//----------------------- The end of the configuration for creating a chart. -----------------------
+	
+</script>
+</head>
+<body>
+	<div id="content">
+		<!-- The DIV in which the chart is placed -->
+		<div id="chartHolder" style="width:600px; height:400px;">
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,173 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="Content-Script-Type" content="text/javascript"/>
+<meta http-equiv="Content-Style-Type" content="text/css"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>KoolChart for HTML5</title>
+<link rel="stylesheet" type="text/css" href="./KoolChartSample.css"/>
+
+<!--  If you want to support IE 7/8, you'll need the conditional excanvas include. -->
+<!--[if IE]><script language="javascript" type="text/javascript" src="../KoolChart/JS/excanvas.js"></script><![endif]-->
+
+<!-- License Key -->
+<script language="javascript" type="text/javascript" src="../LicenseKey/KoolChartLicense.js"></script>
+
+<!-- KoolChart JavaScript library -->
+<script language="javascript" type="text/javascript" src="../KoolChart/JS/KoolChart.js"></script>
+
+<script type="text/javascript">
+
+//----------------------- Here we start creating a chart. -----------------------
+
+//Sets the value of KoolOnLoadCallFunction to the name of a JS function (e.g. chartReadyHandler) that is called when the chart is ready to be created.
+var chartVars = "KoolOnLoadCallFunction=chartReadyHandler";
+
+//Creates the chart.
+//Parameters:  
+//1. Chart ID: You can use any name you like. 
+//2. DIV ID: The chart will be placed in this DIV.
+//3. chartVars: Variables used for creating the chart.
+//4. Chart width: Default value is 100%
+//5. Chart height: Default value is 100%
+KoolChart.create("chart1", "chartHolder", chartVars, "100%", "100%"); 
+
+//The JavaScript function which is set to the value of KoolOnLoadCallFunction.
+//This function will call two functions, setLayout() and setData() which are two main functions of KoolChart.
+//Parameters: 
+//1. ID: The Chart ID which is used as the first parameter of KoolChart.create().
+function chartReadyHandler(id) {
+	document.getElementById(id).setLayout(layoutStr);
+	document.getElementById(id).setData(chartData);
+}
+
+// Declares Layout
+var layoutStr = 
+				'<KoolChart backgroundColor="0xFFFFFF" cornerRadius="12" borderStyle="none">'
+					+'<Options>'
+						+'<Caption text="Monthly Report"/>' 
+					+'</Options>'
+					+'<NumberFormatter id="numFmt"/>'
+					+'<DateFormatter id="dateFmt" formatString="YY/M/D"/>'
+					+'<Line2DChart showDataTips="true">'
+						+'<horizontalAxis>'
+							+'<DateTimeAxis id="hAxis" dataUnits="days" labelUnits="days" formatter="{dateFmt}" title="DateTime Axis" interval="3" displayName="Date" alignLabelsToUnits="false" displayLocalTime="true" padding="1"/>' 
+					/* 
+						X-Axis: DateTimeAxis Properties.
+						dataUnits ┬ milisconds: the unit of data.
+							  ├ seconds
+							  ├ minutes
+							  ├ housrs
+							  ├ days	
+							  ├ weeks
+							  ├ months
+							  └ years
+						labelUnits ┬ milisconds: the unit of label.
+							   ├ seconds
+							   ├ minutes
+							   ├ housrs
+							   ├ days	
+							   ├ weeks
+							   ├ months
+							   └ years
+						title: the title of the axis.
+						interval: the interval between two consecutive dates and times to be displayed as labels. (If there is no enough space to display labels, the interval can be ignored.)
+						dataInterval: the interval between two consecutive data. For example, If you set as dataUnits="second" and interval="3"(seconds), you should set the value of the dataInterval property to 4. 
+						displayName: the name of axes. It is displayed in datatips.
+						displayLocalTime: if the value of the displayLocalTime property is set to true, the local time zone in the client PC will be used. 
+											otherwise (false), GMT(Greenwich Mean Time) will be used.
+						labelJsFunction: the user-defined function for the label of the axis.
+					*/
+						+'</horizontalAxis>'
+						+'<verticalAxis>'
+							+'<LogAxis id="vAxis" title="Log Axis" formatter="{numFmt}" interval="10" minimum="100"/>'
+					/* 
+						Y-Axis: LogAxis Properties.
+						interval: unit = multiplier of 10
+						minimum: the minimum value of the axis.
+						maximum: the maximum value of the axis.
+						title: the title of the axis.
+						labelJsFunction: the user-defined function for the label of the axis.
+						displayName: the name of the axis. It is displayed in datatips.
+					*/
+						+'</verticalAxis>'
+						+'<series>'
+							+'<Line2DSeries xField="Date" yField="Profit" displayName="Profit" formatter="{numFmt}">'
+								+'<showDataEffect>'
+									+'<SeriesInterpolate/>' 
+								+'</showDataEffect>'
+							+'</Line2DSeries>'
+						+'</series>'
+					+'</Line2DChart>'
+				+'</KoolChart>';
+
+// Declares Dataset
+var chartData = [{"Date":"2009/07/01","Profit":5000,"Cost":15000,"Revenue":23000},
+				{"Date":"2009/07/02","Profit":14000,"Cost":14000,"Revenue":12000},
+				{"Date":"2009/07/03","Profit":9000,"Cost":12000,"Revenue":16000},
+				{"Date":"2009/07/04","Profit":5000,"Cost":13000,"Revenue":13000},
+				{"Date":"2009/07/05","Profit":30000,"Cost":9000,"Revenue":10000},
+				{"Date":"2009/07/08","Profit":60000,"Cost":5000,"Revenue":12000},
+				{"Date":"2009/07/09","Profit":40000,"Cost":14000,"Revenue":10000},
+				{"Date":"2009/07/10","Profit":25000,"Cost":8000,"Revenue":16000},
+				{"Date":"2009/07/11","Profit":30000,"Cost":19000,"Revenue":12000},
+				{"Date":"2009/07/12","Profit":10000,"Cost":23000,"Revenue":10000},
+				{"Date":"2009/07/15","Profit":6000,"Cost":24000,"Revenue":17000},
+				{"Date":"2009/07/16","Profit":17000,"Cost":19000,"Revenue":23000}];
+
+//----------------------- The end of the configuration for creating a chart. -----------------------
+
+</script>
+</head>
+<body>
+	<div id="content">
+		<!-- The DIV in which the chart is placed -->
+		<div id="chartHolder" style="width:600px; height:400px;">
+		</div>
+	</div>
+	<div id="footer">
+<pre>
+<font size="3"><b>X-Axis: DateTimeAxis  </b></font>
+<font color="#01BAC5">dataUnits ┬ milisconds: the unit of data.
+	  ├ seconds
+	  ├ minutes
+	  ├ housrs
+	  ├ days	
+	  ├ weeks
+	  ├ months
+	  └ years
+labelUnits ┬ milisconds: the unit of label.
+	   ├ seconds
+	   ├ minutes
+	   ├ housrs
+	   ├ days	
+	   ├ weeks
+	   ├ months
+	   └ years
+
+title: the title of the axis.
+interval: the interval between two consecutive dates and times to be displayed as labels. 
+(If there is no enough space to display labels, the interval can be ignored.)
+dataInterval: the interval between two consecutive data. For example, 
+If you set as dataUnits="second" and interval="3"(seconds), 
+you have to set the value of the dataInterval property to 4. 
+displayName: the name of axes. It is displayed in datatips.
+displayLocalTime: if the value of the displayLocalTime property is set to true, 
+the local time zone in the client PC will be used. 
+otherwise (false), GMT(Greenwich Mean Time) will be used.
+labelJsFunction: the user-defined function for the label of the axis.</font>
+
+<font size="3"><b>Y-Axis: LogAxis</b></font>
+<font color="#01BAC5">interval: unit = multiplier of 10
+minimum: the minimum value of the axis.
+maximum: the maximum value of the axis.
+title: the title of the axis.
+labelJsFunction: the user-defined function for the label of the axis.
+displayName: the name of the axis. It is displayed in datatips.
+baseAtZero : whether or not to set the value of minimim (or maximum) to "0".</font>
+</pre>
+		</div>
+	</div>
+</body>
+</html>

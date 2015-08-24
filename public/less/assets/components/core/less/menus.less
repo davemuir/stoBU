@@ -1,0 +1,24 @@
+.dropdown-menu { z-index: 100000; }
+
+.navbar .btn-navbar,
+#menu .btn-navbar {
+	padding: 0 10px; 
+	margin: 0;  
+	display: none;
+	width: 100%; 
+	border: none;
+	.rounded();
+	height: @navbarHeight;
+	line-height: @navbarHeight;
+	background: @navbarBg;
+	border-bottom: 1px solid @topnavBorder1;
+	.icon-bar {
+		display: block;
+		width: 18px;
+		height: 2px;
+		background: @navbarText;
+		margin: 0 auto 3px; 
+	}
+	&:hover { background: darken(@navbarBg, 2%); }
+}
+#menu .btn-navbar { display: block; }

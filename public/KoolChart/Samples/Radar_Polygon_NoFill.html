@@ -1,0 +1,160 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="Content-Script-Type" content="text/javascript"/>
+<meta http-equiv="Content-Style-Type" content="text/css"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>KoolChart for HTML5 - Radar Chart</title>
+<link rel="stylesheet" type="text/css" href="./KoolChartSample.css"/>
+
+<!--  If you want to support IE 7/8, you'll need the conditional excanvas include. -->
+<!--[if IE]><script language="javascript" type="text/javascript" src="../KoolChart/JS/excanvas.js"></script><![endif]-->
+
+<!-- License Key -->
+<script language="javascript" type="text/javascript" src="../LicenseKey/KoolChartLicense.js"></script>
+
+<!-- KoolChart JavaScript library -->
+<script language="javascript" type="text/javascript" src="../KoolChart/JS/KoolRadarChart.js"></script>
+
+<!-- Theme.js -->
+<script type="text/javascript" src="../KoolChart/Assets/Theme/theme.js"></script>
+
+<script type="text/javascript">
+
+//----------------------- Here we start creating a chart. -----------------------
+
+//Sets the value of KoolOnLoadCallFunction to the name of a JS function (e.g. chartReadyHandler) that is called when the chart is ready to be created.
+var chartVars = "KoolOnLoadCallFunction=chartReadyHandler";
+
+//Creates the chart.
+//Parameters:  
+//1. Chart ID: You can use any name you like. 
+//2. DIV ID: The chart will be placed in this DIV.
+//3. chartVars: Variables used for creating the chart.
+//4. Chart width: Default value is 100%
+//5. Chart height: Default value is 100%
+KoolChart.create("chart1", "chartHolder", chartVars, "100%", "100%"); 
+
+//The JavaScript function which is set to the value of KoolOnLoadCallFunction.
+//This function will call two functions, setLayout() and setData() which are two main functions of KoolChart.
+//Parameters: 
+//1. ID: The Chart ID which is used as the first parameter of KoolChart.create().
+function chartReadyHandler(id) {
+	document.getElementById(id).setLayout(layoutStr);
+	document.getElementById(id).setData(chartData);
+}
+
+//Declares Layout
+var layoutStr = 
+				'<KoolChart backgroundColor="0xFFFFFF" cornerRadius="12" borderStyle="none">'
+					+'<Options>'
+						+'<Caption text="Household Expenditure (Yearly)" fontFamily="Malgun Gothic"/>'
+						+'<Legend useVisibleCheck="true" fontFamily="Malgun Gothic"/>'
+					+'</Options>'
+					+'<RadarChart id="chart1" isSeriesOnAxis="true" type="polygon" paddingTop="25" paddingBottom="25" showDataTips="true">'
+							+'<radialAxis>'
+								+'<LinearAxis id="rAxis"/>'
+							+'</radialAxis>'
+							+'<angularAxis>'
+								+'<CategoryAxis id="aAxis" categoryField="catName" displayName="Category"/>'
+							+'</angularAxis>'
+							/* Showing only the vertical axis, horizontal="false" visible="true" */
+							+'<radialAxisRenderers>'
+								+'<Axis2DRenderer axis="{rAxis}" horizontal="true" visible="false" tickPlacement="outside" tickLength="4">'
+									+'<axisStroke>'
+										+'<Stroke color="#555555" weight="1"/>'
+									+'</axisStroke>'
+								+'</Axis2DRenderer>'
+								+'<Axis2DRenderer axis="{rAxis}" horizontal="false" visible="true" tickPlacement="outside" tickLength="4">'
+									+'<axisStroke>'
+										+'<Stroke color="#555555" weight="1"/>'
+									+'</axisStroke>'
+								+'</Axis2DRenderer>'
+							+'</radialAxisRenderers>'
+							+'<angularAxisRenderers>'
+								+'<AngularAxisRenderer axis="{aAxis}"/>'
+							+'</angularAxisRenderers>'
+						  +'<series>'
+							+'<RadarSeries field="year2010" displayName="2010" fillLineArea="false">'
+							/* fillLineArea: Whether or not to fill the color in the inner area of the radar */ 
+								+'<showDataEffect>'
+									+'<SeriesInterpolate/>'
+								+'</showDataEffect>'
+							+'</RadarSeries>'
+							+'<RadarSeries field="year2011" displayName="2011" fillLineArea="false">'
+								+'<showDataEffect>'
+									+'<SeriesInterpolate/>'
+								+'</showDataEffect>'
+							+'</RadarSeries>'
+							+'<RadarSeries field="year2012" displayName="2012" fillLineArea="false">'
+								+'<showDataEffect>'
+									+'<SeriesInterpolate/>'
+								+'</showDataEffect>'
+							+'</RadarSeries>'
+							+'<RadarSeries field="year2013" displayName="2013" fillLineArea="false">'
+								+'<showDataEffect>'
+									+'<SeriesInterpolate/>'
+								+'</showDataEffect>'
+							+'</RadarSeries>'
+						  +'</series>'
+					+'</RadarChart>'
+				+'</KoolChart>';
+
+//Declares Dataset
+var chartData = [{"catName":"Food", "year2010":100, "year2011":100, "year2012":180, "year2013":150}
+				,{"catName":"Health Care", "year2010":80, "year2011":120, "year2012":200, "year2013":210}
+				,{"catName":"Transportation", "year2010":70, "year2011":115, "year2012":100, "year2013":240}
+				,{"catName":"Clothing", "year2010":80, "year2011":120, "year2012":140, "year2013":210}
+				,{"catName":"Education", "year2010":90, "year2011":160, "year2012":130, "year2013":200}
+				,{"catName":"Shelter", "year2010":100, "year2011":180, "year2012":165, "year2013":140}
+				,{"catName":"Leisure", "year2010":76, "year2011":120, "year2012":130, "year2013":170}
+				,{"catName":"Others", "year2010":80, "year2011":140, "year2012":140, "year2013":190}];
+
+/**
+ * If you want to use themes provided with KoolChart version 3.0, call the following functions.
+ * otherwise, comment out or delete the following functions.
+ *
+ * -- The Themes registered in KoolChart.themes --
+ * - simple
+ * - cyber
+ * - modern
+ * - lovely
+ * - pastel
+ * - old
+ * -------------------------------------------------
+ *
+ * The KoolChart.themes variable is defined in theme.js
+ */
+KoolChart.registerTheme(KoolChart.themes);
+
+/**
+ * The function called when the theme button in the sample HTML is clicked.
+ * Parameter Values:
+ * - simple
+ * - cyber
+ * - modern
+ * - lovely
+ * - pastel
+ * - old
+ * - default
+ *
+ * default: Applies the default theme which is the basic design of KoolChart.
+ * old: Applies the design of KoolChart version 2.5.
+ */
+function KoolChartChangeTheme(theme){
+	document.getElementById("chart1").setTheme(theme);
+}
+
+//----------------------- The end of the configuration for creating a chart. -----------------------
+	
+</script>
+</head>
+<body>
+	<div id="content">
+		<!-- The DIV in which the chart is placed -->
+		<div id="chartHolder" style="width:600px; height:400px;">
+		</div>
+	</div>
+</body>
+</html>

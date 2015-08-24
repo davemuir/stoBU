@@ -1,0 +1,142 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="Content-Script-Type" content="text/javascript"/>
+<meta http-equiv="Content-Style-Type" content="text/css"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>KoolChart for HTML5</title>
+<link rel="stylesheet" type="text/css" href="./KoolChartSample.css"/>
+
+<!--  If you want to support IE 7/8, you'll need the conditional excanvas include. -->
+<!--[if IE]><script language="javascript" type="text/javascript" src="../KoolChart/JS/excanvas.js"></script><![endif]-->
+
+<!-- License Key -->
+<script language="javascript" type="text/javascript" src="../LicenseKey/KoolChartLicense.js"></script>
+
+<!-- KoolChart JavaScript library -->
+<script language="javascript" type="text/javascript" src="../KoolChart/JS/KoolChart.js"></script>
+
+<script type="text/javascript">
+
+//----------------------- Here we start creating a chart. -----------------------
+
+window.onload = function()
+{
+	makeLayout(Math.round(Math.random()*9));	
+}
+
+var dataURL ="./DataXml/multiData4.xml";	
+var chartVars = "dataURL="+dataURL;
+
+var captionTitle;
+var dynamicLayout;
+var layoutStr;
+var dataField=["Profit","Cost","Revenue","Profit2","Cost2","Revenue2","Profit3","Cost3","Revenue3"];
+
+function makeLayout(value)
+{
+	if(value==0)
+		value=1;
+	var i = 0;
+	dynamicLayout = "<Line2DSeries displayName='";
+	for(i ; i < value ; ++i){
+		if (i == 2)
+			dynamicLayout += (i + "nd " + dataField[i] + "' yField='" + dataField[i] + "' form='curve'/>");
+		else if (i == 3)
+			dynamicLayout += (i + "rd " + dataField[i] + "' yField='" + dataField[i] + "' form='curve'/>");
+		else
+			dynamicLayout += (i + "th " + dataField[i] + "' yField='" + dataField[i] + "' form='curve'/>");
+		
+		if(i < value - 1)
+			dynamicLayout += "<Line2DSeries displayName='";
+	}
+	captionTitle = "<Caption text='"+i+" Line Series' fontFamily='Malgun Gothic'/>";
+	
+
+	layoutStr = "<KoolChart>"
+			+"<Options>"
+				+"<Legend direction='vertical' position='right' verticalGap='1' paddingBottom='2' paddingTop='2' defaultMouseOverAction='true'/>"
+					+captionTitle
+				+"</Options>"
+				+'<NumberFormatter id="numfmt" useThousandsSeparator="true"/>' 
+				+"<Line2DChart showDataTips='true'>"
+					+"<horizontalAxis>"
+						+"<CategoryAxis categoryField='Month'/>"
+					+"</horizontalAxis>"
+					+"<verticalAxis>"
+						+"<LinearAxis interval='300' formatter='{numfmt}'/>"
+					+"</verticalAxis>"
+					+"<series>"
+						+dynamicLayout
+					+"</series>"
+				+"</Line2DChart>"
+			+"</KoolChart>";
+}
+
+// JS function (e.g. chartReadyHandler) that is called when the chart is ready to be created.
+chartVars = "&KoolOnLoadCallFunction=chartReadyHandler";
+
+//Creates the chart.
+//Parameters:  
+//1. Chart ID: You can use any name you like. 
+//2. DIV ID: The chart will be placed in this DIV.
+//3. chartVars: Variables used for creating the chart.
+//4. Chart width: Default value is 100%
+//5. Chart height: Default value is 100%
+KoolChart.create("chart1", "chartHolder", chartVars, "100%", "100%"); 
+
+//The JavaScript function which is set to the value of KoolOnLoadCallFunction.
+//This function will call two functions, setLayout() and setData() which are two main functions of KoolChart.
+//Parameters: 
+//1. ID: The Chart ID which is used as the first parameter of KoolChart.create().
+//Four callback functions can be used.
+//1. setLayout - Sets the String type layout (XML).
+//2. setData - Sets the Array type dataset.
+//3. setLayoutURL - Sets the URL of the layout (XML).
+//4. setDataURL - Sets the URL of the dataset (XML).
+function chartReadyHandler(id)
+{
+	//Example 1. String Type Layout, Array Type Dataset. 
+	//document.getElementById(id).setLayoutURL(layoutURL);
+	//document.getElementById(id).setData(chartData);
+
+	//Example 2. URL of Layout (XML), Array Type Dataset.
+	//document.getElementById(id).setLayoutURL(layoutURL);
+	//document.getElementById(id).setData(chartData);
+	
+	//Example 3. String Type Layout, URL of Dataset (XML).
+	document.getElementById(id).setLayout(layoutStr);
+	document.getElementById(id).setDataURL(dataURL);
+	
+	//Example 4. URL of Layout, URL of Dataset
+	//document.getElementById(id).setLayoutURL(layoutURL);
+	//document.getElementById(id).setDataURL(dataURL);
+}
+
+//----------------------- The end of the configuration for creating a chart. -----------------------
+
+</script>
+</head>
+<body>
+	<div id="content">
+		<!-- The DIV in which the chart is placed. -->
+		<div id="chartHolder" style="width:600px; height:400px;">
+		</div>
+	</div>
+	<div id="footer"  style="width:600px; margin:0px auto;">	
+		<font size="3"><b>This sample is for generating the layout dynamically when the number of series is unknown.</b></font>
+<pre>
+<b>●Script</b>
+<font color="#01BAC5">value = number of series</font>
+dynamicLayout = "&#60;Line2DSeries displayName='";
+<font color="#0000ff">for</font>(i ; i < value ; ++i){
+	dynamicLayout += 
+		(i + "th" + dataField[i] + "' yField='" + dataField[i] + "' form='curve'/>");
+<font color="#0000ff">if</font>(i < value - 1)
+	dynamicLayout += "&#60;Line2DSeries displayName='";
+}<br>
+</pre>
+	</div>
+</body>
+</html>

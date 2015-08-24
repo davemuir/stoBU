@@ -1,0 +1,196 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="Content-Script-Type" content="text/javascript"/>
+<meta http-equiv="Content-Style-Type" content="text/css"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>KoolChart for HTML5 - Slide Chart</title>
+<link rel="stylesheet" type="text/css" href="./KoolChartSample.css"/>
+
+<!--  If you want to support IE 7/8, you'll need the conditional excanvas include. -->
+<!--[if IE]><script language="javascript" type="text/javascript" src="../KoolChart/JS/excanvas.js"></script><![endif]-->
+
+<!-- License Key -->
+<script language="javascript" type="text/javascript" src="../LicenseKey/KoolChartLicense.js"></script>
+
+<!-- KoolChart JavaScript library -->
+<script language="javascript" type="text/javascript" src="../KoolChart/JS/KoolIntegration.js"></script>
+
+<!-- The CSS style for KoolChart (This CSS style is required for only Legend, Preloader, Scroll Chart and History Chart) -->
+<link rel="stylesheet" type="text/css" href="../KoolChart/Assets/Css/KoolChart.css"/>
+
+<!-- Theme.js -->
+<script type="text/javascript" src="../KoolChart/Assets/Theme/theme.js"></script>
+
+<script type="text/javascript">
+
+//----------------------- Here we start creating a chart. -----------------------
+
+//Sets the value of KoolOnLoadCallFunction to the name of a JS function (e.g. chartReadyHandler) that is called when the chart is ready to be created.
+var chartVars = "KoolOnLoadCallFunction=chartReadyHandler";
+
+//Creates the chart.
+//Parameters:  
+//1. Chart ID: You can use any name you like. 
+//2. DIV ID: The chart will be placed in this DIV.
+//3. chartVars: Variables used for creating the chart.
+//4. Chart width: Default value is 100%
+//5. Chart height: Default value is 100%
+KoolChart.create("chart1", "chartHolder", chartVars, "100%", "100%"); 
+
+//The JavaScript function which is set to the value of KoolOnLoadCallFunction.
+//This function will call two functions, setLayout() and setData() which are two main functions of KoolChart.
+//Parameters: 
+//1. ID: The Chart ID which is used as the first parameter of KoolChart.create().
+function chartReadyHandler(id) {
+	
+	var layout1 = getCartesianLayout("Column2D","Column 2D Chart",["Profit"]);
+	var layout2 = getCartesianLayout("Line2D","Line Chart",["Profit"]);
+	var layout3 = getCartesianLayout("Column3D","Column 3D Chart - MultiSeries",["Profit","Cost"]);
+
+	// Defines the layouts and datasets.
+	layoutSet = [layout1, layout2, layout3, radarLayout];
+	dataSet = [chartData, chartData2, chartData3, chartData3];
+
+	// Sets the layout.
+	document.getElementById(id).setSlideLayoutSet(layoutSet);
+
+	// Sets the dataset.
+	document.getElementById(id).setSlideDataSet(dataSet);
+}
+
+// Declares Layout
+// Array type
+var chartData = [{"Month":"Jan", "Profit":13000},
+				{"Month":"Feb", "Profit":12000},
+				{"Month":"Mar", "Profit":15000},
+				{"Month":"Apr", "Profit":22200},
+				{"Month":"May", "Profit":18000},
+				{"Month":"Jun", "Profit":15000},
+				{"Month":"Jul", "Profit":22000},
+				{"Month":"Aug", "Profit":14000},
+				{"Month":"Sep", "Profit":26000},
+				{"Month":"Oct", "Profit":22000},
+				{"Month":"Nov", "Profit":28000},
+				{"Month":"Dec", "Profit":34000}];
+
+//Array type
+var chartData2 = [{"Month":"Jan", "Profit":5000, "Cost":13700},
+				{"Month":"Feb", "Profit":8000, "Cost":6600},
+				{"Month":"Mar", "Profit":6000, "Cost":25200},
+				{"Month":"Apr", "Profit":26200, "Cost":15400},
+				{"Month":"May", "Profit":18000, "Cost":6700},
+				{"Month":"Jun", "Profit":7000, "Cost":9400},
+				{"Month":"Jul", "Profit":12000, "Cost":6600},
+				{"Month":"Aug", "Profit":7000, "Cost":8000},
+				{"Month":"Sep", "Profit":12000, "Cost":7600},
+				{"Month":"Oct", "Profit":21000, "Cost":4000},
+				{"Month":"Nov", "Profit":10500, "Cost":13400},
+				{"Month":"Dec", "Profit":18000, "Cost":10200}];
+
+//XML type
+var chartData3 = "<items>"
+					+"<item>"
+						+"<Month>2008</Month>"
+						+"<Profit>320</Profit>"
+						+"<Cost>250</Cost>"
+					+"</item>"
+					+"<item>"
+						+"<Month>2009</Month>"
+						+"<Profit>250</Profit>"
+						+"<Cost>450</Cost>"
+					+"</item>"
+					+"<item>"
+						+"<Month>2010</Month>"
+						+"<Profit>350</Profit>"
+						+"<Cost>500</Cost>"
+					+"</item>"
+					+"<item>"
+						+"<Month>2011</Month>"
+						+"<Profit>250</Profit>"
+						+"<Cost>300</Cost>"
+					+"</item>"
+					+"<item>"
+						+"<Month>2012</Month>"
+						+"<Profit>400</Profit>"
+						+"<Cost>320</Cost>"
+					+"</item>"
+					+"<item>"
+						+"<Month>2013</Month>"
+						+"<Profit>350</Profit>"
+						+"<Cost>420</Cost>"
+					+"</item>"
+				+"</items>";
+
+
+// Function: Converting the layout.
+// Parameters:
+// type: the type of the chart.
+// title: the caption of the chart.
+// dataField: the data field.
+function getCartesianLayout(type, title, dataField)
+{
+	var layout="<KoolChart borderStyle='none'>"
+				+"<Options><Caption text='" + title +"' fontFamily='Malgun Gothic'/></Options>"
+				+"<NumberFormatter id='numfmt' useThousandsSeparator='true'/>"
+				+"<" + type + "Chart showDataTips='true'>"
+				+"<series>";
+	var interval = type == "Column3D" ? 1000 : 3000;
+
+		for(var i=0; i<dataField.length; ++i)
+		{
+			layout += "<" + type +"Series yField='" + dataField[i] + "' displayName='" + dataField[i] + "'/>"
+		}
+
+		layout +="</series>"
+				+"<horizontalAxis>"
+				+	"<CategoryAxis categoryField='Month'/>"
+				+"</horizontalAxis>"
+				+"<verticalAxis>"
+				+"<LinearAxis interval='" + interval + "' formatter='{numfmt}' />"
+				+"</verticalAxis>"
+				+"</" + type + "Chart>"
+				+"</KoolChart>";
+	return layout;
+}
+
+//Layout for Radar Chart.
+var radarLayout = 
+					"<KoolChart borderStyle='none'>"
+						+"<Options>"
+							+"<Caption text='Radar Chart' fontFamily='Malgun Gothic'/>"
+						+"</Options>"
+						+"<RadarChart type='polygon' paddingTop='20' paddingBottom='20' showDataTips='true'>"
+							+"<radialAxis>"
+								+"<LinearAxis id='rAxis'/>"
+							+"</radialAxis>"
+							+"<radialAxisRenderers>"
+								+"<Axis2DRenderer axis='{rAxis}' horizontal='true' tickPlacement='outside' tickLength='4'>"
+									+'<axisStroke>'
+										+'<Stroke color="#555555"/>'
+									+'</axisStroke>'
+								+'</Axis2DRenderer>'
+							+"</radialAxisRenderers>"
+							+"<angularAxis>"
+								+"<CategoryAxis categoryField='Month' displayName='Year'/>"
+							+"</angularAxis>"
+							+"<series>"
+								+"<RadarSeries field='Profit' displayName='Profit' fillLineArea='false'/>"
+								+"<RadarSeries field='Cost' displayName='Cost' fillLineArea='false'/>"
+							+"</series>"
+						+"</RadarChart>"
+					+"</KoolChart>";
+
+//----------------------- The end of the configuration for creating a chart. -----------------------
+
+</script>
+</head>
+<body>
+	<div id="content">
+		<!-- The DIV in which the chart is placed -->
+		<div id="chartHolder" style="width:600px; height:400px;">
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,301 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="../../style.css" type="text/css" media="screen">
+<link rel="stylesheet" href="../../print.css" type="text/css" media="print">
+<meta content="BrokenAxis3DRenderer,eng.axisRenderers.BrokenAxis3DRenderer" name="keywords">
+<title>eng.axisRenderers.BrokenAxis3DRenderer</title>
+</head>
+<body>
+<script type="text/javascript" language="javascript" src="../../asdoc.js"></script><script type="text/javascript" language="javascript" src="../../cookies.js"></script><script type="text/javascript" language="javascript">
+<!--
+				asdocTitle = 'BrokenAxis3DRenderer - KoolChart for HTML5 Ver. 3.0 Reference By RiaMore Soft.';
+				var baseRef = '../../';
+				window.onload = configPage;
+			--></script>
+<table style="display:none" id="titleTable" cellspacing="0" cellpadding="0" class="titleTable">
+<tr>
+<td align="left" class="titleTableTitle">KoolChart for HTML5 Ver. 3.0 Reference</td><td align="right" class="titleTableTopNav"><a onclick="loadClassListFrame('../../all-classes.html')" href="../../package-summary.html">All&nbsp;Packages</a>&nbsp;|&nbsp;<a onclick="loadClassListFrame('../../all-classes.html')" href="../../class-summary.html">All&nbsp;Classes</a>&nbsp;|&nbsp;<a onclick="loadClassListFrame('../../index-list.html')" href="../../all-index-A.html">Index</a>&nbsp;|&nbsp;<a href="../../index.html?eng/axisRenderers/BrokenAxis3DRenderer.html&amp;eng/axisRenderers/class-list.html" id="framesLink1">Frames</a><a onclick="parent.location=document.location" href="" style="display:none" id="noFramesLink1">No&nbsp;Frames</a></td><td rowspan="3" align="right" class="titleTableLogo"><a href="www.koolchart.com"><img alt="KoolChart Logo" title="KoolChart Logo" class="logoImage" src="../../images/logo.png"></a></td>
+</tr>
+<tr class="titleTableRow2">
+<td align="left" id="subTitle" class="titleTableSubTitle">Class&nbsp;BrokenAxis3DRenderer</td><td align="right" id="subNav" class="titleTableSubNav"><a href="#styleSummary">Styles</a></td>
+</tr>
+<tr class="titleTableRow3">
+<td colspan="2">&nbsp;</td>
+</tr>
+</table>
+<script type="text/javascript" language="javascript">
+<!--
+if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Class BrokenAxis3DRenderer"); titleBar_setSubNav(false,false,true,false,false,false,false,false,false,false,false,false,false,false);}
+--></script>
+<div class="MainContent">
+<table cellspacing="0" cellpadding="0" class="classHeaderTable">
+<tr>
+<td class="classHeaderTableLabel">Package</td><td><a onclick="javascript:loadClassListFrame('class-list.html')" href="package-detail.html">eng.axisRenderers</a></td>
+</tr>
+<tr>
+<td class="classHeaderTableLabel">Class</td><td class="classSignature">public class BrokenAxis3DRenderer</td>
+</tr>
+</table>
+<p></p>
+ The BrokenAxis2DRenderer class (&lt;BrokenAxis2DRenderer&gt;) is a rendering method for the broken axis of 3D charts.
+ <br>You can adjust the thickness and color of the axis, the location of ticks, the color of ticks, etc.
+ <br>The corresponding axis must be defined in the axis node (e.g. &lt;LinearAxis&gt;).
+ <p>The layout is as follows:</p>
+ <pre>
+ &lt;BrokenAxis3DRenderer axis="{vAxis}" tickLength="20" minorTickLength="0" tickPlacement="outside" placement="left"
+        canDropLabels="false" showLabels="true" labelAlign="center"&gt;
+     &lt;axisStroke&gt;
+      &lt;Stroke weight="10" color="0x66CCFF" caps="none"/&gt;
+     &lt;/axisStroke&gt;
+     &lt;tickStroke&gt;
+      &lt;Stroke weight="2" color="0xFF0000" /&gt;
+    &lt;/tickStroke&gt;
+     &lt;minorTickStroke&gt;
+      &lt;Stroke weight="1" color="0x0000FF" caps="square"/&gt;
+    &lt;/minorTickStroke&gt;
+    &lt;/BrokenAxis3DRenderer&gt;
+ </pre>
+ <p></p>
+<br>
+<hr>
+</div>
+<a name="styleSummary"></a>
+<div class="summarySection">
+<div class="summaryTableTitle">Styles</div>
+<table id="summaryTableStyle" class="summaryTable " cellpadding="3" cellspacing="0">
+<tr>
+<th>&nbsp;</th><th colspan="2">Style</th><th>Description</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:axis"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">axis</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Object<br>
+ <p>Sets the axis to be represented by BrokenAxis3DRenderer. The id assigned to horizontalAxis or verticalAxis must be the value of this property.</p>
+ </td><td class="summaryTableOwnerCol">BrokenAxis3DRenderer</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:axisStroke"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">axisStroke</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Object<br>
+  Sets the line style of the axis.<br>
+  It does not have to be an instance of Stroke.<br>
+ </td><td class="summaryTableOwnerCol">BrokenAxis3DRenderer</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:axisTitleStyleName"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">axisTitleStyleName</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>String<br>
+ <p>It is the name of the selector when the CSS style for the axis is defined in the Style node (&lt;Style&gt;).</p>
+ </td><td class="summaryTableOwnerCol">BrokenAxis3DRenderer</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:canDropLabels"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">canDropLabels</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Boolean<br>
+  Indicates whether or not to delete some labels to force all the labels into the layout neatly along the axis.<br>
+  <p>If the value is <code>true</code>, then the overlapped labels will be deleted.<br>
+  The labels are layered out at the regular interval and some labels can be skipped if necessary.<br>
+  <p>If the value is <code>false</code>, then the labels will be rotated or zoomed in/out. (if internal fonts are used.)<br>
+  The default value is dependent on the axis type.</p>
+ </td><td class="summaryTableOwnerCol">BrokenAxis3DRenderer</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:canStagger"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">canStagger</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Boolean<br> 
+ Indicates whether or not to display labels up and down alternately.<br>
+ It can be used to minimized the space for displaying labels.<br>
+ <p>The default value is <code>true</code>. It displays labels up and down alternately.</p>
+  The default value is <code>true</code>.</td><td class="summaryTableOwnerCol">BrokenAxis3DRenderer</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:formatter"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">formatter</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Object<br>
+ <p>Sets the formatter for formatting numeric data labels.</p>
+ </td><td class="summaryTableOwnerCol">BrokenAxis3DRenderer</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:id"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">id</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>String<br>
+ <p>Sets id. id is an unique identifier defined by users.</p>
+ You can access to an object by using id.<br>
+ </td><td class="summaryTableOwnerCol">BrokenAxis3DRenderer</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:labelAlign"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">labelAlign</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>String<br>
+ <p>Sets the label alignment, which controls how the label is displayed along the axis.</p>
+ 
+   The default value is <code>center</code>.</td><td class="summaryTableOwnerCol">BrokenAxis3DRenderer</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:labelGap"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">labelGap</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Number &nbsp; <span class="label">Format: </span>Length<br> 
+  <p>Sets the gaps between the bottom of ticks and the top of labels.</p>
+  
+    The default value is <code>3</code>.</td><td class="summaryTableOwnerCol">BrokenAxis3DRenderer</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:labelRotation"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">labelRotation</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Number<br> 
+ Sets the degrees of rotation. If the device fonts are used, then labels will be displayed horizontally.<br>
+ If you want to display the rotated labels, then the embedded fonts must be used.
+ </td><td class="summaryTableOwnerCol">BrokenAxis3DRenderer</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:minorTickLength"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">minorTickLength</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Number &nbsp; <span class="label">Format: </span>Length<br>
+  <p>Sets the length of minor ticks.</p>
+  
+   The default value is <code>0</code>.</td><td class="summaryTableOwnerCol">BrokenAxis3DRenderer</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:minorTickPlacement"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">minorTickPlacement</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>String<br>
+ Sets the location where minor ticks are placed.<br>
+ You can use the following options.
+  <ul>
+    <li><code>"inside"</code> -
+    Draws minor ticks inside data area.</li>
+     <li><code>"outside"</code> -
+    Draws minor ticks inside label area.</li>
+     <li><code>"cross"</code> -
+    Draws minor ticks on the axis.</li>
+     <li><code>"none"</code> -
+    Does not draw minor ticks.</li>
+  </ul>
+ </td><td class="summaryTableOwnerCol">BrokenAxis3DRenderer</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:minorTickStroke"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">minorTickStroke</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Object<br>
+  Sets the line style of minor ticks.<br>
+  It does not have to be an instance of Stroke.<br>
+ </td><td class="summaryTableOwnerCol">BrokenAxis3DRenderer</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:placement"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">placement</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>String<br>
+ Sets the location of the axis in charts.<br>
+ The valid values for the vertical axis are left and right. The valid values for the horizontal axis are top and bottom.<br> 
+ For the vertical axis, the default location of the first axis is left and for the horizontal axis, the default location of the first axis is bottom.<br>
+ For Cartesian charts, the second axis is automatically located at the opposite of the first axis.<br>
+ e.g. if you set as placement="right" for the first vertical axis, then the second vertical axis will be located at the left side of the chart. 
+</td><td class="summaryTableOwnerCol">BrokenAxis3DRenderer</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:showLabels"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">showLabels</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Boolean<br>
+  <p>Indicates whether or not to display labels.</p>
+  
+   The default value is <code>true</code>.</td><td class="summaryTableOwnerCol">BrokenAxis3DRenderer</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:showLine"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">showLine</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Boolean<br>
+  <p>Indicates whether or not to display the axis.</p>
+  
+   The default value is <code>true</code>.</td><td class="summaryTableOwnerCol">BrokenAxis3DRenderer</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:tickLength"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">tickLength</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Number &nbsp; <span class="label">Format: </span>Length<br>
+  <p>Sets the tick length.</p>
+  
+   The default value is <code>3</code>.</td><td class="summaryTableOwnerCol">BrokenAxis3DRenderer</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:tickPlacement"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">tickPlacement</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>String<br>
+  Sets the location where ticks are located.<br>
+  You can use the following options.
+  <ul>
+    <li><code>"inside"</code> -
+    Draws ticks inside data area.</li>
+     <li><code>"outside"</code> -
+    Draws ticks inside label area.</li>
+     <li><code>"cross"</code> -
+    Draws ticks on the axis.</li>
+     <li><code>"none"</code> -
+    Does not draw ticks.</li>
+  </ul>
+ </td><td class="summaryTableOwnerCol">BrokenAxis3DRenderer</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:tickStroke"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">tickStroke</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Object<br>
+  Sets the line style of ticks.<br>
+  It does not have to be an instance of Stroke.<br>
+ </td><td class="summaryTableOwnerCol">BrokenAxis3DRenderer</td>
+</tr>
+</table>
+</div>
+<script type="text/javascript" language="javascript">
+<!--
+showHideInherited();
+--></script>
+<div class="MainContent">
+<br>
+<br>
+<hr>
+<br>
+<p></p>
+<center class="copyright">Copyright(c) 2012 RiaMore Soft, Inc. All Right Reserved</center>
+</div>
+</body>
+</html>
+<!--Copyright(c) 2012 RiaMore Soft, Inc. All Right Reserved-->

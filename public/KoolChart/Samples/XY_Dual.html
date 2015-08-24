@@ -1,0 +1,144 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="Content-Script-Type" content="text/javascript"/>
+<meta http-equiv="Content-Style-Type" content="text/css"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>KoolChart for HTML5 - Dual Axis</title>
+<link rel="stylesheet" type="text/css" href="./KoolChartSample.css"/>
+
+<!--  If you want to support IE 7/8, you'll need the conditional excanvas include. -->
+<!--[if IE]><script language="javascript" type="text/javascript" src="../KoolChart/JS/excanvas.js"></script><![endif]-->
+
+<!-- License Key -->
+<script language="javascript" type="text/javascript" src="../LicenseKey/KoolChartLicense.js"></script>
+
+<!-- KoolChart JavaScript library -->
+<script language="javascript" type="text/javascript" src="../KoolChart/JS/KoolChart.js"></script>
+
+<script type="text/javascript">
+
+//----------------------- Here we start creating a chart. -----------------------
+
+//Sets the value of KoolOnLoadCallFunction to the name of a JS function (e.g. chartReadyHandler) that is called when the chart is ready to be created.
+var chartVars = "KoolOnLoadCallFunction=chartReadyHandler";
+
+//Creates the chart.
+//Parameters:  
+//1. Chart ID: You can use any name you like. 
+//2. DIV ID: The chart will be placed in this DIV.
+//3. chartVars: Variables used for creating the chart.
+//4. Chart width: Default value is 100%
+//5. Chart height: Default value is 100%
+KoolChart.create("chart1", "chartHolder", chartVars, "100%", "100%"); 
+
+//The JavaScript function which is set to the value of KoolOnLoadCallFunction.
+//This function will call two functions, setLayout() and setData() which are two main functions of KoolChart.
+//Parameters: 
+//1. ID: The Chart ID which is used as the first parameter of KoolChart.create().
+function chartReadyHandler(id) {
+	document.getElementById(id).setLayout(layoutStr);
+	document.getElementById(id).setData(chartData);
+}
+
+// Declares Layout
+var layoutStr = 
+				'<KoolChart backgroundColor="0xFFFFFF" cornerRadius="12" borderStyle="none">'
+					+'<Options>'
+						+'<Caption text="Monthly Report"/>'
+						+'<SubCaption text="Column(Left) Line(Right)" fontSize="11" textAlign="center" paddingTop="5" paddingBottom="10" fontFamily="Malgun Gothic"/>'
+					+'</Options>'
+					+'<NumberFormatter id="numfmt" useThousandsSeparator="true"/>' 
+					+'<Combination2DChart showDataTips="true">'
+						+'<horizontalAxis>'
+							+'<CategoryAxis categoryField="Month"/>' 
+						+'</horizontalAxis>'
+						+'<verticalAxis>'
+							+'<LinearAxis id="axis1" formatter="{numfmt}"/>' 
+						+'</verticalAxis>'
+						+'<series>'
+							+'<Column2DSet type="stacked">'
+								+'<series>'
+									+'<Column2DSeries yField="Phone" displayName="Phone">'
+										+'<showDataEffect>'
+											+'<SeriesInterpolate/>' 
+										+'</showDataEffect>'
+										+'<fill>'
+											+'<SolidColor color="0x66CC66"/>' 
+										+'</fill>'
+									+'</Column2DSeries>'
+									+'<Column2DSeries yField="Pad" displayName="Pad">'
+										+'<showDataEffect>'
+											+'<SeriesInterpolate/>' 
+										+'</showDataEffect>'
+										+'<fill>'
+											+'<SolidColor color="0x0099FF"/>' 
+										+'</fill>'
+									+'</Column2DSeries>'
+								+'</series>'
+							+'</Column2DSet>'
+							+'<Line2DSeries yField="PC" displayName="PC">'
+								+'<verticalAxis>'
+									+'<LinearAxis id="axis2" interval="0.5"/>' 
+								+'</verticalAxis>'
+								+'<showDataEffect>'
+									+'<SeriesInterpolate/>' 
+								+'</showDataEffect>'
+								+'<lineStroke>'
+									+'<Stroke color="0xFFCC00" weight="2"/>' 
+								+'</lineStroke>'
+							+'</Line2DSeries>'
+						+'</series>'
+						+'<verticalAxisRenderers>' 
+						/* Sets the axes for each series. */
+							+'<Axis2DRenderer axis="{axis1}"/>' 
+							+'<Axis2DRenderer axis="{axis2}">'
+								+'<axisStroke>'
+									+'<Stroke color="0xFFCC00" weight="4"/>'
+								+'</axisStroke>'
+							+'</Axis2DRenderer>'
+						+'</verticalAxisRenderers>'
+					+'</Combination2DChart>'
+				+'</KoolChart>';
+
+// Declares Dataset
+var chartData = [{"Month":"Jan","Phone":1000,"Pad":1500,"PC":2.3},
+				{"Month":"Feb","Phone":1400,"Pad":1400,"PC":1.2},
+				{"Month":"Mar","Phone":1500,"Pad":1200,"PC":1.6},
+				{"Month":"Apr","Phone":1900,"Pad":1300,"PC":1.3},
+				{"Month":"May","Phone":1400,"Pad":900,"PC":1.0},
+				{"Month":"Jun","Phone":2000,"Pad":500,"PC":1.2},
+				{"Month":"Jul","Phone":1800,"Pad":1400,"PC":1.0},
+				{"Month":"Aug","Phone":2500,"Pad":800,"PC":1.6},
+				{"Month":"Sep","Phone":3000,"Pad":1900,"PC":1.2},
+				{"Month":"Oct","Phone":2000,"Pad":2300,"PC":1.0},
+				{"Month":"Nov","Phone":2100,"Pad":2400,"PC":1.7},
+				{"Month":"Dec","Phone":1700,"Pad":1900,"PC":2.3}];
+
+//----------------------- The end of the configuration for creating a chart. -----------------------
+
+</script>
+</head>
+<body>
+	<div id="content">
+		<!-- The DIV in which the chart is placed -->
+		<div id="chartHolder" style="width:600px; height:400px;">
+		</div>
+		<div id="footer">	
+		<font size="3"><b>This sample is to display two Y-axes with different scales.</b></font>		
+<pre>
+<font color="#01BAC5">It is useful to display two series in a chart, which have different scales to each other.
+Column Chart: Left ( axis1 )
+Line Chart: Right ( axis2 )</font>
+
+<b>●Layout</b>
+&#60;verticalAxisRenderers&#62;
+	&#60;Axis2DRenderer <font color="#ff0000">axis="{axis1}"</font>/&#62;
+	&#60;Axis2DRenderer <font color="#ff0000">axis="{axis2}"</font>/&#62; 
+&#60;/verticalAxisRenderers&#62;
+</pre>
+		</div>
+	</div>
+</body>
+</html>

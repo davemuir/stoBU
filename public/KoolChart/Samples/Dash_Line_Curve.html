@@ -1,0 +1,157 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="Content-Script-Type" content="text/javascript"/>
+<meta http-equiv="Content-Style-Type" content="text/css"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>KoolChart for HTML5 - Line Chart</title>
+<link rel="stylesheet" type="text/css" href="./KoolChartSample.css"/>
+
+<!--  If you want to support IE 7/8, you'll need the conditional excanvas include. -->
+<!--[if IE]><script language="javascript" type="text/javascript" src="../KoolChart/JS/excanvas.js"></script><![endif]-->
+
+<!-- License Key -->
+<script language="javascript" type="text/javascript" src="../LicenseKey/KoolChartLicense.js"></script>
+
+<!-- KoolChart JavaScript library -->
+<script language="javascript" type="text/javascript" src="../KoolChart/JS/KoolChart.js"></script>
+
+<!-- Theme.js -->
+<script type="text/javascript" src="../KoolChart/Assets/Theme/theme.js"></script>
+
+<script type="text/javascript">
+
+//----------------------- Here we start creating a chart. -----------------------
+
+//Sets the value of KoolOnLoadCallFunction to the name of a JS function (e.g. chartReadyHandler) that is called when the chart is ready to be created.
+var chartVars = "KoolOnLoadCallFunction=chartReadyHandler";
+
+//Creates the chart.
+//Parameters:  
+//1. Chart ID: You can use any name you like. 
+//2. DIV ID: The chart will be placed in this DIV.
+//3. chartVars: Variables used for creating the chart.
+//4. Chart width: Default value is 100%
+//5. Chart height: Default value is 100%
+KoolChart.create("chart1", "chartHolder", chartVars, "100%", "100%"); 
+
+//The JavaScript function which is set to the value of KoolOnLoadCallFunction.
+//This function will call two functions, setLayout() and setData() which are two main functions of KoolChart.
+//Parameters: 
+//1. ID: The Chart ID which is used as the first parameter of KoolChart.create().
+function chartReadyHandler(id) {
+	document.getElementById(id).setLayout(layoutStr);
+	document.getElementById(id).setData(chartData);
+}
+
+//Declares Layout
+var layoutStr = 
+				'<KoolChart backgroundColor="0xFFFFFF" cornerRadius="12" borderStyle="none">'
+					+'<Options>'
+						+'<Caption text="Price Indices of Grains ($ Per Metric Ton)"/>'
+						+'<SubCaption text="Based on Recent 10 Years of World Bank Data" textAlign="center" />'
+						+'<Legend defaultMouseOverAction="false" useVisibleCheck="true"/>'
+					+'</Options>'
+					+'<Line2DChart showDataTips="true" paddingTop="0">'
+						+'<horizontalAxis>'
+							+'<CategoryAxis categoryField="Year" padding="0.5"/>' 
+						+'</horizontalAxis>'
+						+'<verticalAxis>'
+							+'<LinearAxis interval="50" minimum="90" maximum="310"/>'
+						+'</verticalAxis>'
+						+'<series>'
+						/* 
+							dashLinePattern: Sets the length of the dash. For example, if you set the value to 5, the 5 pixels of a dash and the 5 pixels of a space will be repeated.
+							The larger the value, the better performance you can have. 
+							If you want to improve the chart rendering performance, you use the larger value of the dashLinePattern property. 
+						*/
+						
+						/* Due to the performance issue, we don't recommend to use the curved dashed line */
+							+'<Line2DSeries yField="Sorghum" fill="#ffffff" radius="4" form="curve" lineStyle="dashLine" dashLinePattern="6" itemRenderer="CircleItemRenderer" displayName="Sorghum">'
+								+'<stroke>'
+									+'<Stroke color="#ff812d" weight="2"/>'
+								+'</stroke>'
+								+'<showDataEffect>'
+									+'<SeriesInterpolate elementOffset="0"/>' 
+								+'</showDataEffect>'
+							+'</Line2DSeries>'
+							+'<Line2DSeries yField="Maize" fill="#ffffff" radius="4"  form="curve" lineStyle="dashLine" dashLinePattern="6" itemRenderer="CircleItemRenderer" displayName="Maize">'
+								+'<stroke>'
+									+'<Stroke color="#ffd100" weight="2"/>'
+								+'</stroke>'
+								+'<showDataEffect>'
+									+'<SeriesInterpolate elementOffset="0"/>' 
+								+'</showDataEffect>'
+							+'</Line2DSeries>'
+							+'<Line2DSeries yField="Barley" fill="#ffffff" radius="4"  form="curve" lineStyle="dashLine" dashLinePattern="6" itemRenderer="CircleItemRenderer" displayName="Barley">'
+								+'<stroke>'
+									+'<Stroke color="#81d733" weight="2"/>'
+								+'</stroke>'
+								+'<showDataEffect>'
+									+'<SeriesInterpolate elementOffset="0"/>' 
+								+'</showDataEffect>'
+							+'</Line2DSeries>'
+						+'</series>'
+					+'</Line2DChart>'
+				+'</KoolChart>';
+
+// Declares Dataset
+var chartData = [{"Year":"2004", "Sorghum":109, "Barley":98, "Maize":111},
+                 {"Year":"2005", "Sorghum":96, "Barley":95, "Maize":98},
+                 {"Year":"2006", "Sorghum":122, "Barley":116, "Maize":121},
+                 {"Year":"2007", "Sorghum":162, "Barley":172, "Maize":163},
+                 {"Year":"2008", "Sorghum":207, "Barley":200, "Maize":223},
+                 {"Year":"2009", "Sorghum":151, "Barley":128, "Maize":165},
+                 {"Year":"2010", "Sorghum":165, "Barley":158, "Maize":185},
+                 {"Year":"2011", "Sorghum":268, "Barley":207, "Maize":291},
+                 {"Year":"2012", "Sorghum":271, "Barley":240, "Maize":298},
+                 {"Year":"2013", "Sorghum":243, "Barley":202, "Maize":259}];
+
+/**
+ * If you want to use themes provided with KoolChart version 3.0, call the following functions.
+ * otherwise, comment out or delete the following functions.
+ *
+ * -- The Themes registered in KoolChart.themes --
+ * - simple
+ * - cyber
+ * - modern
+ * - lovely
+ * - pastel
+ * - old
+ * -------------------------------------------------
+ *
+ * The KoolChart.themes variable is defined in theme.js
+ */
+KoolChart.registerTheme(KoolChart.themes);
+
+/**
+ * The function called when the theme button in the sample HTML is clicked.
+ * Parameter Values:
+ * - simple
+ * - cyber
+ * - modern
+ * - lovely
+ * - pastel
+ * - old
+ * - default
+ *
+ * default: Applies the default theme which is the basic design of KoolChart.
+ * old: Applies the design of KoolChart version 2.5.
+ */
+function KoolChartChangeTheme(theme){
+	document.getElementById("chart1").setTheme(theme);
+}
+
+//----------------------- The end of the configuration for creating a chart. -----------------------
+
+</script>
+</head>
+<body>
+	<div id="content">
+		<!-- The DIV in which the chart is placed -->
+		<div id="chartHolder" style="width:600px; height:400px;">
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,154 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="Content-Script-Type" content="text/javascript"/>
+<meta http-equiv="Content-Style-Type" content="text/css"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>KoolChart for HTML5 - Bubble Chart</title>
+<link rel="stylesheet" type="text/css" href="./KoolChartSample.css"/>
+
+<!--  If you want to support IE 7/8, you'll need the conditional excanvas include. -->
+<!--[if IE]><script language="javascript" type="text/javascript" src="../KoolChart/JS/excanvas.js"></script><![endif]-->
+
+<!-- License Key -->
+<script language="javascript" type="text/javascript" src="../LicenseKey/KoolChartLicense.js"></script>
+
+<!-- KoolChart JavaScript library -->
+<script language="javascript" type="text/javascript" src="../KoolChart/JS/KoolChart.js"></script>
+
+<!-- Theme.js -->
+<script type="text/javascript" src="../KoolChart/Assets/Theme/theme.js"></script>
+
+<script type="text/javascript">
+
+//----------------------- Here we start creating a chart. -----------------------
+
+//Sets the value of KoolOnLoadCallFunction to the name of a JS function (e.g. chartReadyHandler) that is called when the chart is ready to be created.
+var chartVars = "KoolOnLoadCallFunction=chartReadyHandler";
+
+//Creates the chart.
+//Parameters:  
+//1. Chart ID: You can use any name you like. 
+//2. DIV ID: The chart will be placed in this DIV.
+//3. chartVars: Variables used for creating the chart.
+//4. Chart width: Default value is 100%
+//5. Chart height: Default value is 100%
+KoolChart.create("chart1", "chartHolder", chartVars, "100%", "100%"); 
+
+//The JavaScript function which is set to the value of KoolOnLoadCallFunction.
+//This function will call two functions, setLayout() and setData() which are two main functions of KoolChart.
+//Parameters: 
+//1. ID: The Chart ID which is used as the first parameter of KoolChart.create().
+function chartReadyHandler(id) {
+	document.getElementById(id).setLayout(layoutStr);
+	document.getElementById(id).setData(chartData);
+}
+
+//Declares Layout
+var layoutStr = 
+				'<KoolChart backgroundColor="0xFFFFFF" paddingTop="40" cornerRadius="12" borderStyle="none">'
+					+'<Options>'
+						+'<Caption text="Bubble Chart - You can zoom in by dragging on a region of the chart." fontFamily="Malgun Gothic" fontSize="12" color="0x777777"/>'
+					+'</Options>'
+					+'<NumberFormatter id="numFmt" precision="0" useThousandsSeparator="true"/>'
+					+'<Bubble3DChart showDataTips="true" minRadius="5" maxRadius="30">'
+					/* 
+						Creating the Bubble3DChart node. 
+						showDataTips: Whether or not to show tooltips when you mouse over items.
+						minRadius : Sets the minimum size of bubbles.
+						maxRadius : Sets the maximum size of bubbles.
+					*/
+						+'<horizontalAxis>'
+							+'<LinearAxis padding="40" formatter="{numFmt}" title="Cost" />'
+							/* maximum: Sets the maximum value of the axis. */
+						+'</horizontalAxis>'
+						+'<verticalAxis>'
+							+'<LinearAxis formatter="{numFmt}" interval="300" title="Revenue"/>'
+						+'</verticalAxis>'
+						+'<series>'
+							+'<Bubble3DSeries labelPosition="inside" displayName="Cost/Revenue/Profit" xField="Cost" yField="Revenue" radiusField="Profit">'
+							/* 
+								Creating the Bubble3DSeries node as a child node of the Bubble3DChart node.
+								xField, yField and radiusField (3 data fields) are needed to create Bubble charts.
+							*/
+								+'<showDataEffect>'
+								/* Creating the showDataEffect node to use animation effects. */
+									+'<SeriesInterpolate/>' 
+									/* 
+										The SeriesInterpolate effect moves the graphics that represent the data points in the series to the new data points. 
+										<Common properties>						
+											- elementOffset: the delay time of the effect. default:20
+											- minimumElementDuration: the minimum amount of time to be taken to complete the effect. default: 0
+											- offset: the delay time of starting the effect. default:0
+											- perElementOffset: the delay time of starting the effect for each element.
+									*/
+								+'</showDataEffect>'
+							+'</Bubble3DSeries>'
+						+'</series>'
+						+'<backgroundElements>'
+							+'<GridLines horizontalShowOrigin="false"/>'
+						+'</backgroundElements>'
+						+'<annotationElements>'
+							+'<CrossRangeZoomer zoomType="both" verticalLabelFormatter="{numFmt}" horizontalLabelFormatter="{numFmt}"/>'
+						+'</annotationElements>'
+					+'</Bubble3DChart>'
+				+'</KoolChart>';
+
+//Declares Dataset
+var chartData = [{"Profit":600,"Cost":700,"Revenue":1300},
+				{"Profit":1400,"Cost":2400,"Revenue":3800},
+				{"Profit":1500,"Cost":1200,"Revenue":2700},
+				{"Profit":1900,"Cost":1300,"Revenue":3200},
+				{"Profit":1400,"Cost":900,"Revenue":2300},
+				{"Profit":2000,"Cost":500,"Revenue":2500},
+				{"Profit":1200,"Cost":2000,"Revenue":3200},
+				{"Profit":2500,"Cost":800,"Revenue":3300}];
+
+/**
+ * If you want to use themes provided with KoolChart version 3.0, call the following functions.
+ * otherwise, comment out or delete the following functions.
+ *
+ * -- The Themes registered in KoolChart.themes --
+ * - simple
+ * - cyber
+ * - modern
+ * - lovely
+ * - pastel
+ * - old
+ * -------------------------------------------------
+ *
+ * The KoolChart.themes variable is defined in theme.js
+ */
+KoolChart.registerTheme(KoolChart.themes);
+
+/**
+ * The function called when the theme button in the sample HTML is clicked.
+ * Parameter Values:
+ * - simple
+ * - cyber
+ * - modern
+ * - lovely
+ * - pastel
+ * - old
+ * - default
+ *
+ * default: Applies the default theme which is the basic design of KoolChart.
+ * old: Applies the design of KoolChart version 2.5.
+ */
+function KoolChartChangeTheme(theme){
+	document.getElementById("chart1").setTheme(theme);
+}
+
+//----------------------- The end of the configuration for creating a chart. -----------------------
+	
+</script>
+</head>
+<body>
+	<div id="content">
+		<!-- The DIV in which the chart is placed -->
+		<div id="chartHolder" style="width:600px; height:400px;">
+		</div>
+	</div>
+</body>
+</html>

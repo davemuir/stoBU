@@ -1,0 +1,335 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="../../style.css" type="text/css" media="screen">
+<link rel="stylesheet" href="../../print.css" type="text/css" media="print">
+<meta content="HCylinderGauge,eng.charts.HCylinderGauge" name="keywords">
+<title>eng.charts.HCylinderGauge</title>
+</head>
+<body>
+<script type="text/javascript" language="javascript" src="../../asdoc.js"></script><script type="text/javascript" language="javascript" src="../../cookies.js"></script><script type="text/javascript" language="javascript">
+<!--
+				asdocTitle = 'HCylinderGauge - KoolChart for HTML5 Ver. 3.0 Reference By RiaMore Soft.';
+				var baseRef = '../../';
+				window.onload = configPage;
+			--></script>
+<table style="display:none" id="titleTable" cellspacing="0" cellpadding="0" class="titleTable">
+<tr>
+<td align="left" class="titleTableTitle">KoolChart for HTML5 Ver. 3.0 Reference</td><td align="right" class="titleTableTopNav"><a onclick="loadClassListFrame('../../all-classes.html')" href="../../package-summary.html">All&nbsp;Packages</a>&nbsp;|&nbsp;<a onclick="loadClassListFrame('../../all-classes.html')" href="../../class-summary.html">All&nbsp;Classes</a>&nbsp;|&nbsp;<a onclick="loadClassListFrame('../../index-list.html')" href="../../all-index-A.html">Index</a>&nbsp;|&nbsp;<a href="../../index.html?eng/charts/HCylinderGauge.html&amp;eng/charts/class-list.html" id="framesLink1">Frames</a><a onclick="parent.location=document.location" href="" style="display:none" id="noFramesLink1">No&nbsp;Frames</a></td><td rowspan="3" align="right" class="titleTableLogo"><a href="www.koolchart.com"><img alt="KoolChart Logo" title="KoolChart Logo" class="logoImage" src="../../images/logo.png"></a></td>
+</tr>
+<tr class="titleTableRow2">
+<td align="left" id="subTitle" class="titleTableSubTitle">Class&nbsp;HCylinderGauge</td><td align="right" id="subNav" class="titleTableSubNav"><a href="#styleSummary">Styles</a></td>
+</tr>
+<tr class="titleTableRow3">
+<td colspan="2">&nbsp;</td>
+</tr>
+</table>
+<script type="text/javascript" language="javascript">
+<!--
+if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Class HCylinderGauge"); titleBar_setSubNav(false,false,true,false,false,false,false,false,false,false,false,false,false,false);}
+--></script>
+<div class="MainContent">
+<table cellspacing="0" cellpadding="0" class="classHeaderTable">
+<tr>
+<td class="classHeaderTableLabel">Package</td><td><a onclick="javascript:loadClassListFrame('class-list.html')" href="package-detail.html">eng.charts</a></td>
+</tr>
+<tr>
+<td class="classHeaderTableLabel">Class</td><td class="classSignature">public class HCylinderGauge</td>
+</tr>
+</table>
+<p></p>
+  The HCylinder class (&lt;HCylinder&gt;) represents the target and actual data as the horizontal cylinder. 
+  The outer cylinder represents the target value and the inner cylinder represents the actual value. 
+  The HCylinder class (&lt;HCylinder&gt;) inherits from the VCylinder class (&lt;VCylinder&gt;) and all the features of &lt;VCylinder&gt; can be used in &lt;HCylinder&gt;.
+  <p>
+  &lt;HCylinder&gt; has the following features.
+  <ul>
+  <li> The outer cylinder represents the target value and the inner cylinder represents the actual value.</li>
+  <li> You can change the target and actual values.<li>
+  <li> You can change the color of the inner cylinder.</li>
+  <li> The actual value can be displayed as text and the location, font and style of the text can be changed.</li>
+  </ul>
+  </p>
+ 
+  <p>
+  The layout is as follows:
+  </p>
+  <pre>
+  &lt;KoolChart backgroundColor="0xFFFFFF" paddingTop="50" cornerRadius="12" horizontalAlign="center" 
+    verticalScrollPolicy="off" verticalAlign="middle" borderStyle="solid"&gt;
+  &lt;HCylinder
+   width="400"
+   height="150"
+   minimum="0"
+   maximum="200"
+   labels="[0,20,40,60,80,100,120,140,160,180,200]"
+   tickInterval="20"
+   value="160"
+   targetMark="120"
+   snapInterval="1"
+   valueLabelJsFunction="labelFunc"
+   valueLabelStyleName="valueLabel"
+  /&gt;
+  &lt;Style&gt;
+   .valueLabel{
+    fontSize:11;
+    fontWeight:bold;
+   }
+  &lt;/Style&gt;
+ &lt;/KoolChart&gt;
+  </pre>
+  <p><code>&lt;HcylinderGauge/&gt;</code> inherits from the parent classes.</p>
+ 
+ <p></p>
+<p>
+<span class="classHeaderTableLabel">See also</span>
+</p>
+<div class="seeAlso">charts.VCylinderGauge</div>
+<br>
+<hr>
+</div>
+<a name="styleSummary"></a>
+<div class="summarySection">
+<div class="summaryTableTitle">Styles</div>
+<table id="summaryTableStyle" class="summaryTable " cellpadding="3" cellspacing="0">
+<tr>
+<th>&nbsp;</th><th colspan="2">Style</th><th>Description</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:cylinderAlpha"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">cylinderAlpha</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Array<br>
+  Sets the transparency of the inner cylinder.
+   The default value is <code>[1,1,1]</code>.</td><td class="summaryTableOwnerCol">HCylinderGauge</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:cylinderColor"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">cylinderColor</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Array<br>
+  Sets the fill color for the inner cylinder.
+   The default value is <code>[0xdb88db,0xffffff,0xdb88db]</code>.</td><td class="summaryTableOwnerCol">HCylinderGauge</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:cylinderColumnWidth"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">cylinderColumnWidth</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Number<br>
+  Sets the width of the inner cylinder.
+   The default value is <code>1</code>.</td><td class="summaryTableOwnerCol">HCylinderGauge</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:cylinderCoverRatio"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">cylinderCoverRatio</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Array<br>
+  Sets the area of the top cover.
+   The default value is <code>[10,80,255]</code>.</td><td class="summaryTableOwnerCol">HCylinderGauge</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:cylinderRatio"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">cylinderRatio</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Array<br>
+  Sets the area of the inner cylinder.
+   The default value is <code>[0,128,255]</code>.</td><td class="summaryTableOwnerCol">HCylinderGauge</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:cylinderWidth"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">cylinderWidth</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Number<br>
+  Sets the width of the outer cylinder.
+   The default value is <code>150</code>.</td><td class="summaryTableOwnerCol">HCylinderGauge</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:dataTipFontSize"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">dataTipFontSize</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>number<br>
+  Sets the font size of tooltips (datatips).
+   The default value is <code>10;</code>.</td><td class="summaryTableOwnerCol">HCylinderGauge</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:innerTipJsFunction"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">innerTipJsFunction</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Object<br>
+  <p><code>function functionName(value)</code></p>
+  Sets the user-defined function for the tooltip of the inner cylinder.
+  </td><td class="summaryTableOwnerCol">HCylinderGauge</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:offsetOfthumb"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">offsetOfthumb</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Number &nbsp; <span class="label">CSS Inheritance: </span>no<br>
+ Sets the gap between the thumb and gauge. 
+ </td><td class="summaryTableOwnerCol">HCylinderGauge</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:padding"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">padding</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Number<br>
+  Sets the size of the margin.
+   The default value is <code>0</code>.</td><td class="summaryTableOwnerCol">HCylinderGauge</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:showDataTip"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">showDataTip</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Boolean<br>
+  Indicates whether or not to display tooltips.
+   The default value is <code>true</code>.</td><td class="summaryTableOwnerCol">HCylinderGauge</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:showTrackHighlight"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">showTrackHighlight</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Boolean<br>
+  Indicates whether or not to display the inner cylinder.
+   The default value is <code>true</code>.</td><td class="summaryTableOwnerCol">HCylinderGauge</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:showValueLabel"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">showValueLabel</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Boolean<br>
+  Indicates whether or not to display the value label.
+   The default value is <code>"true"</code>.</td><td class="summaryTableOwnerCol">HCylinderGauge</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:targetMark"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">targetMark</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Number<br>
+  Sets the location of the target mark.
+   The default value is <code>minimum</code>.</td><td class="summaryTableOwnerCol">HCylinderGauge</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:targetMarkAlpha"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">targetMarkAlpha</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Array<br>
+  Sets the transparency of the target mark.
+   The default value is <code>[0.6,0.6,0.7]</code>.</td><td class="summaryTableOwnerCol">HCylinderGauge</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:targetMarkColor"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">targetMarkColor</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Array<br>
+  Sets the color of the target mark.
+   The default value is <code>[0xeaeaea,0xeaeaea,0xeaeaea]</code>.</td><td class="summaryTableOwnerCol">HCylinderGauge</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:targetMarkRatio"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">targetMarkRatio</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Array<br>
+  Sets the area of the target mark.
+   The default value is <code>[0,125,255]</code>.</td><td class="summaryTableOwnerCol">HCylinderGauge</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:targetTipJsFunction"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">targetTipJsFunction</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Object<br>
+  <p><code>function functionName(value)</code></p>
+  Sets the user-defined function for the tooltip of the target.
+  </td><td class="summaryTableOwnerCol">HCylinderGauge</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:thumbVisible"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">thumbVisible</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Boolean<br>
+  Indicates whether or not to show the thumb of the gauge. 
+   The default value is <code>false</code>.</td><td class="summaryTableOwnerCol">HCylinderGauge</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:tickJsFunction"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">tickJsFunction</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Object<br>
+  <p><code>function functionName(value)</code></p>
+  Sets the user-defined function for labels
+  </td><td class="summaryTableOwnerCol">HCylinderGauge</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:valueLabelJsFunction"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">valueLabelJsFunction</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Object<br>
+  Sets the user-defined function for the value label.<br>
+  It returns data string.
+  </td><td class="summaryTableOwnerCol">HCylinderGauge</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:valueLabelStyleName"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">valueLabelStyleName</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>String<br>
+  Sets the name of the style of the value label.
+   The default value is <code>none</code>.</td><td class="summaryTableOwnerCol">HCylinderGauge</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:valueLabelXOffset"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">valueLabelXOffset</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Number<br>
+  Sets the X-location offset of the text box which displays the gauge value.
+   The default value is <code>0</code>.</td><td class="summaryTableOwnerCol">HCylinderGauge</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:valueLabelYOffset"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">valueLabelYOffset</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Number<br>
+  Sets the Y-location offset of the text box which displays the gauge value.
+   The default value is <code>0</code>.</td><td class="summaryTableOwnerCol">HCylinderGauge</td>
+</tr>
+</table>
+</div>
+<script type="text/javascript" language="javascript">
+<!--
+showHideInherited();
+--></script>
+<div class="MainContent">
+<br>
+<br>
+<hr>
+<br>
+<p></p>
+<center class="copyright">Copyright(c) 2012 RiaMore Soft, Inc. All Right Reserved</center>
+</div>
+</body>
+</html>
+<!--Copyright(c) 2012 RiaMore Soft, Inc. All Right Reserved-->

@@ -1,0 +1,148 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="Content-Script-Type" content="text/javascript"/>
+<meta http-equiv="Content-Style-Type" content="text/css"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>KoolChart for HTML5 - Bubble Chart</title>
+<link rel="stylesheet" type="text/css" href="./KoolChartSample.css"/>
+
+<!--  If you want to support IE 7/8, you'll need the conditional excanvas include. -->
+<!--[if IE]><script language="javascript" type="text/javascript" src="../KoolChart/JS/excanvas.js"></script><![endif]-->
+
+<!-- License Key -->
+<script language="javascript" type="text/javascript" src="../LicenseKey/KoolChartLicense.js"></script>
+
+<!-- KoolChart JavaScript library -->
+<script language="javascript" type="text/javascript" src="../KoolChart/JS/KoolChart.js"></script>
+
+<!-- Theme.js -->
+<script type="text/javascript" src="../KoolChart/Assets/Theme/theme.js"></script>
+
+<script type="text/javascript">
+
+//----------------------- Here we start creating a chart. -----------------------
+
+//Sets the value of KoolOnLoadCallFunction to the name of a JS function (e.g. chartReadyHandler) that is called when the chart is ready to be created.
+var chartVars = "KoolOnLoadCallFunction=chartReadyHandler";
+
+//Creates the chart.
+//Parameters:  
+//1. Chart ID: You can use any name you like. 
+//2. DIV ID: The chart will be placed in this DIV.
+//3. chartVars: Variables used for creating the chart.
+//4. Chart width: Default value is 100%
+//5. Chart height: Default value is 100%
+KoolChart.create("chart1", "chartHolder", chartVars, "100%", "100%"); 
+
+//The JavaScript function which is set to the value of KoolOnLoadCallFunction.
+//This function will call two functions, setLayout() and setData() which are two main functions of KoolChart.
+//Parameters: 
+//1. ID: The Chart ID which is used as the first parameter of KoolChart.create().
+function chartReadyHandler(id) {
+	document.getElementById(id).setLayout(layoutStr);
+	document.getElementById(id).setData(chartData);
+}
+
+//Declares Layout
+var layoutStr = 
+				'<KoolChart backgroundColor="0xFFFFFF" paddingTop="40" cornerRadius="12" borderStyle="none">'
+					+'<Options>'
+						+'<Caption text="Bubble Chart - You can zoom in by dragging on a region of the chart." fontFamily="Malgun Gothic" fontSize="12" color="0xff0000"/>'
+						+'<Legend useVisibleCheck="true"/>'
+					+'</Options>'
+					+'<NumberFormatter id="numFmt" precision="0"/>'
+					+'<Bubble3DChart maxRadius="30" minRadius="5" showDataTips="true">'
+						+'<horizontalAxis>'
+							+'<LinearAxis padding="40" maximum="3200" interval="400" title="Profit" formatter="{numFmt}" displayName="Profit"/>'
+						+'</horizontalAxis>'
+						+'<verticalAxis>'
+							+'<LinearAxis maximum="3200" minimum="0" title="Cost" formatter="{numFmt}" displayName="Cost"/>'
+						+'</verticalAxis>'
+						+'<radiusAxis>'
+							+'<LinearAxis displayName="Revenue"/>'
+						+'</radiusAxis>'
+						+'<series>'
+							+'<Bubble3DSeries labelPosition="inside" displayName="A Dept." xField="A_Profit" yField="A_Cost" radiusField="A_Revenue">'
+								+'<showDataEffect>'
+									+'<SeriesInterpolate/>' 
+								+'</showDataEffect>'
+							+'</Bubble3DSeries>'
+							+'<Bubble3DSeries labelPosition="inside" displayName="B Dept." xField="B_Profit" yField="B_Cost" radiusField="B_Revenue">'
+								+'<showDataEffect>'
+									+'<SeriesInterpolate/>' 
+								+'</showDataEffect>'
+							+'</Bubble3DSeries>'
+							+'<Bubble3DSeries labelPosition="inside" displayName="C Dept." xField="C_Profit" yField="C_Cost" radiusField="C_Revenue">'
+								+'<showDataEffect>'
+									+'<SeriesInterpolate/>' 
+								+'</showDataEffect>'
+							+'</Bubble3DSeries>'
+						+'</series>'
+						+'<backgroundElements>'
+							+'<GridLines horizontalShowOrigin="false"/>'
+						+'</backgroundElements>'
+						+'<annotationElements>'
+							+'<CrossRangeZoomer zoomType="both" verticalLabelFormatter="{numFmt}" horizontalLabelFormatter="{numFmt}"/>'
+						+'</annotationElements>'
+					+'</Bubble3DChart>'
+				+'</KoolChart>';
+
+//Declares Dataset
+var chartData = [{"A_Profit":500,"A_Cost":2800,"A_Revenue":3300,"B_Profit":1000,"B_Cost":600,"B_Revenue":2600,"C_Profit":2900,"C_Cost":500,"C_Revenue":3400},
+	{"A_Profit":1000,"A_Cost":2000,"A_Revenue":3000,"B_Profit":1600,"B_Cost":1700,"B_Revenue":3300,"C_Profit":2200,"C_Cost":2700,"C_Revenue":4900},
+	{"A_Profit":1600,"A_Cost":300,"A_Revenue":1900,"B_Profit":2200,"B_Cost":2000,"B_Revenue":4200,"C_Profit":900,"C_Cost":2700,"C_Revenue":3600},
+	{"A_Profit":2800,"A_Cost":1400,"A_Revenue":4200,"B_Profit":2600,"B_Cost":2700,"B_Revenue":5300,"C_Profit":2400,"C_Cost":1700,"C_Revenue":4100},
+	{"A_Profit":1600,"A_Cost":1200,"A_Revenue":2800,"B_Profit":800,"B_Cost":1700,"B_Revenue":2500,"C_Profit":1600,"C_Cost":3000,"C_Revenue":4600},
+	{"A_Profit":900,"A_Cost":700,"A_Revenue":1600,"B_Profit":600,"B_Cost":700,"B_Revenue":1300,"C_Profit":600,"C_Cost":700,"C_Revenue":1300},
+	{"A_Profit":2300,"A_Cost":1700,"A_Revenue":5000,"B_Profit":300,"B_Cost":700,"B_Revenue":1000,"C_Profit":2000,"C_Cost":700,"C_Revenue":2700},
+	{"A_Profit":900,"A_Cost":1200,"A_Revenue":2100,"B_Profit":1800,"B_Cost":2400,"B_Revenue":4200,"C_Profit":1300,"C_Cost":800,"C_Revenue":2100}];
+
+/**
+ * If you want to use themes provided with KoolChart version 3.0, call the following functions.
+ * otherwise, comment out or delete the following functions.
+ *
+ * -- The Themes registered in KoolChart.themes --
+ * - simple
+ * - cyber
+ * - modern
+ * - lovely
+ * - pastel
+ * - old
+ * -------------------------------------------------
+ *
+ * The KoolChart.themes variable is defined in theme.js
+ */
+KoolChart.registerTheme(KoolChart.themes);
+
+/**
+ * The function called when the theme button in the sample HTML is clicked.
+ * Parameter Values:
+ * - simple
+ * - cyber
+ * - modern
+ * - lovely
+ * - pastel
+ * - old
+ * - default
+ *
+ * default: Applies the default theme which is the basic design of KoolChart.
+ * old: Applies the design of KoolChart version 2.5.
+ */
+function KoolChartChangeTheme(theme){
+	document.getElementById("chart1").setTheme(theme);
+}
+
+//----------------------- The end of the configuration for creating a chart. -----------------------
+	
+</script>
+</head>
+<body>
+	<div id="content">
+		<!-- The DIV in which the chart is placed -->
+		<div id="chartHolder" style="width:600px; height:400px;">
+		</div>
+	</div>
+</body>
+</html>

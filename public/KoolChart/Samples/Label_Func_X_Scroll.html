@@ -1,0 +1,151 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="Content-Script-Type" content="text/javascript"/>
+<meta http-equiv="Content-Style-Type" content="text/css"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Kool Chart for HTML5</title>
+<link rel="stylesheet" type="text/css" href="./KoolChartSample.css"/>
+
+<!--  If you want to support IE 7/8, you'll need the conditional excanvas include. -->
+<!--[if IE]><script language="javascript" type="text/javascript" src="../KoolChart/JS/excanvas.js"></script><![endif]-->
+
+<!-- License Key -->
+<script language="javascript" type="text/javascript" src="../LicenseKey/KoolChartLicense.js"></script>
+
+<!-- KoolChart JavaScript library -->
+<script language="javascript" type="text/javascript" src="../KoolChart/JS/KoolScrollChart.js"></script>
+
+<!-- The CSS style for KoolChart (This CSS style is required for only Legend, Preloader, Scroll Chart and History Chart) -->
+<link rel="stylesheet" type="text/css" href="../KoolChart/Assets/Css/KoolChart.css"/>
+
+<script type="text/javascript">
+
+//----------------------- Here we start creating a chart. -----------------------
+
+//Sets the value of KoolOnLoadCallFunction to the name of a JS function (e.g. chartReadyHandler) that is called when the chart is ready to be created.
+var chartVars = "KoolOnLoadCallFunction=chartReadyHandler";
+
+//Creates the chart.
+//Parameters:  
+//1. Chart ID: You can use any name you like. 
+//2. DIV ID: The chart will be placed in this DIV.
+//3. chartVars: Variables used for creating the chart.
+//4. Chart width: Default value is 100%
+//5. Chart height: Default value is 100%
+KoolChart.create("chart1", "chartHolder", chartVars, "100%", "100%"); 
+
+//The JavaScript function which is set to the value of KoolOnLoadCallFunction.
+//This function will call two functions, setLayout() and setData() which are two main functions of KoolChart.
+//Parameters: 
+//1. ID: The Chart ID which is used as the first parameter of KoolChart.create().
+function chartReadyHandler(id) {
+	document.getElementById(id).setLayout(layoutStr);
+	document.getElementById(id).setData(chartData);
+}
+
+//Declares Layout
+var layoutStr = 
+				'<KoolChart backgroundColor="0xFFFFFF" cornerRadius="12" borderStyle="none">'
+					+'<Options>'
+						+'<Caption text="Scroll Chart - Line2D Chart" fontFamily="Malgun Gothic"/>'
+					+'</Options>'
+					+'<NumberFormatter id="numfmt" useThousandsSeparator="true"/>' 
+					+'<Line2DChart showDataTips="true" gutterRight="10">' 
+						+'<horizontalAxis>'
+							+'<CategoryLinearAxis id="hAxis" categoryField="City"/>'
+						+'</horizontalAxis>'
+						+'<verticalAxis>'
+							+'<LinearAxis interval="300" formatter="{numfmt}"/>'
+						+'</verticalAxis>'
+						 +'<series>'
+							+'<Line2DSeries id="cs1" yField="Data1" displayName="Data1" interpolateValues="true" itemRenderer="CircleItemRenderer"/>'
+							+'<Line2DSeries id="cs2" yField="Data2" form="curve" displayName="Data2" interpolateValues="true" itemRenderer="CircleItemRenderer"/>'
+							+'<Line2DSeries id="cs3" yField="Data3" displayName="Data3" interpolateValues="true" itemRenderer="CircleItemRenderer"/>'
+						 +'</series>'
+						 +'<horizontalAxisRenderers>'
+						 /* "axisLabelFunc" is the name of a JS function. */
+							+'<ScrollableAxisRenderer axis="{hAxis}" visibleItemSize="7" labelJsFunction="axisLabelFunc" fontFamily="Malgun Gothic"/>'
+						 +'</horizontalAxisRenderers>'   
+					+'</Line2DChart>'
+				+'</KoolChart>';
+
+// Declares Dataset
+var chartData = [{"City":"City A","Data1":1000,"Data2":1200,"Data3":1500},
+				{"City":"City B","Data1":1400,"Data2":900,"Data3":1000},
+				{"City":"City C","Data1":1500,"Data2":2000,"Data3":800},
+				{"City":"City D","Data1":1900,"Data2":1200,"Data3":2000},
+				{"City":"City E","Data1":1400,"Data2":2000,"Data3":1300},
+				{"City":"City F","Data1":2000,"Data2":1400,"Data3":1500},
+				{"City":"City G","Data1":1800,"Data2":2000,"Data3":500},
+				{"City":"City H","Data1":2500,"Data2":1000,"Data3":900},
+				{"City":"City I","Data1":3000,"Data2":1000,"Data3":1000},
+				{"City":"City J","Data1":2000,"Data2":1400,"Data3":1600},
+				{"City":"City K","Data1":2100,"Data2":1400,"Data3":2000},
+				{"City":"City L","Data1":1700,"Data2":1500,"Data3":1400},
+				{"City":"City M","Data1":1000,"Data2":1000,"Data3":1000},
+				{"City":"City N","Data1":1400,"Data2":1700,"Data3":2000},
+				{"City":"City O","Data1":1500,"Data2":2000,"Data3":1700},
+				{"City":"City P","Data1":1900,"Data2":2000,"Data3":1000},
+				{"City":"City Q","Data1":1400,"Data2":1900,"Data3":1400},
+				{"City":"City R","Data1":2000,"Data2":2000,"Data3":1500},
+				{"City":"City S","Data1":1800,"Data2":1400,"Data3":1000},
+				{"City":"City T","Data1":2500,"Data2":1700,"Data3":1900},
+				{"City":"City U","Data1":3000,"Data2":1700,"Data3":1500},
+				{"City":"City V","Data1":2000,"Data2":1500,"Data3":1800},
+				{"City":"City W","Data1":2100,"Data2":1400,"Data3":1800},
+				{"City":"City X","Data1":1700,"Data2":1500,"Data3":2000}];
+
+/*
+// ------------------------- The user-defined function to be used to format the axis label -----------------------------------------------------
+// The JavaScript function to be called to generate the user-defined label.
+// Sets the value of the labelJsFunction property to the name of a JS function.
+
+// e.g.)
+//	     <horizontalAxisRenderers>
+//	     	<ScrollableAxisRenderer axis="{hAxis}" visibleItemSize="7" labelJsFunction="axisLabelFunc"/>
+//	     </horizontalAxisRenderers>   
+//
+// Parameters
+// id: The ID of the axis
+// value: The axis label of the item 
+*/
+function axisLabelFunc(id, value)
+{
+	return  value + ", CA";
+}
+
+//----------------------- The end of the configuration for creating a chart. -----------------------
+
+</script>
+</head>
+<body>
+	<div id="content">
+		<!-- The DIV in which the chart is placed -->
+		<div id="chartHolder" style="width:600px; height:400px;">
+		</div>
+	</div>
+	<div id="footer">	
+		<font size="3"><b>This sample is to display the user-defined X-axis label.</b></font>
+<pre>
+<font color="#01BAC5">Sets the value of the labelJsFunction property to the name of the JavaScript function.</font>
+
+<b>●Layout</b>
+ &#60;horizontalAxisRenderers&#62;
+	&#60;ScrollableAxisRenderer axis="{hAxis}" visibleItemSize="7" 
+	<font color="#ff0000">labelJsFunction="axisLabelFunc"</font> fontFamily="Malgun Gothic"/&#62;
+&#60;/horizontalAxisRenderers&#62;
+
+<b>●Script</b>
+<font color="#01BAC5">Parameters
+id: the ID of the axis
+value: the axis label of the item</font>
+<font color="#0000ff">function</font> <font color="#ff0000">axisLabelFunc</font>(id, value)
+{
+	return  value + ", &#60;font color='#0000ff'&#62;2013&#60;/font&#62;";
+}
+</pre>
+		</div>
+</body>
+</html>

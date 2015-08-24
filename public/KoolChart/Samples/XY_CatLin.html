@@ -1,0 +1,124 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="Content-Script-Type" content="text/javascript"/>
+<meta http-equiv="Content-Style-Type" content="text/css"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>KoolChart for HTML5</title>
+<link rel="stylesheet" type="text/css" href="./KoolChartSample.css"/>
+
+<!--  If you want to support IE 7/8, you'll need the conditional excanvas include. -->
+<!--[if IE]><script language="javascript" type="text/javascript" src="../KoolChart/JS/excanvas.js"></script><![endif]-->
+
+<!-- License Key -->
+<script language="javascript" type="text/javascript" src="../LicenseKey/KoolChartLicense.js"></script>
+
+<!-- KoolChart JavaScript library -->
+<script language="javascript" type="text/javascript" src="../KoolChart/JS/KoolChart.js"></script>
+
+<script type="text/javascript">
+
+//----------------------- Here we start creating a chart. -----------------------
+
+//Sets the value of KoolOnLoadCallFunction to the name of a JS function (e.g. chartReadyHandler) that is called when the chart is ready to be created.
+var chartVars = "KoolOnLoadCallFunction=chartReadyHandler";
+
+//Creates the chart.
+//Parameters:  
+//1. Chart ID: You can use any name you like. 
+//2. DIV ID: The chart will be placed in this DIV.
+//3. chartVars: Variables used for creating the chart.
+//4. Chart width: Default value is 100%
+//5. Chart height: Default value is 100%
+KoolChart.create("chart1", "chartHolder", chartVars, "100%", "100%"); 
+
+//The JavaScript function which is set to the value of KoolOnLoadCallFunction.
+//This function will call two functions, setLayout() and setData() which are two main functions of KoolChart.
+//Parameters: 
+//1. ID: The Chart ID which is used as the first parameter of KoolChart.create().
+function chartReadyHandler(id) {
+	document.getElementById(id).setLayout(layoutStr);
+	document.getElementById(id).setData(chartData);
+}
+
+// Declares Layout
+var layoutStr = 
+				'<KoolChart backgroundColor="0xFFFFFF" cornerRadius="12" borderStyle="none">'
+					+'<Options>'
+						+'<Caption text="Monthly Report"/>' 
+					+'</Options>'
+					+'<NumberFormatter id="numFmt"/>'
+					+'<Column3DChart showDataTips="true">'
+						+'<horizontalAxis>'
+							+'<CategoryAxis categoryField="Month" title="Category Axis"/>' 
+					/* 
+						X-Axis: CategoryAxis Properties.
+						categoryField: the data field to be displayed as a label of CategoryAxis.
+						displayName: the name of the axis. It is displayed in datatips.
+						title: the title of the axis.
+						labelJsFunction: the user-defined function for the label of the axis.
+					*/
+						+'</horizontalAxis>'
+						+'<verticalAxis>'
+							+'<LinearAxis formatter="{numFmt}" maximum="3500" title="Linear Axis"/>'
+					/* 
+						Y-Axis: LinearAxis Properties
+						interval: the interval between the adjacent labels of the axis.
+						minimum: the minimum value of the axis.
+						maximum: the maximum value of the axis.
+						title: the title of the axis.
+						labelJsFunction: the user-defined function for the label of the axis.
+						displayName: the name of the axis. It is displayed in datatips.
+					*/
+						+'</verticalAxis>'
+						+'<series>'
+							+'<Column3DSeries yField="Profit" displayName="Profit" formatter="{numFmt}">'
+								+'<showDataEffect>'
+									+'<SeriesInterpolate/>' 
+								+'</showDataEffect>'
+							+'</Column3DSeries>'
+						+'</series>'
+					+'</Column3DChart>'
+				+'</KoolChart>';
+
+// Declares Dataset
+var chartData = [{"Month":"Jan","Profit":900},
+				{"Month":"Feb","Profit":1400},
+				{"Month":"Mar","Profit":1500},
+				{"Month":"Apr","Profit":1900},
+				{"Month":"May","Profit":1400},
+				{"Month":"Jun","Profit":2000},
+				{"Month":"Jul","Profit":1800},
+				{"Month":"Aug","Profit":2500},
+				{"Month":"Sep","Profit":3000},
+				{"Month":"Oct","Profit":2000},
+				{"Month":"Nov","Profit":2100},
+				{"Month":"Dec","Profit":1700}];
+
+//----------------------- The end of the configuration for creating a chart. -----------------------
+
+</script>
+</head>
+<body>
+	<div id="content">
+	<!-- The DIV in which the chart is placed -->
+		<div id="chartHolder" style="width:600px; height:400px;">
+		</div>
+		<div id="footer">
+			<font size="3"><b>X-Axis: CategoryAxis </b></font><br>
+			<font color="#01BAC5">categoryField: the data field to be displayed as a label of CategoryAxis.<br>
+			displayName: the name of the axis. It is displayed in datatips.<br>
+			title: the title of the axis.<br>
+			labelJsFunction: the user-defined function for the label of the axis.</font><br><br>
+			<font size="3"><b>Y-Axis: LinearAxis Properties</b></font><br>
+			<font color="#01BAC5">interval: the interval between the adjacent labels of the axis.<br>
+			minimum: the minimum value of the axis.<br>
+			maximum: the maximum value of the axis.<br>
+			title: the title of the axis.<br>
+			labelJsFunction: the user-defined function for the label of the axis.<br>
+			displayName: the name of the axis. It is displayed in datatips.</font>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,427 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="../../style.css" type="text/css" media="screen">
+<link rel="stylesheet" href="../../print.css" type="text/css" media="print">
+<meta content="VTarget3DGoalSeries,eng.series.VTarget3DGoalSeries" name="keywords">
+<title>eng.series.VTarget3DGoalSeries</title>
+</head>
+<body>
+<script type="text/javascript" language="javascript" src="../../asdoc.js"></script><script type="text/javascript" language="javascript" src="../../cookies.js"></script><script type="text/javascript" language="javascript">
+<!--
+				asdocTitle = 'VTarget3DGoalSeries - KoolChart for HTML5 Ver. 3.0 Reference By RiaMore Soft.';
+				var baseRef = '../../';
+				window.onload = configPage;
+			--></script>
+<table style="display:none" id="titleTable" cellspacing="0" cellpadding="0" class="titleTable">
+<tr>
+<td align="left" class="titleTableTitle">KoolChart for HTML5 Ver. 3.0 Reference</td><td align="right" class="titleTableTopNav"><a onclick="loadClassListFrame('../../all-classes.html')" href="../../package-summary.html">All&nbsp;Packages</a>&nbsp;|&nbsp;<a onclick="loadClassListFrame('../../all-classes.html')" href="../../class-summary.html">All&nbsp;Classes</a>&nbsp;|&nbsp;<a onclick="loadClassListFrame('../../index-list.html')" href="../../all-index-A.html">Index</a>&nbsp;|&nbsp;<a href="../../index.html?eng/series/VTarget3DGoalSeries.html&amp;eng/series/class-list.html" id="framesLink1">Frames</a><a onclick="parent.location=document.location" href="" style="display:none" id="noFramesLink1">No&nbsp;Frames</a></td><td rowspan="3" align="right" class="titleTableLogo"><a href="www.koolchart.com"><img alt="KoolChart Logo" title="KoolChart Logo" class="logoImage" src="../../images/logo.png"></a></td>
+</tr>
+<tr class="titleTableRow2">
+<td align="left" id="subTitle" class="titleTableSubTitle">Class&nbsp;VTarget3DGoalSeries</td><td align="right" id="subNav" class="titleTableSubNav"><a href="#styleSummary">Styles</a></td>
+</tr>
+<tr class="titleTableRow3">
+<td colspan="2">&nbsp;</td>
+</tr>
+</table>
+<script type="text/javascript" language="javascript">
+<!--
+if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Class VTarget3DGoalSeries"); titleBar_setSubNav(false,false,true,false,false,false,false,false,false,false,false,false,false,false);}
+--></script>
+<div class="MainContent">
+<table cellspacing="0" cellpadding="0" class="classHeaderTable">
+<tr>
+<td class="classHeaderTableLabel">Package</td><td><a onclick="javascript:loadClassListFrame('class-list.html')" href="package-detail.html">eng.series</a></td>
+</tr>
+<tr>
+<td class="classHeaderTableLabel">Class</td><td class="classSignature">public class VTarget3DGoalSeries</td>
+</tr>
+</table>
+<p></p>
+   The VTarget3DGoalSeries class (&lt;VTarget3DGoalSeries&gt;) is used to draw the target values of the Target vs Actual chart (Target3DChart).
+   You can create a Target vs Actual chart by setting the series of Target3DChart to this class.
+   The VTarget3DResultSeries class (&lt;VTarget3DResultSeries&gt;) is used to draw the actual values of the Target vs Actual chart and the VTarget3DResultSeries class (actual) should be defined first.
+   The default item renderer is CylinderTargetItemRenderer and the default value of the columnWidthRatio property is 0.7.
+   The default fill style is the SolidColor instance and the hex value of the color is "0xCCCCCC".
+   <p>The layout is as follows:</p>
+   
+   <pre>
+   &lt;Target3DChart&gt;
+     &lt;series&gt;
+    <strong>Actual</strong>
+    &lt;VTarget3DResultSeries /&gt;
+  
+    <strong>Target </strong>
+    &lt;VTarget3DGoalSeries /&gt;
+     &lt;/series&gt;
+   &lt;/Target3DChart&gt;
+   </pre>
+  
+   <p><code>&lt;Target3DChart&gt;</code> inherits from the parent classes.</p>
+  
+   
+  <p></p>
+<br>
+<hr>
+</div>
+<a name="styleSummary"></a>
+<div class="summarySection">
+<div class="summaryTableTitle">Styles</div>
+<table id="summaryTableStyle" class="summaryTable " cellpadding="3" cellspacing="0">
+<tr>
+<th>&nbsp;</th><th colspan="2">Style</th><th>Description</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:alwayShowLabels"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">alwayShowLabels</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Boolean<br>
+  <p>Indicates whether or not to display the label when its size is smaller than that of the series area.<br/>
+  If alwayShowLabels="true", then the label will be always displayed. If alwayShowLabels="false" and there is no enough space, then the label will not be displayed.</p>
+   The default value is <code>true</code>.</td><td class="summaryTableOwnerCol">VTarget3DGoalSeries</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:alwayShowLines"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">alwayShowLines</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Boolean<br>
+  <p>Indicates whether or not to draw the line for the next data point of which value is 0 when lineToEachItems="true".</p>
+   The default value is <code>false</code>.</td><td class="summaryTableOwnerCol">VTarget3DGoalSeries</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:color"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">color</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>uint &nbsp; <span class="label">Format: </span>Color<br>
+  <p>Sets the character color.</p>
+   The default value is <code>0x0B333C</code>.</td><td class="summaryTableOwnerCol">VTarget3DGoalSeries</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:cubeDepth"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">cubeDepth</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Number<br>
+   <p>Sets the depth of the cube.</p>
+  
+    The default value is <code>10</code>.</td><td class="summaryTableOwnerCol">VTarget3DGoalSeries</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:displayName"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">displayName</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>String<br>
+  <p>Sets the series name. It is displayed in tooltips (datatips) and also displayed in the legend.</p>
+  </td><td class="summaryTableOwnerCol">VTarget3DGoalSeries</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:fillJsFunction"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">fillJsFunction</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>String<br>
+  Sets the JavaScript function to be called to fill colors generated by the user-defined logic.
+  <p>Sets the value of the fillJsFunction property to the name of the JavaScript function.</p>
+  
+  <pre>
+  e.g. &lt;Column3DSeries field="Profit" fillJsFunction="fillJsFunc"&gt;
+  </pre>
+  
+  <p>The signature of <code>fillJsFunction</code> is as follows:</p>
+  
+  <pre>
+  <i>function_name</i>(index, values) { ... }
+  </pre>
+  
+  <code>index</code>: The item index in the series.<br>
+  <code>values</code>: The item value. The value is an array and each element in the array is different depending on the chart type.<br>
+  <ul>
+   <li>Bar2D(3D)Series (Bar2DSeries, Bar3DSeries) 0: X-axis value, 1: Y-axis value</li>
+   <li>Column2D(3D)Series (Column2DSeries, Column3DSeries) 0: X-axis value, 1: Y-axis value</li>
+   <li>Area2DSeries (Area2DSeries) 0: X-axis value, 1: Y-axis value</li>
+   <li>Bubble3DSeries (Bubble3DSeries) 0: X-axis value, 1: Y-axis value 2: radius</li>
+   <li>Line2DSeries (Line2DSeries) 0: X-axis value, 1: Y-axis value</li>
+   <li>Pie2D(3D)Series (Pie2DSeries, Pie3DSeries) 0: value, 1: percentage, 2: nameField</li>
+   <li>If the minField is defined in From-To charts, the last index of values is minField.</li>
+   <li>Matrix2DSeries (Matrix2DSeries) 0: X-axis value, 1: Y-axis value, 2: Z-axis value</li>
+  </ul>
+ </td><td class="summaryTableOwnerCol">VTarget3DGoalSeries</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:fontFamily"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">fontFamily</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>String<br>
+  <p>Sets the font name. The system font is the default font.</p>
+   The default value is <code>"Verdana"</code>.</td><td class="summaryTableOwnerCol">VTarget3DGoalSeries</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:fontSize"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">fontSize</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Number &nbsp; <span class="label">Format: </span>Length<br>
+  <p>Sets the font size.</p>
+   The default value is <code>12</code>.</td><td class="summaryTableOwnerCol">VTarget3DGoalSeries</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:fontStyle"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">fontStyle</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>String<br>
+  <p>Indicates whether or not to use the italic font. The valid values are normal and italic.</p>
+   The default value is <code>"normal"</code>.</td><td class="summaryTableOwnerCol">VTarget3DGoalSeries</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:fontWeight"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">fontWeight</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>String<br>
+  <p>Indicates whether or not to use the bold font. The valid values are normal and bold.</p>
+   The default value is <code>"bold"</code>.</td><td class="summaryTableOwnerCol">VTarget3DGoalSeries</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:formatter"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">formatter</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Object<br>
+  <p>Sets the formatter for formatting numeric data (NumberFormatter, CurrencyFormatter, DateFormatter).</p>
+  </td><td class="summaryTableOwnerCol">VTarget3DGoalSeries</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:id"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">id</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>String<br>
+  <p>Sets id. id is an unique identifier defined by users.</p>
+  You can access to an object by using id.<br>
+  </td><td class="summaryTableOwnerCol">VTarget3DGoalSeries</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:insideLabelField"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">insideLabelField</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>String<br>
+  Sets the field name to be displayed in inside-labels.
+  <br>If insideLabelJsFunction is defined, then it will be ignored.
+  </td><td class="summaryTableOwnerCol">VTarget3DGoalSeries</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:insideLabelJsFunction"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">insideLabelJsFunction</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>String<br>
+  <p>Sets the user-defined function for inside-labels. The JavaScript function name should be defined.</p>
+  </td><td class="summaryTableOwnerCol">VTarget3DGoalSeries</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:insideLabelXOffset"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">insideLabelXOffset</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Number<br>
+  Sets the x-position of labels when labelPosition="inside" or labelPosition="both".
+  </td><td class="summaryTableOwnerCol">VTarget3DGoalSeries</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:insideLabelYOffset"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">insideLabelYOffset</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Number<br>
+  Sets the y-position of labels when labelPosition="inside" or labelPosition="both".
+  </td><td class="summaryTableOwnerCol">VTarget3DGoalSeries</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:itemRenderer"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">itemRenderer</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Object<br>
+  Sets the item renderer to be used to draw items.</p>
+  <p>The valid values are as follows.</p> 
+  <li>CubeColumnItemRenderer - Displays the cube typed column.</li>
+  <li>CylinderTargetItemRenderer - Displays the 3D cylinder for the target of the Target vs Actual chart.</li>
+  <li>CylinderItemRenderer - Displays the 3D cylinder.</li>
+   The default value is <code>"CubeColumnItemRenderer"</code>.</td><td class="summaryTableOwnerCol">VTarget3DGoalSeries</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:labelAlign"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">labelAlign</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>String<br>
+  Sets the label alignment based on the column height.
+  The valid values are top, middle and bottom.
+  </td><td class="summaryTableOwnerCol">VTarget3DGoalSeries</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:labelPosition"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">labelPosition</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>String<br>
+  <p>Sets the label position of numeric data. The valid values are inside, outside, both and none.</p>
+   The default value is <code>"none"</code>.</td><td class="summaryTableOwnerCol">VTarget3DGoalSeries</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:lineToEachItems"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">lineToEachItems</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Boolean<br>
+  Indicates whether or not to draw the connecting line.
+  
+   The default value is <code>false</code>.</td><td class="summaryTableOwnerCol">VTarget3DGoalSeries</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:linkLineStroke"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">linkLineStroke</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Object<br>
+  Sets the connecting line for data points. The valid value is Stroke.
+  </td><td class="summaryTableOwnerCol">VTarget3DGoalSeries</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:maxColumnWidth"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">maxColumnWidth</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>String<br>
+   Sets the maximum width of columns.<br>
+  
+  <p>The actual width of the bar is the minimum value of <code>columnWidthRatio</code> and <code>maxColumnWidth</code>.</p> 
+  </td><td class="summaryTableOwnerCol">VTarget3DGoalSeries</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:minField"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">minField</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>String<br>
+  <p>Sets the additional field name of the vertical axis.<br>
+  By using minField as the minimum value, you can create the From-To chart.</p>
+  </td><td class="summaryTableOwnerCol">VTarget3DGoalSeries</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:outsideLabelField"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">outsideLabelField</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>String<br>
+  Sets the field name to be displayed in outside-labels.
+  <br>If outsideLabelJsFunction is defined, then it will be ignored.
+  </td><td class="summaryTableOwnerCol">VTarget3DGoalSeries</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:outsideLabelJsFunction"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">outsideLabelJsFunction</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>String<br>
+  <p>Sets the user-defined function for outside-labels. The JavaScript function name should be defined.</p>
+  </td><td class="summaryTableOwnerCol">VTarget3DGoalSeries</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:outsideLabelXOffset"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">outsideLabelXOffset</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Number<br>
+  Sets the x-position of labels when labelPosition="outside" or labelPosition="both".
+  </td><td class="summaryTableOwnerCol">VTarget3DGoalSeries</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:outsideLabelYOffset"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">outsideLabelYOffset</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Number<br>
+  Sets the y-position of labels when labelPosition="outside" or labelPosition="both".
+  </td><td class="summaryTableOwnerCol">VTarget3DGoalSeries</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:showLabelVertically"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">showLabelVertically</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Boolean<br>
+  Indicates whether or not to display inside-labels vertically.
+  It is valid only if labelPostion="inside".
+   The default value is <code>false</code>.</td><td class="summaryTableOwnerCol">VTarget3DGoalSeries</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:stroke"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">stroke</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Object<br>
+  Sets the border line of items. The valid value is Stroke.
+  </td><td class="summaryTableOwnerCol">VTarget3DGoalSeries</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:styleName"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">styleName</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>String<br>
+  <p>Sets the style name to be defined in the Style node (&lt;Style&gt;).</p>
+  </td><td class="summaryTableOwnerCol">VTarget3DGoalSeries</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:visible"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">visible</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Boolean<br>
+  <p>Indicates whether or not to show series in charts.</p>
+   The default value is <code>true</code>.</td><td class="summaryTableOwnerCol">VTarget3DGoalSeries</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:xField"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">xField</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>String<br>
+  <p>Sets the field name of the horizontal axis (horizontalAxis).</p>
+  </td><td class="summaryTableOwnerCol">VTarget3DGoalSeries</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:yField"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">yField</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>String<br>
+  <p>Sets the field name of the vertical axis (verticalAxis).</p>
+  </td><td class="summaryTableOwnerCol">VTarget3DGoalSeries</td>
+</tr>
+</table>
+</div>
+<script type="text/javascript" language="javascript">
+<!--
+showHideInherited();
+--></script>
+<div class="MainContent">
+<br>
+<br>
+<hr>
+<br>
+<p></p>
+<center class="copyright">Copyright(c) 2012 RiaMore Soft, Inc. All Right Reserved</center>
+</div>
+</body>
+</html>
+<!--Copyright(c) 2012 RiaMore Soft, Inc. All Right Reserved-->

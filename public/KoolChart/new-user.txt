@@ -1,0 +1,44 @@
+How to use KoolChart for HTML5
+
+1. If you open index.html in your web browser, you will see the various types of chart samples, sample source codes and data.
+
+   If you want to open index.html from your local disk in the Chrome browser, you must follow the following steps. It is related with the security policy of Google Chrome.
+   (The following steps are not needed when you open index.html from your web server.)
+
+   Step 1. Go to the Google Chrome directory. (e.g. C:\Program Files\Google\Chrome\Application\chrome.exe)
+
+   Step 2. Run chrome.exe with the command line switch, -allow-file-access-from-files as follows:
+          chrome.exe -allow-file-access-from-files
+          1) Right mouse click on "chrome.exe" and "Send to" Desktop (create shortcut).
+          2) Right mouse click on the shortcut and choose "Properties".
+          3) Add "--allow-file-access-from-files" to the end of "Target" (e.g. "C:\Program Files\Google\Chrome\Application\chrome.exe" --allow-file-access-from-files).
+          4) Close all Chrome browsers currently open and open the Chrome browser using the shortcut.
+          5) You must always open index.html using this shortcut.
+
+   You must be sure that if you open the sample charts from the local disk in the Firefox browser, you will have limited access to the server for some samples (e.g. Real-Time chart).
+
+
+2. Directory structure of the installation CD 
+
+  KoolChart for HTML5 installation CD has the following directories:
+
+  A. KoolChart 
+     This directory has the minimum files required for running KoolChart. 
+     The JavaScript files are in the JS directory and the image and CSS files are in the Assets directory.
+
+  B. LicenseKey
+     This directory has the license file (KoolChartLicense.js) for KoolChart.
+     All you have to do for applying the license key is to include KoolChartLicense.js into the head tag of your HTML.
+
+  C. Docs
+     The two documents (User Manual and Layout API) are located in the Docs directory.
+     The API document is in the api directory.
+     To view the API document, open index.html in your web browser. 
+
+  D. Samples
+     This directory has the HTML and XML files for the sample charts. 
+     To view the sample charts, open index.html in your web browser.
+     If you want to view the layout or data used in the sample charts, click the "Layout" or "Data" tab.
+
+
+3. Please refer to the user's guide (KoolChart_User.pdf) that is in the Docs directory for further information.

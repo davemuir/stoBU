@@ -1,0 +1,153 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="../../style.css" type="text/css" media="screen">
+<link rel="stylesheet" href="../../print.css" type="text/css" media="print">
+<meta content="RadarGridLines,eng.elements.RadarGridLines" name="keywords">
+<title>eng.elements.RadarGridLines</title>
+</head>
+<body>
+<script type="text/javascript" language="javascript" src="../../asdoc.js"></script><script type="text/javascript" language="javascript" src="../../cookies.js"></script><script type="text/javascript" language="javascript">
+<!--
+				asdocTitle = 'RadarGridLines - KoolChart for HTML5 Ver. 3.0 Reference By RiaMore Soft.';
+				var baseRef = '../../';
+				window.onload = configPage;
+			--></script>
+<table style="display:none" id="titleTable" cellspacing="0" cellpadding="0" class="titleTable">
+<tr>
+<td align="left" class="titleTableTitle">KoolChart for HTML5 Ver. 3.0 Reference</td><td align="right" class="titleTableTopNav"><a onclick="loadClassListFrame('../../all-classes.html')" href="../../package-summary.html">All&nbsp;Packages</a>&nbsp;|&nbsp;<a onclick="loadClassListFrame('../../all-classes.html')" href="../../class-summary.html">All&nbsp;Classes</a>&nbsp;|&nbsp;<a onclick="loadClassListFrame('../../index-list.html')" href="../../all-index-A.html">Index</a>&nbsp;|&nbsp;<a href="../../index.html?eng/elements/RadarGridLines.html&amp;eng/elements/class-list.html" id="framesLink1">Frames</a><a onclick="parent.location=document.location" href="" style="display:none" id="noFramesLink1">No&nbsp;Frames</a></td><td rowspan="3" align="right" class="titleTableLogo"><a href="www.koolchart.com"><img alt="KoolChart Logo" title="KoolChart Logo" class="logoImage" src="../../images/logo.png"></a></td>
+</tr>
+<tr class="titleTableRow2">
+<td align="left" id="subTitle" class="titleTableSubTitle">Class&nbsp;RadarGridLines</td><td align="right" id="subNav" class="titleTableSubNav"><a href="#styleSummary">Styles</a></td>
+</tr>
+<tr class="titleTableRow3">
+<td colspan="2">&nbsp;</td>
+</tr>
+</table>
+<script type="text/javascript" language="javascript">
+<!--
+if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Class RadarGridLines"); titleBar_setSubNav(false,false,true,false,false,false,false,false,false,false,false,false,false,false);}
+--></script>
+<div class="MainContent">
+<table cellspacing="0" cellpadding="0" class="classHeaderTable">
+<tr>
+<td class="classHeaderTableLabel">Package</td><td><a onclick="javascript:loadClassListFrame('class-list.html')" href="package-detail.html">eng.elements</a></td>
+</tr>
+<tr>
+<td class="classHeaderTableLabel">Class</td><td class="classSignature">public class RadarGridLines</td>
+</tr>
+</table>
+<p></p> 
+  By using RadarGridLines, you can draw grid lines in the background of the chart.
+  The types of the line are radial, angular and both.
+  <code>radial</code>: Draws the line between the center and the axis (AngularAxis).
+  <code>angular</code>: Draws the line between each of the labels in the axis.
+   The instance of ChartGridLines (&lt;ChartGridLines&gt;) should be set to the value of the <code>backgroundElements</code> property.
+ 
+  <p>The RadarGridLines class (&lt;RadarGridLines&gt;) inherits from the parent classes and has the following additional properties.</p>
+  
+  <pre>
+ &lt;KoolChart backgroundColor="0xFFFFFF" cornerRadius="12" borderStyle="solid"&gt;
+ ...
+ &lt;RadarChart id="chart1" isSeriesOnAxis="true" type="polygon" paddingTop="20" paddingBottom="20" showDataTips="true"&gt;
+  ...
+  &lt;backgroundElements&gt;
+   &lt;RadarGridLines direction='both' radarChangeCount='1' radarFill='0xEFFFFF' radarAlternateFill='0xFFFFFC'&gt; &lt;!-- The colors of radarFill and radarAlternateFill will be used alternately.--&gt;
+     &lt;radialStroke&gt; &lt;!-- Defines the radial line --&gt;
+     &lt;Stroke color='0x000000' alpha='1' weight='1'/&gt;
+    &lt;/radialStroke&gt;
+     &lt;angularStroke&gt; &lt;!-- Defines the angular line --&gt;
+     &lt;Stroke color='0xFF0000' alpha='1' weight='1'/&gt;
+    &lt;/angularStroke&gt;
+    &lt;/RadarGridLines&gt;
+  &lt;/backgroundElements&gt;
+ ...
+ &lt;/RadarChart&gt;
+ &lt;/KoolChart&gt;
+  </pre>
+ <p></p>
+<br>
+<hr>
+</div>
+<a name="styleSummary"></a>
+<div class="summarySection">
+<div class="summaryTableTitle">Styles</div>
+<table id="summaryTableStyle" class="summaryTable " cellpadding="3" cellspacing="0">
+<tr>
+<th>&nbsp;</th><th colspan="2">Style</th><th>Description</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:angularStroke"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">angularStroke</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>mx.graphics.IStroke<br>
+  Sets the style of the angular line of the background.
+  </td><td class="summaryTableOwnerCol">RadarGridLines</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:gridLines"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">gridLines</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>String<br>
+  Sets the type of the background line of the radar chart. 
+  <code>radial</code>: Draws the line between the center and the axis (AngularAxis).
+  <code>angular</code>: Draws the line between each of the labels in the axis. 
+   The default value is <code>both</code>.</td><td class="summaryTableOwnerCol">RadarGridLines</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:radarAlternateFill"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">radarAlternateFill</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>mx.graphics.IFill<br>
+  Sets the alternate fill color for the background of the chart.
+   The default value is <code>0xFCFCFC</code>.</td><td class="summaryTableOwnerCol">RadarGridLines</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:radarChangeCount"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">radarChangeCount</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Number<br>
+  Sets how many times the colors are displayed alternately (The color is set in the radarFill (radarAlternateFill) property).
+  It is related with the tick interval of radialAxis.
+   The default value is <code>1</code>.</td><td class="summaryTableOwnerCol">RadarGridLines</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:radarFill"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">radarFill</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>mx.graphics.IFill<br>
+  Sets the fill color for the background of the chart.
+   The default value is <code>0xFFFFFF</code>.</td><td class="summaryTableOwnerCol">RadarGridLines</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:radialStroke"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">radialStroke</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>mx.graphics.IStroke<br>
+  Sets the style of the radial line of the background.
+  </td><td class="summaryTableOwnerCol">RadarGridLines</td>
+</tr>
+</table>
+</div>
+<script type="text/javascript" language="javascript">
+<!--
+showHideInherited();
+--></script>
+<div class="MainContent">
+<br>
+<br>
+<hr>
+<br>
+<p></p>
+<center class="copyright">Copyright(c) 2012 RiaMore Soft, Inc. All Right Reserved</center>
+</div>
+</body>
+</html>
+<!--Copyright(c) 2012 RiaMore Soft, Inc. All Right Reserved-->

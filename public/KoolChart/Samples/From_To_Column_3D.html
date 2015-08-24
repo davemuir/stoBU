@@ -1,0 +1,208 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="Content-Script-Type" content="text/javascript"/>
+<meta http-equiv="Content-Style-Type" content="text/css"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>KoolChart for HTML5 - From-To Chart</title>
+<link rel="stylesheet" type="text/css" href="./KoolChartSample.css"/>
+
+<!--  If you want to support IE 7/8, you'll need the conditional excanvas include. -->
+<!--[if IE]><script language="javascript" type="text/javascript" src="../KoolChart/JS/excanvas.js"></script><![endif]-->
+
+<!-- License Key -->
+<script language="javascript" type="text/javascript" src="../LicenseKey/KoolChartLicense.js"></script>
+
+<!-- KoolChart JavaScript library -->
+<script language="javascript" type="text/javascript" src="../KoolChart/JS/KoolChart.js"></script>
+
+<!-- Theme.js -->
+<script type="text/javascript" src="../KoolChart/Assets/Theme/theme.js"></script>
+
+<script type="text/javascript">
+
+//----------------------- Here we start creating a chart. -----------------------
+
+//Sets the value of KoolOnLoadCallFunction to the name of a JS function (e.g. chartReadyHandler) that is called when the chart is ready to be created.
+var chartVars = "KoolOnLoadCallFunction=chartReadyHandler";
+
+//Creates the chart.
+//Parameters:  
+//1. Chart ID: You can use any name you like. 
+//2. DIV ID: The chart will be placed in this DIV.
+//3. chartVars: Variables used for creating the chart.
+//4. Chart width: Default value is 100%
+//5. Chart height: Default value is 100%
+KoolChart.create("chart1", "chartHolder", chartVars, "100%", "100%"); 
+
+//The JavaScript function which is set to the value of KoolOnLoadCallFunction.
+//This function will call two functions, setLayout() and setData() which are two main functions of KoolChart.
+//Parameters: 
+//1. ID: The Chart ID which is used as the first parameter of KoolChart.create().
+function chartReadyHandler(id) {
+	document.getElementById(id).setLayout(layoutStr);
+	document.getElementById(id).setData(chartData);
+}
+
+//Declares Layout
+var layoutStr = '<KoolChart cornerRadius="12">'
+					+'<Options>'
+						+'<Caption text="Revenue Comparison" fontFamily="Malgun Gothic"/>'
+						+'<SubCaption text="Unit: $K" textAlign="right" fontSize="11" fontFamily="Malgun Gothic"/>'
+					+'</Options>'
+					+'<NumberFormatter id="fmt"/>'
+					+'<Column3DChart showDataTips="true" selectionMode="single" dataTipJsFunction="dataTipFunc" fontSize="11" fontFamily="Malgun Gothic">'
+						+'<horizontalAxis>'
+							+'<CategoryAxis id="hAxis" categoryField="cat"/>'
+						+'</horizontalAxis>'
+						+'<verticalAxis>'
+							+'<LinearAxis formatter="{fmt}"/>'
+						+'</verticalAxis>'
+						+'<series>'
+							+'<Column3DSeries id="series1" minField="min" yField="max" labelPosition="inside" insideLabelJsFunction="labelFunc" color="#ffffff">'
+								+'<showDataEffect>'
+									+'<SeriesSlide direction="up" duration="600"/>'
+								+'</showDataEffect>'
+							+'</Column3DSeries>'
+						+'</series>'
+						+'<horizontalAxisRenderers>'
+							+'<Axis3DRenderer axis="{hAxis}" showLine="true" fontFamily="Malgun Gothic" tickPlacement="none" canStagger="true" canDropLabels="false">'
+								+'<axisStroke>'
+									+'<Stroke color="#555555"/>'
+								+'</axisStroke>'
+							+'</Axis3DRenderer>'
+						+'</horizontalAxisRenderers>'
+					+'</Column3DChart>'
+				+'</KoolChart>';
+
+//Declares Dataset
+var chartData = [
+      			{"cat":"Telecom", "min":8000, "max":30000,"minName":"S", "maxName":"M"},
+                {"cat":"Electornic", "min":1000, "max":45000,"minName":"A", "maxName":"C"},
+            	{"cat":"Construction", "min":30000, "max":60000,"minName":"K", "maxName":"P"},
+            	{"cat":"Finance","min":20000, "max":45000,"minName":"W", "maxName":"K"},
+    			{"cat":"IT", "min":1000, "max":20000,"minName":"N", "maxName":"R"},
+    			{"cat":"Distribution", "min":3000, "max":18000,"minName":"E", "maxName":"W"},
+    			{"cat":"Manufacturing", "min":4500, "max":25000,"minName":"T", "maxName":"C"},
+    			{"cat":"Fashion", "min":8500, "max":33000,"minName":"C", "maxName":"K"}
+			];
+
+
+/*
+// ------------------------- insideLabelJsFunction -----------------------------------------------------
+// If the value of the labelPosition property is set to "inside", the JS function, the name of which is the value of the insideLabelJsFunction property is called to generate the user-defined label.
+// Sets the value of the insideLabelJsFunction property to the name of a JS function.
+//
+// e.g.) <Column2DSeries yField="Profit" labelPosition="inside" insideLabelJsFunction="seriesLabelFunc">
+//
+// Parameters:
+// seriesID: Series ID
+// index: The index of the item in the series
+// data: The record of the dataset declared for creating the chart.
+// values: The value is an array and each element in the array is different depending on the chart type.
+
+    Pie2DSeries,Pie3DSeries			0: value, 1: percentage
+	Bubble3DSeries,Matrix2DSeries   0: X-axis value, 1: Y-axis value, 2: Z-axis value
+
+	All series except Pie, Bubble series  	0: X-axis value, 1: Y-axis value, 2: min
+	* The min value is valid only if type='100%' or type='stacked'. if the type is "stacked", the min value is the value of the bottom stack.
+//
+*/
+function labelFunc(seriesID, index, data, values)
+{
+	return data["maxName"];
+}
+
+/*
+// ---------------------- The user-defined function to be used to generate the toolTips (dataTipJsFunction)--------------------------------------------
+// The JavaScript function to be called to show tooltips (showDataTips="true").
+// Sets the value of labelJsFunction to the JavaScript function name in layouts
+
+// e.g.) <Column3DChart showDataTips="true" dataTipJsFunction="dataTipFunc">
+//
+// Parameters
+// seriesId: Series ID
+// seriesName: The name of the series, which is set as the value of the displayName property.
+// index: The index of the item in the series.
+// xName: The value of the displayName property in the horizontalAxis node.
+// yName: The value of the displayName property in the verticalAxis node.
+// data: The record of the dataset declared for creating the chart.
+// values: The value is an array and each element in the array is different depending on the chart type.
+			Bar2D(3D)Series		0: X-axis value, 1: Y-axis value
+			Column2D(3D)Series	0: X-axis value, 1: Y-axis value
+			Area2DSeries		0: X-axis value, 1: Y-axis value
+			Bubble3DSeries		0: X-axis value, 1: Y-axis value 2: radius
+			Line2DSeries		0: X-axis value, 1: Y-axis value
+			Pie2D(3D)Series		0: value, 1: percentage, 2: nameField
+
+			**
+			* If you set the minField property in the From-To Chart, the last index of the array(values) has the value of minField.
+*/
+function dataTipFunc(seriesId, seriesName, index, xName, yName, data, values)
+{
+	var maxVal = insertComma(data['max']);
+	var minVal = insertComma(data['min']);
+
+	return "<font color='#0000FF'>"+values[0]+"</font>"
+		+"<br/>Max Revenue: "+ data['maxName'] + " (" + maxVal + ",000)"
+		+"<br/>Min Revenue: "+ data['minName'] + " (" + minVal + ",000)";
+}
+
+//Formatting the data using the thousand separators.
+function insertComma(n) {
+	var reg = /(^[+-]?\d+)(\d{3})/;   	// Regular expression
+	n+=""; 								// Converting the number type to the string type.
+	while (reg.test(n))
+		n = n.replace(reg, '$1' + "," + '$2');
+
+	return n;
+}
+	
+/**
+ * If you want to use themes provided with KoolChart version 3.0, call the following functions.
+ * otherwise, comment out or delete the following functions.
+ *
+ * -- The Themes registered in KoolChart.themes --
+ * - simple
+ * - cyber
+ * - modern
+ * - lovely
+ * - pastel
+ * - old
+ * -------------------------------------------------
+ *
+ * The KoolChart.themes variable is defined in theme.js
+ */
+KoolChart.registerTheme(KoolChart.themes);
+
+/**
+ * The function called when the theme button in the sample HTML is clicked.
+ * Parameter Values:
+ * - simple
+ * - cyber
+ * - modern
+ * - lovely
+ * - pastel
+ * - old
+ * - default
+ *
+ * default: Applies the default theme which is the basic design of KoolChart.
+ * old: Applies the design of KoolChart version 2.5.
+ */
+function KoolChartChangeTheme(theme){
+	document.getElementById("chart1").setTheme(theme);
+}
+
+//----------------------- The end of the configuration for creating a chart. -----------------------
+	
+</script>
+</head>
+<body>
+	<div id="content">
+		<!-- The DIV in which the chart is placed -->
+		<div id="chartHolder" style="width:600px; height:400px;">
+		</div>
+	</div>
+</body>
+</html>

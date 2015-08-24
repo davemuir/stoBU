@@ -1,0 +1,142 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="Content-Script-Type" content="text/javascript"/>
+<meta http-equiv="Content-Style-Type" content="text/css"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>KoolChart for HTML5</title>
+<link rel="stylesheet" type="text/css" href="./KoolChartSample.css"/>
+
+<!--  If you want to support IE 7/8, you'll need the conditional excanvas include. -->
+<!--[if IE]><script language="javascript" type="text/javascript" src="../KoolChart/JS/excanvas.js"></script><![endif]-->
+
+<!-- License Key -->
+<script language="javascript" type="text/javascript" src="../LicenseKey/KoolChartLicense.js"></script>
+
+<!-- KoolChart JavaScript library -->
+<script language="javascript" type="text/javascript" src="../KoolChart/JS/KoolChart.js"></script>
+
+<script type="text/javascript">
+
+//----------------------- Here we start creating a chart. -----------------------
+
+//Sets the value of KoolOnLoadCallFunction to the name of a JS function (e.g. chartReadyHandler) that is called when the chart is ready to be created.
+var chartVars = "KoolOnLoadCallFunction=chartReadyHandler";
+
+//Creates the chart.
+//Parameters:  
+//1. Chart ID: You can use any name you like. 
+//2. DIV ID: The chart will be placed in this DIV.
+//3. chartVars: Variables used for creating the chart.
+//4. Chart width: Default value is 100%
+//5. Chart height: Default value is 100%
+KoolChart.create("chart1", "chartHolder", chartVars, "100%", "100%"); 
+
+//The JavaScript function which is set to the value of KoolOnLoadCallFunction.
+//This function will call two functions, setLayout() and setData() which are two main functions of KoolChart.
+//Parameters: 
+//1. ID: The Chart ID which is used as the first parameter of KoolChart.create().
+//Four callback functions can be used.
+//1. setLayout - Sets the String type layout (XML).
+//2. setData - Sets the Array type dataset.
+//3. setLayoutURL - Sets the URL of the layout (XML).
+//4. setDataURL - Sets the URL of the dataset (XML).
+function chartReadyHandler(id) {
+	//Example 1. String Type Layout, Array Type Dataset. 
+	document.getElementById(id).setLayoutURL(layoutURL);
+	document.getElementById(id).setData(chartData);
+
+	//Example 2. URL of Layout (XML), Array Type Dataset.
+	//document.getElementById(id).setLayoutURL(layoutURL);
+	//document.getElementById(id).setData(chartData);
+	
+	//Example 3. String Type Layout, URL of Dataset (XML).
+	//document.getElementById(id).setLayout(layoutStr);
+	//document.getElementById(id).setDataURL(dataURL);
+	
+	//Example 4. URL of Layout, URL of Dataset
+	//document.getElementById(id).setLayoutURL(layoutURL);
+	//document.getElementById(id).setDataURL(dataURL);
+}
+
+// Declares Layout (URL)
+var layoutURL = "./LayoutXml/Column_3D_Layout.xml";
+
+var dataURL ="./DataXml/singleData.xml";
+
+// Declares Dataset
+var chartData = [{"Month":"Jan", "Profit":1000, "Cost":5000, "Revenue":5000},
+				{"Month":"Feb", "Profit":1500, "Cost":7000, "Revenue":8000},
+				{"Month":"Mar", "Profit":1200 , "Cost":6000, "Revenue":6000},
+				{"Month":"Apr", "Profit":3020, "Cost":4000, "Revenue":26200},
+				{"Month":"May", "Profit":2800, "Cost":10000, "Revenue":18000},
+				{"Month":"Jun", "Profit":1200, "Cost":5000, "Revenue":7000},
+				{"Month":"Jul", "Profit":2200, "Cost":10000, "Revenue":12000},
+				{"Month":"Aug", "Profit":1300, "Cost":6000, "Revenue":7000},
+				{"Month":"Sep", "Profit":2200, "Cost":10000, "Revenue":12000},
+				{"Month":"Oct", "Profit":2900, "Cost":8000, "Revenue":21000},
+				{"Month":"Nov", "Profit":1800, "Cost":7500, "Revenue":10500},
+				{"Month":"Dec", "Profit":3000, "Cost":12000, "Revenue":18000} ];
+
+var chartData2 = [{"Month":"Jan", "Revenue":15000, "Cost":5000, "Profit":4000},
+				{"Month":"Feb", "Revenue":1500, "Cost":10000, "Profit":5000},
+				{"Month":"Mar", "Revenue":1200 , "Cost":7000, "Profit":5000},
+				{"Month":"Apr", "Revenue":3000, "Cost":20000, "Profit":3500},
+				{"Month":"May", "Revenue":2800, "Cost":18000, "Profit":7000},
+				{"Month":"Jun", "Revenue":1200, "Cost":3000, "Profit":9000},
+				{"Month":"Jul", "Revenue":2200, "Cost":12000, "Profit":4000},
+				{"Month":"Aug", "Revenue":1300, "Cost":5000, "Profit":8000},
+				{"Month":"Sep", "Revenue":2200, "Cost":12000, "Profit":3000},
+				{"Month":"Oct", "Revenue":2900, "Cost":18000, "Profit":3200},
+				{"Month":"Nov", "Revenue":1800, "Cost":9000, "Profit":7000},
+				{"Month":"Dec", "Revenue":3000, "Cost":15000, "Profit":5000} ];
+
+// Sets Dataset
+function changeData()
+{
+    document.getElementById("chart1").setData(chartData2);
+}
+// Sets Dataset
+function changeData2()
+{
+    document.getElementById("chart1").setDataURL(dataURL);
+}
+// Sets Dataset
+function changeData3()
+{
+    document.getElementById("chart1").setData(chartData);
+}
+
+//----------------------- The end of the configuration for creating a chart. -----------------------
+
+</script>
+</head>
+<body>
+	<div id="content">
+		<!-- The DIV in which the chart is placed. -->
+		<div id="chartHolder" style="width:600px; height:400px;">
+		</div>
+	</div>
+	<div id="footer"  style="width:600px; margin:0px auto;">
+		<span class="button" style="float:left"onclick="changeData()">Dataset 1</span>
+		<span class="button" style="float:left"onclick="changeData2()">Dataset 2</span>
+		<span class="button" style="float:left" onclick="changeData3()">Dataset 3</span><br><br>		
+		<font size="3"><b>This sample is for changing the dataset dynamically with the same chart type.</b></font>
+<pre>
+<font color="#01BAC5">Function for changing dataset (Dataset 1)</font>
+<font color="#0000ff">function</font> changeData(){
+&nbsp;&nbsp;&nbsp;&nbsp;document.getElementById("chart1").setData(chartData2);
+}
+<font color="#01BAC5">Function for changing dataset (Dataset 2)</font>
+<font color="#0000ff">function</font> changeData2(){
+&nbsp;&nbsp;&nbsp;&nbsp;document.getElementById("chart1").setDataURL(dataURL);
+}
+<font color="#01BAC5">Function for changing dataset (Dataset 3)</font>
+<font color="#0000ff">function</font> changeData3(){
+&nbsp;&nbsp;&nbsp;&nbsp;document.getElementById("chart1").setData(chartData);
+}
+</pre>
+	</div>
+</body>
+</html>

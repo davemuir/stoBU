@@ -1,0 +1,206 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="Content-Script-Type" content="text/javascript"/>
+<meta http-equiv="Content-Style-Type" content="text/css"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>KoolChart for HTML5</title>
+<link rel="stylesheet" type="text/css" href="./KoolChartSample.css"/>
+
+<!--  If you want to support IE 7/8, you'll need the conditional excanvas include. -->
+<!--[if IE]><script language="javascript" type="text/javascript" src="../KoolChart/JS/excanvas.js"></script><![endif]-->
+
+<!-- License Key -->
+<script language="javascript" type="text/javascript" src="../LicenseKey/KoolChartLicense.js"></script>
+
+<!-- KoolChart JavaScript library -->
+<script language="javascript" type="text/javascript" src="../KoolChart/JS/KoolGaugeChart.js"></script>
+
+<!-- Theme.js -->
+<script type="text/javascript" src="../KoolChart/Assets/Theme/theme.js"></script>
+
+<script type="text/javascript">
+
+//----------------------- Here we start creating a chart. -----------------------
+
+//Sets the value of KoolOnLoadCallFunction to the name of a JS function (e.g. chartReadyHandler) that is called when the chart is ready to be created.
+var chartVars = "KoolOnLoadCallFunction=chartReadyHandler";
+
+//Creates the chart.
+//Parameters:  
+//1. Chart ID: You can use any name you like. 
+//2. DIV ID: The chart will be placed in this DIV.
+//3. chartVars: Variables used for creating the chart.
+//4. Chart width: Default value is 100%
+//5. Chart height: Default value is 100%
+KoolChart.create("chart1", "chartHolder", chartVars, "100%", "100%"); 
+
+//The JavaScript function which is set to the value of KoolOnLoadCallFunction.
+//This function will call two functions, setLayout() and setData() which are two main functions of KoolChart.
+//Parameters: 
+//1. ID: The Chart ID which is used as the first parameter of KoolChart.create().
+function chartReadyHandler(id) {
+	document.getElementById(id).setLayout(layoutStr);
+	document.getElementById(id).setData(chartData);
+}
+
+//Declares Layout
+var layoutStr = 
+				'<KoolChart backgroundColor="0xffffff" cornerRadius="12" borderStyle="none">'
+					+'<Options>'
+						+'<Caption text="Circular Gauge - Dual" fontFamily="Malgun Gothic"/>'
+					+'</Options>'
+					+'<CurrencyFormatter id="numFmt" precision="0" currencySymbol="%" alignSymbol="right"/>'
+					+'<CircularGauge startAngle="90" minimumAngle="30" maximumAngle="330" editMode="true" liveDragging="true" coverRadiusRatio="0.1" '
+						+'needleThickness="4" needleCoverRadius="5" needleLengthRatio="0.7" needleBackLengthRatio="0" needlePointStyle="steeple" pointThickness="2" labelGap="14" '
+						+'valueYOffset="140" valueChangeFunction="valueChangeFunc" tickLabelStyleName="tickText" valueLabelStyleName="valueText" labelJsFunction="labelFunc" secondLabelJsFunction="labelFunc2" '
+						// Outer border
+						+'minimum="0" maximum="125" interval="25" minorInterval="5" tickGap="-14" tickRadius="4" minorTickRadius="4" minorTickType="line" majorTickType="line" tickLabelPlacement="outside" '
+						+'showTrackColor="true" trackValues="[0,125]" trackColors="[#ff812d]" trackAlphas="[1]" trackInnerRadius="1.03" trackOuterRadius="1.05" '
+						// Inner border
+						+'secondMinimum="0" secondMaximum="200" showSecondTick="true" secondInterval="50" secondTickGap="8" secondTickRadius="4" '
+						+'secondMinorInterval="10" showSecondMinorTick="true" secondMinorTickGap="8" secondMinorTickRadius="4" secondMinorTickType="line" '
+						+'showSecondValueLabel="true" showSecondTickLabels="true" showSecondTrackColor="true" secondTrackValues="[0,125]" secondTrackColors="[#3383c5]" secondTrackAlphas="[1]" secondTrackInnerRadius="0.94" secondTrackOuterRadius="0.96">'
+							+'<frameStroke>'
+								+'<Stroke color="#ffffff" alpha="0"/>'
+							+'</frameStroke>'
+							+'<frameFill>'
+								+'<LinearGradient angle="90">'
+									+'<entries>'
+										+'<GradientEntry color="#dbdee1" ratio="0"/>'
+										+'<GradientEntry color="#ffffff" ratio="1"/>'
+									+'</entries>'
+								+'</LinearGradient>'
+							+'</frameFill>'
+							+'<needleFill>'
+								+'<SolidColor color="#000000"/>'
+							+'</needleFill>'
+							+'<tickStroke>'
+								+'<Stroke color="#ff812d" weight="3"/>'
+							+'</tickStroke>'
+							+'<needleCoverFill>'
+								+'<SolidColor color="#000000"/>'
+							+'</needleCoverFill>'
+							+'<needleCoverFilter>'
+								+'<DropShadowFilter distance="1"/>'
+							+'</needleCoverFilter>'
+							+'<minorTickStroke>'
+								+'<Stroke color="#ff812d"/>'
+							+'</minorTickStroke>'
+							+'<secondMinorTickStroke>'
+								+'<Stroke color="#3383c5"/>'
+							+'</secondMinorTickStroke>'
+							+'<secondTickStroke>'
+								+'<Stroke color="#3383c5" weight="3"/>'
+							+'</secondTickStroke>'
+					+'</CircularGauge>'
+					+'<Style>'
+						+'.valueText{'
+							+'fontSize:16;'
+							+'fontFamily:"Malgun Gothic";'
+							+'textAlign:center;'
+							+'borderColor:0x555555;'
+							+'backgroundColor:0xFFFFFF;'
+							+'backgroundAlpha:1;'
+							+'paddingTop:2;'
+							+'borderThickness:1;'
+							+'borderAlpha:1;'
+							+'borderStyle:solid;'
+							+'fontWeight:bold;'
+						+'}'
+						+'.tickText{'
+							+'fontFamily:"Malgun Gothic";'
+							+'fontSize:14;'
+							+'color:0x000000;'
+						+'}'
+					+'</Style>'
+				+'</KoolChart>';
+
+function labelFunc(value){
+	return "<font color='#ff812d'>" + value + " mph</font>";
+}
+
+function labelFunc2(value){
+	return "<font color='#3383c5'>" + value + " km/h</font>";
+}
+				
+//Sets gauge data
+var chartData = [62.5];
+
+//Generates a random value
+function changeValue()
+{
+	// To change the value of the gauge, please use the setData() function.
+	document.getElementById("chart1").setData([parseInt(Math.random()*100)]);
+}
+
+//For saving the value.
+var gaugeValue,
+	gaugeValue2;
+
+//JavaScript function that manages the event (valueChangeFunction).
+function valueChangeFunc(value, secondValue)
+{
+	gaugeValue = value;
+	gaugeValue2 = secondValue;
+}
+
+//For verifying gauge value
+function commitValue()
+{
+	alert(gaugeValue + " " + gaugeValue2);
+}
+	
+/**
+ * If you want to use themes provided with KoolChart version 3.0, call the following functions.
+ * otherwise, comment out or delete the following functions.
+ *
+ * -- The Themes registered in KoolChart.themes --
+ * - simple
+ * - cyber
+ * - modern
+ * - lovely
+ * - pastel
+ * - old
+ * -------------------------------------------------
+ *
+ * The KoolChart.themes variable is defined in theme.js
+ */
+KoolChart.registerTheme(KoolChart.themes);
+
+/**
+ * The function called when the theme button in the sample HTML is clicked.
+ * Parameter Values:
+ * - simple
+ * - cyber
+ * - modern
+ * - lovely
+ * - pastel
+ * - old
+ * - default
+ *
+ * default: Applies the default theme which is the basic design of KoolChart.
+ * old: Applies the design of KoolChart version 2.5.
+ */
+function KoolChartChangeTheme(theme){
+	document.getElementById("chart1").setTheme(theme);
+}
+
+//----------------------- The end of the configuration for creating a chart. -----------------------
+
+</script>
+</head>
+<body>
+	<div id="header">
+		<div onclick="changeValue()" class="button button_top">Change Value</div>
+		<div onclick="commitValue()" class="button button_top">View Value</div>
+		
+	</div>
+	<div id="content">
+		<!-- The DIV in which the chart is placed -->
+		<div id="chartHolder" style="width:600px; height:400px;">
+		</div>
+	</div>
+</body>
+</html>

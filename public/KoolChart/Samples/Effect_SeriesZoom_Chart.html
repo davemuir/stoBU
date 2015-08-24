@@ -1,0 +1,130 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="Content-Script-Type" content="text/javascript"/>
+<meta http-equiv="Content-Style-Type" content="text/css"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>KoolChart for HTML5</title>
+<link rel="stylesheet" type="text/css" href="./KoolChartSample.css"/>
+
+<!--  If you want to support IE 7/8, you'll need the conditional excanvas include. -->
+<!--[if IE]><script language="javascript" type="text/javascript" src="../KoolChart/JS/excanvas.js"></script><![endif]-->
+
+<!-- License Key -->
+<script language="javascript" type="text/javascript" src="../LicenseKey/KoolChartLicense.js"></script>
+
+<!-- KoolChart JavaScript library -->
+<script language="javascript" type="text/javascript" src="../KoolChart/JS/KoolChart.js"></script>
+
+<script type="text/javascript">
+
+//----------------------- Here we start creating a chart. -----------------------
+
+//Sets the value of KoolOnLoadCallFunction to the name of a JS function (e.g. chartReadyHandler) that is called when the chart is ready to be created.
+var chartVars = "KoolOnLoadCallFunction=chartReadyHandler";
+
+//Creates the chart.
+//Parameters:  
+//1. Chart ID: You can use any name you like. 
+//2. DIV ID: The chart will be placed in this DIV.
+//3. chartVars: Variables used for creating the chart.
+//4. Chart width: Default value is 100%
+//5. Chart height: Default value is 100%
+KoolChart.create("chart1", "chartHolder", chartVars, "100%", "100%"); 
+
+//The JavaScript function which is set to the value of KoolOnLoadCallFunction.
+//This function will call two functions, setLayout() and setData() which are two main functions of KoolChart.
+//Parameters: 
+//1. ID: The Chart ID which is used as the first parameter of KoolChart.create().
+function chartReadyHandler(id) {
+	document.getElementById(id).setLayout(layoutStr);
+	document.getElementById(id).setData(chartData);
+}
+
+//Declares Layout
+var layoutStr = 
+				'<KoolChart backgroundColor="0xFFFFFF" cornerRadius="12" borderStyle="none">'
+					+'<Options>'
+						+'<Caption text="Monthly Report"/>'
+					+'</Options>'
+					+'<NumberFormatter id="numfmt" useThousandsSeparator="true"/>'
+					+'<Column2DChart showDataTips="true">'
+						/* 
+							Creating the Column2DChart node. 
+							showDataTips: Whether or not to show tooltips when you mouse over items in the chart.
+						*/
+						+'<horizontalAxis>'
+							+'<CategoryAxis categoryField="Month"/>' 
+						+'</horizontalAxis>'
+						+'<verticalAxis>'
+							+'<LinearAxis interval="300" formatter="{numfmt}"/>'
+						+'</verticalAxis>'
+						+'<series>'
+							+'<Column2DSeries labelPosition="up" yField="Profit" itemRenderer="SemiCircleColumnItemRenderer">'
+								+'<showDataEffect>'
+									+'<SeriesZoom relativeTo="chart" horiontalFocus="center" verticalFocus="center" duration="1200" elementOffset="60"/>'
+								/*
+									SeriesZoom - The animation effect starts at the reference point in the chart and gradually expands.  
+									duration: The total time to be taken for the animation effect.
+									elementOffset: The time between the animation effect of the first item and that of the next item.
+										If the value of the elementOffset property is minus, the animation effect starts from the opposite direction.
+									relativeTo: The reference point. The valid values: chart, series
+									horizontalFocus: The horizontal reference point from the value of the relativeTo property. The valid values: left, center, right
+									verticalFocus: The vertical reference point from the value of the relativeTo property. The valid values: top, middle, bottom
+								*/
+								+'</showDataEffect>'
+							+'</Column2DSeries>'
+						+'</series>'
+					+'</Column2DChart>'
+				+'</KoolChart>';
+
+// Declares Dataset
+var chartData = [{"Month":"Jan","Profit":900},
+				{"Month":"Feb","Profit":1400},
+				{"Month":"Mar","Profit":1500},
+				{"Month":"Apr","Profit":1900},
+				{"Month":"May","Profit":1400},
+				{"Month":"Jun","Profit":2000},
+				{"Month":"Jul","Profit":1800},
+				{"Month":"Aug","Profit":2500},
+				{"Month":"Sep","Profit":3000},
+				{"Month":"Oct","Profit":2000},
+				{"Month":"Nov","Profit":2100},
+				{"Month":"Dec","Profit":1700}];
+
+//----------------------- The end of the configuration for creating a chart. -----------------------
+
+</script>
+</head>
+<body>
+	<div id="content">
+		<!-- The DIV in which the chart is placed -->
+		<div id="chartHolder" style="width:600px; height:400px;">
+		</div>
+	</div>
+	<div id="footer">	
+		<font size="3"><b>This sample is to display the animation effects (SeriesZoom - Chart).</b></font><br><br>
+		The animation effect starts at the reference point in the chart and gradually expands.<br>
+		
+<pre>
+<font color="#01BAC5">
+duration: The total time to be taken for the animation effect.
+elementOffset: The time between the animation effect of the first item and that of the next item.
+	If the value of the elementOffset property is minus, the animation effect starts from the opposite direction.
+relativeTo: The reference point. The valid values: chart, series
+horizontalFocus: The horizontal reference point from the value of the relativeTo property. The valid values: left, center, right
+verticalFocus: The vertical reference point from the value of the relativeTo property. The valid values: top, middle, bottom</font>
+
+<b>●Layout</b>
+&#60;Column2DSeries labelPosition="up" yField="Profit" itemRenderer="SemiCircleColumnItemRenderer"&#62;
+	&#60;showDataEffect&#62;
+		&#60;SeriesZoom relativeTo="chart" horiontalFocus="center" 
+		verticalFocus="center" duration="1200" elementOffset="60"/&#62;
+	&#60;/showDataEffect&#62;
+&#60;/Column2DSeries&#62;
+
+</pre>
+		</div>
+</body>
+</html>

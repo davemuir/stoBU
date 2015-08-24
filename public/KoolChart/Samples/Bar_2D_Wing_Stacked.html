@@ -1,0 +1,143 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="Content-Script-Type" content="text/javascript"/>
+<meta http-equiv="Content-Style-Type" content="text/css"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>KoolChart for HTML5 - Wing Chart</title>
+<link rel="stylesheet" type="text/css" href="./KoolChartSample.css"/>
+
+<!--  If you want to support IE 7/8, you'll need the conditional excanvas include. -->
+<!--[if IE]><script language="javascript" type="text/javascript" src="../KoolChart/JS/excanvas.js"></script><![endif]-->
+
+<!-- License Key -->
+<script language="javascript" type="text/javascript" src="../LicenseKey/KoolChartLicense.js"></script>
+
+<!-- KoolChart JavaScript library -->
+<script language="javascript" type="text/javascript" src="../KoolChart/JS/KoolWingChart.js"></script>
+
+<!-- Theme.js -->
+<script type="text/javascript" src="../KoolChart/Assets/Theme/theme.js"></script>
+
+<script type="text/javascript">
+
+//----------------------- Here we start creating a chart. -----------------------
+
+//Sets the value of KoolOnLoadCallFunction to the name of a JS function (e.g. chartReadyHandler) that is called when the chart is ready to be created.
+var chartVars = "KoolOnLoadCallFunction=chartReadyHandler";
+
+//Creates the chart.
+//Parameters:  
+//1. Chart ID: You can use any name you like. 
+//2. DIV ID: The chart will be placed in this DIV.
+//3. chartVars: Variables used for creating the chart.
+//4. Chart width: Default value is 100%
+//5. Chart height: Default value is 100%
+KoolChart.create("chart1", "chartHolder", chartVars, "100%", "100%"); 
+
+//The JavaScript function which is set to the value of KoolOnLoadCallFunction.
+//This function will call two functions, setLayout() and setData() which are two main functions of KoolChart.
+//Parameters: 
+//1. ID: The Chart ID which is used as the first parameter of KoolChart.create().
+function chartReadyHandler(id) {
+	document.getElementById(id).setLayout(layoutStr);
+	document.getElementById(id).setData(chartData);
+}
+
+//Declares Layout
+var layoutStr = 
+				'<KoolChart backgroundColor="0xFFFFFF" cornerRadius="5">'
+					+'<Options>'
+						+'<Caption text="Comparing Meal Expenses Male vs. Female" fontFamily="Malgun Gothic" paddingBottom="2"/>'
+						+'<Legend width="140" fontFamily="Malgun Gothic"/>'
+					+'</Options>'
+					+'<Box width="100%" direction="horizontal" fontSize="11" fontWeight="bold">'
+						+'<Box width="100%" height="10" backgroundAlpha="0">'
+							+'<Label width="100%" color="0x777777" text="Male" fontFamily="Malgun Gothic" backgroundAlpha="0"/>'
+						+'</Box>'
+						+'<Box width="100%" backgroundAlpha="0">'
+							+'<Label width="100%" color="0x777777" text="Female" fontFamily="Malgun Gothic" backgroundAlpha="0"/>'
+						+'</Box>'
+					+'</Box>'
+					+'<Bar2DWingChart showDataTips="true" type="stacked" fontFamily="Malgun Gothic">'
+						+'<verticalAxis>'
+							+'<CategoryAxis categoryField="Month"/>'
+						+'</verticalAxis>'
+						+'<series>'
+						/* Defines Bar2DWingChart */
+							+'<Bar2DWingSeries xField="coffee1" xFieldOpp="coffee2" labelPosition="inside" displayName="Coffee" showValueLabels="[4,5]" showValueLabelsOpp="[4,5]" color="#ffffff">'
+								+'<showDataEffect>'
+									+'<WingSeriesInterpolate duration="1000"/>'
+								+'</showDataEffect>'
+							+'</Bar2DWingSeries>'
+							+'<Bar2DWingSeries xField="donuts1" xFieldOpp="donuts2" labelPosition="inside" displayName="Donuts " showValueLabels="[4,5]" showValueLabelsOpp="[4,5]" color="#ffffff">'
+								+'<showDataEffect>'
+									+'<WingSeriesInterpolate duration="1000"/>'
+								+'</showDataEffect>'
+							+'</Bar2DWingSeries>'
+						+'</series>'
+					+'</Bar2DWingChart>'					
+				+'</KoolChart>';
+
+//Declares Dataset
+var chartData = [{"Month":"Jan","coffee1":1000,"donuts1":1500,"coffee2":1020,"donuts2":1300},
+				{"Month":"Feb","coffee1":1400,"donuts1":1400,"coffee2":1200,"donuts2":2300},
+				{"Month":"Mar","coffee1":1500,"donuts1":1200,"coffee2":1100,"donuts2":900},
+				{"Month":"Apr","coffee1":1900,"donuts1":1300,"coffee2":2100,"donuts2":2200},
+				{"Month":"May","coffee1":1400,"donuts1":900,"coffee2":1100,"donuts2":500},
+				{"Month":"Jun","coffee1":2000,"donuts1":500,"coffee2":1100,"donuts2":2500},
+				{"Month":"Jul","coffee1":1800,"donuts1":1400,"coffee2":100,"donuts2":900},
+				{"Month":"Aug","coffee1":2500,"donuts1":800,"coffee2":1200,"donuts2":2200},
+				{"Month":"Sep","coffee1":3000,"donuts1":1900,"coffee2":660,"donuts2":780},
+				{"Month":"Oct","coffee1":2000,"donuts1":2300,"coffee2":970,"donuts2":530},
+				{"Month":"Nov","coffee1":2100,"donuts1":2400,"coffee2":900,"donuts2":1900},
+				{"Month":"Dec","coffee1":1700,"donuts1":1900,"coffee2":1100,"donuts2":500}];
+
+/**
+ * If you want to use themes provided with KoolChart version 3.0, call the following functions.
+ * otherwise, comment out or delete the following functions.
+ *
+ * -- The Themes registered in KoolChart.themes --
+ * - simple
+ * - cyber
+ * - modern
+ * - lovely
+ * - pastel
+ * - old
+ * -------------------------------------------------
+ *
+ * The KoolChart.themes variable is defined in theme.js
+ */
+KoolChart.registerTheme(KoolChart.themes);
+
+/**
+ * The function called when the theme button in the sample HTML is clicked.
+ * Parameter Values:
+ * - simple
+ * - cyber
+ * - modern
+ * - lovely
+ * - pastel
+ * - old
+ * - default
+ *
+ * default: Applies the default theme which is the basic design of KoolChart.
+ * old: Applies the design of KoolChart version 2.5.
+ */
+function KoolChartChangeTheme(theme){
+	document.getElementById("chart1").setTheme(theme);
+}
+
+//----------------------- The end of the configuration for creating a chart. -----------------------
+
+</script>
+</head>
+<body>
+	<div id="content">
+		<!-- The DIV in which the chart is placed -->
+		<div id="chartHolder" style="width:600px; height:400px;">
+		</div>
+	</div>
+</body>
+</html>

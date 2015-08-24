@@ -1,0 +1,243 @@
+// hovers, only on non-touch devices
+.no-touch {
+	#menu {
+		.slim-scroll > ul, > ul {
+			li {
+				&:hover:not(.active) {
+					> a {
+						background: @navbarHoverBg;
+						color: @navbarHoverText;
+						&.glyphicons i:before { color: @navbarActiveIcon; }
+					}
+				}
+				ul li {
+					&:hover > a { background: darken(@navbarHoverBg, 5%); }
+					ul li {
+						&:hover,
+						&.active {
+							> a { background: darken(@navbarHoverBg, 10%) !important; }
+						}
+					}
+				}
+			}
+		}
+	}
+}
+	
+#menu {
+	float: left;
+	position: absolute;
+	left: 0;
+	top: 0;
+	height: 100%;
+	min-height: 100%;
+	width: @sidebarFullWidth;
+	background-color: @navbarBg;
+	overflow: visible !important;
+	z-index: 1000;
+	.appbrand {
+		border-bottom: 1px solid @topnavBorder1; 
+		font-size: 16px;
+		font-weight: 700;
+		display: block;
+		text-decoration: none;
+		height: @navbarHeight;
+		line-height: @navbarHeight;
+		padding: 0;
+		text-align: center;
+		color: @menuAppbrand;
+	}
+	.profile {
+		display: block;
+		padding: 10px 0;
+		a {
+			display: inline-block;
+			text-decoration: none;
+			width: 74px;
+			height: 74px;
+			border: 1px solid @topnavBorder1;
+			padding: 5px;
+			background: #fff;
+			&:hover { border-color: darken(@topnavBorder1, 10%); }
+		}
+	}
+
+	// .slim-scroll, .slimScrollDiv { overflow: visible !important; }
+	.slim-scroll > ul, > ul {
+		border-top: 1px solid @topnavBorder1;
+		border-right: 1px solid @topnavBorder1;
+		overflow: visible !important;
+		margin: 0;
+		> li {
+			position: relative;
+			height: @navbarHeight; 
+			line-height: @navbarHeight;
+			display: block;
+			padding: 0;
+			border-bottom: 1px solid @topnavBorder1;
+			a { 
+				cursor: pointer;
+				.badge { float: right; position: relative; top: 50%; margin-top: -10px; } 
+			}
+			> a {
+				[class*="fa-chevron-"] { float: right; height: @navbarHeight; line-height: @navbarHeight; margin: 0; }
+				display: block;
+				color: @navbarText;
+				font-weight: 600;
+				text-decoration: none;
+				padding: 0 @spacing;
+				height: @navbarHeight;
+				line-height: @navbarHeight;
+				&.glyphicons {
+					padding-left: 0 0 0 30px;
+					i {
+						padding: 0 @spacing/2 0 0;
+						display: block;
+						float: left;
+						width: 17px;
+						margin-right: 7.5px;
+						line-height: @navbarHeight; 
+						height: @navbarHeight;
+						&:before { 
+							color: @navbarText; 
+							font-size: 17px; 
+							position: relative; 
+							width: 17px; 
+							text-align: center; 
+							line-height: @navbarHeight; 
+							height: @navbarHeight; 
+							left: auto; 
+							right: auto; 
+						}
+					}
+					&.single-icon i { padding: 0; } 
+				}
+			}
+			&.active, &.open {
+				> a.glyphicons i:before { color: @navbarActiveIcon; }
+			}
+			&.open > a { background: @navbarHoverBg; color: @navbarHoverText; }
+			&.active > a { background: @navbarActiveBg; color: @navbarActiveText; }
+			&:last-child.open .dropdown-menu { right: 0; }
+		}
+		.dropdown > a { .caret { border-top-color: @navbarText; top: 16px; position: relative; } }
+	}
+}
+
+// Right menu
+// -------------------------
+
+.menu-right {
+	#menu { 
+		left: auto; 
+		right: 0;
+		z-index: 1000;
+	}
+	&.fixed {
+		#content { .rounded(5px,0,0,0); }
+		.navbar.main, .navbar.main .wrapper { .rounded(5px,0,0,0); }
+	}
+}
+
+html.sidebar .menu-right {
+	#menu {
+		.slim-scroll > ul, > ul {
+			border-right: none;
+			border-left: 1px solid @topnavBorder1;
+			> li {
+				> a {
+					text-align: right;
+					[class*="fa-chevron-"] { float: left; }
+					&.glyphicons i {
+						padding: 0 0 0 @spacing/2;
+						float: right;
+					}
+				}
+				&.active, &:hover, &.open {
+					> a [class*="fa-chevron-"] { margin: 0; }
+				}
+			}
+		}
+	}
+	/* IE8 fallback */
+	#content { margin-right: @sidebarFullWidth; }
+	&.menu-hidden {
+		#menu {
+			.slim-scroll > ul, > ul {
+				> li {
+					> a {
+						text-align: center;
+						[class*="fa-chevron-"] { float: left; }
+						&.glyphicons i {
+							float: none;
+							padding: 0;
+							margin: 0;
+						}
+					}
+					&.active, &:hover, &.open {
+						> a [class*="fa-chevron-"] { margin: 0; }
+					}
+				}
+			}
+		}
+		/* IE8 fallback */
+		#content { margin-right: @sidebarHiddenWidth; }
+	}
+}
+
+// Hidden menu
+// -------------------------
+
+.menu-hidden,
+html.sidebar .menu-hidden {
+	#menu {
+		width: @sidebarHiddenWidth;
+		.appbrand > span {
+			display: none; 
+			&.text-primary { display:block; font-size: 14px; }
+		}
+		.profile {
+			padding: 0;
+			a { border: none; width: @sidebarHiddenWidth; height: @sidebarHiddenWidth; padding: 0; display: block; }
+		}
+		.menu-hidden-element { display: none; }
+		.slim-scroll > ul, > ul {
+			> li {
+				> a {
+					display: none;
+					&.glyphicons {
+						display: block;
+						text-align: center;
+						> i {  padding-left:3px;float: none; display: inline-block; }
+						> span { display: none; }
+					}
+				}
+			}
+		}
+	}
+	#content { margin-left: @sidebarHiddenWidth; }
+}
+
+html.sidebar-width-mini .menu-hidden #menu {
+	.slim-scroll > ul > li > a.glyphicons, 
+	> ul > li > a.glyphicons {
+		padding: 0;
+	}
+}
+
+html.sidebar-hat {
+	#menu .btn-navbar { display: none; }
+	.menu-hidden {
+		.navbar .btn-navbar,
+		#menu .btn-navbar { display: block; }
+	}
+}
+
+@media (max-width: 767px) {
+	.sidebar {
+		.container-fluid.sidebar-hidden-phone {
+			#menu { display: none !important; }
+			#content { margin: 0 !important; }
+		}
+	}
+}

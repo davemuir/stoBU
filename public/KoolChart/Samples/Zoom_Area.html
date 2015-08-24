@@ -1,0 +1,230 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="Content-Script-Type" content="text/javascript"/>
+<meta http-equiv="Content-Style-Type" content="text/css"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>KoolChart for HTML5</title>
+<link rel="stylesheet" type="text/css" href="./KoolChartSample.css"/>
+
+<!--  If you want to support IE 7/8, you'll need the conditional excanvas include. -->
+<!--[if IE]><script language="javascript" type="text/javascript" src="../KoolChart/JS/excanvas.js"></script><![endif]-->
+
+<!-- License Key -->
+<script language="javascript" type="text/javascript" src="../LicenseKey/KoolChartLicense.js"></script>
+
+<!-- KoolChart JavaScript library -->
+<script language="javascript" type="text/javascript" src="../KoolChart/JS/KoolChart.js"></script>
+
+<script type="text/javascript">
+
+//----------------------- Here we start creating a chart. -----------------------
+
+//Sets the value of KoolOnLoadCallFunction to the name of a JS function (e.g. chartReadyHandler) that is called when the chart is ready to be created.
+var chartVars = "KoolOnLoadCallFunction=chartReadyHandler";
+
+//Creates the chart.
+//Parameters:  
+//1. Chart ID: You can use any name you like. 
+//2. DIV ID: The chart will be placed in this DIV.
+//3. chartVars: Variables used for creating the chart.
+//4. Chart width: Default value is 100%
+//5. Chart height: Default value is 100%
+KoolChart.create("chart1", "chartHolder", chartVars, "100%", "100%"); 
+
+//The JavaScript function which is set to the value of KoolOnLoadCallFunction.
+//This function will call two functions, setLayout() and setData() which are two main functions of KoolChart.
+//Parameters: 
+//1. ID: The Chart ID which is used as the first parameter of KoolChart.create().
+function chartReadyHandler(id) {
+	document.getElementById(id).setLayout(layoutStr);
+	document.getElementById(id).setData(chartData);
+}
+
+//Declares Layout
+var layoutStr = 
+				'<KoolChart backgroundColor="0xFFFFFF" cornerRadius="12" borderStyle="none">'
+					+'<Options>'
+						+'<Caption text="Zooming" fontFamily="Malgun Gothic"/>'
+						+'<SubCaption text="Click the left mouse button and drag to select the area you want to zoom." textAlign="right" fontSize="11" fontFamily="Malgun Gothic"/>'
+					+'</Options>'
+					+'<NumberFormatter id="numFmt" precision="0" useThousandsSeparator="true"/>'
+					+'<Area2DChart showDataTips="true">'
+						+'<horizontalAxis>'
+							+'<CategoryAxis id="hAxis" categoryField="Index" padding="0"/>' 
+						+'</horizontalAxis>'
+						+'<horizontalAxisRenderers>'
+							+'<Axis2DRenderer axis="{hAxis}" canDropLabels="true" showLine="true"/>'
+						+'</horizontalAxisRenderers>'
+						+'<verticalAxis>'
+							+'<LinearAxis formatter="{numFmt}"/>'
+						+'</verticalAxis>'
+						+'<series>'
+							+'<Area2DSeries  yField="Profit" form="segment" displayName="Profit">'
+								+'<showDataEffect>'
+									+'<SeriesInterpolate duration="700" elementOffset="0"/>' 
+								+'</showDataEffect>'
+							+'</Area2DSeries>'
+						+'</series>'
+						+'<annotationElements>'
+							+'<CrossRangeZoomer zoomType="horizontal" horizontalLabelFormatter="{numFmt}"	enableZooming="true" enableCrossHair="true" backgroundColor="0xeb494a" borderColor="0xeb494a">'
+								+'<verticalStroke>'
+									+'<Stroke color="0xeb494a" />'
+								+'</verticalStroke>'
+								+'<horizontalStroke>'
+									+'<Stroke color="0xeb494a" />'
+								+'</horizontalStroke>'
+							+'</CrossRangeZoomer>'
+						/* 
+							CrossRangeZoomer Properties 
+							zoomType: sets the desired axis for zoomming. (horizontal, vertical, both)
+							horizontalLabelFormatter: the formatter for the label of the horizontal line of crosshairs.
+							verticalLabelFormatter: the formatter for the label of the vertical line of crosshairs.
+							enableZooming: whether or not to use the zoom feature
+							enableCrossHair: whether or not to use crosshairs.
+							useDualCrossXLabel: whether or not to display two axes labels (it is available when dual axes are defined)
+							useDualCrossYLabel: whether or not to display two axes labels (it is available when dual axes are defined)
+							verticalLabelPlacement : the position for the label of the vertical line of crosshairs. (top, bottom)
+							horizontalLabelPlacement: the position for the label of the horizontal line of crosshairs. (left, right)
+						*/
+						+'</annotationElements>'
+					+'</Area2DChart>'
+				+'</KoolChart>';
+
+// Declares Dataset
+var chartData = [{"Index":0,"Profit":231},
+				{"Index":1,"Profit":144},
+				{"Index":2,"Profit":817},
+				{"Index":3,"Profit":50},
+				{"Index":4,"Profit":544},
+				{"Index":5,"Profit":707},
+				{"Index":6,"Profit":916},
+				{"Index":7,"Profit":337},
+				{"Index":8,"Profit":921},
+				{"Index":9,"Profit":839},
+				{"Index":10,"Profit":576},
+				{"Index":11,"Profit":534},
+				{"Index":12,"Profit":918},
+				{"Index":13,"Profit":674},
+				{"Index":14,"Profit":493},
+				{"Index":15,"Profit":707},
+				{"Index":16,"Profit":257},
+				{"Index":17,"Profit":97},
+				{"Index":18,"Profit":84},
+				{"Index":19,"Profit":622},
+				{"Index":20,"Profit":392},
+				{"Index":21,"Profit":214},
+				{"Index":22,"Profit":26},
+				{"Index":23,"Profit":710},
+				{"Index":24,"Profit":172},
+				{"Index":25,"Profit":642},
+				{"Index":26,"Profit":591},
+				{"Index":27,"Profit":410},
+				{"Index":28,"Profit":639},
+				{"Index":29,"Profit":179},
+				{"Index":30,"Profit":606},
+				{"Index":31,"Profit":843},
+				{"Index":32,"Profit":577},
+				{"Index":33,"Profit":329},
+				{"Index":34,"Profit":603},
+				{"Index":35,"Profit":193},
+				{"Index":36,"Profit":614},
+				{"Index":37,"Profit":43},
+				{"Index":38,"Profit":603},
+				{"Index":39,"Profit":227},
+				{"Index":40,"Profit":479},
+				{"Index":41,"Profit":367},
+				{"Index":42,"Profit":125},
+				{"Index":43,"Profit":704},
+				{"Index":44,"Profit":340},
+				{"Index":45,"Profit":214},
+				{"Index":46,"Profit":532},
+				{"Index":47,"Profit":707},
+				{"Index":48,"Profit":548},
+				{"Index":49,"Profit":989},
+				{"Index":50,"Profit":85},
+				{"Index":51,"Profit":972},
+				{"Index":52,"Profit":896},
+				{"Index":53,"Profit":664},
+				{"Index":54,"Profit":700},
+				{"Index":55,"Profit":576},
+				{"Index":56,"Profit":490},
+				{"Index":57,"Profit":865},
+				{"Index":58,"Profit":581},
+				{"Index":59,"Profit":378},
+				{"Index":60,"Profit":605},
+				{"Index":61,"Profit":966},
+				{"Index":62,"Profit":121},
+				{"Index":63,"Profit":707},
+				{"Index":64,"Profit":681},
+				{"Index":65,"Profit":201},
+				{"Index":66,"Profit":984},
+				{"Index":67,"Profit":333},
+				{"Index":68,"Profit":317},
+				{"Index":69,"Profit":760},
+				{"Index":70,"Profit":565},
+				{"Index":71,"Profit":974},
+				{"Index":72,"Profit":57},
+				{"Index":73,"Profit":965},
+				{"Index":74,"Profit":714},
+				{"Index":75,"Profit":464},
+				{"Index":76,"Profit":872},
+				{"Index":77,"Profit":664},
+				{"Index":78,"Profit":336},
+				{"Index":79,"Profit":301},
+				{"Index":80,"Profit":126},
+				{"Index":81,"Profit":425},
+				{"Index":82,"Profit":427},
+				{"Index":83,"Profit":471},
+				{"Index":84,"Profit":708},
+				{"Index":85,"Profit":250},
+				{"Index":86,"Profit":705},
+				{"Index":87,"Profit":766},
+				{"Index":88,"Profit":309},
+				{"Index":89,"Profit":64},
+				{"Index":90,"Profit":789},
+				{"Index":91,"Profit":962},
+				{"Index":92,"Profit":843},
+				{"Index":93,"Profit":826},
+				{"Index":94,"Profit":252},
+				{"Index":95,"Profit":272},
+				{"Index":96,"Profit":755},
+				{"Index":97,"Profit":729},
+				{"Index":98,"Profit":859},
+				{"Index":99,"Profit":986}];
+
+//----------------------- The end of the configuration for creating a chart. -----------------------
+
+</script>
+</head>
+<body>
+	<div id="content">
+		<!-- The DIV in which the chart is placed -->
+		<div id="chartHolder" style="width:600px; height:400px;">
+		</div>
+	</div>
+	<div id="footer">	
+		<font size="3"><b>This sample is to show how to Zoom in Area Chart.</b></font>	
+<pre>
+<font color="#01BAC5"><b>CrossRangeZoomer</b>
+zoomType: sets the desired axis for zoomming. (horizontal, vertical, both)
+horizontalLabelFormatter: the formatter for the label of the horizontal line of crosshairs.
+verticalLabelFormatter: the formatter for the label of the vertical line of crosshairs.
+enableZooming: whether or not to use the zoom feature
+enableCrossHair: whether or not to use crosshairs.
+useDualCrossXLabel: whether or not to display two axes labels (it is available when dual axes are defined)
+useDualCrossYLabel: whether or not to display two axes labels (it is available when dual axes are defined)
+verticalLabelPlacement : the position for the label of the vertical line of crosshairs. (top, bottom)
+horizontalLabelPlacement: the position for the label of the horizontal line of crosshairs. (left, right)</font>
+
+<b>●Layout</b>
+&#60;annotationElements&#62;
+	&#60;CrossRangeZoomer <font color="#ff0000">zoomType="horizontal"</font> horizontalLabelFormatter="{numFmt}"	
+			enableZooming="true" enableCrossHair="true"/&#62;
+&#60;/annotationElements&#62;
+</pre>
+		</div>
+</body>
+</html>
+

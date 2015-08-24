@@ -1,0 +1,21 @@
+#placesize ::-webkit-input-placeholder{
+	    font-size:18px !important;
+	    line-height:30px !important;
+	}
+
+#placesize :-moz-placeholder { /* Firefox 18- */
+		   font-size:18px !important;
+		    line-height:30px !important;
+	}
+
+
+#placesize ::-moz-placeholder {  /* Firefox 19+ */
+		   font-size:18px !important;
+		    line-height:30px !important;
+	}
+
+
+#placesize :-ms-input-placeholder {  
+		   font-size:18px !important; 
+		    line-height:30px !important;
+	}

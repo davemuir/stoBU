@@ -1,0 +1,132 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="Content-Script-Type" content="text/javascript"/>
+<meta http-equiv="Content-Style-Type" content="text/css"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>KoolChart for HTML5 - From-To Chart</title>
+<link rel="stylesheet" type="text/css" href="./KoolChartSample.css"/>
+
+<!--  If you want to support IE 7/8, you'll need the conditional excanvas include. -->
+<!--[if IE]><script language="javascript" type="text/javascript" src="../KoolChart/JS/excanvas.js"></script><![endif]-->
+
+<!-- License Key -->
+<script language="javascript" type="text/javascript" src="../LicenseKey/KoolChartLicense.js"></script>
+
+<!-- KoolChart JavaScript library -->
+<script language="javascript" type="text/javascript" src="../KoolChart/JS/KoolChart.js"></script>
+
+<!-- Theme.js -->
+<script type="text/javascript" src="../KoolChart/Assets/Theme/theme.js"></script>
+
+<script type="text/javascript">
+
+//----------------------- Here we start creating a chart. -----------------------
+
+//Sets the value of KoolOnLoadCallFunction to the name of a JS function (e.g. chartReadyHandler) that is called when the chart is ready to be created.
+var chartVars = "KoolOnLoadCallFunction=chartReadyHandler";
+
+//Creates the chart.
+//Parameters:  
+//1. Chart ID: You can use any name you like. 
+//2. DIV ID: The chart will be placed in this DIV.
+//3. chartVars: Variables used for creating the chart.
+//4. Chart width: Default value is 100%
+//5. Chart height: Default value is 100%
+KoolChart.create("chart1", "chartHolder", chartVars, "100%", "100%"); 
+
+//The JavaScript function which is set to the value of KoolOnLoadCallFunction.
+//This function will call two functions, setLayout() and setData() which are two main functions of KoolChart.
+//Parameters: 
+//1. ID: The Chart ID which is used as the first parameter of KoolChart.create().
+function chartReadyHandler(id) {
+	document.getElementById(id).setLayout(layoutStr);
+	document.getElementById(id).setData(chartData);
+}
+
+var today = "2010/02/16";
+
+//Declares Layout
+var layoutStr = '<KoolChart cornerRadius="12">'
+					+'<Options>'
+						+'<Caption text="Daily Schedule" fontFamily="Malgun Gothic"/>'
+					+'</Options>'
+					+'<DateFormatter id="dateFmt" formatString="HH:NN"/>'
+					+'<Bar2DChart showDataTips="true" fontSize="11" fontFamily="Malgun Gothic" maximumLabelPadding="14">'
+						+'<verticalAxis>'
+							+'<CategoryAxis id="vAxis" categoryField="cat"/>'
+						+'</verticalAxis>'
+						+'<horizontalAxis>'
+							+'<DateTimeAxis displayLocalTime="true" id="hAxis" labelUnits="hours" formatter="{dateFmt}" minimum="' + today + ' 8:30:00" maximum="' + today +' 18:00:00"/>'
+						+'</horizontalAxis>'
+						+'<series>'
+							+'<Bar2DSeries id="series1" minField="date1" xField="date2" labelPosition="inside" showValueLabels="[3,4,5]" formatter="{dateFmt}" color="#ffffff">'
+								+'<showDataEffect>'
+									+'<SeriesSlide direction="right" duration="600" elementOffset="0"/>'
+								+'</showDataEffect>'
+							+'</Bar2DSeries>'
+						+'</series>'
+						+'<verticalAxisRenderers>'
+							+'<Axis2DRenderer axis="{vAxis}" fontFamily="Malgun Gothic" showLine="true"/>'
+						+'</verticalAxisRenderers>'
+					+'</Bar2DChart>'
+				+'</KoolChart>';
+
+//Declares Dataset
+var chartData = [{"cat":"Coffee Break", "date1":today+" 08:30:00", "date2":today+" 09:00:00"},
+                {"cat":"Team Meeting", "date1":today+" 09:00:00", "date2":today+" 10:00:00"},
+            	{"cat":"Task A", "date1":today+" 10:10:00", "date2":today+" 11:50:00"},
+            	{"cat":"Lunch", "date1":today+" 11:50:00", "date2":today+" 13:00:00"},
+            	{"cat":"Task B", "date1":today+" 13:00:00", "date2":today+" 15:00:00"},
+            	{"cat":"Meeting", "date1":today+" 15:20:00", "date2":today+" 16:30:00"},
+            	{"cat":"Reporting", "date1":today+" 16:30:00", "date2":today+" 17:30:00"},
+            	{"cat":"Wrap up", "date1":today+" 17:40:00", "date2":today+" 18:00:00"}];
+
+/**
+ * If you want to use themes provided with KoolChart version 3.0, call the following functions.
+ * otherwise, comment out or delete the following functions.
+ *
+ * -- The Themes registered in KoolChart.themes --
+ * - simple
+ * - cyber
+ * - modern
+ * - lovely
+ * - pastel
+ * - old
+ * -------------------------------------------------
+ *
+ * The KoolChart.themes variable is defined in theme.js
+ */
+KoolChart.registerTheme(KoolChart.themes);
+
+/**
+ * The function called when the theme button in the sample HTML is clicked.
+ * Parameter Values:
+ * - simple
+ * - cyber
+ * - modern
+ * - lovely
+ * - pastel
+ * - old
+ * - default
+ *
+ * default: Applies the default theme which is the basic design of KoolChart.
+ * old: Applies the design of KoolChart version 2.5.
+ */
+function KoolChartChangeTheme(theme){
+	document.getElementById("chart1").setTheme(theme);
+}
+
+//----------------------- The end of the configuration for creating a chart. -----------------------
+	
+</script>
+</head>
+<body>
+	<div id="content">
+		<!-- The DIV in which the chart is placed -->
+		<div id="chartHolder" style="width:600px; height:400px;">
+		</div>
+	</div>
+</body>
+</html>

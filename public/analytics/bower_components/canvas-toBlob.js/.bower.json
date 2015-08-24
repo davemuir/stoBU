@@ -1,0 +1,13 @@
+{
+  "name": "canvas-toBlob.js",
+  "homepage": "https://github.com/eligrey/canvas-toBlob.js",
+  "_release": "98992e3b5d",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "98992e3b5d8ebb3e7d2169bf4598c38499278ef4"
+  },
+  "_source": "https://github.com/eligrey/canvas-toBlob.js.git",
+  "_target": "*",
+  "_originalSource": "https://github.com/eligrey/canvas-toBlob.js.git"
+}

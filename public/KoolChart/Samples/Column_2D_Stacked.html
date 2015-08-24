@@ -1,0 +1,170 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="Content-Script-Type" content="text/javascript"/>
+<meta http-equiv="Content-Style-Type" content="text/css"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>KoolChart for HTML5 - Column Chart</title>
+<link rel="stylesheet" type="text/css" href="./KoolChartSample.css"/>
+
+<!--  If you want to support IE 7/8, you'll need the conditional excanvas include. -->
+<!--[if IE]><script language="javascript" type="text/javascript" src="../KoolChart/JS/excanvas.js"></script><![endif]-->
+
+<!-- License Key -->
+<script language="javascript" type="text/javascript" src="../LicenseKey/KoolChartLicense.js"></script>
+
+<!-- KoolChart JavaScript library -->
+<script language="javascript" type="text/javascript" src="../KoolChart/JS/KoolChart.js"></script>
+
+<!-- Theme.js -->
+<script type="text/javascript" src="../KoolChart/Assets/Theme/theme.js"></script>
+
+<script type="text/javascript">
+
+//----------------------- Here we start creating a chart. -----------------------
+
+//Sets the value of KoolOnLoadCallFunction to the name of a JS function (e.g. chartReadyHandler) that is called when the chart is ready to be created.
+var chartVars = "KoolOnLoadCallFunction=chartReadyHandler";
+
+//Creates the chart.
+//Parameters:  
+//1. Chart ID: You can use any name you like. 
+//2. DIV ID: The chart will be placed in this DIV.
+//3. chartVars: Variables used for creating the chart.
+//4. Chart width: Default value is 100%
+//5. Chart height: Default value is 100%
+KoolChart.create("chart1", "chartHolder", chartVars, "100%", "100%"); 
+
+//The JavaScript function which is set to the value of KoolOnLoadCallFunction.
+//This function will call two functions, setLayout() and setData() which are two main functions of KoolChart.
+//Parameters: 
+//1. ID: The Chart ID which is used as the first parameter of KoolChart.create().
+function chartReadyHandler(id) {
+	document.getElementById(id).setLayout(layoutStr);
+	document.getElementById(id).setData(chartData);
+}
+
+//Declares Layout
+var layoutStr = 
+				'<KoolChart backgroundColor="0xFFFFFF" cornerRadius="12" borderStyle="none">'
+					+'<Options>'
+						+'<Caption text="Global Apple Sales by Products from 2012 to 2014"/>'
+						+'<SubCaption text="(in million units) Source: © Statista 2014" textAlign="right" />'
+						+'<Legend defaultMouseOverAction="false" />'
+					+'</Options>'
+					+'<NumberFormatter id="numfmt" useThousandsSeparator="true"/>' 
+					+'<Column2DChart showDataTips="true">'
+						+'<horizontalAxis>'
+							+'<CategoryAxis categoryField="Period"/>' 
+						+'</horizontalAxis>'
+						+'<verticalAxis>'
+							+'<LinearAxis formatter="{numfmt}"/>'
+						+'</verticalAxis>'
+						+'<series>'
+						/*
+							Sets the value of the type property to "stacked".
+							clustered: The data elements of each series are displayed as it is.(Default)
+							stacked: The data elements of each series are displayed as a stack.
+							overlaid: The data elements of each series are displayed overlaid. "overlaid" is mainly used to indicate the target point and the current point. 
+							100%: The data elements of each series are displayed as a horizontal stack by calculating a percentage of the sum of series.
+						*/
+							+'<Column2DSet type="stacked" showTotalLabel="true" totalLabelJsFunction="totalFunc">'
+								+'<series>'
+								/* Creating multiple Column2DSeries */
+									+'<Column2DSeries labelPosition="inside" yField="iPhone" displayName="iPhone" showValueLabels="[6]" color="#ffffff">'
+										+'<showDataEffect>'
+											+'<SeriesInterpolate/>' 
+										+'</showDataEffect>'
+									+'</Column2DSeries>'
+									+'<Column2DSeries labelPosition="inside" yField="iPad" displayName="iPad" showValueLabels="[6]" color="#ffffff">'
+										+'<showDataEffect>'
+											+'<SeriesInterpolate/>' 
+										+'</showDataEffect>'
+									+'</Column2DSeries>'
+									+'<Column2DSeries labelPosition="inside" yField="Mac" displayName="Mac" showValueLabels="[6]" color="#ffffff" itemRenderer="SemiCircleColumnItemRenderer">'
+										+'<showDataEffect>'
+											+'<SeriesInterpolate/>' 
+										+'</showDataEffect>'
+									+'</Column2DSeries>'
+								+'</series>'
+							+'</Column2DSet>'
+						+'</series>'
+					+'</Column2DChart>'
+				+'</KoolChart>';
+
+// Declares Dataset
+var chartData = [{"Period":"Q1<br>12", "iPhone":37, "iPad":15, "Mac":5},
+                 {"Period":"Q2<br>12", "iPhone":35, "iPad":12, "Mac":4},
+                 {"Period":"Q3<br>12", "iPhone":26, "iPad":17, "Mac":4},
+                 {"Period":"Q4<br>12", "iPhone":27, "iPad":14, "Mac":5},
+                 {"Period":"Q1<br>13", "iPhone":48, "iPad":23, "Mac":4},
+                 {"Period":"Q2<br>13", "iPhone":37, "iPad":20, "Mac":4},
+                 {"Period":"Q3<br>13", "iPhone":31, "iPad":15, "Mac":4},
+                 {"Period":"Q4<br>13", "iPhone":34, "iPad":14, "Mac":5},
+                 {"Period":"Q1<br>14", "iPhone":51, "iPad":26, "Mac":5},
+                 {"Period":"Q2<br>14", "iPhone":44, "iPad":16, "Mac":4}];
+
+//Adds up values
+function totalFunc(index, data, value){
+	if(index == 6)
+		return insertComma(value);
+	return "";
+}
+
+//Adds thousand separators
+function insertComma(n) {
+	var reg = /(^[+-]?\d+)(\d{3})/; // regular expression
+	n += "";
+	while (reg.test(n))
+	n = n.replace(reg, '$1' + "," + '$2');
+	return n;
+}
+
+/**
+ * If you want to use themes provided with KoolChart version 3.0, call the following functions.
+ * otherwise, comment out or delete the following functions.
+ *
+ * -- The Themes registered in KoolChart.themes --
+ * - simple
+ * - cyber
+ * - modern
+ * - lovely
+ * - pastel
+ * - old
+ * -------------------------------------------------
+ *
+ * The KoolChart.themes variable is defined in theme.js
+ */
+KoolChart.registerTheme(KoolChart.themes);
+
+/**
+ * The function called when the theme button in the sample HTML is clicked.
+ * Parameter Values:
+ * - simple
+ * - cyber
+ * - modern
+ * - lovely
+ * - pastel
+ * - old
+ * - default
+ *
+ * default: Applies the default theme which is the basic design of KoolChart.
+ * old: Applies the design of KoolChart version 2.5.
+ */
+function KoolChartChangeTheme(theme){
+	document.getElementById("chart1").setTheme(theme);
+}
+
+//----------------------- The end of the configuration for creating a chart. -----------------------
+
+</script>
+</head>
+<body>
+	<div id="content">
+		<!-- The DIV in which the chart is placed -->
+		<div id="chartHolder" style="width:600px; height:400px;">
+		</div>
+	</div>
+</body>
+</html>

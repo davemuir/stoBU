@@ -1,0 +1,148 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="Content-Script-Type" content="text/javascript"/>
+<meta http-equiv="Content-Style-Type" content="text/css"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>KoolChart for HTML5</title>
+<link rel="stylesheet" type="text/css" href="./KoolChartSample.css"/>
+
+<!--  If you want to support IE 7/8, you'll need the conditional excanvas include. -->
+<!--[if IE]><script language="javascript" type="text/javascript" src="../KoolChart/JS/excanvas.js"></script><![endif]-->
+
+<!-- License Key -->
+<script language="javascript" type="text/javascript" src="../LicenseKey/KoolChartLicense.js"></script>
+
+<!-- KoolChart JavaScript library -->
+<script language="javascript" type="text/javascript" src="../KoolChart/JS/KoolChart.js"></script>
+
+<script type="text/javascript">
+
+//----------------------- Here we start creating a chart. -----------------------
+
+//Sets the value of KoolOnLoadCallFunction to the name of a JS function (e.g. chartReadyHandler) that is called when the chart is ready to be created.
+var chartVars = "KoolOnLoadCallFunction=chartReadyHandler";
+var chartVars2 = "KoolOnLoadCallFunction=chartReadyHandler2";
+
+//Creates the chart.
+//Parameters:  
+//1. Chart ID: You can use any name you like. 
+//2. DIV ID: The chart will be placed in this DIV.
+//3. chartVars: Variables used for creating the chart.
+//4. Chart width: Default value is 100%
+//5. Chart height: Default value is 100%
+KoolChart.create("chart1", "chartHolder", chartVars, "100%", "100%"); 
+KoolChart.create("chart2", "chartHolder2", chartVars2, "100%", "100%"); 
+
+//The JavaScript function which is set to the value of KoolOnLoadCallFunction.
+//This function will call two functions, setLayout() and setData() which are two main functions of KoolChart.
+//Parameters: 
+//1. ID: The Chart ID which is used as the first parameter of KoolChart.create().
+function chartReadyHandler(id) {
+	document.getElementById(id).setLayout(layoutStr);
+	document.getElementById(id).setData(chartData);
+}
+
+function chartReadyHandler2(id) {
+	document.getElementById(id).setLayout(layoutStr);
+	document.getElementById(id).setData(chartData2);
+}
+
+//Declares Layout
+var layoutStr = "<KoolChart cornerRadius='12'>"
+					+'<NumberFormatter id="numfmt" useThousandsSeparator="true"/>'
+					+"<Line2DChart showDataTips='true'>"
+						+"<horizontalAxis>"
+							+"<CategoryAxis categoryField='Month'/>"
+						+"</horizontalAxis>"
+						+'<verticalAxis>'
+							+'<LinearAxis formatter="{numfmt}"/>'
+						+'</verticalAxis>'
+						+"<series>"
+							+"<Line2DSeries yField='Profit' displayName='Profit' itemRenderer='CircleItemRenderer' radius='4'>"
+							+"<showDataEffect>"
+								+"<SeriesSlide direction='left' duration='1000'/>"
+							+"</showDataEffect>"
+							+"<lineStroke>"
+								+"<Stroke color='0x339966' weight='1'/>"
+							+"</lineStroke>"
+							+"<fill>"
+								+"<Stroke color='0x339966' weight='1'/>"
+							+"</fill>"
+							+"</Line2DSeries>"
+						+"</series>"
+					+"</Line2DChart>"
+				+"</KoolChart>";
+
+
+// Declares Dataset
+var chartData = [{"Month":"Jan", "Profit":1000},
+				{"Month":"Feb", "Profit":1500},
+				{"Month":"Mar", "Profit":1200},
+				{"Month":"Apr", "Profit":3020},
+				{"Month":"May", "Profit":2800},
+				{"Month":"Jun", "Profit":1200},
+				{"Month":"Jul", "Profit":2200},
+				{"Month":"Aug", "Profit":1300},
+				{"Month":"Sep", "Profit":2200},
+				{"Month":"Oct", "Profit":2900},
+				{"Month":"Nov", "Profit":1800},
+				{"Month":"Dec", "Profit":3000} ];
+
+var chartData2 = [{"Month":"Jan", "Profit":10000},
+				{"Month":"Feb", "Profit":5000},
+				{"Month":"Mar", "Profit":5000},
+				{"Month":"Apr", "Profit":10200},
+				{"Month":"May", "Profit":10000},
+				{"Month":"Jun", "Profit":9000},
+				{"Month":"Jul", "Profit":10000},
+				{"Month":"Aug", "Profit":8000},
+				{"Month":"Sep", "Profit":10000},
+				{"Month":"Oct", "Profit":11000},
+				{"Month":"Nov", "Profit":9000},
+				{"Month":"Dec", "Profit":15000} ];
+
+//----------------------- The end of the configuration for creating a chart. -----------------------
+
+</script>
+</head>
+<body>
+	<div id="content" style="width:600px">
+		<!-- The DIV in which the chart is placed -->
+		<div id="chartHolder" style="width:300px; height:300px;float:left;">
+		</div>
+		<!-- The DIV in which the chart is placed -->
+		<div id="chartHolder2" style="width:300px; height:300px;float:left;">
+		</div>
+	</div>
+	<div id="footer"><font size="3"><b>This sample is to show how to create two different charts using the same layout and different data.</b></font><br>
+<pre>
+<b>●Script</b>
+<font color="#01BAC5">Sets the value of KoolOnLoadCallFunction to the name of a JS function (e.g. chartReadyHandler) 
+that is called when the chart is ready to be created.</font>
+<font color="#0000ff">var</font> <font color="#ff0000">chartVars</font> = "KoolOnLoadCallFunction=<font color="#ff0000">chartReadyHandler</font>";
+<font color="#0000ff">var</font> <font color="#ff0000">chartVars2</font> = "KoolOnLoadCallFunction=<font color="#ff0000">chartReadyHandler2</font>";
+
+KoolChart.create("<font color="#ff0000">chart1</font>", "<font color="#ff0000">chartHolder</font>", <font color="#ff0000">chartVars</font>, "100%", "100%"); 
+KoolChart.create("<font color="#ff0000">chart2</font>", "<font color="#ff0000">chartHolder2</font>", <font color="#ff0000">chartVars2</font>, "100%", "100%"); 
+
+<font color="#0000ff">function</font> <font color="#ff0000">chartReadyHandler</font>(id) {
+	document.getElementById(id).setLayout(<font color="#ff0000">layoutStr</font>);
+	document.getElementById(id).setData(<font color="#ff0000">chartData</font>);
+}
+
+<font color="#0000ff">function</font> <font color="#ff0000">chartReadyHandler2</font>(id) {
+	document.getElementById(id).setLayout(<font color="#ff0000">layoutStr</font>);
+	document.getElementById(id).setData(<font color="#ff0000">chartData2</font>);
+}
+
+<b>●HTML</b>
+&#60;div id="<font color="#ff0000">chartHolder</font>" style="width:300px; height:400px;float:left;"&#62;
+&#60;/div&#62;
+&#60;div id="<font color="#ff0000">chartHolder2</font>" style="width:300px; height:400px;float:left;"&#62;
+&#60;/div&#62;
+</pre>
+		</div>
+</body>
+</html>

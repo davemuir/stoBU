@@ -1,0 +1,165 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="Content-Script-Type" content="text/javascript"/>
+<meta http-equiv="Content-Style-Type" content="text/css"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>KoolChart for HTML5 - Matrix Chart</title>
+<link rel="stylesheet" type="text/css" href="./KoolChartSample.css"/>
+
+<!--  If you want to support IE 7/8, you'll need the conditional excanvas include. -->
+<!--[if IE]><script language="javascript" type="text/javascript" src="../KoolChart/JS/excanvas.js"></script><![endif]-->
+
+<!-- License Key -->
+<script language="javascript" type="text/javascript" src="../LicenseKey/KoolChartLicense.js"></script>
+
+<!-- KoolChart JavaScript library -->
+<script language="javascript" type="text/javascript" src="../KoolChart/JS/KoolMatrixChart.js"></script>
+
+<!-- Theme.js -->
+<script type="text/javascript" src="../KoolChart/Assets/Theme/theme.js"></script>
+
+<script type="text/javascript">
+
+//----------------------- Here we start creating a chart. -----------------------
+
+//Sets the value of KoolOnLoadCallFunction to the name of a JS function (e.g. chartReadyHandler) that is called when the chart is ready to be created.
+var chartVars = "KoolOnLoadCallFunction=chartReadyHandler";
+
+//Creates the chart.
+//Parameters:  
+//1. Chart ID: You can use any name you like. 
+//2. DIV ID: The chart will be placed in this DIV.
+//3. chartVars: Variables used for creating the chart.
+//4. Chart width: Default value is 100%
+//5. Chart height: Default value is 100%
+KoolChart.create("chart1", "chartHolder", chartVars, "100%", "100%"); 
+
+//The JavaScript function which is set to the value of KoolOnLoadCallFunction.
+//This function will call two functions, setLayout() and setData() which are two main functions of KoolChart.
+//Parameters: 
+//1. ID: The Chart ID which is used as the first parameter of KoolChart.create().
+function chartReadyHandler(id) {
+	document.getElementById(id).setLayout(layoutStr);
+	document.getElementById(id).setData(chartData);
+}
+
+//Declares Layout
+var layoutStr = 
+				'<KoolChart backgroundColor="0xFFFFFF" cornerRadius="12" borderStyle="none">'
+					+'<Options>'
+						+'<Caption text="Item Renderers" fontFamily="Malgun Gothic"/>'
+						+'<Legend useVisibleCheck="false" horizontalGap="1" defaultMouseOverAction="true" fontFamily="Malgun Gothic"/>'
+					+'</Options>'
+					+'<SeriesSlide id="ss"/>'
+					+'<Matrix2DChart showDataTips="true" type="renderer" drawType="radius" legendOver="true" selectionMode="single" fontFamily="Malgun Gothic">'
+						+'<backgroundElements>'
+							+'<GridLines direction="horizontal" horizontalChangeCount="2">'
+								+'<horizontalStroke>'
+									+'<Stroke color="0x000000"/>'
+								+'</horizontalStroke>'
+							+'</GridLines>'
+						+'</backgroundElements>'
+						+'<verticalAxis>'
+							+'<LinearAxis id="vAxis" interval="0.5" maximum="6" labelJsFunction="vertiJsFunc"/>'
+						+'</verticalAxis>'
+						+'<horizontalAxis>'
+							+'<LinearAxis id="hAxis" interval="0.5" maximum="3" labelJsFunction="horiJsFunc"/>'
+						+'</horizontalAxis>'
+						+'<series>'
+							+'<Matrix2DSeries xField="Data1_x" yField="Data1_y" zField="Data1" renderer="rectangle" showDataEffect="{ss}" displayName="rectangle"/>'
+							+'<Matrix2DSeries xField="Data2_x" yField="Data2_y" zField="Data2" renderer="circle" showDataEffect="{ss}" displayName="circle"/>'
+							+'<Matrix2DSeries xField="Data3_x" yField="Data3_y" zField="Data3" renderer="diamond" showDataEffect="{ss}" displayName="diamond"/>'
+							+'<Matrix2DSeries xField="Data4_x" yField="Data4_y" zField="Data4" renderer="upTriangle" showDataEffect="{ss}" displayName="upTriangle"/>'
+							+'<Matrix2DSeries xField="Data5_x" yField="Data5_y" zField="Data5" renderer="downTriangle" showDataEffect="{ss}" displayName="downTriangle"/>'
+							+'<Matrix2DSeries xField="Data6_x" yField="Data6_y" zField="Data6" renderer="star" showDataEffect="{ss}" displayName="star"/>'
+						+'</series>'
+						+'<verticalAxisRenderers>'
+							+'<Axis2DRenderer axis="{vAxis}"/>'
+						+'</verticalAxisRenderers>'
+						+'<horizontalAxisRenderers>'
+							+'<Axis2DRenderer axis="{hAxis}" showLine="true" tickPlacement="none" styleName="font" minorTickPlacement="none"/>'
+						+'</horizontalAxisRenderers>'
+					+'</Matrix2DChart>'
+					+'<Style>'
+						+'.font{fontSize:11;}'
+					+'</Style>'
+				+'</KoolChart>';
+
+// Declares Dataset
+var chartData = [{"Data1_x":0.5,"Data1_y":5.5,"Data1":1,"Data2_x":0.5,"Data2_y":4.5,"Data2":1,"Data3_x":0.5,"Data3_y":3.5,"Data3":1,"Data4_x":0.5,"Data4_y":2.5,"Data4":1,"Data5_x":0.5,"Data5_y":1.5,"Data5":1,"Data6_x":0.5,"Data6_y":0.5,"Data6":1},
+				{"Data1_x":1.5,"Data1_y":5.5,"Data1":2,"Data2_x":1.5,"Data2_y":4.5,"Data2":2,"Data3_x":1.5,"Data3_y":3.5,"Data3":2,"Data4_x":1.5,"Data4_y":2.5,"Data4":2,"Data5_x":1.5,"Data5_y":1.5,"Data5":2,"Data6_x":1.5,"Data6_y":0.5,"Data6":2},
+				{"Data1_x":2.5,"Data1_y":5.5,"Data1":3,"Data2_x":2.5,"Data2_y":4.5,"Data2":3,"Data3_x":2.5,"Data3_y":3.5,"Data3":3,"Data4_x":2.5,"Data4_y":2.5,"Data4":3,"Data5_x":2.5,"Data5_y":1.5,"Data5":3,"Data6_x":2.5,"Data6_y":0.5,"Data6":3}];
+
+/*
+// ------------------------- The user-defined function to be used to format the axis label -----------------------------------------------------
+// The JavaScript function to be called to generate the user-defined label.
+// Sets the value of the labelJsFunction property to the name of a JS function.
+//
+// e.g.) <verticalAxis>
+//			<LinearAxis displayName="Amount" labelJsFunction="axisLabelFunc"/> 
+// </verticalAxis>
+//
+// Parameters
+// id: The ID of the axis
+// value: The axis label of the item 
+*/
+function vertiJsFunc(id, value)
+{
+		return "";
+}
+
+
+function horiJsFunc(id, value)
+{
+		return "";
+}
+
+/**
+ * If you want to use themes provided with KoolChart version 3.0, call the following functions.
+ * otherwise, comment out or delete the following functions.
+ *
+ * -- The Themes registered in KoolChart.themes --
+ * - simple
+ * - cyber
+ * - modern
+ * - lovely
+ * - pastel
+ * - old
+ * -------------------------------------------------
+ *
+ * The KoolChart.themes variable is defined in theme.js
+ */
+KoolChart.registerTheme(KoolChart.themes);
+
+/**
+ * The function called when the theme button in the sample HTML is clicked.
+ * Parameter Values:
+ * - simple
+ * - cyber
+ * - modern
+ * - lovely
+ * - pastel
+ * - old
+ * - default
+ *
+ * default: Applies the default theme which is the basic design of KoolChart.
+ * old: Applies the design of KoolChart version 2.5.
+ */
+function KoolChartChangeTheme(theme){
+	document.getElementById("chart1").setTheme(theme);
+}
+
+//----------------------- The end of the configuration for creating a chart. -----------------------
+	
+</script>
+</head>
+<body>
+	<div id="content">
+		<!-- The DIV in which the chart is placed -->
+		<div id="chartHolder" style="width:600px; height:400px;">
+		</div>
+	</div>
+</body>
+</html>

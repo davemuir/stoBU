@@ -1,0 +1,194 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="Content-Script-Type" content="text/javascript"/>
+<meta http-equiv="Content-Style-Type" content="text/css"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>KoolChart for HTML5 - Image Chart</title>
+<link rel="stylesheet" type="text/css" href="./KoolChartSample.css"/>
+
+<!--  If you want to support IE 7/8, you'll need the conditional excanvas include. -->
+<!--[if IE]><script language="javascript" type="text/javascript" src="../KoolChart/JS/excanvas.js"></script><![endif]-->
+
+<!-- License Key -->
+<script language="javascript" type="text/javascript" src="../LicenseKey/KoolChartLicense.js"></script>
+
+<!-- KoolChart JavaScript library -->
+<script language="javascript" type="text/javascript" src="../KoolChart/JS/KoolImageChart.js"></script>
+
+<!-- Theme.js -->
+<script type="text/javascript" src="../KoolChart/Assets/Theme/theme.js"></script>
+
+<script type="text/javascript">
+
+//----------------------- Here we start creating a chart. -----------------------
+
+//Sets the value of KoolOnLoadCallFunction to the name of a JS function (e.g. chartReadyHandler) that is called when the chart is ready to be created.
+var chartVars = "KoolOnLoadCallFunction=chartReadyHandler";
+
+//Creates the chart.
+//Parameters:  
+//1. Chart ID: You can use any name you like. 
+//2. DIV ID: The chart will be placed in this DIV.
+//3. chartVars: Variables used for creating the chart.
+//4. Chart width: Default value is 100%
+//5. Chart height: Default value is 100%
+KoolChart.create("chart1", "chartHolder", chartVars, "100%", "100%"); 
+
+//The JavaScript function which is set to the value of KoolOnLoadCallFunction.
+//This function will call two functions, setLayout() and setData() which are two main functions of KoolChart.
+//Parameters: 
+//1. ID: The Chart ID which is used as the first parameter of KoolChart.create().
+function chartReadyHandler(id) {
+	document.getElementById(id).setLayout(layoutStr);
+	document.getElementById(id).setData(chartData);
+}
+
+var layoutStr = 
+				'<KoolChart backgroundColor="0xFFFFFF" cornerRadius="12" borderStyle="none">'
+					+'<Options>'
+						+'<Caption text="Transportation Statistics" fontFamily="Malgun Gothic"/>'
+					+'</Options>'
+					+'<NumberFormatter id="numFmt"/>' 
+					+'<ImageChart id="chart" showDataTips="true" gutterLeft="20" gutterRight="20"  showLabelVertically="true" columnWidthRatio="0.7" fontFamily="Malgun Gothic">'
+					/* 
+						Creating the ImageChart node. 
+						showDataTips: Whether or not to show tooltips when you mouse over items.  
+					*/
+						+'<horizontalAxis>'
+							+'<CategoryAxis id="hAxis" categoryField="vehicle"/>'
+						+'</horizontalAxis>'
+						+'<verticalAxis>'
+							+'<LinearAxis id="vAxis"/>'
+						+'</verticalAxis>'
+						+'<series>'
+					/*  
+						Creating multiple ImageSeries node  
+						Multiple imageSeries are used for one categoryField
+					*/
+							+'<ImageSeries yField="metro" imageDisplayType="single" styleName="seriesStyle" displayName="Subway" formatter="{numFmt}" singleColumnRatio="0.7" halfWidthOffset="7">'
+					/* 
+						Creating the ImageSeries node as a child of the ImageChart node. 
+						imageDisplayType ┬ single: using one single image
+								 ├ singleRepeat: using repetitive single image
+								 └ multiple: using mutiple image
+					 */
+								+'<imgSource>'
+									+'<ImageSourceItem maintainAspectRatio="true" url="../KoolChart/Assets/Images/metro.png"/>'
+					/*
+						url: The path (URL) of the image file.
+						Value: The unit (value) of the image. (only available when the imageDisplayType property is "multiple")
+						maintainAspectRatio - true(same ratio), false(different ratio): Whether or not the aspect ratio is the same as the original image.
+							├ singleRepeat: "false" is not applicable
+							└ multiple: "true" is not applicable 
+					*/
+								+'</imgSource>'
+								+'<showDataEffect>'
+									+'<SeriesSlide duration="1000" direction="up"/>'
+								+'</showDataEffect>'
+							+'</ImageSeries>'
+							+'<ImageSeries yField="bus" imageDisplayType="single" styleName="seriesStyle" displayName="Bus" formatter="{numFmt}" singleColumnRatio="0.7" halfWidthOffset="7">'
+								+'<imgSource>'
+									+'<ImageSourceItem maintainAspectRatio="true" url="../KoolChart/Assets/Images/bus.png"/>'
+								+'</imgSource>'
+								+'<showDataEffect>'
+									+'<SeriesSlide duration="1000" direction="up"/>'
+								+'</showDataEffect>'
+							+'</ImageSeries>'
+							+'<ImageSeries yField="car" imageDisplayType="single" styleName="seriesStyle" displayName="Car" formatter="{numFmt}" singleColumnRatio="0.7" halfWidthOffset="7">'
+								+'<imgSource>'
+									+'<ImageSourceItem maintainAspectRatio="true" url="../KoolChart/Assets/Images/car.png"/>'
+								+'</imgSource>'
+								+'<showDataEffect>'
+									+'<SeriesSlide duration="1000" direction="up"/>'
+								+'</showDataEffect>'
+							+'</ImageSeries>'
+							+'<ImageSeries yField="taxi" imageDisplayType="single" styleName="seriesStyle" displayName="Taxi" formatter="{numFmt}" singleColumnRatio="0.7" halfWidthOffset="7">'
+								+'<imgSource>'
+									+'<ImageSourceItem maintainAspectRatio="true" url="../KoolChart/Assets/Images/taxi.png"/>'
+								+'</imgSource>'
+								+'<showDataEffect>'
+									+'<SeriesSlide duration="1000" direction="up"/>'
+								+'</showDataEffect>'
+							+'</ImageSeries>'
+							+'<ImageSeries yField="bicycle" imageDisplayType="single" styleName="seriesStyle" displayName="Bike" formatter="{numFmt}" singleColumnRatio="0.7" halfWidthOffset="7">'
+								+'<imgSource>'
+									+'<ImageSourceItem maintainAspectRatio="true" url="../KoolChart/Assets/Images/bicycle.png"/>'
+								+'</imgSource>'
+								+'<showDataEffect>'
+									+'<SeriesSlide duration="1000" direction="up"/>'
+								+'</showDataEffect>'
+							+'</ImageSeries>'
+							+'<ImageSeries yField="walk" imageDisplayType="single" styleName="seriesStyle" displayName="Walk" formatter="{numFmt}" singleColumnRatio="0.7" halfWidthOffset="7">'
+								+'<imgSource>'
+									+'<ImageSourceItem maintainAspectRatio="true" url="../KoolChart/Assets/Images/walk.png"/>'
+								+'</imgSource>'
+								+'<showDataEffect>'
+									+'<SeriesSlide duration="1000" direction="up"/>'
+								+'</showDataEffect>'
+							+'</ImageSeries>'
+						+'</series>'
+						+'<horizontalAxisRenderers>'
+							+'<Axis2DRenderer axis="{hAxis}" showLine="true" fontFamily="Malgun Gothic"/>'
+						+'</horizontalAxisRenderers>'
+						+'<verticalAxisRenderers>'
+							+'<Axis2DRenderer axis="{vAxis}" visible="false" includeInLayout="false"/>'
+						+'</verticalAxisRenderers>'
+					+'</ImageChart>'
+					+'<Style>'
+						+'.seriesStyle{labelPosition:outside;}'
+					+'</Style>'
+				+'</KoolChart>';
+
+//Declares Dataset
+var chartData = [{"vehicle":"Transportation Methods","metro":32.2,"bus":20,"car":16.7,"taxi":13.3,"bicycle":10.8,"walk":7}];
+
+	
+/**
+ * If you want to use themes provided with KoolChart version 3.0, call the following functions.
+ * otherwise, comment out or delete the following functions.
+ *
+ * -- The Themes registered in KoolChart.themes --
+ * - simple
+ * - cyber
+ * - modern
+ * - lovely
+ * - pastel
+ * - old
+ * -------------------------------------------------
+ *
+ * The KoolChart.themes variable is defined in theme.js
+ */
+KoolChart.registerTheme(KoolChart.themes);
+
+/**
+ * The function called when the theme button in the sample HTML is clicked.
+ * Parameter Values:
+ * - simple
+ * - cyber
+ * - modern
+ * - lovely
+ * - pastel
+ * - old
+ * - default
+ *
+ * default: Applies the default theme which is the basic design of KoolChart.
+ * old: Applies the design of KoolChart version 2.5.
+ */
+function KoolChartChangeTheme(theme){
+	document.getElementById("chart1").setTheme(theme);
+}
+
+//----------------------- The end of the configuration for creating a chart. -----------------------
+
+</script>
+</head>
+<body>
+	<div id="content">
+		<!-- The DIV in which the chart is placed -->
+		<div id="chartHolder" style="width:600px; height:400px;">
+		</div>
+	</div>
+</body>
+</html>

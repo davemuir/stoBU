@@ -1,0 +1,195 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="Content-Script-Type" content="text/javascript"/>
+<meta http-equiv="Content-Style-Type" content="text/css"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>KoolChart for HTML5 - RealTime Chart</title>
+<link rel="stylesheet" type="text/css" href="./KoolChartSample.css"/>
+
+<!--  If you want to support IE 7/8, you'll need the conditional excanvas include. -->
+<!--[if IE]><script language="javascript" type="text/javascript" src="../KoolChart/JS/excanvas.js"></script><![endif]-->
+
+<!-- License Key -->
+<script language="javascript" type="text/javascript" src="../LicenseKey/KoolChartLicense.js"></script>
+
+<!-- KoolChart JavaScript library -->
+<script language="javascript" type="text/javascript" src="../KoolChart/JS/KoolRealtimePremium.js"></script>
+
+<!-- Theme.js -->
+<script type="text/javascript" src="../KoolChart/Assets/Theme/theme.js"></script>
+
+<script type="text/javascript">
+
+//----------------------- Here we start creating a chart. -----------------------
+
+//Sets the value of KoolOnLoadCallFunction to the name of a JS function (e.g. chartReadyHandler) that is called when the chart is ready to be created.
+var chartVars = "KoolOnLoadCallFunction=chartReadyHandler";
+
+//Creates the chart.
+//Parameters:  
+//1. Chart ID: You can use any name you like. 
+//2. DIV ID: The chart will be placed in this DIV.
+//3. chartVars: Variables used for creating the chart.
+//4. Chart width: Default value is 100%
+//5. Chart height: Default value is 100%
+KoolChart.create("chart1", "chartHolder", chartVars, "100%", "100%"); 
+
+//The JavaScript function which is set to the value of KoolOnLoadCallFunction.
+//This function will call two functions, setLayout() and setData() which are two main functions of KoolChart.
+//Parameters: 
+//1. ID: The Chart ID which is used as the first parameter of KoolChart.create().
+function chartReadyHandler(id) {
+	document.getElementById(id).setLayout(layoutStr);
+}
+
+//Declares Layout
+var layoutStr = 
+				'<KoolChart backgroundColor="0xFFFFFF" cornerRadius="12" borderStyle="none">'
+					+'<Options>'
+						+'<Caption text="Real-time Data with Different Cycles" fontFamily="Malgun Gothic"/>'
+						+'<SubCaption text="Random Data" fontSize="11" fontFamily="Malgun Gothic"/>'
+						+'<Legend fontSize="11" useVisibleCheck="true"/>'
+					+'</Options>'
+					+'<DateFormatter id="dateOrgFmt" formatString="YYYY/MM/DD HH:NN:SS"/>' 
+					+'<DateFormatter id="dateFmt" formatString="HH:NN:SS"/>'
+					+'<DateFormatter id="dateFmt2" formatString="HH:NN"/>'
+					+'<NumberFormatter id="numFmt"/>'
+					+'<NumberFormatter id="numFmt2" precision="2"/>'
+					+'<Combination2DChart id="chart" showDataTips="true" dataTipMode="multiple" fontFamily="Malgun Gothic">'
+						+'<series>'
+						/* Creating the Line2DSeries node which has the 5-seconds interval  */
+							+'<Line2DSeries id="lineSeries" xField="date" yField="data5"  displayName="Data(5 Secs)">'
+								+'<horizontalAxis>'
+									+'<DateTimeAxis id="hAxis2" displayLocalTime="true" labelUnits="minutes" dataUnits="seconds" interval="1" formatter="{dateOrgFmt}" displayName="Time"/>'
+								+'</horizontalAxis>'
+								+'<verticalAxis>'
+									+'<LinearAxis id="vAxis2" minimum="0" maximum="150"/>'
+								+'</verticalAxis>'
+								+'<lineStroke>'
+									+'<Stroke color="#96d3cb"/>'
+								+'</lineStroke>'
+							+'</Line2DSeries>'
+							/* Creating the Line2DSeries node which has the 3-seconds interval  */
+							+'<Line2DSeries id="lineSeries2" xField="date" yField="data3" displayName="Data(3 Secs)" verticalAxis="{vAxis2}" horizontalAxis="{hAxis2}">'
+								+'<lineStroke>'
+									+'<Stroke color="#FFC961"/>'
+								+'</lineStroke>'
+							+'</Line2DSeries>'
+							/* Cumulative Sum */
+							+'<Column2DSeries id="columnSeries" xField="date" yField="data60" displayName="Cumulative Sum">'
+								+'<horizontalAxis>'
+									+'<DateTimeAxis id="hAxis" displayLocalTime="true" labelUnits="hours" dataUnits="minutes" interval="3" dataInterval="10" formatter="{dateOrgFmt}" displayName="Time"/>'
+								+'</horizontalAxis>'
+								+'<verticalAxis>'
+									+'<LinearAxis id="vAxis" minimum="0" maximum="999" title="Cumulative Sum"/>'
+								+'</verticalAxis>'
+								+'<fill>'
+									+'<SolidColor color="#f86e2d"/>'
+								+'</fill>'
+							+'</Column2DSeries>'
+						+'</series>'
+						+'<horizontalAxisRenderers>'
+							+'<Axis2DRenderer axis="{hAxis}" placement="bottom" formatter="{dateFmt2}"  tickLength="38" minorTickLength="0" tickPlacement="inside" showLine="false">'
+								+'<axisStroke>'
+									+'<Stroke weight="1" color="0x999999"/>'
+								+'</axisStroke>'
+								+'<tickStroke>'
+									+'<Stroke weight="1" color="#454545"/>'
+								+'</tickStroke>'
+							+'</Axis2DRenderer>'
+							+'<Axis2DRenderer axis="{hAxis2}" placement="bottom" formatter="{dateFmt}" showLine="true">'
+								+'<axisStroke>'
+									+'<Stroke weight="4" color="0x555555"/>'
+								+'</axisStroke>'
+							+'</Axis2DRenderer>'
+						+'</horizontalAxisRenderers>'
+						+'<verticalAxisRenderers>'
+							+'<Axis2DRenderer axis="{vAxis}" placement="right" formatter="{numFmt}"/>'
+							+'<Axis2DRenderer axis="{vAxis2}" placement="left" formatter="{numFmt}"/>'
+						+'</verticalAxisRenderers>'
+					+'</Combination2DChart>'
+					+'<HttpMultiServiceRepeater baseURL="http://www.koolchart.com/realtimeSample/" targetController="{chart}" requestTimeout="30">'
+					/* 
+						baseURL: the base URL for the url property of RPCItem. (full path = baseURL + the url of RPCItem)
+						method - get, post
+						requestTimeout: the maximum waiting time for the request.
+						targetController: the controller of the target of RPCItem. It should be the ID of the chart.
+						showErrorMessage - true, false: whether or not to show the error message box when RPC error occurrs.
+					 */
+						+'<RPCList>'
+					/* 
+						<Properties>
+						name: the ID of RPC.
+						target: the ID of the series which is the data received from the RPC requests.
+						interval: the interval of the RPC requests. The first RPC request is sent when the initial chart loading is finished. (unit: second)
+						concurrency: the method of handling the duplicate HTTP request. The valid values are multiple, single and last.
+						***multiple: Sends all requests.
+						***single: Sends one request at a time. If the duplicate request occurs, it will generate the error message.
+						**last: Cancels all the previous requests and sends the last request.
+						retryCount: the retry count, when RPC error occurs.
+					*/
+							+'<RPCItem name="rpc1" url="data3Interval.php" target="{lineSeries2}" interval="3" concurrency="last" retryCount="30"/>'
+							+'<RPCItem name="rpc2" url="data5Interval.php" target="{lineSeries}" interval="5" concurrency="last" retryCount="30"/>'
+							+'<RPCItem name="rpc3" url="data23ToCurrent2.php" target="{columnSeries}" interval="600" concurrency="last" retryCount="30"/>'
+						+'</RPCList>'
+					+'</HttpMultiServiceRepeater>'
+				+'</KoolChart>';
+
+/**
+ * If you want to use themes provided with KoolChart version 3.0, call the following functions.
+ * otherwise, comment out or delete the following functions.
+ *
+ * -- The Themes registered in KoolChart.themes --
+ * - simple
+ * - cyber
+ * - modern
+ * - lovely
+ * - pastel
+ * - old
+ * -------------------------------------------------
+ *
+ * The KoolChart.themes variable is defined in theme.js
+ */
+KoolChart.registerTheme(KoolChart.themes);
+
+/**
+ * The function called when the theme button in the sample HTML is clicked.
+ * Parameter Values:
+ * - simple
+ * - cyber
+ * - modern
+ * - lovely
+ * - pastel
+ * - old
+ * - default
+ *
+ * default: Applies the default theme which is the basic design of KoolChart.
+ * old: Applies the design of KoolChart version 2.5.
+ */
+function KoolChartChangeTheme(theme){
+	document.getElementById("chart1").setTheme(theme);
+}
+
+//----------------------- The end of the configuration for creating a chart. -----------------------
+	
+</script>
+</head>
+<body>
+	<div id="content">
+		<!-- The DIV in which the chart is placed -->
+		<div id="chartHolder" style="width:760px; height:400px;">
+		</div>
+	</div>
+	<div id="footer">
+			<p>
+This sample chart displays two Line2D Series and one Column2D Series with 3 seconds interval, 5 seconds interval and 10 seconds interval respectively (random data).
+During the initial loading, the RPC request is sent to receive initial data and then the RPC requests are sent repeatedly at a given interval.
+There is no initial data in the line charts. After the initial loading of the chart is finished, the chart displays data for 10 minutes.
+After 10 minutes, the chart clears the previous data and then displays the received data for 10 minutes at each given interval.
+In the column chart, the chart displays the cumulative sum of the data received for 10 minutes and sends RPC requests every 10 minutes and refreshes the data at the predefined time (everyday 23:59).<br/>
+<a href="#" onclick="javascript:window.open('./realtime_premium_ServerExam.html', '_blank', 'width=1024 height=768 scrollbars=yes')" class="more">More</a>
+		</div>
+</body>
+</html>

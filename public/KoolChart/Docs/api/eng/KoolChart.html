@@ -1,0 +1,172 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="../style.css" type="text/css" media="screen">
+<link rel="stylesheet" href="../print.css" type="text/css" media="print">
+<meta content="KoolChart,eng.KoolChart" name="keywords">
+<title>eng.KoolChart</title>
+</head>
+<body>
+<script type="text/javascript" language="javascript" src="../asdoc.js"></script><script type="text/javascript" language="javascript" src="../cookies.js"></script><script type="text/javascript" language="javascript">
+<!--
+				asdocTitle = 'KoolChart - KoolChart for HTML5 Ver. 3.0 Reference By RiaMore Soft.';
+				var baseRef = '../';
+				window.onload = configPage;
+			--></script>
+<table style="display:none" id="titleTable" cellspacing="0" cellpadding="0" class="titleTable">
+<tr>
+<td align="left" class="titleTableTitle">KoolChart for HTML5 Ver. 3.0 Reference</td><td align="right" class="titleTableTopNav"><a onclick="loadClassListFrame('../all-classes.html')" href="../package-summary.html">All&nbsp;Packages</a>&nbsp;|&nbsp;<a onclick="loadClassListFrame('../all-classes.html')" href="../class-summary.html">All&nbsp;Classes</a>&nbsp;|&nbsp;<a onclick="loadClassListFrame('../index-list.html')" href="../all-index-A.html">Index</a>&nbsp;|&nbsp;<a href="../index.html?eng/KoolChart.html&amp;eng/class-list.html" id="framesLink1">Frames</a><a onclick="parent.location=document.location" href="" style="display:none" id="noFramesLink1">No&nbsp;Frames</a></td><td rowspan="3" align="right" class="titleTableLogo"><a href="www.koolchart.com"><img alt="KoolChart Logo" title="KoolChart Logo" class="logoImage" src="../images/logo.png"></a></td>
+</tr>
+<tr class="titleTableRow2">
+<td align="left" id="subTitle" class="titleTableSubTitle">Class&nbsp;KoolChart</td><td align="right" id="subNav" class="titleTableSubNav"><a href="#styleSummary">Styles</a></td>
+</tr>
+<tr class="titleTableRow3">
+<td colspan="2">&nbsp;</td>
+</tr>
+</table>
+<script type="text/javascript" language="javascript">
+<!--
+if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Class KoolChart"); titleBar_setSubNav(false,false,true,false,false,false,false,false,false,false,false,false,false,false);}
+--></script>
+<div class="MainContent">
+<table cellspacing="0" cellpadding="0" class="classHeaderTable">
+<tr>
+<td class="classHeaderTableLabel">Package</td><td><a onclick="javascript:loadClassListFrame('class-list.html')" href="package-detail.html">eng</a></td>
+</tr>
+<tr>
+<td class="classHeaderTableLabel">Class</td><td class="classSignature">public class KoolChart</td>
+</tr>
+</table>
+<p></p>
+ &lt;KoolChart&gt; is the root node of the layout. It has the properties for drawing the background and frame of the chart.<br>
+ You can adjust the background, margin and frame style of the chart by using the KoolChart class (&lt;KoolChart&gt;).<br>
+ <p>The sample layout is as follows:</p>
+ <pre>
+ &lt;KoolChart backgroundColor="0xFFFFEE" cornerRadius="12" borderStyle="solid" paddingRight="10" paddingBottom="5" paddingTop="5" paddingLeft="10"&gt;
+   &lt;Options&gt;
+    &lt;Caption text="Annual Report"/&gt;
+   &lt;/Options&gt;
+   ...
+   ...
+   ...
+ &lt;/KoolChart&gt;
+ </pre>
+ <p></p>
+<br>
+<hr>
+</div>
+<a name="styleSummary"></a>
+<div class="summarySection">
+<div class="summaryTableTitle">Styles</div>
+<table id="summaryTableStyle" class="summaryTable " cellpadding="3" cellspacing="0">
+<tr>
+<th>&nbsp;</th><th colspan="2">Style</th><th>Description</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:backgroundAlpha"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">backgroundAlpha</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Number<br>
+ <p>Sets the background transparency of the chart. The valid range of the value is 0 ~ 1.</p>
+  The default value is <code>1</code>.</td><td class="summaryTableOwnerCol">KoolChart</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:backgroundColor"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">backgroundColor</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>uint &nbsp; <span class="label">Format: </span>Color<br>
+ <p>Sets the background color of the chart using RGB.</p>
+  The default value is <code>0xFFFFFF</code>.</td><td class="summaryTableOwnerCol">KoolChart</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:borderColor"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">borderColor</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>uint &nbsp; <span class="label">Format: </span>Color<br>
+ <p>Sets the border color of the chart using RGB.</p>
+  The default value is <code>0xB7BABC</code>.</td><td class="summaryTableOwnerCol">KoolChart</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:borderStyle"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">borderStyle</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>String<br>
+ <p>Sets the border style of the chart. The valid values are none, solid, inset, and outset.</p>
+  The default value is <code>"none"</code>.</td><td class="summaryTableOwnerCol">KoolChart</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:borderThickness"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">borderThickness</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Number &nbsp; <span class="label">Format: </span>Length<br>
+ <p>Sets the border thickness of the chart. It is valid only if the border style is solid.</p>
+  The default value is <code>1</code>.</td><td class="summaryTableOwnerCol">KoolChart</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:cornerRadius"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">cornerRadius</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Number &nbsp; <span class="label">Format: </span>Length<br>
+ <p>Sets the outer frame of the chart as a rounded corner.</p>
+  The default value is <code>0</code>.</td><td class="summaryTableOwnerCol">KoolChart</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:paddingBottom"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">paddingBottom</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Number &nbsp; <span class="label">Format: </span>Length<br>
+ <p>Sets the size of the bottom margin of the chart.</p>
+  The default value is <code>15</code>.</td><td class="summaryTableOwnerCol">KoolChart</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:paddingLeft"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">paddingLeft</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Number &nbsp; <span class="label">Format: </span>Length<br>
+ <p>Sets the size of the left margin of the chart.</p>
+  The default value is <code>15</code>.</td><td class="summaryTableOwnerCol">KoolChart</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:paddingRight"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">paddingRight</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Number &nbsp; <span class="label">Format: </span>Length<br>
+ <p>Sets the size of the right margin of the chart.</p>
+  The default value is <code>15</code>.</td><td class="summaryTableOwnerCol">KoolChart</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:paddingTop"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">paddingTop</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Number &nbsp; <span class="label">Format: </span>Length<br>
+ <p>Sets the size of the top margin of the chart.</p>
+  The default value is <code>20</code>.</td><td class="summaryTableOwnerCol">KoolChart</td>
+</tr>
+</table>
+</div>
+<script type="text/javascript" language="javascript">
+<!--
+showHideInherited();
+--></script>
+<div class="MainContent">
+<br>
+<br>
+<hr>
+<br>
+<p></p>
+<center class="copyright">Copyright(c) 2012 RiaMore Soft, Inc. All Right Reserved</center>
+</div>
+</body>
+</html>
+<!--Copyright(c) 2012 RiaMore Soft, Inc. All Right Reserved-->

@@ -1,0 +1,170 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="Content-Script-Type" content="text/javascript"/>
+<meta http-equiv="Content-Style-Type" content="text/css"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>KoolChart for HTML5 - Real-Time Chart</title>
+<link rel="stylesheet" type="text/css" href="./KoolChartSample.css"/>
+
+<!--  If you want to support IE 7/8, you'll need the conditional excanvas include. -->
+<!--[if IE]><script language="javascript" type="text/javascript" src="../KoolChart/JS/excanvas.js"></script><![endif]-->
+
+<!-- License Key -->
+<script language="javascript" type="text/javascript" src="../LicenseKey/KoolChartLicense.js"></script>
+
+<!-- KoolChart JavaScript library -->
+<script language="javascript" type="text/javascript" src="../KoolChart/JS/KoolRealtimeChart.js"></script>
+
+<!-- Theme.js -->
+<script type="text/javascript" src="../KoolChart/Assets/Theme/theme.js"></script>
+
+<script type="text/javascript">
+
+//----------------------- Here we start creating a chart. -----------------------
+
+//Sets the value of KoolOnLoadCallFunction to the name of a JS function (e.g. chartReadyHandler) that is called when the chart is ready to be created.
+var chartVars = "KoolOnLoadCallFunction=chartReadyHandler";
+
+//Creates the chart.
+//Parameters:  
+//1. Chart ID: You can use any name you like. 
+//2. DIV ID: The chart will be placed in this DIV.
+//3. chartVars: Variables used for creating the chart.
+//4. Chart width: Default value is 100%
+//5. Chart height: Default value is 100%
+KoolChart.create("chart1", "chartHolder", chartVars, "100%", "100%"); 
+
+//The JavaScript function which is set to the value of KoolOnLoadCallFunction.
+//This function will call two functions, setLayout() and setData() which are two main functions of KoolChart.
+//Parameters: 
+//1. ID: The Chart ID which is used as the first parameter of KoolChart.create().
+function chartReadyHandler(id) {
+	document.getElementById(id).setLayout(layoutStr);
+}
+
+//Declares Layout
+var layoutStr = 
+				'<KoolChart backgroundColor="0xFFFFFF" cornerRadius="12" borderStyle="none">'
+					+'<Options>'
+						+'<Caption text="Real-time Chart"/>'
+						+'<SubCaption text="Displaying the recent 5-minutes data every 3 seconds (random data)." fontSize="11" fontFamily="Malgun Gothic"/>'
+						+'<Legend useVisibleCheck="true"/>'
+					+'</Options>'
+					+'<DateFormatter id="dateFmt" formatString="HH:NN:SS"/>' 
+					+'<NumberFormatter id="numFmt"/>'
+					+'<RealTimeChart id="chart" dataDisplayType="time" timePeriod="300" interval="3" showDataTips="true">'
+					/*  
+						Creating the RealTimeChart node. 
+						showDataTips: Whether or not to show tooltips when you mouse over items.  
+						dateDisplayType: dataSize, time.  default:dataSize
+						diplayDataSize: the number of the data to be displayed in the chart default:20
+						interval: if the value of the dateDisplayType property is "time", the interval property defines the interval of HttpServiceRepeater.
+						timePeriod: if the value of the dateDisplayType property is "time", the timePeriod property defines the unit of of time for displaying the data.
+					*/ 	
+						+'<horizontalAxis>'
+							+'<DateTimeAxis dataUnits="seconds" labelUnits="seconds" dataInterval="3" interval="9" formatter="{dateFmt}" displayLocalTime="true" padding="2"/>'
+							/* If dataDisplayType="time", you need to create the DateTimeAxis node. */ 
+						+'</horizontalAxis>'
+						+'<verticalAxis>'
+							+'<LinearAxis id="vAxis" minimum="0" maximum="100" interval="10" formatter="{numFmt}"/>'
+						+'</verticalAxis>'
+						+'<series>'
+							+'<Line2DSeries xField="Time" yField="P1" displayName="Process 1" radius="3" itemRenderer="CircleItemRenderer"/>'
+							+'<Line2DSeries xField="Time" yField="P2" displayName="Process 2" radius="3" itemRenderer="CircleItemRenderer"/>'
+						+'</series>'
+						+'<annotationElements>'
+							+'<AxisMarker>'
+								+'<lines>'
+									+'<AxisLine value="80" label="High" labelAlign="left">'
+										+'<stroke>'
+											+'<Stroke color="#ff0000" weight="1"/>'
+										+'</stroke>'
+									+'</AxisLine>'
+									+'<AxisLine value="20" label="Low" labelUpDown="down" labelAlign="left">'
+										+'<stroke>'
+											+'<Stroke color="#0000FF" weight="1"/>'
+										+'</stroke>'
+									+'</AxisLine>'
+								+'</lines>'
+								+'<ranges>'
+									+'<AxisRange startValue="20" endValue="80">'
+										+'<fill>'
+											+'<SolidColor color="0xeeeeee" alpha="0.4"/>'
+										+'</fill>'
+									+'</AxisRange>'
+								+'</ranges>'
+							+'</AxisMarker>'
+						+'</annotationElements>'
+					+'</RealTimeChart>'
+					+'<HttpServiceRepeater url="http://www.koolchart.com/realtimeSample/process3Data.php" target="{chart}" interval="3" timePeriod="60" method="get"/>'
+					/* 
+						Creating the HttpServiceRepeater node.
+						url: data url.
+						interval: the interval of HTTPService. default:30 (sec)
+						target: the object to which HTTPSerivce sends the received data.
+						method: get, post.
+						useFaultAlert: true, false - whether or not to show the warning message when HTTPSerivce fails. defalt:true
+	
+						- Note -
+						1. The HttpServiceRepeater node should be a child node of the KoolChart node and a sibling node of the RealTimeChart node.
+						2. The ID of RealTimeChart should be set as a value of the target property.
+						3. The url of HttpServiceRepeater should be the location of the data the format of which is XML as follows:
+						+'<items>'
+							+'<item>'
+								+'<Time>'13:8:27+'</Time>'
+								+'<Volume>'5527+'</Volume>'
+								+'<Price>'309+'</Price>'
+							+'</item>'
+						+'</items>'
+					 */
+				+'</KoolChart>';
+
+/**
+ * If you want to use themes provided with KoolChart version 3.0, call the following functions.
+ * otherwise, comment out or delete the following functions.
+ *
+ * -- The Themes registered in KoolChart.themes --
+ * - simple
+ * - cyber
+ * - modern
+ * - lovely
+ * - pastel
+ * - old
+ * -------------------------------------------------
+ *
+ * The KoolChart.themes variable is defined in theme.js
+ */
+KoolChart.registerTheme(KoolChart.themes);
+
+/**
+ * The function called when the theme button in the sample HTML is clicked.
+ * Parameter Values:
+ * - simple
+ * - cyber
+ * - modern
+ * - lovely
+ * - pastel
+ * - old
+ * - default
+ *
+ * default: Applies the default theme which is the basic design of KoolChart.
+ * old: Applies the design of KoolChart version 2.5.
+ */
+function KoolChartChangeTheme(theme){
+	document.getElementById("chart1").setTheme(theme);
+}
+
+//----------------------- The end of the configuration for creating a chart. -----------------------
+	
+</script>
+</head>
+<body>
+	<div id="content">
+		<!-- The DIV in which the chart is placed -->
+		<div id="chartHolder" style="width:600px; height:400px;">
+		</div>
+	</div>
+</body>
+</html>

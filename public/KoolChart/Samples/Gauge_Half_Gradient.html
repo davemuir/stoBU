@@ -1,0 +1,196 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="Content-Script-Type" content="text/javascript"/>
+<meta http-equiv="Content-Style-Type" content="text/css"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>KoolChart for HTML5</title>
+<link rel="stylesheet" type="text/css" href="./KoolChartSample.css"/>
+
+<!--  If you want to support IE 7/8, you'll need the conditional excanvas include. -->
+<!--[if IE]><script language="javascript" type="text/javascript" src="../KoolChart/JS/excanvas.js"></script><![endif]-->
+
+<!-- License Key -->
+<script language="javascript" type="text/javascript" src="../LicenseKey/KoolChartLicense.js"></script>
+
+<!-- KoolChart JavaScript library -->
+<script language="javascript" type="text/javascript" src="../KoolChart/JS/KoolGaugeChart.js"></script>
+
+<!-- Theme.js -->
+<script type="text/javascript" src="../KoolChart/Assets/Theme/theme.js"></script>
+
+<script type="text/javascript">
+
+//----------------------- Here we start creating a chart. -----------------------
+
+//Sets the value of KoolOnLoadCallFunction to the name of a JS function (e.g. chartReadyHandler) that is called when the chart is ready to be created.
+var chartVars = "KoolOnLoadCallFunction=chartReadyHandler";
+
+//Creates the chart.
+//Parameters:  
+//1. Chart ID: You can use any name you like. 
+//2. DIV ID: The chart will be placed in this DIV.
+//3. chartVars: Variables used for creating the chart.
+//4. Chart width: Default value is 100%
+//5. Chart height: Default value is 100%
+KoolChart.create("chart1", "chartHolder", chartVars, "100%", "100%"); 
+
+//The JavaScript function which is set to the value of KoolOnLoadCallFunction.
+//This function will call two functions, setLayout() and setData() which are two main functions of KoolChart.
+//Parameters: 
+//1. ID: The Chart ID which is used as the first parameter of KoolChart.create().
+function chartReadyHandler(id) {
+	document.getElementById(id).setLayout(layoutStr);
+	document.getElementById(id).setData(chartData);
+}
+
+//Declares Layout
+var layoutStr = 
+				'<KoolChart backgroundColor="0xffffff" cornerRadius="12" borderStyle="none">'
+					+'<Options>'
+						+'<Caption text="Gauge - Half Gradient" fontFamily="Malgun Gothic"/>'
+					+'</Options>'
+					+'<NumberFormatter id="numFmt" precision="1"/>'
+					+'<HalfCircularGauge frameType="flat" padding="-20" tickRadius="4" bottomRadius="30" minimumAngle="182" maximumAngle="358" minimum="-100" maximum="100" interval="25" minorInterval="5" tickGap="-5" labelGap="20" valueXOffset="0" valueYOffset="-80" tickLabelStyleName="tickLabelStyle" valueLabelStyleName="valueLabelStyle" editMode="true" needleCoverRadius="5" liveDragging="true" showDataTip="false" minorTickColor="0x932108" coverRadiusRatio="0.02" needleThickness="10" pointThickness="2" needleLengthRatio="0.8" needlePointStyle="round" needleBackLengthRatio="0" valueChangeFunction="valueChangeFunc" showValueLabel="false" tickLabelPlacement="inside" showTrackColor="true" trackColors="[#555555,#ff812d,#e6211b]" trackValues="[-100,50,75,100]" trackAlphas="[1,1,1]" trackInnerRadius="0.97" trackOuterRadius="1.05">'
+						+'<frameStroke>'
+							+'<Stroke color="#ffefae" weight="4" alpha="0"/>'
+						+'</frameStroke>'
+						+'<frameFill>'
+							+'<RadialGradient angle="270" focalPointRatio="0.1">'
+								+'<entries>'
+									+'<GradientEntry color="#ffbf79" ratio="0"/>'
+									+'<GradientEntry color="#ffefae" ratio="1"/>'
+								+'</entries>'
+							+'</RadialGradient>'
+						+'</frameFill>'
+						+'<minorTickFill>'
+							+'<SolidColor color="#eee93a"/>'
+						+'</minorTickFill>'
+						+'<minorTickStroke>'
+							+'<Stroke color="#eee93a"/>'
+						+'</minorTickStroke>'
+						+'<tickStroke>'
+							+'<Stroke color="#555555" weight="1"/>'
+						+'</tickStroke>'
+						+'<tickFill>'
+							+'<SolidColor color="#ffffff"/>'
+						+'</tickFill>'
+						+'<needleFilter>'
+							+'<DropShadowFilter distance="1" alpha="0.5"/>'
+						+'</needleFilter>'
+						+'<needleFill>'
+							+'<SolidColor color="#555555"/>'
+						+'</needleFill>'
+						+'<needleStroke>'
+							+'<Stroke color="#555555"/>'
+						+'</needleStroke>'
+						+'<needleCoverFill>'
+							+'<SolidColor color="#555555"/>'
+						+'</needleCoverFill>'
+						+'<needleCoverStroke>'
+							+'<Stroke color="#555555"/>'
+						+'</needleCoverStroke>'
+					+'</HalfCircularGauge>'
+					+'<Style>'
+						+'.valueLabelStyle{'
+							+'fontSize:18;'
+							+'fontFamily:Myriad;'
+							+'textAlign:center;'
+							+'borderColor:#999999;'
+							+'backgroundColor:#FFFFFF;'
+							+'paddingTop:4;'
+							+'borderThickness:1;'
+							+'borderAlpha:1;'
+							+'borderStyle:solid;'
+							+'color:0xFF0000;'
+						+'}'
+						+'.tickLabelStyle{'
+							+'fontFamily:"Malgun Gothic";'
+							+'fontSize:13;'
+							+'color:#555555;'
+						+'}'
+					+'</Style>'
+				+'</KoolChart>';
+				
+// Sets gauge data
+var chartData = [0];
+
+//Generates a random value
+function changeValue()
+{
+	var negative = parseInt(Math.random()*10);
+	var value = parseInt(Math.random()*100);
+	if(negative > 5)
+		value = value * -1;
+
+	document.getElementById("chart1").setData([value]);
+}
+
+//For saving the value.
+var gaugeValue;
+
+//JavaScript function that manages the event (valueChangeFunction).
+function valueChangeFunc(value)
+{
+	gaugeValue = value;
+}
+
+//For verifying gauge value
+function commitValue()
+{
+	alert(gaugeValue);
+}
+	
+/**
+ * If you want to use themes provided with KoolChart version 3.0, call the following functions.
+ * otherwise, comment out or delete the following functions.
+ *
+ * -- The Themes registered in KoolChart.themes --
+ * - simple
+ * - cyber
+ * - modern
+ * - lovely
+ * - pastel
+ * - old
+ * -------------------------------------------------
+ *
+ * The KoolChart.themes variable is defined in theme.js
+ */
+KoolChart.registerTheme(KoolChart.themes);
+
+/**
+ * The function called when the theme button in the sample HTML is clicked.
+ * Parameter Values:
+ * - simple
+ * - cyber
+ * - modern
+ * - lovely
+ * - pastel
+ * - old
+ * - default
+ *
+ * default: Applies the default theme which is the basic design of KoolChart.
+ * old: Applies the design of KoolChart version 2.5.
+ */
+function KoolChartChangeTheme(theme){
+	document.getElementById("chart1").setTheme(theme);
+}
+
+//----------------------- The end of the configuration for creating a chart. -----------------------
+	
+</script>
+</head>
+<body>
+	<div id="header">
+		<div onclick="changeValue()" class="button button_top">Change Value</div>
+		<div onclick="commitValue()" class="button button_top">View Value</div>
+		
+	</div>
+	<div id="content">
+		<!-- The DIV in which the chart is placed -->
+		<div id="chartHolder" style="width:600px; height:400px;">
+		</div>
+	</div>
+</body>
+</html>

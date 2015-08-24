@@ -1,0 +1,578 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="../../style.css" type="text/css" media="screen">
+<link rel="stylesheet" href="../../print.css" type="text/css" media="print">
+<meta content="Matrix2DChart,eng.charts.Matrix2DChart" name="keywords">
+<title>eng.charts.Matrix2DChart</title>
+</head>
+<body>
+<script type="text/javascript" language="javascript" src="../../asdoc.js"></script><script type="text/javascript" language="javascript" src="../../cookies.js"></script><script type="text/javascript" language="javascript">
+<!--
+				asdocTitle = 'Matrix2DChart - KoolChart for HTML5 Ver. 3.0 Reference By RiaMore Soft.';
+				var baseRef = '../../';
+				window.onload = configPage;
+			--></script>
+<table style="display:none" id="titleTable" cellspacing="0" cellpadding="0" class="titleTable">
+<tr>
+<td align="left" class="titleTableTitle">KoolChart for HTML5 Ver. 3.0 Reference</td><td align="right" class="titleTableTopNav"><a onclick="loadClassListFrame('../../all-classes.html')" href="../../package-summary.html">All&nbsp;Packages</a>&nbsp;|&nbsp;<a onclick="loadClassListFrame('../../all-classes.html')" href="../../class-summary.html">All&nbsp;Classes</a>&nbsp;|&nbsp;<a onclick="loadClassListFrame('../../index-list.html')" href="../../all-index-A.html">Index</a>&nbsp;|&nbsp;<a href="../../index.html?eng/charts/Matrix2DChart.html&amp;eng/charts/class-list.html" id="framesLink1">Frames</a><a onclick="parent.location=document.location" href="" style="display:none" id="noFramesLink1">No&nbsp;Frames</a></td><td rowspan="3" align="right" class="titleTableLogo"><a href="www.koolchart.com"><img alt="KoolChart Logo" title="KoolChart Logo" class="logoImage" src="../../images/logo.png"></a></td>
+</tr>
+<tr class="titleTableRow2">
+<td align="left" id="subTitle" class="titleTableSubTitle">Class&nbsp;Matrix2DChart</td><td align="right" id="subNav" class="titleTableSubNav"><a href="#styleSummary">Styles</a></td>
+</tr>
+<tr class="titleTableRow3">
+<td colspan="2">&nbsp;</td>
+</tr>
+</table>
+<script type="text/javascript" language="javascript">
+<!--
+if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Class Matrix2DChart"); titleBar_setSubNav(false,false,true,false,false,false,false,false,false,false,false,false,false,false);}
+--></script>
+<div class="MainContent">
+<table cellspacing="0" cellpadding="0" class="classHeaderTable">
+<tr>
+<td class="classHeaderTableLabel">Package</td><td><a onclick="javascript:loadClassListFrame('class-list.html')" href="package-detail.html">eng.charts</a></td>
+</tr>
+<tr>
+<td class="classHeaderTableLabel">Class</td><td class="classSignature">public class Matrix2DChart</td>
+</tr>
+</table>
+<p></p>
+  Matrix2D charts divide the screen into a grid. Rows represent the values in one text column (X) and columns represent another text column (Y). Each cell then shows a shape that represents the value for its row/column combination (Z).<br> 
+  The Z value determines the size of shapes and (X, Y) is the location in the matrix.
+  
+  <p>The layout is as follows:</p>
+  <pre>
+  &lt;KoolChart backgroundColor="0xFFFFFF" cornerRadius="12" borderStyle="solid"&gt;
+  &lt;Options&gt;
+   &lt;Caption text="Matrix Chart"/&gt;
+   &lt;Legend/&gt;
+  &lt;/Options&gt;
+  &lt;SeriesSlide id="ss"/&gt;
+  &lt;Matrix2DChart showDataTips="true" type="renderer" drawType="radius" selectionMode="single" dataTipJsFunction="tipFunc"&gt;
+   &lt;backgroundElements&gt;
+    &lt;GridLines direction="horizontal" horizontalChangeCount="2"&gt;
+     &lt;horizontalStroke&gt;
+      &lt;Stroke color="0x000000"/&gt;
+     &lt;/horizontalStroke&gt;
+    &lt;/GridLines&gt;
+   &lt;/backgroundElements&gt;
+   &lt;verticalAxis&gt;
+    &lt;LinearAxis id="vAxis" interval="0.5" maximum="6" labelJsFunction="vertiJsFunc"/&gt;
+   &lt;/verticalAxis&gt;
+   &lt;horizontalAxis&gt;
+    &lt;LinearAxis id="hAxis" interval="0.5" maximum="12" labelJsFunction="horiJsFunc"/&gt;
+   &lt;/horizontalAxis&gt;
+   &lt;series&gt;
+    &lt;Matrix2DSeries  xField="Data1_x" yField="Data1_y" zField="Data1" renderer="rectangle" showDataEffect="{ss}" labelPosition="inside" displayName="City A" insideLabelJsFunction="labelJsFunc" fontSize="11"/&gt;
+    &lt;Matrix2DSeries xField="Data2_x" yField="Data2_y" zField="Data2" renderer="rectangle" showDataEffect="{ss}" labelPosition="inside" displayName="City B" insideLabelJsFunction="labelJsFunc" fontSize="11"/&gt;
+    &lt;Matrix2DSeries  xField="Data3_x" yField="Data3_y" zField="Data3" renderer="rectangle" showDataEffect="{ss}" labelPosition="inside" displayName="City C" insideLabelJsFunction="labelJsFunc" fontSize="11"/&gt;
+   &lt;/series&gt;
+   &lt;verticalAxisRenderers&gt;
+    &lt;Axis2DRenderer axis="{vAxis}" tickPlacement="none" styleName="font" minorTickPlacement="none"/&gt;
+   &lt;/verticalAxisRenderers&gt;
+   &lt;horizontalAxisRenderers&gt;
+    &lt;Axis2DRenderer axis="{hAxis}" tickPlacement="none" styleName="font" minorTickPlacement="none"/&gt;
+   &lt;/horizontalAxisRenderers&gt;
+  &lt;/Matrix2DChart&gt;
+  &lt;Style&gt;
+   .font{
+    fontSize:11;
+   }
+  &lt;/Style&gt;
+  &lt;/KoolChart&gt;
+  </pre>
+  <p></p>
+<br>
+<hr>
+</div>
+<a name="styleSummary"></a>
+<div class="summarySection">
+<div class="summaryTableTitle">Styles</div>
+<table id="summaryTableStyle" class="summaryTable " cellpadding="3" cellspacing="0">
+<tr>
+<th>&nbsp;</th><th colspan="2">Style</th><th>Description</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:backgroundElements"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">backgroundElements</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Object<br>
+   Sets the background element of charts. The default is GridLines.
+   The valid objects are GridLines, Label, Image, Box, etc.
+   </td><td class="summaryTableOwnerCol">Matrix2DChart</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:buttonMode"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">buttonMode</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Boolean<br>
+    Indicates whether or not to change the mouse pointer to the hand icon when mouse over.
+     The default value is <code>false</code>.</td><td class="summaryTableOwnerCol">Matrix2DChart</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:color"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">color</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>uint &nbsp; <span class="label">Format: </span>Color<br>
+  <p>Sets the character color.</p>
+   The default value is <code>0x0B333C</code>.</td><td class="summaryTableOwnerCol">Matrix2DChart</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:dataTipBackgroundColorOnSeries"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">dataTipBackgroundColorOnSeries</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Boolean<br>
+   Indicates whether or not to set the default color of series as the background color of tooltips.
+    The default value is <code></code>.</td><td class="summaryTableOwnerCol">Matrix2DChart</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:dataTipBorderColor"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">dataTipBorderColor</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Uint<br>
+   <p>Sets the border color of the DIV for tooltips.</p>
+   </td><td class="summaryTableOwnerCol">Matrix2DChart</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:dataTipBorderStyle"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">dataTipBorderStyle</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>String<br>
+   <p>Sets the border style of the DIV for tooltips.</p> 
+    The default value is <code>none</code>.</td><td class="summaryTableOwnerCol">Matrix2DChart</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:dataTipBorderWidth"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">dataTipBorderWidth</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Number<br>
+   <p>Sets the border thickness of the DIV for tooltips.</p>
+    The default value is <code>1</code>.</td><td class="summaryTableOwnerCol">Matrix2DChart</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:dataTipDisplayMode"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">dataTipDisplayMode</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>String<br>
+   Sets the display mode of tooltips.
+   <ul>
+    <li>none</li>: The chart will not display tooltips when mouse over the data point.
+    <li>mouse</li>: The chart will display tooltips along the trail of the mouse point.
+    <li>axis</li>: The chart will display tooltips when mouse over any place where the axis value is same to the data point.
+   </ul>
+   </td><td class="summaryTableOwnerCol">Matrix2DChart</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:dataTipFormatter"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">dataTipFormatter</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Object<br>
+   <p>Sets the formatter for tooltips.</p>
+    The default value is <code>NumberFormatter</code>.</td><td class="summaryTableOwnerCol">Matrix2DChart</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:dataTipJsFunction"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">dataTipJsFunction</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>String<br>
+  Sets the JavaScript function to be called to display the user-defined tooltips when mouse over.<br>
+  
+  Sets the value of the dataTipJsFunction property to the name of the JavaScript function as follows:
+  e.g. <Matrix2DChart showDataTips="true" dataTipJsFunction="myDataTip">
+  
+  <p>The signature of <code>dataTipJsFunction</code> is as follows:
+  
+  <pre>
+  <i>function_name</i>(seriesId, seriesName, index, xName, yName, data, values) { ... }
+  </pre>
+  
+  <code>seriesId</code>: Series ID<br>
+  <code>seriesName</code>: The name of the series, which is set as the value of the displayName property.<br>
+  <code>xName</code>: The value of the displayName property in the horizontalAxis node.<br>
+  <code>yName</code>: The value of the displayName property in the verticalAxis node.<br>
+  <code>data</code>: The record of the dataset declared for creating the chart.<br>
+  <code>values</code>: The value of the item. The value is an array and each element in the array is different depending on the chart type.<br>
+  <ul>
+   <li>Bar2D(3D)Series (Bar2DSeries, Bar3DSeries) 0: X-axis value, 1: Y-axis value</li>
+   <li>Column2D(3D)Series (Column2DSeries, Column3DSeries) 0: X-axis value, 1: Y-axis value</li>
+   <li>Area2DSeries (Area2DSeries) 0: X-axis value, 1: Y-axis value</li>
+   <li>Bubble3DSeries (Bubble3DSeries) 0: X-axis value, 1: Y-axis value 2: radius</li>
+   <li>Line2DSeries (Line2DSeries) 0: X-axis value, 1: Y-axis value</li>
+   <li>Pie2D(3D)Series (Pie2DSeries, Pie3DSeries) 0: value, 1: percentage, 2:nameField</li>
+  </ul>
+  
+  The data string returned by the JavaScript function is the content of tooltips.
+  </td><td class="summaryTableOwnerCol">Matrix2DChart</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:dataTipMode"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">dataTipMode</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>String<br>
+  Sets the mode of tooltips when showDataTips="true".<br>
+  The valid values are as follows:
+  <ul><li><code>"single"</code>: Displays a single tooltips for the data point which is located at the closest to the mouse pointer.</li>
+  <li><code>"multiple"</code>: Displays multiple tooltips for the data points which are located near the mouse pointer.</li></ul>
+   The default value is <code>"single"</code>.</td><td class="summaryTableOwnerCol">Matrix2DChart</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:dataTipStyleName"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">dataTipStyleName</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>String<br>
+   <p>Sets the style name of tooltips.
+   </td><td class="summaryTableOwnerCol">Matrix2DChart</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:displayCompleteCallFunction"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">displayCompleteCallFunction</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>String<br>
+ <p>Sets the JavaScript function to be called when the chart rendering is completed.</p>
+ The chart ID will be passed as parameter.
+ </td><td class="summaryTableOwnerCol">Matrix2DChart</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:drawType"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">drawType</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>String<br>
+  Sets the criteria to measure the size of items.
+  - radius: the size of the shape or image. It is valid only if type="renderer" or type="image"
+  - area: the size of the area
+  </td><td class="summaryTableOwnerCol">Matrix2DChart</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:enablePattern"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">enablePattern</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>String<br>
+ <p>Sets patterns for visually impaired  users.</p>
+ The string, "usePattern=true", must be added to chartVars in the HTML file.<br>
+ and the value of the patternMode property must be "true" in Column2DChart.
+ </td><td class="summaryTableOwnerCol">Matrix2DChart</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:fontFamily"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">fontFamily</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>String<br>
+  <p>Sets the font name. The system font is the default font.</p>
+   The default value is <code>"Verdana"</code>.</td><td class="summaryTableOwnerCol">Matrix2DChart</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:fontSize"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">fontSize</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Number &nbsp; <span class="label">Format: </span>Length<br>
+  <p>Sets the font size.</p>
+   The default value is <code>12</code>.</td><td class="summaryTableOwnerCol">Matrix2DChart</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:fontStyle"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">fontStyle</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>String<br>
+  <p>Indicates whether or not to use the italic font. The valid values are normal and italic.</p>
+   The default value is <code>"normal"</code>.</td><td class="summaryTableOwnerCol">Matrix2DChart</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:fontWeight"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">fontWeight</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>String<br>
+  <p>Indicates whether or not to use the bold font. The valid values are normal and bold.</p>
+   The default value is <code>"bold"</code>.</td><td class="summaryTableOwnerCol">Matrix2DChart</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:gutterBottom"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">gutterBottom</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Number &nbsp; <span class="label">Format: </span>Length<br>
+  <p>Sets the size of the bottom of the chart. It is calculated automatically.</p>
+  </td><td class="summaryTableOwnerCol">Matrix2DChart</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:gutterLeft"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">gutterLeft</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Number &nbsp; <span class="label">Format: </span>Length<br>
+  <p>Sets the size of the left side of the chart. It is calculated automatically.</p>
+  </td><td class="summaryTableOwnerCol">Matrix2DChart</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:gutterRight"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">gutterRight</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Number &nbsp; <span class="label">Format: </span>Length<br>
+  <p>Sets the size of the right side of the chart. It is calculated automatically.</p>
+  </td><td class="summaryTableOwnerCol">Matrix2DChart</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:gutterTop"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">gutterTop</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Number &nbsp; <span class="label">Format: </span>Length<br>
+  <p>Sets the size of the top of the chart. It is calculated automatically.</p>
+  </td><td class="summaryTableOwnerCol">Matrix2DChart</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:horizontalAxis"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">horizontalAxis</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Object<br>
+   Sets the horizontal axis. Generally, CategoryAxis is used for the X-axis of Area charts.
+   But you can use LinearAxis or DateTimeAxis if necessary.
+    The default value is <code>LinearAxis</code>.</td><td class="summaryTableOwnerCol">Matrix2DChart</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:horizontalAxisRenderers"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">horizontalAxisRenderers</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Object<br>
+   Sets the renderer of the horizontal axis. You can use it to define the color, location and style of the horizontal axis label.
+   The valid object is Axis2DRenderer.
+   </td><td class="summaryTableOwnerCol">Matrix2DChart</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:id"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">id</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>String<br>
+  <p>Sets id. id is an unique identifier defined by users.</p>
+  You can access to an object by using id.<br>
+  </td><td class="summaryTableOwnerCol">Matrix2DChart</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:itemClickJsFunction"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">itemClickJsFunction</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>String<br>
+  Sets the JavaScript function to be called to display the user-defined tooltips when mouse click.<br>
+  Sets the value of the itemClickJsFunction property to the name of the JavaScript function as follows:
+  e.g. <Matrix2DChart showDataTips="true" itemClickJsFunction="chartClick">
+  
+  <p>The signature of <code>itemClickJsFunction</code> is as follows:
+  
+  <pre>
+  <i>function_name</i>(seriesId, displayText, index, data, values) { ... }
+  </pre>
+  
+  <code>seriesId</code>: Series ID.<br>
+  <code>displayText</code>: The content of tooltips.<br>
+  <code>index</code>: The index of the clicked item. (The index of the leftmost or top item is 0.)<br>
+  <code>data</code>: The record of the dataset declared for creating the chart.<br>
+  <code>values</code>: The value of the item. The value is an array and each element in the array is different depending on the chart type.<br>
+  <ul>
+   <li>Bar2D(3D)Series (Bar2DSeries, Bar3DSeries) 0: X-axis value, 1: Y-axis value</li>
+   <li>Column2D(3D)Series (Column2DSeries, Column3DSeries) 0: X-axis value, 1: Y-axis value</li>
+   <li>Area2DSeries (Area2DSeries) 0: X-axis value, 1: Y-axis value</li>
+   <li>Bubble3DSeries (Bubble3DSeries) 0: X-axis value, 1: Y-axis value 2: radius</li>
+   <li>Line2DSeries (Line2DSeries) 0: X-axis value, 1: Y-axis value</li>
+   <li>Pie2DSeries (Pie2DSeries, Pie3DSeries) 0: value</li>
+  </ul>
+  </td><td class="summaryTableOwnerCol">Matrix2DChart</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:lazyJsFunction"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">lazyJsFunction</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>String<br>
+   Sets the JavaScript function to be called to pull more data into the chart.
+   e.g. <...Chart lazyJsFunction="lazyData">
+   
+   <p>The signature of <code>lazyJsFunction</code> is as follows:
+   <pre>
+    <i>function_name</i>(id){ ... }
+   </pre>
+   <code>id</code> : The chart ID.
+   </td><td class="summaryTableOwnerCol">Matrix2DChart</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:paddingBottom"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">paddingBottom</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Number &nbsp; <span class="label">Format: </span>Length<br>
+  <p>Sets the size of the bottom margin.</p>
+   The default value is <code>0</code>.</td><td class="summaryTableOwnerCol">Matrix2DChart</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:paddingLeft"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">paddingLeft</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Number &nbsp; <span class="label">Format: </span>Length<br>
+  <p>Sets the size of the left margin.</p>
+   The default value is <code>0</code>.</td><td class="summaryTableOwnerCol">Matrix2DChart</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:paddingRight"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">paddingRight</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Number &nbsp; <span class="label">Format: </span>Length<br>
+  <p>Sets the size of the right margin.</p>
+   The default value is <code>0</code>.</td><td class="summaryTableOwnerCol">Matrix2DChart</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:paddingTop"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">paddingTop</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Number &nbsp; <span class="label">Format: </span>Length<br>
+  <p>Sets the size of the top margin.</p>
+   The default value is <code>3</code>.</td><td class="summaryTableOwnerCol">Matrix2DChart</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:radiusAxis"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">radiusAxis</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Object<br>
+  Sets the axis for the radius of shapes. 
+  The size of each shape is determined by radiusAxis. 
+  The default is LinearAxis and <code>autoAdjust</code> is <code>false</code>. 
+  </td><td class="summaryTableOwnerCol">Matrix2DChart</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:secondRadiusAxis"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">secondRadiusAxis</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Object<br>
+  Sets the axis for the radius of shapes for the secondary series. 
+  The size of each shape is determined by secondRadiusAxis. 
+  The default is LinearAxis and <code>autoAdjust</code> is <code>false</code>. 
+  </td><td class="summaryTableOwnerCol">Matrix2DChart</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:series"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">series</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Object<br>
+   Sets the series to be used to draw charts.
+   <br>e.g. Column2DSeries, Area2DSet, Column3DSet, Bar3DSeries, etc.</br>
+   </td><td class="summaryTableOwnerCol">Matrix2DChart</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:showDataTips"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">showDataTips</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Boolean<br>
+  <p>Indicates whether or not to display tooltips when mouse over items.</p>
+   The default value is <code>false</code>.</td><td class="summaryTableOwnerCol">Matrix2DChart</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:showDataTipTargets"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">showDataTipTargets</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Boolean<br>
+   Indicates whether or not to display the circle around the data point when tooltips is enabled.
+   </td><td class="summaryTableOwnerCol">Matrix2DChart</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:styleName"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">styleName</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>String<br>
+  <p>Sets the name of the CSS style to be defined in the Style node (&lt;Style&gt;).</p>
+  </td><td class="summaryTableOwnerCol">Matrix2DChart</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:touchMoveEnable"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">touchMoveEnable</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Boolean<br>
+ <p>Indicates whether or not to create the touchMove event in the browser<br>
+ when users move a certain area of the chart with a finger.<br>
+ If the touchMove event is created in the browser<br>
+ then the chart can be scrolled when the touchMove event occurs<br>
+ otherwise the chart cannot be scrolled when the touchMove event occurs.</p>
+  The default value is <code>true</code>.</td><td class="summaryTableOwnerCol">Matrix2DChart</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:type"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">type</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>String<br>
+  Sets the type of drawing.<br>
+  - renderer: the shapes such as triangle, diamond, start, etc<br>
+  - fill: filling the color in the area<br>
+  - image: image file<br>
+  - plot: small shape
+  </td><td class="summaryTableOwnerCol">Matrix2DChart</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:verticalAxis"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">verticalAxis</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Object<br>
+   Sets the vertical axis. Generally, LinearAxis is used for the Y-axis of Area charts.
+   But you can use CategoryAxis or DateTimeAxis if necessary.
+    The default value is <code>LinearAxis</code>.</td><td class="summaryTableOwnerCol">Matrix2DChart</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:verticalAxisRenderers"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">verticalAxisRenderers</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Object<br>
+   Sets the renderer of the vertical axis. You can use it to define the color, location and style of the vertical axis label.
+   The valid object is Axis2DRenderer.
+   </td><td class="summaryTableOwnerCol">Matrix2DChart</td>
+</tr>
+</table>
+</div>
+<script type="text/javascript" language="javascript">
+<!--
+showHideInherited();
+--></script>
+<div class="MainContent">
+<br>
+<br>
+<hr>
+<br>
+<p></p>
+<center class="copyright">Copyright(c) 2012 RiaMore Soft, Inc. All Right Reserved</center>
+</div>
+</body>
+</html>
+<!--Copyright(c) 2012 RiaMore Soft, Inc. All Right Reserved-->

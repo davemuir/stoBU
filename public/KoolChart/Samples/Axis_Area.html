@@ -1,0 +1,125 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="Content-Script-Type" content="text/javascript"/>
+<meta http-equiv="Content-Style-Type" content="text/css"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>KoolChart for HTML5</title>
+<link rel="stylesheet" type="text/css" href="./KoolChartSample.css"/>
+
+<!--  If you want to support IE 7/8, you'll need the conditional excanvas include. -->
+<!--[if IE]><script language="javascript" type="text/javascript" src="../KoolChart/JS/excanvas.js"></script><![endif]-->
+
+<!-- License Key -->
+<script language="javascript" type="text/javascript" src="../LicenseKey/KoolChartLicense.js"></script>
+
+<!-- KoolChart JavaScript library -->
+<script language="javascript" type="text/javascript" src="../KoolChart/JS/KoolChart.js"></script>
+
+<script type="text/javascript">
+
+//----------------------- Here we start creating a chart. -----------------------
+
+//Sets the value of KoolOnLoadCallFunction to the name of a JS function (e.g. chartReadyHandler) that is called when the chart is ready to be created.
+var chartVars = "KoolOnLoadCallFunction=chartReadyHandler";
+
+//Creates the chart.
+//Parameters:  
+//1. Chart ID: You can use any name you like. 
+//2. DIV ID: The chart will be placed in this DIV.
+//3. chartVars: Variables used for creating the chart.
+//4. Chart width: Default value is 100%
+//5. Chart height: Default value is 100%
+KoolChart.create("chart1", "chartHolder", chartVars, "100%", "100%"); 
+
+//The JavaScript function which is set to the value of KoolOnLoadCallFunction.
+//This function will call two functions, setLayout() and setData() which are two main functions of KoolChart.
+//Parameters: 
+//1. ID: The Chart ID which is used as the first parameter of KoolChart.create().
+function chartReadyHandler(id) {
+	document.getElementById(id).setLayout(layoutStr);
+	document.getElementById(id).setData(chartData);
+}
+
+//Declares Layout
+var layoutStr = 
+				'<KoolChart backgroundColor="0xFFFFFF" borderStyle="none" cornerRadius="12">'
+					+'<NumberFormatter id="numFmt" useThousandsSeparator="true" />' 
+					+'<Stroke id="stroke1" color="0xFF0000" weight="1"/>'		
+					+'<Line2DChart showDataTips="true" selectionMode="single">'
+						+'<horizontalAxis>'
+							+'<CategoryAxis categoryField="Month"/>' 
+						+'</horizontalAxis>'
+						+'<verticalAxis>'
+							+'<LinearAxis interval="300" formatter="{numFmt}"/>'
+						+'</verticalAxis>'
+						+'<series>'
+							+'<Line2DSeries labelPosition="up" yField="Revenue" raidus="4" displayName="Revenue" itemRenderer="CircleItemRenderer" itemRollOverColor="0x0066FF" itemSelectionColor="0x0099FF">'
+								+'<showDataEffect>'
+									+'<SeriesInterpolate/>'
+								+'</showDataEffect>'
+							+'</Line2DSeries>'
+						+'</series>'
+						+'<backgroundElements>'
+							+'<GridLines/>'
+							+'<AxisMarker>'
+								+'<ranges>'
+									+'<AxisRange startValue="1600" endValue="2800" label="Range" labelHorizontalAlign="left">'
+										+'<fill>'
+											+'<SolidColor color="#B7F0B1" alpha="0.6"/>'
+										+'</fill>'
+									+'</AxisRange>'
+								+'</ranges>'
+							+'</AxisMarker>'
+						+'</backgroundElements>'
+					+'</Line2DChart>'
+				+'</KoolChart>';
+
+// Declares Dataset
+var chartData = [{"Month":"Jan","Revenue":2300},
+				{"Month":"Feb","Revenue":1200},
+				{"Month":"Mar","Revenue":1600},
+				{"Month":"Apr","Revenue":1300},
+				{"Month":"May","Revenue":1000},
+				{"Month":"Jun","Revenue":1200},
+				{"Month":"Jul","Revenue":1000},
+				{"Month":"Aug","Revenue":1600},
+				{"Month":"Sep","Revenue":1200},
+				{"Month":"Oct","Revenue":1000},
+				{"Month":"Nov","Revenue":1700},
+				{"Month":"Dec","Revenue":2300}];
+
+//----------------------- The end of the configuration for creating a chart. -----------------------
+
+</script>
+</head>
+<body>
+	<div id="content">
+		<!-- The DIV in which the chart is placed -->
+		<div id="chartHolder" style="width:600px; height:400px;">
+		</div>		
+	</div>
+	<div id="footer">	
+		<font size="3"><b>This sample is to display the range of values that need to be monitored.</b></font>
+<pre>
+<font color="#01BAC5">It is useful to check if values are in the range.</font>
+
+<b>●Layout</b>
+&#60;backgroundElements&#62;
+	&#60;GridLines/&#62;
+	&#60;AxisMarker&#62;
+		&#60;ranges&#62;
+			&#60;AxisRange <font color="#ff0000">startValue="1600" endValue="2800"</font> 
+			label="Area" labelHorizontalAlign="left"&#62;
+				&#60;fill&#62;
+					&#60;SolidColor color="#B7F0B1" alpha="0.6"/&#62;
+				&#60;/fill&#62;
+			&#60;/AxisRange&#62;
+		&#60;/ranges&#62;
+	&#60;/AxisMarker&#62;
+&#60;/backgroundElements&#62;
+</pre>
+		</div>
+</body>
+</html>

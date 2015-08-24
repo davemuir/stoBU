@@ -1,0 +1,252 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="../../style.css" type="text/css" media="screen">
+<link rel="stylesheet" href="../../print.css" type="text/css" media="print">
+<meta content="AxisLine,eng.elements.AxisLine" name="keywords">
+<title>eng.elements.AxisLine</title>
+</head>
+<body>
+<script type="text/javascript" language="javascript" src="../../asdoc.js"></script><script type="text/javascript" language="javascript" src="../../cookies.js"></script><script type="text/javascript" language="javascript">
+<!--
+				asdocTitle = 'AxisLine - KoolChart for HTML5 Ver. 3.0 Reference By RiaMore Soft.';
+				var baseRef = '../../';
+				window.onload = configPage;
+			--></script>
+<table style="display:none" id="titleTable" cellspacing="0" cellpadding="0" class="titleTable">
+<tr>
+<td align="left" class="titleTableTitle">KoolChart for HTML5 Ver. 3.0 Reference</td><td align="right" class="titleTableTopNav"><a onclick="loadClassListFrame('../../all-classes.html')" href="../../package-summary.html">All&nbsp;Packages</a>&nbsp;|&nbsp;<a onclick="loadClassListFrame('../../all-classes.html')" href="../../class-summary.html">All&nbsp;Classes</a>&nbsp;|&nbsp;<a onclick="loadClassListFrame('../../index-list.html')" href="../../all-index-A.html">Index</a>&nbsp;|&nbsp;<a href="../../index.html?eng/elements/AxisLine.html&amp;eng/elements/class-list.html" id="framesLink1">Frames</a><a onclick="parent.location=document.location" href="" style="display:none" id="noFramesLink1">No&nbsp;Frames</a></td><td rowspan="3" align="right" class="titleTableLogo"><a href="www.koolchart.com"><img alt="KoolChart Logo" title="KoolChart Logo" class="logoImage" src="../../images/logo.png"></a></td>
+</tr>
+<tr class="titleTableRow2">
+<td align="left" id="subTitle" class="titleTableSubTitle">Class&nbsp;AxisLine</td><td align="right" id="subNav" class="titleTableSubNav"><a href="#methodSummary">Methods</a>&nbsp;| <a href="#styleSummary">Styles</a></td>
+</tr>
+<tr class="titleTableRow3">
+<td colspan="2">&nbsp;</td>
+</tr>
+</table>
+<script type="text/javascript" language="javascript">
+<!--
+if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Class AxisLine"); titleBar_setSubNav(false,false,true,false,false,false,true,false,false,false,false,false,false,false);}
+--></script>
+<div class="MainContent">
+<table cellspacing="0" cellpadding="0" class="classHeaderTable">
+<tr>
+<td class="classHeaderTableLabel">Package</td><td><a onclick="javascript:loadClassListFrame('class-list.html')" href="package-detail.html">eng.elements</a></td>
+</tr>
+<tr>
+<td class="classHeaderTableLabel">Class</td><td class="classSignature">public class AxisLine</td>
+</tr>
+</table>
+<p></p>
+  By using AxisLine, you can adjust the color, thickness and label of the axis line.
+   <p>The AxisLine class (&lt;AxisLine&gt;) inherits from the parent classes and has the following additional properties.</p>
+  <p>The layout is as follows:</p>
+  <pre>
+ &lt;KoolChart backgroundColor="0xFFFFFF" borderStyle="solid" cornerRadius="12"&gt;
+ ...
+ &lt;Line2DChart showDataTips="true" fontFamily="Myriad" selectionMode="single"&gt;
+  ...
+  &lt;backgroundElements&gt;
+   &lt;GridLines/&gt;
+   &lt;AxisMarker&gt;
+    &lt;lines&gt;
+     &lt;AxisLine value="1000" label="Label 01" stroke="{stroke1}" labelUpDown="up" color="0xFF0000"/&gt;
+     &lt;AxisLine value="1500" label="Label 02" stroke="{stroke1}" labelAlign="left" labelUpDown="down" color="0xFF0000"/&gt;
+     &lt;AxisLine startValue="1000" endValue="2000" label="From-To Line" color="0x0000FF" labelAlign="right" labelUpDown="up"&gt;
+      &lt;stroke&gt;&lt;Stroke color="0x0099FF" weight="1"/&gt;&lt;/stroke&gt;
+     &lt;/AxisLine&gt;
+    &lt;/lines&gt;
+   &lt;/AxisMarker&gt;
+  &lt;/backgroundElements&gt;
+ &lt;/Line2DChart&gt;
+ &lt;/KoolChart&gt;
+  </pre>
+ <p></p>
+<br>
+<hr>
+</div>
+<a name="methodSummary"></a>
+<div class="summarySection">
+<div class="summaryTableTitle">Public Methods</div>
+<table id="summaryTableMethod" class="summaryTable " cellpadding="3" cellspacing="0">
+<tr>
+<th>&nbsp;</th><th colspan="2">Method</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#AxisLine()">AxisLine</a>()</div>
+<div class="summaryTableDescription">
+   Constructor.</div>
+</td><td class="summaryTableOwnerCol">AxisLine</td>
+</tr>
+</table>
+</div>
+<a name="styleSummary"></a>
+<div class="summarySection">
+<div class="summaryTableTitle">Styles</div>
+<table id="summaryTableStyle" class="summaryTable " cellpadding="3" cellspacing="0">
+<tr>
+<th>&nbsp;</th><th colspan="2">Style</th><th>Description</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:dashLinePattern"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">dashLinePattern</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Number<br>
+ Sets the line density when lineStyle="dashLine".
+  The default value is <code>5</code>.</td><td class="summaryTableOwnerCol">AxisLine</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:endValue"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">endValue</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>*<br>
+  If you want to draw a diagonal line, then you need to set the position where the line ends.
+  If the value property is set, then it will be ignored.
+ </td><td class="summaryTableOwnerCol">AxisLine</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:horizontal"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">horizontal</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Boolean<br>
+  Indicates whether or not the line is horizontal.
+  If the value is <code>false</code>, then the line will be vertical.
+    The default value is <code>true</code>.</td><td class="summaryTableOwnerCol">AxisLine</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:label"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">label</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>String<br>
+  Sets labels.
+ </td><td class="summaryTableOwnerCol">AxisLine</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:labelAlign"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">labelAlign</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>String<br>
+  Sets the horizontal alignment for labels.
+  If horizontal="false", then the result of setting of left (right) is the same as the result of setting of top (bottom).
+    The default value is <code>right</code>.</td><td class="summaryTableOwnerCol">AxisLine</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:labelRotation"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">labelRotation</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Number<br>
+  Sets label rotation.
+  If the embedded font is used, then any value of 0~360 is available to use but if the system font is used, then only 0 is available.
+    The default value is <code>NaN</code>.</td><td class="summaryTableOwnerCol">AxisLine</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:labelSeriesIn"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">labelSeriesIn</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Boolean<br>
+ Indicates whether or not to display labels in the area of series (inside axes).
+  The default value is <code>true</code>.</td><td class="summaryTableOwnerCol">AxisLine</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:labelUpDown"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">labelUpDown</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>String<br>
+  Sets the position of the label relative to the axis line.
+  If horizontal="false", then the result of setting of up (down) is to place the label at the right (left) of the axis line.
+    The default value is <code>up</code>.</td><td class="summaryTableOwnerCol">AxisLine</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:linePosition"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">linePosition</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>String<br>
+  Sets the position where the CategoryAxis line is placed.
+  For CategoryAxis, multiple positions are allowed for one value.
+  The valid values are center, left and right.
+    The default value is <code>center</code>.</td><td class="summaryTableOwnerCol">AxisLine</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:lineStyle"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">lineStyle</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>String<br>
+  Sets the line style.
+  <ul>
+   <li>normal</li>: solid line 
+   <li>dashLine</li>: dashed line
+  </ul>
+  
+   The default value is <code>normal</code>.</td><td class="summaryTableOwnerCol">AxisLine</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:startValue"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">startValue</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>*<br>
+  If you want to draw a diagonal line, then you need to set the position where the line starts.
+  If the value property is set, then it will be ignored.
+ </td><td class="summaryTableOwnerCol">AxisLine</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:stroke"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">stroke</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>mx.graphics.IStroke<br>
+  Sets the line style. The Stroke object should be used.
+ </td><td class="summaryTableOwnerCol">AxisLine</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:value"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">value</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>*<br>
+  If you want to draw a normal line (not diagonal line), then you need to set the position of the line.
+  If the value property is set, then the values of the startValue and endValue properties will be ignored.
+ </td><td class="summaryTableOwnerCol">AxisLine</td>
+</tr>
+</table>
+</div>
+<script type="text/javascript" language="javascript">
+<!--
+showHideInherited();
+--></script>
+<div class="MainContent">
+<a name="constructorDetail"></a>
+<div class="detailSectionHeader">Constructor detail</div>
+<a name="AxisLine()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">AxisLine</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">constructor</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function AxisLine()</code><p>
+   Constructor.
+   </p></div>
+<br>
+<br>
+<hr>
+<br>
+<p></p>
+<center class="copyright">Copyright(c) 2012 RiaMore Soft, Inc. All Right Reserved</center>
+</div>
+</body>
+</html>
+<!--Copyright(c) 2012 RiaMore Soft, Inc. All Right Reserved-->

@@ -1,0 +1,130 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="../../style.css" type="text/css" media="screen">
+<link rel="stylesheet" href="../../print.css" type="text/css" media="print">
+<meta content="AxisMarker,eng.elements.AxisMarker" name="keywords">
+<title>eng.elements.AxisMarker</title>
+</head>
+<body>
+<script type="text/javascript" language="javascript" src="../../asdoc.js"></script><script type="text/javascript" language="javascript" src="../../cookies.js"></script><script type="text/javascript" language="javascript">
+<!--
+				asdocTitle = 'AxisMarker - KoolChart for HTML5 Ver. 3.0 Reference By RiaMore Soft.';
+				var baseRef = '../../';
+				window.onload = configPage;
+			--></script>
+<table style="display:none" id="titleTable" cellspacing="0" cellpadding="0" class="titleTable">
+<tr>
+<td align="left" class="titleTableTitle">KoolChart for HTML5 Ver. 3.0 Reference</td><td align="right" class="titleTableTopNav"><a onclick="loadClassListFrame('../../all-classes.html')" href="../../package-summary.html">All&nbsp;Packages</a>&nbsp;|&nbsp;<a onclick="loadClassListFrame('../../all-classes.html')" href="../../class-summary.html">All&nbsp;Classes</a>&nbsp;|&nbsp;<a onclick="loadClassListFrame('../../index-list.html')" href="../../all-index-A.html">Index</a>&nbsp;|&nbsp;<a href="../../index.html?eng/elements/AxisMarker.html&amp;eng/elements/class-list.html" id="framesLink1">Frames</a><a onclick="parent.location=document.location" href="" style="display:none" id="noFramesLink1">No&nbsp;Frames</a></td><td rowspan="3" align="right" class="titleTableLogo"><a href="www.koolchart.com"><img alt="KoolChart Logo" title="KoolChart Logo" class="logoImage" src="../../images/logo.png"></a></td>
+</tr>
+<tr class="titleTableRow2">
+<td align="left" id="subTitle" class="titleTableSubTitle">Class&nbsp;AxisMarker</td><td align="right" id="subNav" class="titleTableSubNav"><a href="#styleSummary">Styles</a></td>
+</tr>
+<tr class="titleTableRow3">
+<td colspan="2">&nbsp;</td>
+</tr>
+</table>
+<script type="text/javascript" language="javascript">
+<!--
+if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Class AxisMarker"); titleBar_setSubNav(false,false,true,false,false,false,false,false,false,false,false,false,false,false);}
+--></script>
+<div class="MainContent">
+<table cellspacing="0" cellpadding="0" class="classHeaderTable">
+<tr>
+<td class="classHeaderTableLabel">Package</td><td><a onclick="javascript:loadClassListFrame('class-list.html')" href="package-detail.html">eng.elements</a></td>
+</tr>
+<tr>
+<td class="classHeaderTableLabel">Class</td><td class="classSignature">public class AxisMarker</td>
+</tr>
+</table>
+<p></p>
+  By using AxisMarker, you can draw lines or ranges in the chart.
+   <p>The AxisMarker class (&lt;AxisMarker&gt;) inherits from the parent classes and has the following additional properties.</p>
+  <p>The layout is as follows:</p>
+  <pre>
+ &lt;KoolChart backgroundColor="0xFFFFFF" borderStyle="solid" cornerRadius="12"&gt;
+ ...
+ &lt;Line2DChart showDataTips="true" fontFamily="Myriad" selectionMode="single"&gt;
+  ...
+  &lt;backgroundElements&gt;
+   &lt;GridLines/&gt;
+   &lt;AxisMarker&gt;
+    &lt;lines&gt;
+     &lt;AxisLine value="1000" label="Label 01" stroke="{stroke1}" labelUpDown="up" color="0xFF0000"/&gt;
+     &lt;AxisLine value="1500" label="Label 02" stroke="{stroke1}" labelAlign="left" labelUpDown="down" color="0xFF0000"/&gt;
+     &lt;AxisLine startValue="1000" endValue="2000" label="From-To Line" color="0x0000FF" labelAlign="right" labelUpDown="up"&gt;
+      &lt;stroke&gt;&lt;Stroke color="0x0099FF" weight="1"/&gt;&lt;/stroke&gt;
+     &lt;/AxisLine&gt;
+    &lt;/lines&gt;
+   &lt;/AxisMarker&gt;
+  &lt;/backgroundElements&gt;
+ &lt;/Line2DChart&gt;
+ &lt;/KoolChart&gt;
+  </pre>
+ <p></p>
+<br>
+<hr>
+</div>
+<a name="styleSummary"></a>
+<div class="summarySection">
+<div class="summaryTableTitle">Styles</div>
+<table id="summaryTableStyle" class="summaryTable " cellpadding="3" cellspacing="0">
+<tr>
+<th>&nbsp;</th><th colspan="2">Style</th><th>Description</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:horizontalAxisOppEnable"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">horizontalAxisOppEnable</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Booelan<br>
+  <p>In the case of Bar2DWing chart, sets to display the labels of the horizontal axis in reverse order.</p>
+  
+   The default value is <code>false</code>.</td><td class="summaryTableOwnerCol">AxisMarker</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:lines"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">lines</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Array<br>
+   Sets the array of AxisLine.
+      The default value is <code>null</code>.</td><td class="summaryTableOwnerCol">AxisMarker</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:ranges"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">ranges</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Array<br>
+   Sets the array of AxisRange.
+      The default value is <code>null</code>.</td><td class="summaryTableOwnerCol">AxisMarker</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:verticalAxisOppEnable"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">verticalAxisOppEnable</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Boolean<br>
+  <p>In the case of Column2DWing chart, sets to display the labels of the vertical axis in reverse order.</p>
+  
+   The default value is <code>false</code>.</td><td class="summaryTableOwnerCol">AxisMarker</td>
+</tr>
+</table>
+</div>
+<script type="text/javascript" language="javascript">
+<!--
+showHideInherited();
+--></script>
+<div class="MainContent">
+<br>
+<br>
+<hr>
+<br>
+<p></p>
+<center class="copyright">Copyright(c) 2012 RiaMore Soft, Inc. All Right Reserved</center>
+</div>
+</body>
+</html>
+<!--Copyright(c) 2012 RiaMore Soft, Inc. All Right Reserved-->

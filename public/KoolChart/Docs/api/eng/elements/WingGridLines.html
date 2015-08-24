@@ -1,0 +1,309 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="../../style.css" type="text/css" media="screen">
+<link rel="stylesheet" href="../../print.css" type="text/css" media="print">
+<meta content="WingGridLines,eng.elements.WingGridLines" name="keywords">
+<title>eng.elements.WingGridLines</title>
+</head>
+<body>
+<script type="text/javascript" language="javascript" src="../../asdoc.js"></script><script type="text/javascript" language="javascript" src="../../cookies.js"></script><script type="text/javascript" language="javascript">
+<!--
+				asdocTitle = 'WingGridLines - KoolChart for HTML5 Ver. 3.0 Reference By RiaMore Soft.';
+				var baseRef = '../../';
+				window.onload = configPage;
+			--></script>
+<table style="display:none" id="titleTable" cellspacing="0" cellpadding="0" class="titleTable">
+<tr>
+<td align="left" class="titleTableTitle">KoolChart for HTML5 Ver. 3.0 Reference</td><td align="right" class="titleTableTopNav"><a onclick="loadClassListFrame('../../all-classes.html')" href="../../package-summary.html">All&nbsp;Packages</a>&nbsp;|&nbsp;<a onclick="loadClassListFrame('../../all-classes.html')" href="../../class-summary.html">All&nbsp;Classes</a>&nbsp;|&nbsp;<a onclick="loadClassListFrame('../../index-list.html')" href="../../all-index-A.html">Index</a>&nbsp;|&nbsp;<a href="../../index.html?eng/elements/WingGridLines.html&amp;eng/elements/class-list.html" id="framesLink1">Frames</a><a onclick="parent.location=document.location" href="" style="display:none" id="noFramesLink1">No&nbsp;Frames</a></td><td rowspan="3" align="right" class="titleTableLogo"><a href="www.koolchart.com"><img alt="KoolChart Logo" title="KoolChart Logo" class="logoImage" src="../../images/logo.png"></a></td>
+</tr>
+<tr class="titleTableRow2">
+<td align="left" id="subTitle" class="titleTableSubTitle">Class&nbsp;WingGridLines</td><td align="right" id="subNav" class="titleTableSubNav"><a href="#styleSummary">Styles</a></td>
+</tr>
+<tr class="titleTableRow3">
+<td colspan="2">&nbsp;</td>
+</tr>
+</table>
+<script type="text/javascript" language="javascript">
+<!--
+if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Class WingGridLines"); titleBar_setSubNav(false,false,true,false,false,false,false,false,false,false,false,false,false,false);}
+--></script>
+<div class="MainContent">
+<table cellspacing="0" cellpadding="0" class="classHeaderTable">
+<tr>
+<td class="classHeaderTableLabel">Package</td><td><a onclick="javascript:loadClassListFrame('class-list.html')" href="package-detail.html">eng.elements</a></td>
+</tr>
+<tr>
+<td class="classHeaderTableLabel">Class</td><td class="classSignature">public class WingGridLines</td>
+</tr>
+</table>
+<p></p>
+   By using WingGridLines, you can draw the grid line (horizontal, vertical, both) inside the chart area. 
+   
+   <p>You can draw lines at the every tick of axes and also draw the horizontal and vertical lines at the center of the chart.</p>
+   <p>The instance of WingGridLines must be set to the value of the <code>backgroundElements</code> or <code>annotationElements</code> property.</p>
+  
+  <p>The layout is as follows:</p>
+   <pre>
+  &lt;KoolChart backgroundColor="0xFFFFFF"  cornerRadius="12" borderStyle="solid"&gt;
+  &lt;Bar2DWingChart&gt;
+   &lt;verticalAxis&gt;
+            &lt;CategoryAxis categoryField="Month"/&gt;
+         &lt;/verticalAxis&gt;
+   &lt;series&gt;
+    &lt;Bar2DWingSeries xField="Profit"&gt;
+     &lt;showDataEffect&gt;
+        &lt;WingSeriesInterpolate/&gt; 
+       &lt;/showDataEffect&gt;
+    &lt;/Bar2DWingSeries&gt;
+   &lt;/series&gt;
+   &lt;backgroundElements&gt;
+    &lt;GridLines direction="both" verticalChangeCount="1" horizontalChangeCount="1"&gt;
+        &lt;horizontalStroke&gt;
+      &lt;Stroke color="0x999999" alpha="0.5" weight="1"/&gt;
+      &lt;!-- color:horizontal line color alpha:transparency weight:line thickness --&gt;
+     &lt;/horizontalStroke&gt; 
+     &lt;horizontalFill&gt;
+      &lt;SolidColor color="0xEEEEEE" alpha="0.5"/&gt;
+      &lt;!-- color:fill color alpha:transparency --&gt;
+     &lt;/horizontalFill&gt; 
+     &lt;horizontalAlternateFill&gt;
+      &lt;SolidColor color="0xFFFFFF" alpha="0.5"/&gt;
+      &lt;!-- color:alternate fill color alpha:transparency --&gt;
+     &lt;/horizontalAlternateFill&gt;
+     &lt;verticalStroke&gt;
+      &lt;Stroke color="0x999999" alpha="0.5" weight="1"/&gt;
+     &lt;/verticalStroke&gt;
+     &lt;verticalFill&gt;
+      &lt;SolidColor color="0xFFFFFF" alpha="0.5"/&gt;
+     &lt;/verticalFill&gt; 
+     &lt;verticalAlternateFill&gt;
+      &lt;SolidColor color="0xEEEEEE" alpha="0.5"/&gt;
+     &lt;/verticalAlternateFill&gt; 
+     &lt;horizontalOriginStroke&gt;
+      &lt;Stroke color="0x999999" alpha="0" weight="1"/&gt;
+     &lt;/horizontalOriginStroke&gt;
+    &lt;/GridLines&gt;
+   &lt;/backgroundElements&gt;
+  &lt;/Bar2DWingChart&gt;
+  &lt;/KoolChart&gt;
+   </pre>
+   
+  <p></p>
+<br>
+<hr>
+</div>
+<a name="styleSummary"></a>
+<div class="summarySection">
+<div class="summaryTableTitle">Styles</div>
+<table id="summaryTableStyle" class="summaryTable " cellpadding="3" cellspacing="0">
+<tr>
+<th>&nbsp;</th><th colspan="2">Style</th><th>Description</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:direction"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">direction</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>String<br>
+  Sets the direction of the grid line (horizontal, vertical, both).
+  </td><td class="summaryTableOwnerCol">WingGridLines</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:horizontalAlternateFill"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">horizontalAlternateFill</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>uint &nbsp; <span class="label">Format: </span>color<br>
+  Sets the alternate fill color of the grid line when direction="horizontal".
+  </td><td class="summaryTableOwnerCol">WingGridLines</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:horizontalAxisOppEnable"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">horizontalAxisOppEnable</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Boolean<br>
+   Indicates whether or not to display the horizontal line in the opposite direction.
+   </td><td class="summaryTableOwnerCol">WingGridLines</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:horizontalCenterStroke"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">horizontalCenterStroke</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Object<br>
+  Sets the style of the horizontal line at the center of the chart.
+  </td><td class="summaryTableOwnerCol">WingGridLines</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:horizontalChangeCount"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">horizontalChangeCount</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Number &nbsp; <span class="label">Format: </span>Length<br>
+  Sets how many times the colors are displayed alternately (The color is set in the horizontalFill (horizontalAlternateFill) property).
+  </td><td class="summaryTableOwnerCol">WingGridLines</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:horizontalFill"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">horizontalFill</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>uint &nbsp; <span class="label">Format: </span>color<br>
+  Sets the first fill color of the grid line when direction="horizontal".
+  </td><td class="summaryTableOwnerCol">WingGridLines</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:horizontalOriginStroke"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">horizontalOriginStroke</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Object<br>
+  Sets the color of the original line of the horizontal axis when direction="horizontal".
+  </td><td class="summaryTableOwnerCol">WingGridLines</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:horizontalShowCenterLine"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">horizontalShowCenterLine</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Boolean<br>
+  Indicates whether or not to display the horizontal line at the center of the chart.
+   The default value is <code>false</code>.</td><td class="summaryTableOwnerCol">WingGridLines</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:horizontalShowOrigin"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">horizontalShowOrigin</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Boolean<br>
+  Indicates whether or not to show the original line of the horizontal axis.
+  </td><td class="summaryTableOwnerCol">WingGridLines</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:horizontalStroke"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">horizontalStroke</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Object<br>
+  Sets the color of the horizontal line.
+  </td><td class="summaryTableOwnerCol">WingGridLines</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:horizontalTickAligned"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">horizontalTickAligned</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Boolean<br>
+   Indicates whether or not to draw ticks at the same line of the horizontal axis.
+   </td><td class="summaryTableOwnerCol">WingGridLines</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:verticalAlternateFill"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">verticalAlternateFill</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>uint &nbsp; <span class="label">Format: </span>color<br>
+  Sets the alternate fill color of the grid line when direction="vertical".
+  </td><td class="summaryTableOwnerCol">WingGridLines</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:verticalAxisOppEnable"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">verticalAxisOppEnable</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Boolean<br>
+   Indicates whether or not to display the vertical line in the opposite direction.
+   </td><td class="summaryTableOwnerCol">WingGridLines</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:verticalCenterStroke"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">verticalCenterStroke</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Object<br>
+  Sets the style of the vertical line at the center of the chart.
+  </td><td class="summaryTableOwnerCol">WingGridLines</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:verticalChangeCount"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">verticalChangeCount</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Number &nbsp; <span class="label">Format: </span>Length<br>
+  Sets how many times the colors are displayed alternately (The color is set in the verticalFill (verticalAlternateFill) property).
+  </td><td class="summaryTableOwnerCol">WingGridLines</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:verticalFill"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">verticalFill</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>uint &nbsp; <span class="label">Format: </span>color<br>
+  Sets the first fill color of the grid line when direction="vertical".
+  </td><td class="summaryTableOwnerCol">WingGridLines</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:verticalOriginStroke"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">verticalOriginStroke</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Object<br>
+  Sets the color of the original line of the vertical axis when direction="vertical".
+  </td><td class="summaryTableOwnerCol">WingGridLines</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:verticalShowCenterLine"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">verticalShowCenterLine</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Boolean<br>
+  Indicates whether or not to display the vertical line at the center of the chart.
+  </td><td class="summaryTableOwnerCol">WingGridLines</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:verticalShowOrigin"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">verticalShowOrigin</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Boolean<br>
+  Indicates whether or not to show the original line of the vertical axis.
+  </td><td class="summaryTableOwnerCol">WingGridLines</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:verticalStroke"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">verticalStroke</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Object<br>
+  Sets the color of the vertical line.
+  </td><td class="summaryTableOwnerCol">WingGridLines</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:verticalTickAligned"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">verticalTickAligned</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Boolean<br>
+   Indicates whether or not to draw ticks at the same line of the vertical axis.
+   </td><td class="summaryTableOwnerCol">WingGridLines</td>
+</tr>
+</table>
+</div>
+<script type="text/javascript" language="javascript">
+<!--
+showHideInherited();
+--></script>
+<div class="MainContent">
+<br>
+<br>
+<hr>
+<br>
+<p></p>
+<center class="copyright">Copyright(c) 2012 RiaMore Soft, Inc. All Right Reserved</center>
+</div>
+</body>
+</html>
+<!--Copyright(c) 2012 RiaMore Soft, Inc. All Right Reserved-->

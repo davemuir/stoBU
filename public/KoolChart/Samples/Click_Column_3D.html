@@ -1,0 +1,154 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="Content-Script-Type" content="text/javascript"/>
+<meta http-equiv="Content-Style-Type" content="text/css"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>KoolChart for HTML5</title>
+<link rel="stylesheet" type="text/css" href="./KoolChartSample.css"/>
+
+<!--  If you want to support IE 7/8, you'll need the conditional excanvas include. -->
+<!--[if IE]><script language="javascript" type="text/javascript" src="../KoolChart/JS/excanvas.js"></script><![endif]-->
+
+<!-- License Key -->
+<script language="javascript" type="text/javascript" src="../LicenseKey/KoolChartLicense.js"></script>
+
+<!-- KoolChart JavaScript library -->
+<script language="javascript" type="text/javascript" src="../KoolChart/JS/KoolChart.js"></script>
+
+<script type="text/javascript">
+
+//----------------------- Here we start creating a chart. -----------------------
+
+//Sets the value of KoolOnLoadCallFunction to the name of a JS function (e.g. chartReadyHandler) that is called when the chart is ready to be created.
+var chartVars = "KoolOnLoadCallFunction=chartReadyHandler";
+
+//Creates the chart.
+//Parameters:  
+//1. Chart ID: You can use any name you like. 
+//2. DIV ID: The chart will be placed in this DIV.
+//3. chartVars: Variables used for creating the chart.
+//4. Chart width: Default value is 100%
+//5. Chart height: Default value is 100%
+KoolChart.create("chart1", "chartHolder", chartVars, "100%", "100%"); 
+
+//The JavaScript function which is set to the value of KoolOnLoadCallFunction.
+//This function will call two functions, setLayout() and setData() which are two main functions of KoolChart.
+//Parameters: 
+//1. ID: The Chart ID which is used as the first parameter of KoolChart.create().
+function chartReadyHandler(id) {
+	document.getElementById(id).setLayout(layoutStr);
+	document.getElementById(id).setData(chartData);
+}
+
+//Declares Layout
+var layoutStr = 
+				'<KoolChart backgroundColor="0xFFFFFF" borderStyle="none" cornerRadius="5">'
+					+'<Options>'
+						+'<Caption text="Monthly Report"/>' 
+					+'</Options>'
+					+'<NumberFormatter id="numFmt"/>'
+					+'<Column3DChart showDataTips="true" itemClickJsFunction="chartItemClickHandler">'
+					/* itemClickJsFunction: Sets the name of the JavaScript function which is called when the item is clicked. */
+						+'<horizontalAxis>'
+							+'<CategoryAxis categoryField="Month"/>' 
+						+'</horizontalAxis>'
+						+'<verticalAxis>'
+							+'<LinearAxis formatter="{numFmt}"/>'
+						+'</verticalAxis>'
+						+'<series>'
+							+'<Column3DSeries yField="Profit" displayName="Revenue" buttonMode="true">'
+								+'<showDataEffect>'
+									+'<SeriesInterpolate/>' 
+								+'</showDataEffect>'
+							+'</Column3DSeries>'
+						+'</series>'
+					+'</Column3DChart>'
+				+'</KoolChart>';
+
+// Declares Dataset
+var chartData = [{"Month":"Jan", "Profit":900},
+				{"Month":"Feb", "Profit":1400},
+				{"Month":"Mar", "Profit":1500},
+				{"Month":"Apr", "Profit":1900},
+				{"Month":"May", "Profit":1400},
+				{"Month":"Jun", "Profit":2000},
+				{"Month":"Jul", "Profit":1800},
+				{"Month":"Aug", "Profit":2500},
+				{"Month":"Sep", "Profit":3000},
+				{"Month":"Oct", "Profit":2000},
+				{"Month":"Nov", "Profit":2100},
+				{"Month":"Dec", "Profit":1700} ];
+	
+/*
+// -------------------- itemClickJsFunction ----------------------------------------------------------------
+// The JS function called when the item is clicked.
+// Sets the value of the itemClickJsFunction property to the name of a JS function.
+// e.g.) <Column3DChart showDataTips="true" itemClickJsFunction="chartItemClickHandler">
+//
+// Parameters:
+// seriesId: Series ID
+// displayText: The tooltips shown when the mouse over the item.
+// index: The index of the clicked item in the series.
+// data: The record of the dataset declared for creating the chart.
+// values: The value of the item. The value is an array and each element in the array is different depending on the chart type.
+			BarSeries     0: X-axis value, 1: Y-axis value
+			ColumnSeries  0: X-axis value, 1: Y-axis value
+			AreaSeries    0: X-axis value, 1: Y-axis value
+			BubbleSeries  0: X-axis value, 1: Y-axis value, 2: radius
+			LineSeries    0: X-axis value, 1: Y-axis value
+			PieSeries     0: value
+*/
+function chartItemClickHandler(seriesId, displayText, index, data, values)
+{
+		chUrl = "http://www.koolchart.com/index.php?code="+values[1];
+		alert(chUrl);
+		window.open(chUrl, '_blank');
+}
+
+//----------------------- The end of the configuration for creating a chart. -----------------------
+
+</script>
+</head>
+<body>
+	<div id="content">
+		<!-- The DIV in which the chart is placed -->
+		<div id="chartHolder" style="width:600px; height:400px;">
+		</div>
+	</div>
+	<div id="footer">	
+		<font size="3"><b>This sample is to redirect to a new website when you click the column</b></font>	
+<pre>
+<font color="#01BAC5">itemClickJsFunction: Sets the name of the JavaScript function 
+which is called when the item is clicked.
+In this sample, the JavaScript function (chartItemClickHandler) opens a new window and
+redirects to a new website</font>
+
+<b>●Layout</b>
+&#60;Column3DChart showDataTips="true" <font color="#ff0000">itemClickJsFunction="chartItemClickHandler"</font>&#62;
+
+<b>●Script</b>
+<font color="#01BAC5">Parameters:
+seriesId: Series ID
+displayText: The tooltips shown when the mouse over the item.
+index: The index of the clicked item in the series.
+data: The record of the dataset declared for creating the chart.
+values: The value of the item. The value is an array and each element in the array is different depending on the chart type.
+			BarSeries     0: X-axis value, 1: Y-axis value
+			ColumnSeries  0: X-axis value, 1: Y-axis value
+			AreaSeries    0: X-axis value, 1: Y-axis value
+			BubbleSeries  0: X-axis value, 1: Y-axis value, 2: radius
+			LineSeries    0: X-axis value, 1: Y-axis value
+			PieSeries     0: value</font>
+
+<font color="#0000ff">function</font> <font color="#ff0000">chartItemClickHandler</font>(seriesId, displayText, index, data, values)
+{
+	chUrl = "http://www.koolchart.com/index.php?code="+values[1];
+	alert(chUrl);
+	window.open(chUrl, '_blank');
+}
+</pre>
+		</div>
+</body>
+</html>

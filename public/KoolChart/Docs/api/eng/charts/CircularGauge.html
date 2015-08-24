@@ -1,0 +1,910 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="../../style.css" type="text/css" media="screen">
+<link rel="stylesheet" href="../../print.css" type="text/css" media="print">
+<meta content="CircularGauge,eng.charts.CircularGauge" name="keywords">
+<title>eng.charts.CircularGauge</title>
+</head>
+<body>
+<script type="text/javascript" language="javascript" src="../../asdoc.js"></script><script type="text/javascript" language="javascript" src="../../cookies.js"></script><script type="text/javascript" language="javascript">
+<!--
+				asdocTitle = 'CircularGauge - KoolChart for HTML5 Ver. 3.0 Reference By RiaMore Soft.';
+				var baseRef = '../../';
+				window.onload = configPage;
+			--></script>
+<table style="display:none" id="titleTable" cellspacing="0" cellpadding="0" class="titleTable">
+<tr>
+<td align="left" class="titleTableTitle">KoolChart for HTML5 Ver. 3.0 Reference</td><td align="right" class="titleTableTopNav"><a onclick="loadClassListFrame('../../all-classes.html')" href="../../package-summary.html">All&nbsp;Packages</a>&nbsp;|&nbsp;<a onclick="loadClassListFrame('../../all-classes.html')" href="../../class-summary.html">All&nbsp;Classes</a>&nbsp;|&nbsp;<a onclick="loadClassListFrame('../../index-list.html')" href="../../all-index-A.html">Index</a>&nbsp;|&nbsp;<a href="../../index.html?eng/charts/CircularGauge.html&amp;eng/charts/class-list.html" id="framesLink1">Frames</a><a onclick="parent.location=document.location" href="" style="display:none" id="noFramesLink1">No&nbsp;Frames</a></td><td rowspan="3" align="right" class="titleTableLogo"><a href="www.koolchart.com"><img alt="KoolChart Logo" title="KoolChart Logo" class="logoImage" src="../../images/logo.png"></a></td>
+</tr>
+<tr class="titleTableRow2">
+<td align="left" id="subTitle" class="titleTableSubTitle">Class&nbsp;CircularGauge</td><td align="right" id="subNav" class="titleTableSubNav"><a href="#styleSummary">Styles</a></td>
+</tr>
+<tr class="titleTableRow3">
+<td colspan="2">&nbsp;</td>
+</tr>
+</table>
+<script type="text/javascript" language="javascript">
+<!--
+if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Class CircularGauge"); titleBar_setSubNav(false,false,true,false,false,false,false,false,false,false,false,false,false,false);}
+--></script>
+<div class="MainContent">
+<table cellspacing="0" cellpadding="0" class="classHeaderTable">
+<tr>
+<td class="classHeaderTableLabel">Package</td><td><a onclick="javascript:loadClassListFrame('class-list.html')" href="package-detail.html">eng.charts</a></td>
+</tr>
+<tr>
+<td class="classHeaderTableLabel">Class</td><td class="classSignature">public class CircularGauge</td>
+</tr>
+</table>
+<p></p>
+  The CircularGauge class (&lt;CircularGauge&gt;) provides a way to display data on a circular gauge with a glossy appearance for displaying a finite data value at a point in time.
+  
+  <p>The layout is as follows:</p>
+  <pre>
+  &lt;KoolChart backgroundColor="0xEEEEEE" cornerRadius="12" borderStyle="solid"&gt;
+  &lt;Options&gt;
+   &lt;Caption text="Gauge" /&gt; 
+   &lt;SubCaption text="Gauge Chart" textAlign="right" paddingRight="10" fontSize="11" /&gt; 
+  &lt;/Options&gt;
+  &lt;CurrencyFormatter id="numFmt" precision="0" currencySymbol="%" alignSymbol="right"/&gt;
+  &lt;CircularGauge width="300" height="300" valueChangeFunction="valueChangeFunc"
+     startAngle="90" minimumAngle="0" maximumAngle="270"
+     minimum="0" maximum="100" value="50"
+     interval="10" minorInterval="2"
+     formatter="{numFmt}"
+     needleLengthRatio="0.8"
+     needleBackLengthRatio="0.2"
+     valueXOffset="65" valueYOffset="60"
+     tickLabelStyleName="tickText"
+     valueLabelStyleName="valueText"
+     dataTipJsFunction="dataTipFunction"
+     editMode="true" liveDragging="true"
+     bounceAnimating="true"
+     labelGap="10"
+     showDataTip="true"&gt;
+  &lt;/CircularGauge&gt;
+  &lt;Style&gt;
+   .valueText
+   {
+    fontSize:18;
+    fontFamily:Myriad;
+    textAlign:center;
+    borderColor:#999999;
+    backgroundColor:#FFFFFF;
+    paddingTop:4;
+    borderThickness:1;
+    borderAlpha:1;
+    borderStyle:solid;
+   }
+   .tickText
+   {
+    fontFamily:Myriad;
+    fontSize:15;
+    color:#FFFFFF
+   }
+  &lt;/Style&gt;
+  &lt;/KoolChart&gt;
+  </pre>
+  <p></p>
+<br>
+<hr>
+</div>
+<a name="styleSummary"></a>
+<div class="summarySection">
+<div class="summaryTableTitle">Styles</div>
+<table id="summaryTableStyle" class="summaryTable " cellpadding="3" cellspacing="0">
+<tr>
+<th>&nbsp;</th><th colspan="2">Style</th><th>Description</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:dataTipJsFunction"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">dataTipJsFunction</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Object<br>
+  Sets the user-defined function for tooltips. The name of the JavaScript function.
+  </td><td class="summaryTableOwnerCol">CircularGauge</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:displayCompleteCallFunction"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">displayCompleteCallFunction</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>String<br>
+ <p>Sets the JavaScript function to be called when the chart rendering is completed.</p>
+ The chart ID will be passed as parameter.
+ </td><td class="summaryTableOwnerCol">CircularGauge</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:editMode"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">editMode</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Boolean<br>
+  Indicates whether or not to allow changing the gauge value with mouse actions.
+  </td><td class="summaryTableOwnerCol">CircularGauge</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:enablePattern"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">enablePattern</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>String<br>
+ <p>Sets patterns for visually impaired  users.</p>
+ The string, "usePattern=true", must be added to chartVars in the HTML file.<br>
+ and the value of the patternMode property must be "true" in Column2DChart.
+ </td><td class="summaryTableOwnerCol">CircularGauge</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:formatter"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">formatter</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Object<br>
+  Sets the formatter for the value label, tick labels and tooltips.
+  <br>Use NumberFormatter and CurrencyFormatter.
+  </td><td class="summaryTableOwnerCol">CircularGauge</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:frameFill"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">frameFill</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>mx.graphics.IFill &nbsp; <span class="label">CSS Inheritance: </span>no<br>
+  Sets the fill color for the background skin.
+  </td><td class="summaryTableOwnerCol">CircularGauge</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:frameSkin"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">frameSkin</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Class &nbsp; <span class="label">CSS Inheritance: </span>no<br>
+  Sets the background skin.
+  </td><td class="summaryTableOwnerCol">CircularGauge</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:frameStroke"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">frameStroke</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>mx.graphics.IStroke &nbsp; <span class="label">CSS Inheritance: </span>no<br>
+  Sets the border-line style of the background skin.
+  </td><td class="summaryTableOwnerCol">CircularGauge</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:hideTickLabel"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">hideTickLabel</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Object<br>
+  Indicates whether or not to hide the first tick label when the range of the chart is the 360-degree. (If the range of the chart is the 360-degree, then the first and last labels are overlapped.)
+  The valid values are first, last, none.
+  </td><td class="summaryTableOwnerCol">CircularGauge</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:isValueTop"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">isValueTop</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Boolean &nbsp; <span class="label">CSS Inheritance: </span>no<br>
+  Indicates whether or not to display the gauge value at the top of the gauge.
+   The default value is <code>false</code>.</td><td class="summaryTableOwnerCol">CircularGauge</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:labelGap"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">labelGap</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Number &nbsp; <span class="label">Format: </span>Length &nbsp; <span class="label">CSS Inheritance: </span>no<br>
+  Sets the gap between ticks and labels.
+   The default value is <code>4</code>.</td><td class="summaryTableOwnerCol">CircularGauge</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:labelJsFunction"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">labelJsFunction</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Object<br>
+  Sets the user-defined function for the value label.
+  </td><td class="summaryTableOwnerCol">CircularGauge</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:majorTickType"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">majorTickType</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>String<br>
+  Sets the tick type.
+  The valid values are circle, line.
+   The default value is <code>circle</code>.</td><td class="summaryTableOwnerCol">CircularGauge</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:maximum"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">maximum</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Number &nbsp; <span class="label">Format: </span>Length<br>
+  Sets the maximum value of the gauge.
+  </td><td class="summaryTableOwnerCol">CircularGauge</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:maximumAngle"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">maximumAngle</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Number &nbsp; <span class="label">Format: </span>Length<br>
+  Sets the maximum degree of the gauge.
+  </td><td class="summaryTableOwnerCol">CircularGauge</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:minimum"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">minimum</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Number &nbsp; <span class="label">Format: </span>Length<br>
+  Sets the minimum value of the gauge.
+  </td><td class="summaryTableOwnerCol">CircularGauge</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:minimumAngle"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">minimumAngle</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Number &nbsp; <span class="label">Format: </span>Length<br>
+  Sets the minimum degree of the gauge.
+  </td><td class="summaryTableOwnerCol">CircularGauge</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:minorTickFill"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">minorTickFill</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>mx.graphics.IFill &nbsp; <span class="label">CSS Inheritance: </span>no<br>
+  Sets the fill color for minor ticks.
+  </td><td class="summaryTableOwnerCol">CircularGauge</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:minorTickRadius"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">minorTickRadius</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Number &nbsp; <span class="label">Format: </span>Length &nbsp; <span class="label">CSS Inheritance: </span>no<br>
+  Sets the radius of minor ticks.
+   The default value is <code>2</code>.</td><td class="summaryTableOwnerCol">CircularGauge</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:minorTickStroke"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">minorTickStroke</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>mx.graphics.IStroke &nbsp; <span class="label">CSS Inheritance: </span>no<br>
+  Sets the line style of minor ticks.
+  </td><td class="summaryTableOwnerCol">CircularGauge</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:minorTickType"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">minorTickType</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>String<br>
+   Sets the minor tick type.
+   The valid values are circle, line.
+    The default value is <code>circle</code>.</td><td class="summaryTableOwnerCol">CircularGauge</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:needleBackLengthRatio"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">needleBackLengthRatio</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Number &nbsp; <span class="label">CSS Inheritance: </span>no<br>
+  Sets the length of the back-end needle which is the back of the needle cover.</p> 
+   The default value is <code>0</code>.</td><td class="summaryTableOwnerCol">CircularGauge</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:needleCoverFill"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">needleCoverFill</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>mx.graphics.IFill &nbsp; <span class="label">CSS Inheritance: </span>no<br>
+  Sets the fill color for the needle cover.
+  </td><td class="summaryTableOwnerCol">CircularGauge</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:needleCoverRadius"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">needleCoverRadius</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Number &nbsp; <span class="label">Format: </span>Length &nbsp; <span class="label">CSS Inheritance: </span>no<br>
+  Sets the radius of the needle cover.
+   The default value is <code>15;</code>.</td><td class="summaryTableOwnerCol">CircularGauge</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:needleCoverStroke"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">needleCoverStroke</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>mx.graphics.IStroke &nbsp; <span class="label">CSS Inheritance: </span>no<br>
+  Sets the line style of the needle cover.
+  </td><td class="summaryTableOwnerCol">CircularGauge</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:needleFill"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">needleFill</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>mx.graphics.IFill &nbsp; <span class="label">CSS Inheritance: </span>no<br>
+  Sets the fill color for the needle.
+  </td><td class="summaryTableOwnerCol">CircularGauge</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:needleLengthRatio"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">needleLengthRatio</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Number &nbsp; <span class="label">CSS Inheritance: </span>no<br>
+  Sets the needle length. The value is the percentage of the gauge radius. The valid range is 0~1</p>
+  e.g. if you set as needleLengthRatio="0.8", then the needle length will be 80% of the gauge radius.
+   The default value is <code>0.85</code>.</td><td class="summaryTableOwnerCol">CircularGauge</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:needlePointStyle"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">needlePointStyle</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>String &nbsp; <span class="label">CSS Inheritance: </span>no<br>
+  Sets the shape of the end point of the needle. The valid values are steeple and rounding.
+   The default value is <code>steeple</code>.</td><td class="summaryTableOwnerCol">CircularGauge</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:needleSkin"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">needleSkin</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Class &nbsp; <span class="label">CSS Inheritance: </span>no<br>
+  Sets the needle skin.
+  </td><td class="summaryTableOwnerCol">CircularGauge</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:needleStroke"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">needleStroke</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>mx.graphics.IStroke &nbsp; <span class="label">CSS Inheritance: </span>no<br>
+  Sets the border-line style of the needle.
+  </td><td class="summaryTableOwnerCol">CircularGauge</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:needleThickness"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">needleThickness</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Number &nbsp; <span class="label">Format: </span>Length &nbsp; <span class="label">CSS Inheritance: </span>no<br>
+  Sets the needle thickness.
+   The default value is <code>10</code>.</td><td class="summaryTableOwnerCol">CircularGauge</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:outFrameFill"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">outFrameFill</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Object<br>
+   Sets the frame color when showOutFrame = "true".
+   </td><td class="summaryTableOwnerCol">CircularGauge</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:outFrameLabelXOffset"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">outFrameLabelXOffset</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Number<br>
+   Sets the X-location of the frame label when showOutFrame="true".
+   </td><td class="summaryTableOwnerCol">CircularGauge</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:outFrameLabelYOffset"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">outFrameLabelYOffset</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Number<br>
+   Sets the Y-location of the frame label when showOutFrame="true".
+   </td><td class="summaryTableOwnerCol">CircularGauge</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:outFrameStroke"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">outFrameStroke</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Object<br>
+   Sets the color of the frame edge when showOutFrame = "true".
+   </td><td class="summaryTableOwnerCol">CircularGauge</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:padding"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">padding</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Number &nbsp; <span class="label">Format: </span>Length &nbsp; <span class="label">CSS Inheritance: </span>no<br>
+  Sets the size of the margin.
+  
+   The default value is <code>0</code>.</td><td class="summaryTableOwnerCol">CircularGauge</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:pointThickness"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">pointThickness</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Number &nbsp; <span class="label">Format: </span>Length &nbsp; <span class="label">CSS Inheritance: </span>no<br>
+  Sets the thickness of the end point of the needle.
+   The default value is <code>0</code>.</td><td class="summaryTableOwnerCol">CircularGauge</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:rotateTickLabel"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">rotateTickLabel</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Boolean<br>
+  Indicates whether or not to rotate the tick label to fit the frame angle.
+   The default value is <code>false</code>.</td><td class="summaryTableOwnerCol">CircularGauge</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:secondLabelGap"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">secondLabelGap</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Number<br>
+   Sets the margin between the second tick and label.
+   </td><td class="summaryTableOwnerCol">CircularGauge</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:secondMajorTickType"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">secondMajorTickType</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>String<br>
+   Sets the type of the second tick.
+   The valid values are circle and line.
+    The default value is <code>circle</code>.</td><td class="summaryTableOwnerCol">CircularGauge</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:secondMinorTickFill"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">secondMinorTickFill</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Object<br>
+   Sets the color of the second minor tick.
+   </td><td class="summaryTableOwnerCol">CircularGauge</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:secondMinorTickRadius"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">secondMinorTickRadius</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Number<br>
+   Sets the radius of the second minor tick.
+    The default value is <code>2</code>.</td><td class="summaryTableOwnerCol">CircularGauge</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:secondMinorTickStroke"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">secondMinorTickStroke</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Object<br>
+   Sets the line color of the second minor tick.
+   </td><td class="summaryTableOwnerCol">CircularGauge</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:secondMinorTickType"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">secondMinorTickType</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>String<br>
+   Sets the type of the second minor tick.
+   The valid values are circle and line.
+    The default value is <code>circle</code>.</td><td class="summaryTableOwnerCol">CircularGauge</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:secondTickFill"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">secondTickFill</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Object<br>
+   Sets the color of the second tick.
+   </td><td class="summaryTableOwnerCol">CircularGauge</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:secondTickGap"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">secondTickGap</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Number<br>
+   Sets the margin between the frame edge and tick.
+    The default value is <code>4</code>.</td><td class="summaryTableOwnerCol">CircularGauge</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:secondTickLabelPlacement"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">secondTickLabelPlacement</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>String<br>
+   Sets the display location of the second tick label. The display location will be inside or outside of the tick.
+   The valid values are inside and outside.
+    The default value is <code>inside</code>.</td><td class="summaryTableOwnerCol">CircularGauge</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:secondTickLabelStyleName"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">secondTickLabelStyleName</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>String<br>
+   Sets the style name for the label of the second track.
+   </td><td class="summaryTableOwnerCol">CircularGauge</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:secondTickRadius"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">secondTickRadius</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Number<br>
+   Sets the radius of the second tick.
+    The default value is <code>4</code>.</td><td class="summaryTableOwnerCol">CircularGauge</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:secondTickStroke"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">secondTickStroke</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Object<br>
+   Sets the line color of the second tick.
+   </td><td class="summaryTableOwnerCol">CircularGauge</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:secondTrackAlphas"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">secondTrackAlphas</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Array<br>
+   Sets the color transparency of the second track.
+   </td><td class="summaryTableOwnerCol">CircularGauge</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:secondTrackColors"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">secondTrackColors</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Array<br>
+    Sets the colors to be assigned to each value range in the second track. 
+   e.g. If secondTrackColors=[#FFFF00, #0000FF, #FF0000] and secondTrackValues=[0,50,80,100], then the color, #FFFF00 will be assigned to the value range, 0-50. (#0000FF to 50-80, #FF0000 to 80-100)
+   </td><td class="summaryTableOwnerCol">CircularGauge</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:secondTrackInnerRadius"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">secondTrackInnerRadius</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Number<br>
+   Sets the inner radius of the second track.
+   The valid range is 0~1. The value for the gauge center is 0, and the value for the gauge edge is 1.
+    The default value is <code>0</code>.</td><td class="summaryTableOwnerCol">CircularGauge</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:secondTrackLabels"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">secondTrackLabels</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Array<br>
+   Sets the labels to be displayed in the second track.
+   </td><td class="summaryTableOwnerCol">CircularGauge</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:secondTrackLabelStyleName"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">secondTrackLabelStyleName</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>String<br>
+   Sets the style name for the second track label.
+   </td><td class="summaryTableOwnerCol">CircularGauge</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:secondTrackLabelsXOffset"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">secondTrackLabelsXOffset</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Array<br>
+   Sets the x-axis offset for the display location of the second track label.
+   </td><td class="summaryTableOwnerCol">CircularGauge</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:secondTrackLabelsYOffset"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">secondTrackLabelsYOffset</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Array<br>
+   Sets the y-axis offset for the display location of the second track label.
+   </td><td class="summaryTableOwnerCol">CircularGauge</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:secondTrackOuterRadius"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">secondTrackOuterRadius</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Number<br>
+   Sets the outer radius of the second track.
+   The valid range is 0~1. The value for the gauge center is 0, and the value for the gauge edge is 1.
+    The default value is <code>1</code>.</td><td class="summaryTableOwnerCol">CircularGauge</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:showDataTip"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">showDataTip</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Boolean &nbsp; <span class="label">CSS Inheritance: </span>no<br>
+  Indicates whether or not to display tooltips when mouse over the needle.
+   The default value is <code>true</code>.</td><td class="summaryTableOwnerCol">CircularGauge</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:showOutFrame"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">showOutFrame</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Boolean<br>
+  Indicates whether or not to display the region which is not contained between minimumAngle and maximumAngle.
+   The default value is <code>false</code>.</td><td class="summaryTableOwnerCol">CircularGauge</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:showSecondTickLabels"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">showSecondTickLabels</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Boolean<br>
+   Indicates whether or not to display the second tick label.
+    The default value is <code>false</code>.</td><td class="summaryTableOwnerCol">CircularGauge</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:showSecondTrackColor"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">showSecondTrackColor</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Array<br>
+   Indicates whether or not to display the second track between secondMinimum and secondMaximum.
+   </td><td class="summaryTableOwnerCol">CircularGauge</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:showSecondValueLabel"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">showSecondValueLabel</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Boolean<br>
+   Indicates whether or not to display the second value label.
+    The default value is <code>false</code>.</td><td class="summaryTableOwnerCol">CircularGauge</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:showTickLabels"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">showTickLabels</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Boolean &nbsp; <span class="label">CSS Inheritance: </span>no<br>
+  Indicates whether or not to display tick labels.
+   The default value is <code>true</code>.</td><td class="summaryTableOwnerCol">CircularGauge</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:showTrackColor"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">showTrackColor</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Boolean<br>
+  Indicates whether or not to display the track between the minimum and maximum values.
+   The default value is <code>false</code>.</td><td class="summaryTableOwnerCol">CircularGauge</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:showValueLabel"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">showValueLabel</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Boolean &nbsp; <span class="label">CSS Inheritance: </span>no<br>
+  Indicates whether or not to display value labels.
+   The default value is <code>true</code>.</td><td class="summaryTableOwnerCol">CircularGauge</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:tickFill"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">tickFill</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>mx.graphics.IFill &nbsp; <span class="label">CSS Inheritance: </span>no<br>
+  Sets the fill color of ticks.
+  </td><td class="summaryTableOwnerCol">CircularGauge</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:tickGap"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">tickGap</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Number &nbsp; <span class="label">Format: </span>Length &nbsp; <span class="label">CSS Inheritance: </span>no<br>
+  Sets the size of the margin between the frame border and ticks.
+   The default value is <code>4</code>.</td><td class="summaryTableOwnerCol">CircularGauge</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:tickLabelJsFunction"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">tickLabelJsFunction</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Object<br>
+  Sets the user-defined function for the tick label. The name of the JavaScript function.
+  </td><td class="summaryTableOwnerCol">CircularGauge</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:tickLabelPlacement"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">tickLabelPlacement</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>String &nbsp; <span class="label">CSS Inheritance: </span>no<br>
+  Sets the location of tick labels. If you set as tickLabelPosition="inside", labels will be displayed inside ticks. If you set as tickLabelPosition="outside", labels will be displayed outside ticks.
+  The valid values are inside and outside.
+   The default value is <code>inside</code>.</td><td class="summaryTableOwnerCol">CircularGauge</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:tickLabelStyleName"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">tickLabelStyleName</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>String &nbsp; <span class="label">CSS Inheritance: </span>no<br>
+  Sets the style name of the tick label.
+  </td><td class="summaryTableOwnerCol">CircularGauge</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:tickRadius"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">tickRadius</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Number &nbsp; <span class="label">Format: </span>Length &nbsp; <span class="label">CSS Inheritance: </span>no<br>
+  Sets the tick radius.
+   The default value is <code>4</code>.</td><td class="summaryTableOwnerCol">CircularGauge</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:tickStroke"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">tickStroke</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>mx.graphics.IStroke &nbsp; <span class="label">CSS Inheritance: </span>no<br>
+  Sets the line style of ticks.
+  </td><td class="summaryTableOwnerCol">CircularGauge</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:touchMoveEnable"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">touchMoveEnable</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Boolean<br>
+ <p>Indicates whether or not to create the touchMove event in the browser<br>
+ when users move a certain area of the chart with a finger.<br>
+ If the touchMove event is created in the browser<br>
+ then the chart can be scrolled when the touchMove event occurs<br>
+ otherwise the chart cannot be scrolled when the touchMove event occurs.</p>
+  The default value is <code>true</code>.</td><td class="summaryTableOwnerCol">CircularGauge</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:trackAlphas"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">trackAlphas</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Array &nbsp; <span class="label">CSS Inheritance: </span>no<br>
+  Sets the transparency of each color defined in trackColors.
+  </td><td class="summaryTableOwnerCol">CircularGauge</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:trackColors"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">trackColors</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Array &nbsp; <span class="label">CSS Inheritance: </span>no<br>
+  Sets the colors to be assigned to each value range in the track.
+  e.g. if you set as trackColors=[#FFFF00, #0000FF, #FF0000], then the each color will be assigned to the corresponding value range defined in trackValues.
+  </td><td class="summaryTableOwnerCol">CircularGauge</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:trackInnerRadius"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">trackInnerRadius</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Number &nbsp; <span class="label">CSS Inheritance: </span>no<br>
+  Sets the inner radius of the track.
+  The valid range is 0~1. The value for the gauge center is 0, and the value for the gauge edge is 1.
+   The default value is <code>0</code>.</td><td class="summaryTableOwnerCol">CircularGauge</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:trackLabels"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">trackLabels</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Array &nbsp; <span class="label">CSS Inheritance: </span>no<br>
+  Sets the labels to be displayed in the range between minimum and maximum.
+  </td><td class="summaryTableOwnerCol">CircularGauge</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:trackLabelsXOffset"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">trackLabelsXOffset</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Array<br>
+  <p>Sets the x-axis offset for the display location of labels.</p>
+  Array values. e.g. [0, 0.1, 0.2]<br>
+  If the value is "-1", then the label will be displayed at the left edge of the display box, and if the value is "1", then the label will be displayed at the right edge of the display box.
+  </td><td class="summaryTableOwnerCol">CircularGauge</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:trackLabelsYOffset"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">trackLabelsYOffset</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Array<br>
+  <p>Sets the y-axis offset for the display location of labels.</p>
+  Array values. e.g. [0, 0.1, 0.2]<br>
+  If the value is "-1", then the label will be displayed at the top edge of the display box, and if the value is "1", then the label will be displayed at the bottom edge of the display box.
+  </td><td class="summaryTableOwnerCol">CircularGauge</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:trackOuterRadius"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">trackOuterRadius</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Number &nbsp; <span class="label">CSS Inheritance: </span>no<br>
+  Sets the outer radius of the track.
+  The valid range is 0~1. The value for the gauge center is 0, and the value for the gauge edge is 1.
+   The default value is <code>1</code>.</td><td class="summaryTableOwnerCol">CircularGauge</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:trackValues"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">trackValues</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Array &nbsp; <span class="label">CSS Inheritance: </span>no<br>
+  Sets the value ranges to be used to display the different colors for each value range in the track. 
+  e.g. if you set as minimum="0", maximum="100" and trackValues=[0,50,80,100], then you can assign colors to 0~50, 50~80 and 80~100.
+  </td><td class="summaryTableOwnerCol">CircularGauge</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:valueLabelStyleName"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">valueLabelStyleName</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>String &nbsp; <span class="label">CSS Inheritance: </span>no<br>
+  Sets the style name of the value label.
+  </td><td class="summaryTableOwnerCol">CircularGauge</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:valueXOffset"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">valueXOffset</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Number &nbsp; <span class="label">Format: </span>Length &nbsp; <span class="label">CSS Inheritance: </span>no<br>
+  Sets the X-location offset of the text box which displays the gauge value.
+   The default value is <code>0</code>.</td><td class="summaryTableOwnerCol">CircularGauge</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol"><a name="style:valueYOffset"></a>&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<span class="signatureLink">valueYOffset</span>
+</div>
+</td><td class="summaryTableDescription"><span class="label">Type: </span>Number &nbsp; <span class="label">Format: </span>Length &nbsp; <span class="label">CSS Inheritance: </span>no<br>
+  Sets the Y-location offset of the text box which displays the gauge value.
+   The default value is <code>0</code>.</td><td class="summaryTableOwnerCol">CircularGauge</td>
+</tr>
+</table>
+</div>
+<script type="text/javascript" language="javascript">
+<!--
+showHideInherited();
+--></script>
+<div class="MainContent">
+<br>
+<br>
+<hr>
+<br>
+<p></p>
+<center class="copyright">Copyright(c) 2012 RiaMore Soft, Inc. All Right Reserved</center>
+</div>
+</body>
+</html>
+<!--Copyright(c) 2012 RiaMore Soft, Inc. All Right Reserved-->

@@ -1,0 +1,93 @@
+.sidebar-collapsible {
+	#menu {
+		overflow: hidden !important;
+		// .slim-scroll, .slimScrollDiv { overflow: hidden !important; }
+		> div {
+			position: absolute;
+			top: @navbarHeight;
+			bottom: @footerHeight;
+			width: 100%;
+		}
+		.slim-scroll > ul, > ul {
+			li {
+				overflow: hidden;
+			}
+			> li { 
+				overflow: hidden;
+				&.hasSubmenu, .hasSubmenu {
+					position: relative;
+					&.active {
+						height: auto;
+					}
+				}
+				> a {
+					&, &.glyphicons { padding: 0 @spacing/2 0 @spacing; }
+				}
+				ul {
+					margin: 0;
+					padding: 0;
+					ul {
+						background: darken(@navbarBg, 5%);
+					}
+					li {
+						height: @navbarHeight; 
+						line-height: @navbarHeight;
+						display: block;
+						padding: 0;
+						border-bottom: 1px solid @topnavBorder1;
+						a {
+							cursor: pointer;
+							display: block;
+							color: @navbarText;
+							font-weight: 600;
+							text-decoration: none;
+							padding: 0 @spacing/2 0 @spacing;
+							height: @navbarHeight;
+							line-height: @navbarHeight;
+							&.glyphicons {
+								/*padding: 0 @spacing/2 0 @spacing;*/
+								i {
+									padding: 0 24px 0 0;
+									display: block;
+									float: left;
+									width: 17px;
+									line-height: @navbarHeight; 
+									height: @navbarHeight;
+									&:before { 
+										color: @navbarText; 
+										font-size: 17px; 
+										position: relative; 
+										width: 17px; 
+										text-align: center; 
+										line-height: @navbarHeight; 
+										height: @navbarHeight; 
+										left: auto; 
+										right: auto; 
+									}
+								}
+							}
+						}
+					} 
+				}
+			}
+		}
+	}
+	.menu-hidden {
+		#menu {
+			.slim-scroll > ul, > ul {
+				> li { 
+					overflow: hidden;
+					&.hasSubmenu, .hasSubmenu {
+						position: relative;
+						&.active {
+							height: @navbarHeight;
+						}
+					}
+					> a {
+						&, &.glyphicons { padding: 0 @spacing; }
+					}
+				}
+			}
+		}
+	}
+}

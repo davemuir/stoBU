@@ -1,0 +1,173 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="Content-Script-Type" content="text/javascript"/>
+<meta http-equiv="Content-Style-Type" content="text/css"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>KoolChart for HTML5</title>
+<link rel="stylesheet" type="text/css" href="./KoolChartSample.css"/>
+
+<!--  If you want to support IE 7/8, you'll need the conditional excanvas include. -->
+<!--[if IE]><script language="javascript" type="text/javascript" src="../KoolChart/JS/excanvas.js"></script><![endif]-->
+
+<!-- License Key -->
+<script language="javascript" type="text/javascript" src="../LicenseKey/KoolChartLicense.js"></script>
+
+<!-- KoolChart JavaScript library -->
+<script language="javascript" type="text/javascript" src="../KoolChart/JS/KoolChart.js"></script>
+
+<!-- The CSS style for KoolChart (This CSS style is required for only Legend, Preloader, Scroll Chart and History Chart) -->
+<link rel="stylesheet" type="text/css" href="../KoolChart/Assets/Css/KoolChart.css"/>
+
+<script type="text/javascript">
+
+//----------------------- Here we start creating a chart. -----------------------
+
+//Sets the value of KoolOnLoadCallFunction to the name of a JS function (e.g. chartReadyHandler) that is called when the chart is ready to be created.
+var chartVars = "KoolOnLoadCallFunction=chartReadyHandler";
+
+//Creates the chart.
+//Parameters:  
+//1. Chart ID: You can use any name you like. 
+//2. DIV ID: The chart will be placed in this DIV.
+//3. chartVars: Variables used for creating the chart.
+//4. Chart width: Default value is 100%
+//5. Chart height: Default value is 100%
+KoolChart.create("chart1", "chartHolder", chartVars, "100%", "100%"); 
+
+//The JavaScript function which is set to the value of KoolOnLoadCallFunction.
+//This function will call two functions, setLayout() and setData() which are two main functions of KoolChart.
+//Parameters: 
+//1. ID: The Chart ID which is used as the first parameter of KoolChart.create().
+function chartReadyHandler(id) {
+	document.getElementById(id).setLayout(layoutStr);
+	document.getElementById(id).setData(chartData);
+}
+
+//Declares Layout
+var layoutStr = 
+				'<KoolChart backgroundColor="#FFFFFF" cornerRadius="12" borderStyle="none">'
+					+'<Options>'
+						+'<Legend horizontalGap="2" useVisibleCheck="true"/>'
+					+'</Options>'
+					+'<NumberFormatter id="numfmt" useThousandsSeparator="true"/>' 
+					+'<Plot2DChart showDataTips="true">'
+						+'<verticalAxis>'
+							+'<LinearAxis maximum="3500" interval="300" formatter="{numfmt}"/>'
+						+'</verticalAxis>'
+						+'<horizontalAxis>'
+							+'<LinearAxis maximum="2800"/>'
+						+'</horizontalAxis>'
+						+'<series>'
+							+'<Plot2DSeries xField="Profit" yField="Cost" radius="6" displayName="Profit/Cost">'
+								+'<stroke>'
+									+'<Stroke weight="1" color="#000000"/>'
+								+'</stroke>'
+								+'<showDataEffect>'
+									+'<SeriesZoom/>'
+								+'</showDataEffect>'
+							+'</Plot2DSeries>'
+							+'<Plot2DSeries labelPosition="both" xField="Profit" yField="Revenue" radius="6" displayName="Profit/Revenue">'
+								+'<stroke>'
+									+'<Stroke weight="1" color="#000000"/>'
+								+'</stroke>'
+								+'<showDataEffect>'
+									+'<SeriesZoom/>'
+								+'</showDataEffect>'
+							+'</Plot2DSeries>'
+							+'<Plot2DSeries xField="Revenue" yField="Cost" radius="6" displayName="Revenue/Cost">'
+								+'<stroke>'
+									+'<Stroke weight="1" color="#000000"/>'
+								+'</stroke>'
+								+'<showDataEffect>'
+									+'<SeriesZoom/>'
+								+'</showDataEffect>'
+							+'</Plot2DSeries>'
+							+'<Plot2DSeries xField="Revenue" yField="Profit" radius="6" displayName="Revenue/Profit">'
+								+'<stroke>'
+									+'<Stroke weight="1" color="#000000"/>'
+								+'</stroke>'
+								+'<showDataEffect>'
+									+'<SeriesZoom/>'
+								+'</showDataEffect>'
+							+'</Plot2DSeries>'
+						+'</series>'
+						+'<backgroundElements>'
+					/* 
+						backgroundElements and annotationElements are used to add an image to the background of the chart.
+						backgroundElements: The back layer of the series.
+						annotationElements: The front layer of the series.
+					*/
+							+'<GridLines direction="both" verticalChangeCount="1" horizontalChangeCount="1">'
+					/* 
+						The properties of GridLine
+						direction: horizontal - horizontal line, vertical - vertical line, both - horizontal line + vertical line
+						horizontalChangeCount: Filling the color by using horizontalFill and horizontalAlternateFill alternately by the number of times set as the value of the horizontalChangeCount property.
+						horizontalStroke: The color of the line between horizontalFill and horizontalAlternateFill.
+						horizontalFill: The initial fill color.
+						horizontalAlternateFill: The alternate fill color.
+					*/
+								+'<horizontalStroke>'
+									+'<Stroke color="#999999" alpha="0.5" weight="1"/>'
+									/* color: hexadecimal color code, alpha: transparency, weight: thickness */
+								+'</horizontalStroke>' 
+								+'<horizontalFill>'
+									+'<SolidColor color="#EEEEEE" alpha="0.5"/>'
+									/* color: hexadecimal color code, alpha: transparency */
+								+'</horizontalFill>' 
+								+'<horizontalAlternateFill>'
+									+'<SolidColor color="#FFFFFF" alpha="0.5"/>'
+									/* color: hexadecimal color code, alpha: transparency */
+								+'</horizontalAlternateFill>'
+								+'<verticalStroke>'
+									+'<Stroke color="#999999" alpha="0.5" weight="1"/>'
+								+'</verticalStroke>'
+								+'<verticalFill>'
+									+'<SolidColor color="#FFFFFF" alpha="0.5"/>'
+								+'</verticalFill>' 
+								+'<verticalAlternateFill>'
+									+'<SolidColor color="#EEEEEE" alpha="0.5"/>'
+								+'</verticalAlternateFill>' 
+								+'<horizontalOriginStroke>'
+									+'<Stroke color="#999999" alpha="0" weight="1"/>'
+								+'</horizontalOriginStroke>'
+							+'</GridLines>'
+							+'<Image source="http://www.riamore.net/image/riamoreMain2.jpg" maintainAspectRatio="false" alpha="0.5"/>'
+						/* 
+							The properties of the Image node
+							source: the url of the image file
+							maintainAspectRation: Whether or not the aspect ratio is the same as the original image. 
+							If it is true, the chart will try to keep the resolution ratio of the original image otherwise, the chart will adjust the image to fit the size of the chart.
+							alpha: the transparency of the image.
+						*/	
+						+'</backgroundElements>'
+					+'</Plot2DChart>'
+				+'</KoolChart>';
+
+// Declares Dataset
+var chartData = [{"Month":"Jan","Profit":1000,"Cost":1500,"Revenue":2500},
+				{"Month":"Feb","Profit":1400,"Cost":1400,"Revenue":2800},
+				{"Month":"Mar","Profit":1500,"Cost":1200,"Revenue":2700},
+				{"Month":"Apr","Profit":1900,"Cost":1300,"Revenue":3200},
+				{"Month":"May","Profit":1400,"Cost":900,"Revenue":2300},
+				{"Month":"Jun","Profit":2000,"Cost":1000,"Revenue":3000}];
+
+//----------------------- The end of the configuration for creating a chart. -----------------------
+
+</script>
+</head>
+<body>
+	<div id="content">
+		<!-- The DIV in which the chart is placed -->
+		<div id="chartHolder" style="width:600px; height:400px;">
+		</div>
+	</div>
+	<div id="footer">	
+		<font size="3"><b>This sample is to display lines and the background image.</b></font>
+<pre>
+<font color="#ff0000">Please refer to the part of backgroundElements in the Layout below for the details.</font>
+</pre>
+		</div>
+</body>
+</html>

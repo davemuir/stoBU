@@ -1,0 +1,483 @@
+@media (max-device-width: 481px) and (max-device-width: 767px) {
+  #preNav li a{
+    font-size:10px !important;
+    margin-left:80px;
+    margin-bottom:10px !important;
+  }
+     .navbar{
+    max-height: 120px !important;
+    height: 120px !important;
+    min-height:120px !important;
+  }
+  .navbar img{
+    min-height:96px !important;
+    padding:10px;
+  }
+    #clock{
+    display:none;
+  }
+}
+/*---------------Mobile Style sheet portrait---------------*/
+@media (max-device-width: 480px) {
+   .navbar{
+    max-height: 70px !important;
+    height: 70px !important;
+    min-height:70px !important;
+  }
+  #in_outDashboard{
+    background:rgba(0,0,0,0);
+  }
+  #preNav li:first-child{
+    margin-top:0px !important;
+  }
+  .navbar img{
+    min-height:72px !important;
+    padding:10px;
+  }
+  .navbar-brand{
+    padding:0px 0px 0px 0px !important;
+  }
+  #clock{
+    display:none;
+  }
+  .navbar-header {
+  width: 40%;
+  }
+  #menuSideBarIcon{
+     width: 30px !important;
+    padding: 0px 5px;
+    height: 70px !important;
+    float: right;
+  }
+  #preNav{
+    width:40%;
+    max-width:none !important;
+    z-index:999999995;
+  }
+  #preNav li a{
+    font-size:14px !important;
+    margin-left:45px;
+    margin-bottom:70px !important;
+  }
+  #preNav li{
+    padding: 14px 10px !important;
+  }
+  #preNav .icon{
+    width:35px;
+    height:35px;
+  }
+  h1{
+    font-size:32px !important;
+  }
+  .container{
+    padding-left:20px !important;
+    padding-right:20px !important;
+  }
+  .item .icon{
+      width: 40px !important;
+      height: 40px !important;
+  }
+  .item h2,#todayCount, #inCount, #visitorCount{
+    font-size:22px !important;
+  }
+  .item h2{
+    padding-bottom:20px;
+  }
+  .itemFooter{
+    min-height: 50px !important;
+  }
+  .item{
+    margin-bottom:20px !important;
+  }
+  .itemContainer{
+    height:100px !important;
+    padding:20px !important;
+    bottom: 0;
+
+  }
+  .itemContainer:first-child{
+    height:80px !important;
+  }
+  .itemFooter2{
+      min-height: 100px !important;
+  }
+  .itemContainer .carousel-indicators{
+     top: 30px !important;
+  }
+  .itemContainer2 .carousel-indicators{
+     bottom:0 !important;
+     top:165px !important;
+  }
+  #carousel-users .icon, #carousel-campaigns .icon, #carousel-beacons .icon{
+       width: 146px !important;
+      height: 146px !important;
+  }
+  .itemLabels{
+    font-size:22px !important;
+  }
+  .col-md-4{
+      margin-bottom: 20px;
+  }
+  .carousel-indicators li{
+    width:20px !important;
+    height:20px !important;
+  }
+  #inOutProxContainer{
+      max-height: 450px !important;
+      min-height: 450px !important;
+  }
+  .trendBox{
+      max-height: 200px !important;
+      min-height: 200px !important;
+  }
+  #trendScroll{
+    max-height: 580px !important;
+  }
+  .term{
+    font-size:22px !important;
+  }
+  .itemHeader{
+    font-size:38px !important;
+  }
+  .leftSide,.rightSide {
+      width: 100% !important;
+  }
+  .leftSide{
+      min-height: 400px !important;
+  }
+  .rightSide{
+      overflow-y: scroll !important;
+      height: 400px !important;
+  }
+  .itemContainer4{
+    min-height: 600px !important;
+      overflow: hidden;
+  }
+  .profileCircle{
+    width: 50px !important;
+    height: 50px !important;
+  }
+  .profileCircle img{
+    width: 70px !important;
+    min-height: 70px !important;
+      padding: 0 !important;
+  }
+  .arrow-down{
+    margin-top:32px !important;
+  }
+  .dashName{
+    margin-top: 22px;
+    font-size:18px !important;   
+  }
+  .dashRight{
+    width:50% !important;
+    margin-right: 10px !important;
+    margin-top:-55px;
+  }
+  .dashRightMenu{
+      width: 35% !important;
+  }
+  .dashRightMenu a{
+    font-size:14px;
+  }
+  .dashRightMenu li{
+    padding: 0px 20px 12px 15px !important;
+  }
+  .dashRightMenu ul li:first-child {
+  margin-top: 20px;
+  }
+  .ulContainer .proximityItem {
+      text-align: center;
+  }
+  .proximityItem p{
+      font-size: 12px !important;
+      max-height: 37px !important;
+  }
+  #map-canvas{
+    height:200px !important;
+  }
+
+  /*----LOCATION ------- */
+  .locationBox{
+    padding:30px 0px !important;
+    min-height:100px !important;
+  }
+  .locationIcon{
+    text-align: center;
+  }
+  .locationTerm{
+      font-size: 14px !important;
+  }
+  #locationMapCanvasContainer{
+    height:230px !important;
+    padding: 37px 4px !important;
+  }
+  #mainInnerContent {
+  width: 100% !important;
+  }
+  h4{
+    font-size:22px !important;
+    margin: 8px 0px 40px 0px !important;
+  }
+
+  /*----------BEAM MANAGER--------*/
+  #rootwizard.setupBeacon .navbar{
+    margin-top:56px !important;
+  }
+  .tableArea{
+      background:rgba(0,0,0,0) !important;
+      padding: 0px 7px !important;
+      min-width:200px !important;
+  }
+  .imageGrid{
+    padding: 0px 7px !important;
+  }
+  .recyclingBin{
+    width:7%;
+  }
+  .recyclingBinHidden{
+      height: 37px !important;
+      margin-top: -32px !important;
+      margin-right: 0 !important;
+  }
+  .innerLR{
+    padding-left:0 !important;
+    padding-right:0 !important;
+  }
+  #perkTable,#crmUsersTable,#beaconMonitor{
+    font-size:12px !important;
+  }
+  #perkTable .icon-bin, #perkTable .icon-editicon-01, #crmUsersTable .icon-bin, #crmUsersTable .icon-editicon-01, #beaconMonitor .icon-bin, #beaconMonitor .icon-editicon-01{
+    width:18px !important;
+    height:18px !important;
+  }
+  #perkTable tr td:first-child{
+    font-size: 10px !important;
+    line-height: 1.7 !important;
+    white-space: nowrap;
+  overflow: hidden;
+  }
+  #perkTable tr td:nth-last-child(3){
+    width:50%;
+  }
+  .panel-heading{
+    font-size: 18px !important;
+  }
+  .dataTables_length label,.dataTables_wrapper .dataTables_info,.dataTables_wrapper .dataTables_paginate{
+    font-size: 14px !important;
+  }
+  .dataTables_filter input, .dataTables_filter label{
+    font-size: 14px !important;
+    width:100%;
+    text-align:left;
+  }
+  .beamContainer{
+    padding-right:20px;
+    padding-left:20px;
+  }
+  .beamRow label, .beamRow input, #tabsarea input, #tabsarea label, #campaignRoot #rootwizard .form-control, #campaignRoot #rootwizard h6{
+    font-size:16px !important;
+  }
+  #beamLabel, #beamTitle, #tabsarea input  {
+    margin-bottom:20px !important;
+    height:40px !important;
+  }
+  #campaignRoot #rootwizard .form-control{
+    margin-bottom:0px !important;
+    height:60px !important;
+  }
+  #field_wrap{
+    font-size:10px !important;
+  }
+  #iphonePreview{
+    width: 332px;
+    height: 700px;
+    background-size:cover;
+    background-repeat:no-repeat;
+  }
+  #beamForm .whitePanel, .beamContainer .whitePanel{
+    margin:0 !important;
+  }
+  #iphonePreview .container{
+    padding:0px !important;
+    margin-top:133px;
+    width:282px !important;
+    height:450px;
+  }
+  .perkHeader h3{
+     font-size:30px !important;
+  }
+  #logoBtn, .sendBeamButtonContainer #cancelBeam, #submitMe, #sendBeam, #addNewUser,#go{
+    font-size:16px;
+  }
+  #go{
+    margin-top: -16px;
+  }
+  .perkDesc p{
+    font-size:22px !important;
+  }
+  .icon-plus, .icon-camera {
+     width: 25px !important;
+  height: 25px !important;
+  margin-top: -5px !important;
+  }
+  .icon-adduser-02, .icon-upload{
+    width: 40px !important;
+    height: 40px !important;
+  }
+  #crmTab{
+      margin-top: -100px !important;
+  }
+  #tabsarea{
+    margin-top:60px !important;
+  }
+  #crmTabContent {
+    min-height:550px !important;
+  }
+  #rootwizard.setupBeacon p{
+    font-size:25px !important;
+  }
+  /*-----campaigns-----*/
+  #campaignRoot #rootwizard #tab1 .col-sm-6{
+    width:100% !important;
+  }
+   #campaignRoot #rootwizard #tab1 p{
+    padding-bottom: 60px !important;
+  }
+  .glyphicon-calendar{
+    font-size: 32px;
+  }
+  .labelIcons{
+    font-size:14px !important;
+  }
+  .progress{
+    margin-top:30px;
+  }
+  /*----Beacons----*/
+  #beaconMonitor td, #beaconMonitor_wrapper, .table{
+    font-size:12px !important;
+  }
+  #campaignTable .label-primary{
+      clear: both;
+      float: left;
+
+  }
+  #campaignTable tr td:nth-last-child(4), #campaignTable tr th:nth-last-child(4){
+    display:none;
+  }
+  .nav-pills>li {
+  width: 32.5% !important;
+  }
+  .locationRootWizard .nav-pills li a .icon{
+    width:35px !important;
+    height:35px !important;
+  }
+  .locationRootWizard{
+     margin-top:20px;
+  }
+  .custom-header{
+    font-size:9px !important;
+  }
+
+  /*--campaigns----*/
+   .campaignRootWizard .nav-pills li a .icon{
+    width:35px !important;
+    height:35px !important;
+  }
+  .campaignRootWizard .nav-pills>li {
+  width: 24.5% !important;
+  }
+  #entryTitle{
+    font-size:14px;
+  }
+
+  /*NETWORKING*/
+  .innerForm input{
+    width: 100% !important;
+  }
+  #crmTabContent{
+    min-height: 420px !important;
+  }
+  #crmUsersTable tr td:nth-last-child(3), #crmUsersTable tr th:nth-last-child(3){
+    display:none;
+  }
+  .networkingAction{
+   width: 186px !important;
+  position: relative !important;
+  height: 50px !important;
+  margin-top: 20px !important;
+  }
+  /*---------------Beacons---------------*/
+  #beaconMonitor td{
+    font-size:12px !important;
+  }
+  #beaconMonitor .icon-bin, #beaconMonitor .icon-editicon-01{
+    width:35px !important;
+    height:35px !important;
+  }
+  .dataTables_wrapper{
+    overflow:hidden;
+  }
+
+  #beaconMonitor td:nth-last-child(5), #beaconMonitor th:nth-last-child(5){
+    display:none !important;
+  }
+  #beaconMonitor .icon{
+      width: 18px !important;
+      height: 18px !important;
+  }
+
+  #rootwizard.setupBeacon .navbar{
+    margin-top:30px !important;
+  }
+    #rootwizard.setupBeacon p, #rootwizard.setupBeacon h6, #rootwizard.setupBeacon input, #submitBeacon{
+    font-size:14px !important;
+  }
+  #rootwizard.setupBeacon input, #beaconManufacturerDropdown, #locationDropdown{
+    height:60px !important;
+    font-size: 14px !important;
+  }
+  #rootwizard.setupBeacon h2{
+    font-size: 18px !important;
+  }
+  #rootwizard.setupBeacon p{
+    font-size:14px !important;
+  }
+  #tab2 .col-sm-6{
+    width:100% !important;
+  }
+  #locationDropdownMenu{
+    padding:8px;
+   
+  }
+  #locationDropdownMenu li{
+    margin:10px 0px;
+     font-size:22px;
+  }
+  #tab3 li{
+    font-size:26px;
+  }
+  #reviewZone{
+    width:100%;
+  }
+  .pager a{
+    font-size:26px !important;
+  }
+  #rootwizard.setupBeacon .nav-pills li a .icon{
+     width: 35px !important;
+    height: 35px !important;
+  }
+  .setupBeacon #tab3 li{
+    font-size: 12px !important;
+  }
+  #beaconManufacturerDropdown{
+    margin-top:20px;
+    
+  }
+  .beaconDropDownDiv{
+    clear: both;
+  }
+  .beaconDropDownDetails{
+    display:none !important;
+  }
+}

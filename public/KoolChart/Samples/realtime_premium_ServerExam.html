@@ -1,0 +1,124 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="Content-Script-Type" content="text/javascript"/>
+<meta http-equiv="Content-Style-Type" content="text/css"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>rMate Chart for HTML5 - RealTime chart</title>
+</head>
+<body>
+<pre>
+//*******************************************************************************
+//
+//  The server-side example of the Real-time premium chart.
+//
+// http://www.koolchart.com/realtimeSample/hourDataToday.php
+//
+//----------------------------------------------------------------------------------
+// The descriptions of how it works
+//----------------------------------------------------------------------------------
+//
+// The data in this example is based on arbitrary random data.
+// requestAllData = true, generates the data every 5 seconds from "hour:00" until "hour:minute".
+// requestAllData = false, generates only one data corresponding to the time "hour:minute".
+// As the value of the interval property of &lt;RPCItem&gt; is 5, 
+// the chart receives the data from the server every 5 seconds and adds the newly received data to the existing data.
+// At the time when &lt;nextInitDate&gt;, all data will be deleted and requested again. (refresh)
+//
+//
+//  Copy the following URLs into your browser and try to print out.
+//
+//  http://www.koolchart.com/realtimeSample/hourDataToday.php?requestAllData=true
+//
+//  http://www.koolchart.com/realtimeSample/hourDataToday.php?requestAllData=false
+//
+//
+//---------------------------------------------------------------------------------
+// The descriptions of the parameters.
+//----------------------------------------------------------------------------------
+//
+// requestAllData: Whether or not the chart requests all data.
+//	This parameter is used to determine the data refresh time.
+//	If the value of requestAllData is true, RPC occurrs when the following conditions are met.
+//					
+//	1. When the initial loading is finished, the first RPC request occurrs.
+//	2. At the time when  &lt;nextInitDate&gt;.
+//		
+//	If "requestAllData=true", you should set the value of the isInitData property in the infoMsg node to true at the server side. 
+//	(&lt;isInitData&gt;true&lt;/isInitData&gt;).
+//	If "requestAllData=false",  &lt;isInitData&gt;false&lt;/isInitData&gt;
+//
+//
+// index: Indicates the index of the recently received data.
+// 	By using the index, you can minimise the duplication of data.
+// 	The client chart maintains the index of the last data received from the server. 
+// 	By passing the index as a parameter when the next data request, the server can easily find the next data to send.
+//
+// dummy: This value is for avoiding the cache problem of IE.
+// 	It indicates the milliseconds time from 00:00, January 1st, 1970 until the current time. 
+//	(This time is based on the client time).
+//
+//
+//-----------------------------------------------------------------------------------
+// XML writing rules.
+//-----------------------------------------------------------------------------------
+//
+// The following rules must be followed to write the XML sent to the client.
+//
+// 	Rule 1. The infoMsg node and its sub-node information must be required.
+//	Rule 2. The data should be enclosed in the item node.
+//
+//
+//------------------------------------------------------------------------------------
+// The descriptions of the sample XML.
+//------------------------------------------------------------------------------------
+// 
+//	The data in this example is based on arbitrary random data (not the data from database)
+// 
+//	The display results of the XML are different based on the value of requestAllData.
+//
+// 
+//	1. requestAllData = false,
+//	  Generates the XML for one data item.
+//	  The newly received data is added to the existing data.
+//
+//	2. requestAllData = true,
+//	  On the initial loading of the chart, The client requests data from the server with the parameter, "requestAllData=true"
+//	  In this sample, the server will send the cumulative data from the current time, "hour:00" until the time, "hour:minute".
+//	  At the time when &lt;nextInitDate&gt;, the client sends the request again with the parameter, "requestAllData = true".
+//
+//
+// 3. The descriptions of the infoMsg node.
+//
+//		1) index node
+//		  The index parameter is not used in this example. 
+//		  But this parameter is useful by passing the unique ID of the most recently received index.
+//		  The server can easily find the next data to send by using this parameter.
+//
+//		2) timeNow node
+//		  It indicates the current time of the server. This parameter is used to determine the data refresh time.
+//		  If you omit this parameter, the data refresh time will be determined by comparing the client time with endDate.
+//		  In other words, if you do not set the timeNow node, the refresh time of each client could be different.
+//
+//		3) isInitData node
+//		  If you have the request with the parameter, "requestAllData = true", you set the value of the isInitData node to true.
+//
+//		4) startDate node
+//		  The initial time displayed in the chart.
+//		  If you omit this parameter, the chart will display the initial time based on the time of the initial data loading.
+//
+//		5) endDate node
+//		  The last time displayed in the chart.
+//
+//		6) nextInitDate node
+//		  At the time when &lt;nextInitDate&gt;, the data is refreshed. The request is sent with the parameter, "requestAllData=true".
+//		  This value is related with the current time and the timeNow node.
+//		  For example, If the chart displays the data created one month ago every 10 minutes and it has finished displaying the endDate data at a certain time, 
+//		  the data request will be sent based on this time with the parameter, "requestAllData=true"
+//
+//****************************************************************************************************************************
+ 
+</pre>
+</body>
+</html>

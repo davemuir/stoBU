@@ -1,0 +1,752 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="Content-Script-Type" content="text/javascript"/>
+<meta http-equiv="Content-Style-Type" content="text/css"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>KoolChart for HTML5 - Candlestick Chart</title>
+<link rel="stylesheet" type="text/css" href="./KoolChartSample.css"/>
+
+<!--  If you want to support IE 7/8, you'll need the conditional excanvas include. -->
+<!--[if IE]><script language="javascript" type="text/javascript" src="../KoolChart/JS/excanvas.js"></script><![endif]-->
+
+<!-- License Key -->
+<script language="javascript" type="text/javascript" src="../LicenseKey/KoolChartLicense.js"></script>
+
+<!-- KoolChart JavaScript library -->
+<script language="javascript" type="text/javascript" src="../KoolChart/JS/KoolCandleChart.js"></script>
+
+<!-- The CSS style for KoolChart (This CSS style is required for only Legend, Preloader, Scroll Chart and History Chart) -->
+<link rel="stylesheet" type="text/css" href="../KoolChart/Assets/Css/KoolChart.css"/>
+
+<!-- Theme.js -->
+<script type="text/javascript" src="../KoolChart/Assets/Theme/theme.js"></script>
+
+<script type="text/javascript">
+
+//----------------------- Here we start creating a chart. -----------------------
+
+//Sets the value of KoolOnLoadCallFunction to the name of a JS function (e.g. chartReadyHandler) that is called when the chart is ready to be created.
+var chartVars = "KoolOnLoadCallFunction=chartReadyHandler";
+
+//Creates the chart.
+//Parameters:  
+//1. Chart ID: You can use any name you like. 
+//2. DIV ID: The chart will be placed in this DIV.
+//3. chartVars: Variables used for creating the chart.
+//4. Chart width: Default value is 100%
+//5. Chart height: Default value is 100%
+KoolChart.create("chart1", "chartHolder", chartVars, "100%", "100%"); 
+
+//The JavaScript function which is set to the value of KoolOnLoadCallFunction.
+//This function will call two functions, setLayout() and setData() which are two main functions of KoolChart.
+//Parameters: 
+//1. ID: The Chart ID which is used as the first parameter of KoolChart.create().
+function chartReadyHandler(id) {
+	document.getElementById(id).setLayout(layoutStr);
+	document.getElementById(id).setData(chartData);
+}
+
+
+//Number of visible items in the chart
+var visibleItemSize = 50;
+
+//Base value
+var baseValue = 1280000;
+
+//Declares Layout
+var layoutStr = '<KoolChart backgroundColor="0xFFFFFF" cornerRadius="12" borderStyle="none">'
+					+'<Options>'
+						+'<Caption text="Sets the line and fill colors based on the value." fontFamily="Malgun Gothic"/>'
+					+'</Options>'
+					+'<NumberFormatter id="nft" precision="0"/>'
+					/*	
+						Sets DualChart
+						mainChart - Sets the main chart in DualChart.
+						subChart - Sets the sub-chart in DualChart.
+						dataSelector - Sets the amount of the data shown in the candlestick chart.
+						leftGutterSyncEnalbe - Adjusts the left margin of mainChart and subChart.
+						rightGuttersSyncEnable - Adjusts the right margin of mainChart and subChart.
+					*/
+					+'<DualChart leftGutterSyncEnable="true" rightGutterSyncEnable="true">'
+						+'<mainChart>'
+						/* Defines CandleArea2DChart */
+							+'<CandleArea2DChart showDataTips="true" paddingBottom="0" dataTipJsFunction="dataTipFunc">'
+								+'<horizontalAxis>'
+									+'<CategoryAxis id="hAxis" categoryField="date" padding="1.5" labelJsFunction="labelFunc"/>'
+								+'</horizontalAxis>'
+								+'<verticalAxis>'
+									+'<LinearAxis id="vAxis" baseAtZero="false" formatter="{nft}"/>'
+								+'</verticalAxis>'
+								+'<series>'
+								/*	
+									Defines CandleArea2DSeries
+									yField - Sets the field name for the data.
+									baseLineMode - Draws the line with different colors based on the fact that the value is higher or lower than the value of the baseline.
+									baseValue - Sets the value of the baseline
+								*/
+									+'<CandleArea2DSeries yField="open" baseLineMode="true" baseValue="'+baseValue+'">'
+									// Sets the line color for the value which is higher than the value of the baseline.
+										+'<areaStroke>'
+											+'<Stroke color="#ff0000"/>'
+										+'</areaStroke>'
+										// Sets the fill color for the value which is higher than the value of the baseline.
+										+'<areaFill>'
+											+'<SolidColor color="#ff0000" alpha="0.5"/>'
+										+'</areaFill>'
+										// Sets the line color for the value which is lower than the value of the baseline.
+										+'<areaDeclineStroke>'
+											+'<Stroke color="#0000ff"/>'
+										+'</areaDeclineStroke>'
+										// Sets the fill color for the value which is lower than the value of the baseline.
+										+'<areaDeclineFill>'
+											+'<SolidColor color="#0000ff" alpha="0.5"/>'
+										+'</areaDeclineFill>'
+										// Sets the fill color of itemRenderer whose value is lower than the value of the baseline.
+										+'<declineFill>'
+											+'<Stroke color="#0000ff"/>'
+										+'</declineFill>'
+									+'</CandleArea2DSeries>'
+								+'</series>'
+								+'<horizontalAxisRenderers>'
+									+'<Axis2DRenderer placement="bottom" axis="{hAxis}" showLine="true" tickLength="0"/>'
+								+'</horizontalAxisRenderers>'
+								+'<annotationElements>'
+								/*	
+									Defines crosshairs
+									syncCrossRangeZoomer - Draws crosshairs in the sub-chart by referencing the id of CrossRangeZoomer and using the data in the main chart.
+								*/
+									+'<CrossRangeZoomer id="candleCRZ" enableZooming="false" syncCrossRangeZoomer="{columnCRZ}" zoomType="both" horizontalLabelFormatter="{nft}"/>'
+								+'</annotationElements>'
+							+'</CandleArea2DChart>'
+						+'</mainChart>'
+						+'<subChart>'
+						// Sets the size of the sub-chart. (Sets the height of the column2D chart to 20% of the total size.)
+							+'<Column2DChart showDataTips="true" height="20%" paddingTop="0" paddingBottom="0" gutterTop="4">'	
+								+'<horizontalAxis>'
+									+'<CategoryAxis id="hAxis2" categoryField="date" padding="1.5"/>'
+								+'</horizontalAxis>'
+								+'<verticalAxis>'
+									+'<LinearAxis id="vAxis2" formatter="{nft}"/>'
+								+'</verticalAxis>'
+								+'<series>'
+									+'<Column2DSeries yField="admnt" itemRenderer="BoxItemRenderer">'
+										+'<fill>'
+											+'<SolidColor color="#00c0c7"/>'
+										+'</fill>'
+									+'</Column2DSeries>'
+								+'</series>'
+								+'<horizontalAxisRenderers>'
+									+'<Axis2DRenderer axis="{hAxis2}" showLabels="false" showLine="true" tickLength="0"/>'
+								+'</horizontalAxisRenderers>'
+								+'<annotationElements>'
+								/*	
+									Defines crosshairs
+									syncCrossRangeZoomer - Draws crosshairs in the main chart by referencing the id of CrossRangeZoomer and using the data in the sub-chart.
+								*/
+									+'<CrossRangeZoomer id="columnCRZ" syncCrossRangeZoomer="{candleCRZ}" zoomType="both" verticalLabelPlacement="top" horizontalLabelFormatter="{nft}" enableZooming="false"/>'
+								+'</annotationElements>'
+							+'</Column2DChart>'
+						+'</subChart>'
+						+'<dataSelector>'
+						/*
+							DualScrollBar - Defines DualScrollBar to create the scroll bars in the main chart and the sub-chart.
+							visibleItemSize - Sets the number of item shown in the chart.
+							inverted - Sets the direction to reverse for the scroll.
+						*/
+							+'<DualScrollBar inverted="true" visibleItemSize="'+visibleItemSize+'"/>'
+						+'</dataSelector>'
+					+'</DualChart>'
+				+'</KoolChart>';
+
+//Declares Dataset
+var chartData = [{"date":"20110812","open":721000,"high":722000,"low":700000,"close":707000,"admnt":677828},
+{"date":"20110816","open":735000,"high":750000,"low":726000,"close":750000,"admnt":601622},
+{"date":"20110817","open":751000,"high":760000,"low":741000,"close":752000,"admnt":293405},
+{"date":"20110818","open":748000,"high":749000,"low":703000,"close":709000,"admnt":708503},
+{"date":"20110819","open":688000,"high":697000,"low":672000,"close":680000,"admnt":580713},
+{"date":"20110822","open":684000,"high":702000,"low":683000,"close":691000,"admnt":418952},
+{"date":"20110823","open":700000,"high":735000,"low":699000,"close":723000,"admnt":492913},
+{"date":"20110824","open":724000,"high":735000,"low":700000,"close":708000,"admnt":370403},
+{"date":"20110825","open":737000,"high":738000,"low":721000,"close":725000,"admnt":381135},
+{"date":"20110826","open":717000,"high":734000,"low":717000,"close":726000,"admnt":212815},
+{"date":"20110829","open":742000,"high":742000,"low":724000,"close":733000,"admnt":260440},
+{"date":"20110830","open":741000,"high":748000,"low":736000,"close":742000,"admnt":252964},
+{"date":"20110831","open":747000,"high":747000,"low":731000,"close":744000,"admnt":290229},
+{"date":"20110901","open":759000,"high":788000,"low":744000,"close":771000,"admnt":717411},
+{"date":"20110902","open":765000,"high":781000,"low":763000,"close":769000,"admnt":258682},
+{"date":"20110905","open":755000,"high":756000,"low":730000,"close":731000,"admnt":277488},
+{"date":"20110906","open":726000,"high":736000,"low":710000,"close":727000,"admnt":264505},
+{"date":"20110907","open":733000,"high":778000,"low":733000,"close":773000,"admnt":351504},
+{"date":"20110908","open":780000,"high":802000,"low":778000,"close":798000,"admnt":574914},
+{"date":"20110909","open":785000,"high":812000,"low":777000,"close":780000,"admnt":361802},
+{"date":"20110914","open":780000,"high":781000,"low":741000,"close":753000,"admnt":551101},
+{"date":"20110915","open":784000,"high":784000,"low":765000,"close":771000,"admnt":426593},
+{"date":"20110916","open":794000,"high":811000,"low":792000,"close":798000,"admnt":476632},
+{"date":"20110919","open":800000,"high":814000,"low":788000,"close":808000,"admnt":246920},
+{"date":"20110920","open":811000,"high":818000,"low":796000,"close":811000,"admnt":281014},
+{"date":"20110921","open":819000,"high":828000,"low":801000,"close":813000,"admnt":341563},
+{"date":"20110922","open":796000,"high":800000,"low":778000,"close":790000,"admnt":307008},
+{"date":"20110923","open":764000,"high":780000,"low":751000,"close":758000,"admnt":437123},
+{"date":"20110926","open":760000,"high":787000,"low":759000,"close":775000,"admnt":480907},
+{"date":"20110927","open":805000,"high":805000,"low":791000,"close":804000,"admnt":331600},
+{"date":"20110928","open":824000,"high":825000,"low":791000,"close":807000,"admnt":486551},
+{"date":"20110929","open":804000,"high":848000,"low":804000,"close":837000,"admnt":553981},
+{"date":"20110930","open":830000,"high":840000,"low":811000,"close":840000,"admnt":516023},
+{"date":"20111004","open":805000,"high":832000,"low":796000,"close":828000,"admnt":658616},
+{"date":"20111005","open":824000,"high":850000,"low":817000,"close":842000,"admnt":644036},
+{"date":"20111006","open":874000,"high":879000,"low":842000,"close":855000,"admnt":600160},
+{"date":"20111007","open":865000,"high":881000,"low":850000,"close":860000,"admnt":530423},
+{"date":"20111010","open":878000,"high":885000,"low":872000,"close":874000,"admnt":345316},
+{"date":"20111011","open":885000,"high":885000,"low":869000,"close":881000,"admnt":459031},
+{"date":"20111012","open":872000,"high":899000,"low":870000,"close":898000,"admnt":432600},
+{"date":"20111013","open":898000,"high":899000,"low":881000,"close":890000,"admnt":325563},
+{"date":"20111014","open":871000,"high":894000,"low":871000,"close":886000,"admnt":217319},
+{"date":"20111017","open":890000,"high":895000,"low":881000,"close":890000,"admnt":213700},
+{"date":"20111018","open":875000,"high":893000,"low":871000,"close":883000,"admnt":277012},
+{"date":"20111019","open":885000,"high":886000,"low":870000,"close":886000,"admnt":214254},
+{"date":"20111020","open":886000,"high":920000,"low":883000,"close":907000,"admnt":569192},
+{"date":"20111021","open":920000,"high":925000,"low":907000,"close":917000,"admnt":466429},
+{"date":"20111024","open":913000,"high":943000,"low":911000,"close":941000,"admnt":376214},
+{"date":"20111025","open":936000,"high":951000,"low":935000,"close":945000,"admnt":365737},
+{"date":"20111026","open":933000,"high":946000,"low":927000,"close":934000,"admnt":250360},
+{"date":"20111027","open":929000,"high":939000,"low":919000,"close":924000,"admnt":349475},
+{"date":"20111028","open":928000,"high":946000,"low":927000,"close":945000,"admnt":537992},
+{"date":"20111031","open":941000,"high":970000,"low":933000,"close":968000,"admnt":476217},
+{"date":"20111101","open":968000,"high":999000,"low":962000,"close":990000,"admnt":620094},
+{"date":"20111102","open":970000,"high":978000,"low":966000,"close":971000,"admnt":569636},
+{"date":"20111103","open":962000,"high":971000,"low":958000,"close":967000,"admnt":328782},
+{"date":"20111104","open":983000,"high":1005000,"low":982000,"close":1005000,"admnt":535139},
+{"date":"20111107","open":996000,"high":1000000,"low":986000,"close":993000,"admnt":280586},
+{"date":"20111108","open":986000,"high":990000,"low":965000,"close":970000,"admnt":341584},
+{"date":"20111109","open":970000,"high":988000,"low":966000,"close":985000,"admnt":386372},
+{"date":"20111110","open":967000,"high":973000,"low":935000,"close":935000,"admnt":624218},
+{"date":"20111111","open":945000,"high":984000,"low":930000,"close":983000,"admnt":486576},
+{"date":"20111114","open":988000,"high":1002000,"low":987000,"close":996000,"admnt":282989},
+{"date":"20111115","open":986000,"high":1000000,"low":980000,"close":996000,"admnt":234838},
+{"date":"20111116","open":995000,"high":1003000,"low":973000,"close":975000,"admnt":339267},
+{"date":"20111117","open":982000,"high":992000,"low":961000,"close":980000,"admnt":259445},
+{"date":"20111118","open":971000,"high":977000,"low":962000,"close":963000,"admnt":326670},
+{"date":"20111121","open":951000,"high":960000,"low":942000,"close":950000,"admnt":256942},
+{"date":"20111122","open":950000,"high":971000,"low":943000,"close":963000,"admnt":241829},
+{"date":"20111123","open":948000,"high":960000,"low":935000,"close":935000,"admnt":307043},
+{"date":"20111124","open":922000,"high":953000,"low":921000,"close":943000,"admnt":273680},
+{"date":"20111125","open":929000,"high":953000,"low":929000,"close":947000,"admnt":233962},
+{"date":"20111128","open":959000,"high":982000,"low":958000,"close":978000,"admnt":315940},
+{"date":"20111129","open":990000,"high":1005000,"low":986000,"close":1005000,"admnt":552503},
+{"date":"20111130","open":1000000,"high":1010000,"low":996000,"close":1004000,"admnt":394423},
+{"date":"20111201","open":1035000,"high":1080000,"low":1029000,"close":1074000,"admnt":694628},
+{"date":"20111202","open":1061000,"high":1071000,"low":1040000,"close":1050000,"admnt":439388},
+{"date":"20111205","open":1069000,"high":1073000,"low":1058000,"close":1066000,"admnt":297501},
+{"date":"20111206","open":1057000,"high":1070000,"low":1041000,"close":1044000,"admnt":292758},
+{"date":"20111207","open":1050000,"high":1068000,"low":1041000,"close":1056000,"admnt":395486},
+{"date":"20111208","open":1057000,"high":1083000,"low":1046000,"close":1064000,"admnt":521081},
+{"date":"20111209","open":1049000,"high":1074000,"low":1037000,"close":1053000,"admnt":276388},
+{"date":"20111212","open":1063000,"high":1084000,"low":1060000,"close":1084000,"admnt":243479},
+{"date":"20111213","open":1074000,"high":1075000,"low":1050000,"close":1050000,"admnt":265044},
+{"date":"20111214","open":1034000,"high":1045000,"low":1025000,"close":1040000,"admnt":421590},
+{"date":"20111215","open":1029000,"high":1036000,"low":1015000,"close":1015000,"admnt":339605},
+{"date":"20111216","open":1021000,"high":1045000,"low":1020000,"close":1045000,"admnt":245774},
+{"date":"20111219","open":1045000,"high":1045000,"low":984000,"close":1007000,"admnt":410694},
+{"date":"20111220","open":1008000,"high":1029000,"low":1007000,"close":1012000,"admnt":275516},
+{"date":"20111221","open":1035000,"high":1057000,"low":1031000,"close":1057000,"admnt":408316},
+{"date":"20111222","open":1045000,"high":1053000,"low":1041000,"close":1052000,"admnt":213171},
+{"date":"20111223","open":1056000,"high":1074000,"low":1056000,"close":1068000,"admnt":246478},
+{"date":"20111226","open":1067000,"high":1075000,"low":1066000,"close":1066000,"admnt":124469},
+{"date":"20111227","open":1068000,"high":1080000,"low":1053000,"close":1073000,"admnt":226189},
+{"date":"20111228","open":1073000,"high":1073000,"low":1060000,"close":1061000,"admnt":220925},
+{"date":"20111229","open":1062000,"high":1077000,"low":1057000,"close":1058000,"admnt":218898},
+{"date":"20120102","open":1070000,"high":1080000,"low":1065000,"close":1080000,"admnt":263300},
+{"date":"20120103","open":1093000,"high":1105000,"low":1092000,"close":1105000,"admnt":339046},
+{"date":"20120104","open":1105000,"high":1110000,"low":1075000,"close":1080000,"admnt":342389},
+{"date":"20120105","open":1073000,"high":1079000,"low":1055000,"close":1055000,"admnt":346691},
+{"date":"20120106","open":1056000,"high":1066000,"low":1030000,"close":1040000,"admnt":376753},
+{"date":"20120109","open":1040000,"high":1041000,"low":1015000,"close":1016000,"admnt":387166},
+{"date":"20120110","open":1021000,"high":1036000,"low":1021000,"close":1026000,"admnt":409381},
+{"date":"20120111","open":1017000,"high":1024000,"low":1014000,"close":1021000,"admnt":382904},
+{"date":"20120112","open":1016000,"high":1029000,"low":1011000,"close":1028000,"admnt":371462},
+{"date":"20120113","open":1028000,"high":1050000,"low":1026000,"close":1046000,"admnt":293017},
+{"date":"20120116","open":1040000,"high":1040000,"low":1020000,"close":1030000,"admnt":232948},
+{"date":"20120117","open":1041000,"high":1048000,"low":1024000,"close":1036000,"admnt":342322},
+{"date":"20120118","open":1051000,"high":1052000,"low":1022000,"close":1030000,"admnt":307608},
+{"date":"20120119","open":1038000,"high":1072000,"low":1037000,"close":1072000,"admnt":448056},
+{"date":"20120120","open":1090000,"high":1105000,"low":1076000,"close":1105000,"admnt":512607},
+{"date":"20120125","open":1092000,"high":1125000,"low":1092000,"close":1114000,"admnt":455736},
+{"date":"20120126","open":1116000,"high":1121000,"low":1094000,"close":1113000,"admnt":353212},
+{"date":"20120127","open":1120000,"high":1125000,"low":1111000,"close":1125000,"admnt":255060},
+{"date":"20120130","open":1129000,"high":1130000,"low":1109000,"close":1115000,"admnt":327408},
+{"date":"20120131","open":1105000,"high":1120000,"low":1089000,"close":1107000,"admnt":434959},
+{"date":"20120201","open":1107000,"high":1107000,"low":1078000,"close":1079000,"admnt":458731},
+{"date":"20120202","open":1086000,"high":1104000,"low":1068000,"close":1080000,"admnt":448986},
+{"date":"20120203","open":1071000,"high":1084000,"low":1056000,"close":1066000,"admnt":357253},
+{"date":"20120206","open":1084000,"high":1091000,"low":1066000,"close":1074000,"admnt":317585},
+{"date":"20120207","open":1077000,"high":1096000,"low":1073000,"close":1093000,"admnt":238611},
+{"date":"20120208","open":1099000,"high":1100000,"low":1084000,"close":1092000,"admnt":236880},
+{"date":"20120209","open":1087000,"high":1090000,"low":1060000,"close":1084000,"admnt":480585},
+{"date":"20120210","open":1084000,"high":1084000,"low":1061000,"close":1062000,"admnt":372318},
+{"date":"20120213","open":1069000,"high":1089000,"low":1067000,"close":1083000,"admnt":320760},
+{"date":"20120214","open":1084000,"high":1089000,"low":1074000,"close":1080000,"admnt":246511},
+{"date":"20120215","open":1098000,"high":1138000,"low":1092000,"close":1135000,"admnt":570588},
+{"date":"20120216","open":1130000,"high":1140000,"low":1121000,"close":1135000,"admnt":308603},
+{"date":"20120217","open":1159000,"high":1180000,"low":1156000,"close":1176000,"admnt":346676},
+{"date":"20120220","open":1178000,"high":1194000,"low":1166000,"close":1175000,"admnt":296550},
+{"date":"20120221","open":1175000,"high":1198000,"low":1165000,"close":1180000,"admnt":216328},
+{"date":"20120222","open":1182000,"high":1200000,"low":1172000,"close":1197000,"admnt":235724},
+{"date":"20120223","open":1173000,"high":1179000,"low":1151000,"close":1160000,"admnt":465609},
+{"date":"20120224","open":1153000,"high":1186000,"low":1153000,"close":1180000,"admnt":284960},
+{"date":"20120227","open":1174000,"high":1180000,"low":1159000,"close":1171000,"admnt":168265},
+{"date":"20120228","open":1196000,"high":1200000,"low":1181000,"close":1185000,"admnt":333027},
+{"date":"20120229","open":1191000,"high":1209000,"low":1191000,"close":1206000,"admnt":345618},
+{"date":"20120302","open":1215000,"high":1217000,"low":1179000,"close":1182000,"admnt":360682},
+{"date":"20120305","open":1190000,"high":1191000,"low":1166000,"close":1174000,"admnt":223655},
+{"date":"20120306","open":1179000,"high":1193000,"low":1167000,"close":1180000,"admnt":211532},
+{"date":"20120307","open":1175000,"high":1183000,"low":1165000,"close":1172000,"admnt":230554},
+{"date":"20120308","open":1180000,"high":1186000,"low":1165000,"close":1180000,"admnt":406211},
+{"date":"20120309","open":1191000,"high":1231000,"low":1188000,"close":1230000,"admnt":365212},
+{"date":"20120312","open":1224000,"high":1226000,"low":1210000,"close":1210000,"admnt":236760},
+{"date":"20120313","open":1200000,"high":1229000,"low":1200000,"close":1221000,"admnt":239728},
+{"date":"20120314","open":1230000,"high":1255000,"low":1230000,"close":1250000,"admnt":367328},
+{"date":"20120315","open":1251000,"high":1260000,"low":1242000,"close":1250000,"admnt":281014},
+{"date":"20120316","open":1260000,"high":1267000,"low":1238000,"close":1238000,"admnt":361632},
+{"date":"20120319","open":1235000,"high":1268000,"low":1234000,"close":1260000,"admnt":237833},
+{"date":"20120320","open":1267000,"high":1277000,"low":1260000,"close":1267000,"admnt":238807},
+{"date":"20120321","open":1260000,"high":1260000,"low":1242000,"close":1242000,"admnt":258654},
+{"date":"20120322","open":1235000,"high":1263000,"low":1235000,"close":1258000,"admnt":253830},
+{"date":"20120323","open":1243000,"high":1274000,"low":1243000,"close":1261000,"admnt":217307},
+{"date":"20120326","open":1268000,"high":1275000,"low":1261000,"close":1275000,"admnt":184819},
+{"date":"20120327","open":1285000,"high":1311000,"low":1276000,"close":1311000,"admnt":283880},
+{"date":"20120328","open":1300000,"high":1308000,"low":1295000,"close":1302000,"admnt":198516},
+{"date":"20120329","open":1299000,"high":1299000,"low":1280000,"close":1280000,"admnt":233777},
+{"date":"20120330","open":1270000,"high":1280000,"low":1257000,"close":1275000,"admnt":305967},
+{"date":"20120402","open":1275000,"high":1299000,"low":1261000,"close":1299000,"admnt":251937},
+{"date":"20120403","open":1320000,"high":1339000,"low":1302000,"close":1335000,"admnt":330512},
+{"date":"20120404","open":1331000,"high":1351000,"low":1315000,"close":1320000,"admnt":292224},
+{"date":"20120405","open":1302000,"high":1335000,"low":1297000,"close":1330000,"admnt":258692},
+{"date":"20120406","open":1327000,"high":1334000,"low":1313000,"close":1332000,"admnt":205972},
+{"date":"20120409","open":1320000,"high":1330000,"low":1306000,"close":1317000,"admnt":172210},
+{"date":"20120410","open":1314000,"high":1320000,"low":1307000,"close":1311000,"admnt":223655},
+{"date":"20120412","open":1283000,"high":1299000,"low":1268000,"close":1273000,"admnt":505706},
+{"date":"20120413","open":1265000,"high":1277000,"low":1260000,"close":1268000,"admnt":709175},
+{"date":"20120416","open":1273000,"high":1276000,"low":1250000,"close":1259000,"admnt":305181},
+{"date":"20120417","open":1251000,"high":1264000,"low":1241000,"close":1249000,"admnt":291687},
+{"date":"20120418","open":1277000,"high":1302000,"low":1269000,"close":1293000,"admnt":345320},
+{"date":"20120419","open":1292000,"high":1307000,"low":1289000,"close":1307000,"admnt":263389},
+{"date":"20120420","open":1294000,"high":1297000,"low":1278000,"close":1282000,"admnt":198642},
+{"date":"20120423","open":1269000,"high":1280000,"low":1262000,"close":1279000,"admnt":168229},
+{"date":"20120424","open":1265000,"high":1286000,"low":1262000,"close":1283000,"admnt":265092},
+{"date":"20120425","open":1304000,"high":1315000,"low":1293000,"close":1305000,"admnt":276830},
+{"date":"20120426","open":1320000,"high":1340000,"low":1317000,"close":1340000,"admnt":330125},
+{"date":"20120427","open":1355000,"high":1383000,"low":1351000,"close":1374000,"admnt":318334},
+{"date":"20120430","open":1395000,"high":1409000,"low":1377000,"close":1390000,"admnt":315924},
+{"date":"20120502","open":1410000,"high":1418000,"low":1399000,"close":1410000,"admnt":368585},
+{"date":"20120503","open":1402000,"high":1410000,"low":1398000,"close":1401000,"admnt":206721},
+{"date":"20120504","open":1375000,"high":1398000,"low":1349000,"close":1360000,"admnt":410013},
+{"date":"20120507","open":1342000,"high":1353000,"low":1325000,"close":1342000,"admnt":378463},
+{"date":"20120508","open":1348000,"high":1352000,"low":1339000,"close":1341000,"admnt":241223},
+{"date":"20120509","open":1335000,"high":1348000,"low":1324000,"close":1331000,"admnt":253520},
+{"date":"20120510","open":1329000,"high":1336000,"low":1322000,"close":1327000,"admnt":263434},
+{"date":"20120511","open":1315000,"high":1323000,"low":1303000,"close":1303000,"admnt":273746},
+{"date":"20120514","open":1305000,"high":1327000,"low":1304000,"close":1314000,"admnt":302375},
+{"date":"20120515","open":1304000,"high":1320000,"low":1300000,"close":1311000,"admnt":312381},
+{"date":"20120516","open":1298000,"high":1300000,"low":1228000,"close":1230000,"admnt":772389},
+{"date":"20120517","open":1230000,"high":1243000,"low":1201000,"close":1223000,"admnt":663431},
+{"date":"20120518","open":1204000,"high":1205000,"low":1165000,"close":1166000,"admnt":602891},
+{"date":"20120521","open":1194000,"high":1216000,"low":1190000,"close":1209000,"admnt":475248},
+{"date":"20120522","open":1255000,"high":1255000,"low":1227000,"close":1240000,"admnt":476938},
+{"date":"20120523","open":1240000,"high":1240000,"low":1195000,"close":1221000,"admnt":323898},
+{"date":"20120524","open":1213000,"high":1225000,"low":1198000,"close":1225000,"admnt":305365},
+{"date":"20120525","open":1233000,"high":1246000,"low":1223000,"close":1225000,"admnt":203783},
+{"date":"20120529","open":1212000,"high":1238000,"low":1206000,"close":1238000,"admnt":216876},
+{"date":"20120530","open":1238000,"high":1240000,"low":1215000,"close":1226000,"admnt":254380},
+{"date":"20120531","open":1213000,"high":1213000,"low":1192000,"close":1211000,"admnt":442818},
+{"date":"20120601","open":1213000,"high":1237000,"low":1199000,"close":1233000,"admnt":272252},
+{"date":"20120604","open":1198000,"high":1205000,"low":1192000,"close":1196000,"admnt":361840},
+{"date":"20120605","open":1201000,"high":1209000,"low":1193000,"close":1203000,"admnt":257449},
+{"date":"20120607","open":1239000,"high":1265000,"low":1233000,"close":1265000,"admnt":419412},
+{"date":"20120608","open":1275000,"high":1275000,"low":1245000,"close":1247000,"admnt":199521},
+{"date":"20120611","open":1272000,"high":1275000,"low":1266000,"close":1268000,"admnt":198491},
+{"date":"20120612","open":1246000,"high":1260000,"low":1245000,"close":1255000,"admnt":176329},
+{"date":"20120613","open":1266000,"high":1274000,"low":1256000,"close":1271000,"admnt":191611},
+{"date":"20120614","open":1269000,"high":1271000,"low":1256000,"close":1261000,"admnt":441585},
+{"date":"20120615","open":1250000,"high":1260000,"low":1214000,"close":1217000,"admnt":609612},
+{"date":"20120618","open":1240000,"high":1257000,"low":1234000,"close":1243000,"admnt":352506},
+{"date":"20120619","open":1245000,"high":1247000,"low":1222000,"close":1244000,"admnt":297169},
+{"date":"20120620","open":1249000,"high":1265000,"low":1245000,"close":1252000,"admnt":265743},
+{"date":"20120621","open":1234000,"high":1242000,"low":1226000,"close":1227000,"admnt":255553},
+{"date":"20120622","open":1189000,"high":1202000,"low":1180000,"close":1182000,"admnt":626943},
+{"date":"20120625","open":1171000,"high":1178000,"low":1128000,"close":1132000,"admnt":828723},
+{"date":"20120626","open":1133000,"high":1149000,"low":1129000,"close":1139000,"admnt":506211},
+{"date":"20120627","open":1140000,"high":1177000,"low":1130000,"close":1167000,"admnt":471673},
+{"date":"20120628","open":1167000,"high":1180000,"low":1153000,"close":1168000,"admnt":208420},
+{"date":"20120629","open":1167000,"high":1201000,"low":1153000,"close":1201000,"admnt":373478},
+{"date":"20120702","open":1208000,"high":1209000,"low":1171000,"close":1174000,"admnt":383135},
+{"date":"20120703","open":1182000,"high":1193000,"low":1170000,"close":1175000,"admnt":316380},
+{"date":"20120704","open":1182000,"high":1197000,"low":1178000,"close":1191000,"admnt":383678},
+{"date":"20120705","open":1187000,"high":1194000,"low":1177000,"close":1185000,"admnt":181784},
+{"date":"20120706","open":1194000,"high":1194000,"low":1153000,"close":1161000,"admnt":423970},
+{"date":"20120709","open":1135000,"high":1138000,"low":1126000,"close":1126000,"admnt":426705},
+{"date":"20120710","open":1135000,"high":1142000,"low":1121000,"close":1127000,"admnt":355742},
+{"date":"20120711","open":1129000,"high":1133000,"low":1108000,"close":1118000,"admnt":361358},
+{"date":"20120712","open":1121000,"high":1126000,"low":1091000,"close":1091000,"admnt":500103},
+{"date":"20120713","open":1096000,"high":1144000,"low":1091000,"close":1139000,"admnt":542252},
+{"date":"20120716","open":1145000,"high":1155000,"low":1133000,"close":1152000,"admnt":305730},
+{"date":"20120717","open":1148000,"high":1178000,"low":1136000,"close":1168000,"admnt":317913},
+{"date":"20120718","open":1179000,"high":1185000,"low":1138000,"close":1154000,"admnt":292655},
+{"date":"20120719","open":1180000,"high":1202000,"low":1172000,"close":1195000,"admnt":497504},
+{"date":"20120720","open":1202000,"high":1203000,"low":1191000,"close":1191000,"admnt":240244},
+{"date":"20120723","open":1165000,"high":1170000,"low":1155000,"close":1162000,"admnt":258087},
+{"date":"20120724","open":1165000,"high":1175000,"low":1159000,"close":1170000,"admnt":292532},
+{"date":"20120725","open":1153000,"high":1172000,"low":1139000,"close":1158000,"admnt":273353},
+{"date":"20120726","open":1169000,"high":1174000,"low":1160000,"close":1172000,"admnt":273339},
+{"date":"20120727","open":1195000,"high":1233000,"low":1191000,"close":1233000,"admnt":534352},
+{"date":"20120730","open":1260000,"high":1278000,"low":1251000,"close":1275000,"admnt":382995},
+{"date":"20120731","open":1280000,"high":1334000,"low":1275000,"close":1309000,"admnt":676303},
+{"date":"20120801","open":1292000,"high":1315000,"low":1283000,"close":1300000,"admnt":381803},
+{"date":"20120802","open":1300000,"high":1304000,"low":1261000,"close":1263000,"admnt":320335},
+{"date":"20120803","open":1240000,"high":1267000,"low":1238000,"close":1243000,"admnt":312338},
+{"date":"20120806","open":1285000,"high":1305000,"low":1282000,"close":1298000,"admnt":246024},
+{"date":"20120807","open":1303000,"high":1304000,"low":1284000,"close":1294000,"admnt":205823},
+{"date":"20120808","open":1306000,"high":1328000,"low":1301000,"close":1320000,"admnt":389471},
+{"date":"20120809","open":1321000,"high":1348000,"low":1318000,"close":1340000,"admnt":612875},
+{"date":"20120810","open":1335000,"high":1348000,"low":1330000,"close":1348000,"admnt":294895},
+{"date":"20120813","open":1342000,"high":1347000,"low":1323000,"close":1325000,"admnt":197976},
+{"date":"20120814","open":1326000,"high":1350000,"low":1326000,"close":1345000,"admnt":289928},
+{"date":"20120816","open":1354000,"high":1355000,"low":1338000,"close":1345000,"admnt":296891},
+{"date":"20120817","open":1344000,"high":1345000,"low":1286000,"close":1295000,"admnt":554025},
+{"date":"20120820","open":1270000,"high":1283000,"low":1255000,"close":1283000,"admnt":399820},
+{"date":"20120821","open":1292000,"high":1302000,"low":1282000,"close":1282000,"admnt":307047},
+{"date":"20120822","open":1269000,"high":1281000,"low":1257000,"close":1264000,"admnt":321554},
+{"date":"20120823","open":1261000,"high":1287000,"low":1249000,"close":1287000,"admnt":277600},
+{"date":"20120824","open":1270000,"high":1287000,"low":1264000,"close":1275000,"admnt":282921},
+{"date":"20120827","open":1189000,"high":1203000,"low":1173000,"close":1180000,"admnt":1277983},
+{"date":"20120828","open":1186000,"high":1209000,"low":1180000,"close":1195000,"admnt":558503},
+{"date":"20120829","open":1209000,"high":1235000,"low":1207000,"close":1230000,"admnt":469517},
+{"date":"20120830","open":1228000,"high":1229000,"low":1202000,"close":1215000,"admnt":324636},
+{"date":"20120831","open":1211000,"high":1234000,"low":1207000,"close":1233000,"admnt":407358},
+{"date":"20120903","open":1220000,"high":1235000,"low":1201000,"close":1218000,"admnt":278537},
+{"date":"20120904","open":1219000,"high":1228000,"low":1210000,"close":1218000,"admnt":198954},
+{"date":"20120905","open":1205000,"high":1212000,"low":1189000,"close":1189000,"admnt":349101},
+{"date":"20120906","open":1200000,"high":1203000,"low":1193000,"close":1196000,"admnt":247977},
+{"date":"20120907","open":1230000,"high":1251000,"low":1220000,"close":1250000,"admnt":510922},
+{"date":"20120910","open":1260000,"high":1264000,"low":1250000,"close":1250000,"admnt":318481},
+{"date":"20120911","open":1240000,"high":1265000,"low":1232000,"close":1256000,"admnt":198608},
+{"date":"20120912","open":1268000,"high":1295000,"low":1259000,"close":1294000,"admnt":370250},
+{"date":"20120913","open":1299000,"high":1305000,"low":1281000,"close":1301000,"admnt":390332},
+{"date":"20120914","open":1330000,"high":1339000,"low":1327000,"close":1336000,"admnt":498718},
+{"date":"20120917","open":1336000,"high":1336000,"low":1312000,"close":1315000,"admnt":298200},
+{"date":"20120918","open":1314000,"high":1336000,"low":1308000,"close":1315000,"admnt":224940},
+{"date":"20120919","open":1306000,"high":1323000,"low":1298000,"close":1314000,"admnt":242946},
+{"date":"20120920","open":1293000,"high":1305000,"low":1284000,"close":1287000,"admnt":284488},
+{"date":"20120921","open":1300000,"high":1307000,"low":1295000,"close":1302000,"admnt":298374},
+{"date":"20120924","open":1300000,"high":1328000,"low":1292000,"close":1327000,"admnt":264015},
+{"date":"20120925","open":1310000,"high":1334000,"low":1310000,"close":1327000,"admnt":227443},
+{"date":"20120926","open":1313000,"high":1325000,"low":1306000,"close":1325000,"admnt":241197},
+{"date":"20120927","open":1327000,"high":1342000,"low":1323000,"close":1338000,"admnt":291061},
+{"date":"20120928","open":1359000,"high":1360000,"low":1339000,"close":1346000,"admnt":358509},
+{"date":"20121002","open":1354000,"high":1371000,"low":1352000,"close":1369000,"admnt":267729},
+{"date":"20121004","open":1351000,"high":1373000,"low":1339000,"close":1367000,"admnt":383480},
+{"date":"20121005","open":1387000,"high":1390000,"low":1352000,"close":1370000,"admnt":357080},
+{"date":"20121008","open":1375000,"high":1379000,"low":1360000,"close":1373000,"admnt":240919},
+{"date":"20121009","open":1363000,"high":1381000,"low":1363000,"close":1372000,"admnt":176068},
+{"date":"20121010","open":1353000,"high":1360000,"low":1325000,"close":1325000,"admnt":260023},
+{"date":"20121011","open":1310000,"high":1320000,"low":1287000,"close":1304000,"admnt":476265},
+{"date":"20121012","open":1305000,"high":1312000,"low":1288000,"close":1296000,"admnt":300039},
+{"date":"20121015","open":1296000,"high":1312000,"low":1287000,"close":1300000,"admnt":206958},
+{"date":"20121016","open":1326000,"high":1331000,"low":1315000,"close":1330000,"admnt":213589},
+{"date":"20121017","open":1342000,"high":1346000,"low":1316000,"close":1336000,"admnt":180461},
+{"date":"20121018","open":1336000,"high":1341000,"low":1328000,"close":1337000,"admnt":210796},
+{"date":"20121019","open":1323000,"high":1325000,"low":1299000,"close":1302000,"admnt":279959},
+{"date":"20121022","open":1277000,"high":1317000,"low":1276000,"close":1315000,"admnt":234884},
+{"date":"20121023","open":1319000,"high":1322000,"low":1302000,"close":1313000,"admnt":185296},
+{"date":"20121024","open":1297000,"high":1309000,"low":1289000,"close":1300000,"admnt":269753},
+{"date":"20121025","open":1296000,"high":1322000,"low":1291000,"close":1322000,"admnt":237942},
+{"date":"20121026","open":1306000,"high":1312000,"low":1287000,"close":1287000,"admnt":276353},
+{"date":"20121029","open":1298000,"high":1299000,"low":1279000,"close":1299000,"admnt":229431},
+{"date":"20121030","open":1299000,"high":1304000,"low":1292000,"close":1298000,"admnt":133300},
+{"date":"20121031","open":1306000,"high":1312000,"low":1299000,"close":1310000,"admnt":212428},
+{"date":"20121101","open":1295000,"high":1302000,"low":1290000,"close":1297000,"admnt":209205},
+{"date":"20121102","open":1319000,"high":1333000,"low":1313000,"close":1327000,"admnt":370592},
+{"date":"20121105","open":1328000,"high":1349000,"low":1320000,"close":1341000,"admnt":261413},
+{"date":"20121106","open":1349000,"high":1349000,"low":1332000,"close":1349000,"admnt":179690},
+{"date":"20121107","open":1343000,"high":1362000,"low":1335000,"close":1362000,"admnt":193847},
+{"date":"20121108","open":1348000,"high":1357000,"low":1341000,"close":1350000,"admnt":306862},
+{"date":"20121109","open":1335000,"high":1351000,"low":1326000,"close":1341000,"admnt":291124},
+{"date":"20121112","open":1331000,"high":1347000,"low":1331000,"close":1345000,"admnt":139213},
+{"date":"20121113","open":1347000,"high":1349000,"low":1326000,"close":1349000,"admnt":146594},
+{"date":"20121114","open":1357000,"high":1357000,"low":1346000,"close":1355000,"admnt":208828},
+{"date":"20121115","open":1335000,"high":1338000,"low":1326000,"close":1331000,"admnt":199259},
+{"date":"20121116","open":1322000,"high":1326000,"low":1301000,"close":1307000,"admnt":243724},
+{"date":"20121119","open":1315000,"high":1342000,"low":1313000,"close":1332000,"admnt":202837},
+{"date":"20121120","open":1353000,"high":1365000,"low":1346000,"close":1364000,"admnt":268586},
+{"date":"20121121","open":1376000,"high":1397000,"low":1372000,"close":1384000,"admnt":355901},
+{"date":"20121122","open":1394000,"high":1419000,"low":1391000,"close":1417000,"admnt":299318},
+{"date":"20121123","open":1422000,"high":1442000,"low":1417000,"close":1437000,"admnt":246769},
+{"date":"20121126","open":1442000,"high":1443000,"low":1399000,"close":1404000,"admnt":275155},
+{"date":"20121127","open":1405000,"high":1428000,"low":1404000,"close":1416000,"admnt":236884},
+{"date":"20121128","open":1400000,"high":1438000,"low":1396000,"close":1413000,"admnt":281426},
+{"date":"20121129","open":1402000,"high":1422000,"low":1402000,"close":1414000,"admnt":262256},
+{"date":"20121130","open":1423000,"high":1425000,"low":1399000,"close":1406000,"admnt":328810},
+{"date":"20121203","open":1420000,"high":1436000,"low":1408000,"close":1430000,"admnt":204572},
+{"date":"20121204","open":1432000,"high":1434000,"low":1420000,"close":1430000,"admnt":190213},
+{"date":"20121205","open":1430000,"high":1455000,"low":1427000,"close":1455000,"admnt":248894},
+{"date":"20121206","open":1468000,"high":1471000,"low":1434000,"close":1454000,"admnt":285144},
+{"date":"20121207","open":1450000,"high":1498000,"low":1450000,"close":1480000,"admnt":317756},
+{"date":"20121210","open":1506000,"high":1506000,"low":1485000,"close":1491000,"admnt":261259},
+{"date":"20121211","open":1498000,"high":1498000,"low":1469000,"close":1476000,"admnt":253294},
+{"date":"20121212","open":1473000,"high":1496000,"low":1473000,"close":1490000,"admnt":304949},
+{"date":"20121213","open":1500000,"high":1533000,"low":1493000,"close":1533000,"admnt":614229},
+{"date":"20121214","open":1516000,"high":1536000,"low":1508000,"close":1515000,"admnt":279121},
+{"date":"20121217","open":1501000,"high":1524000,"low":1497000,"close":1503000,"admnt":310372},
+{"date":"20121218","open":1500000,"high":1516000,"low":1495000,"close":1515000,"admnt":271247},
+{"date":"20121220","open":1515000,"high":1529000,"low":1495000,"close":1503000,"admnt":402740},
+{"date":"20121221","open":1493000,"high":1496000,"low":1440000,"close":1442000,"admnt":553510},
+{"date":"20121224","open":1448000,"high":1476000,"low":1442000,"close":1474000,"admnt":290702},
+{"date":"20121226","open":1480000,"high":1503000,"low":1470000,"close":1470000,"admnt":281820},
+{"date":"20121227","open":1470000,"high":1500000,"low":1470000,"close":1496000,"admnt":182909},
+{"date":"20121228","open":1488000,"high":1530000,"low":1487000,"close":1522000,"admnt":212266},
+{"date":"20130102","open":1533000,"high":1576000,"low":1527000,"close":1576000,"admnt":229274},
+{"date":"20130103","open":1582000,"high":1584000,"low":1543000,"close":1543000,"admnt":284927},
+{"date":"20130104","open":1540000,"high":1542000,"low":1510000,"close":1525000,"admnt":260120},
+{"date":"20130107","open":1515000,"high":1528000,"low":1500000,"close":1520000,"admnt":252436},
+{"date":"20130108","open":1513000,"high":1517000,"low":1498000,"close":1500000,"admnt":276757},
+{"date":"20130109","open":1500000,"high":1513000,"low":1491000,"close":1500000,"admnt":253720},
+{"date":"20130110","open":1515000,"high":1534000,"low":1500000,"close":1530000,"admnt":293482},
+{"date":"20130111","open":1548000,"high":1548000,"low":1507000,"close":1533000,"admnt":238982},
+{"date":"20130114","open":1539000,"high":1552000,"low":1528000,"close":1552000,"admnt":160602},
+{"date":"20130115","open":1560000,"high":1560000,"low":1512000,"close":1512000,"admnt":214769},
+{"date":"20130116","open":1514000,"high":1526000,"low":1483000,"close":1492000,"admnt":325058},
+{"date":"20130117","open":1502000,"high":1502000,"low":1450000,"close":1469000,"admnt":404999},
+{"date":"20130118","open":1480000,"high":1487000,"low":1455000,"close":1480000,"admnt":250601},
+{"date":"20130121","open":1464000,"high":1475000,"low":1448000,"close":1454000,"admnt":290784},
+{"date":"20130122","open":1445000,"high":1487000,"low":1445000,"close":1480000,"admnt":239166},
+{"date":"20130123","open":1500000,"high":1502000,"low":1473000,"close":1473000,"admnt":186749},
+{"date":"20130124","open":1468000,"high":1469000,"low":1441000,"close":1453000,"admnt":320146},
+{"date":"20130125","open":1460000,"high":1461000,"low":1405000,"close":1417000,"admnt":436418},
+{"date":"20130128","open":1396000,"high":1401000,"low":1371000,"close":1372000,"admnt":618708},
+{"date":"20130129","open":1390000,"high":1418000,"low":1380000,"close":1409000,"admnt":432719},
+{"date":"20130130","open":1426000,"high":1440000,"low":1412000,"close":1440000,"admnt":323848},
+{"date":"20130131","open":1430000,"high":1448000,"low":1422000,"close":1448000,"admnt":321056},
+{"date":"20130201","open":1460000,"high":1460000,"low":1422000,"close":1441000,"admnt":231524},
+{"date":"20130204","open":1450000,"high":1453000,"low":1417000,"close":1437000,"admnt":257238},
+{"date":"20130205","open":1415000,"high":1443000,"low":1414000,"close":1435000,"admnt":227762},
+{"date":"20130206","open":1440000,"high":1443000,"low":1427000,"close":1427000,"admnt":137943},
+{"date":"20130207","open":1439000,"high":1439000,"low":1420000,"close":1420000,"admnt":194422},
+{"date":"20130208","open":1418000,"high":1470000,"low":1415000,"close":1462000,"admnt":268477},
+{"date":"20130212","open":1484000,"high":1484000,"low":1459000,"close":1468000,"admnt":168395},
+{"date":"20130213","open":1474000,"high":1489000,"low":1456000,"close":1487000,"admnt":184181},
+{"date":"20130214","open":1490000,"high":1494000,"low":1477000,"close":1490000,"admnt":150682},
+{"date":"20130215","open":1490000,"high":1498000,"low":1477000,"close":1498000,"admnt":151999},
+{"date":"20130218","open":1490000,"high":1501000,"low":1481000,"close":1490000,"admnt":142199},
+{"date":"20130219","open":1480000,"high":1499000,"low":1479000,"close":1492000,"admnt":122645},
+{"date":"20130220","open":1502000,"high":1545000,"low":1497000,"close":1545000,"admnt":360787},
+{"date":"20130221","open":1540000,"high":1558000,"low":1535000,"close":1550000,"admnt":262473},
+{"date":"20130222","open":1530000,"high":1548000,"low":1520000,"close":1530000,"admnt":277053},
+{"date":"20130225","open":1549000,"high":1549000,"low":1530000,"close":1530000,"admnt":177951},
+{"date":"20130226","open":1515000,"high":1538000,"low":1508000,"close":1527000,"admnt":184895},
+{"date":"20130227","open":1559000,"high":1559000,"low":1519000,"close":1527000,"admnt":178764},
+{"date":"20130228","open":1530000,"high":1554000,"low":1530000,"close":1544000,"admnt":255684},
+{"date":"20130304","open":1563000,"high":1563000,"low":1530000,"close":1539000,"admnt":265537},
+{"date":"20130305","open":1556000,"high":1564000,"low":1548000,"close":1550000,"admnt":185892},
+{"date":"20130306","open":1572000,"high":1575000,"low":1547000,"close":1560000,"admnt":202973},
+{"date":"20130307","open":1548000,"high":1550000,"low":1512000,"close":1520000,"admnt":269654},
+{"date":"20130308","open":1515000,"high":1517000,"low":1489000,"close":1499000,"admnt":378820},
+{"date":"20130311","open":1493000,"high":1512000,"low":1485000,"close":1508000,"admnt":274965},
+{"date":"20130312","open":1504000,"high":1512000,"low":1490000,"close":1494000,"admnt":174931},
+{"date":"20130313","open":1506000,"high":1529000,"low":1501000,"close":1527000,"admnt":226071},
+{"date":"20130314","open":1528000,"high":1534000,"low":1499000,"close":1520000,"admnt":251156},
+{"date":"20130315","open":1529000,"high":1529000,"low":1480000,"close":1480000,"admnt":732367},
+{"date":"20130318","open":1460000,"high":1460000,"low":1434000,"close":1445000,"admnt":528791},
+{"date":"20130319","open":1450000,"high":1492000,"low":1448000,"close":1475000,"admnt":279542},
+{"date":"20130320","open":1460000,"high":1485000,"low":1456000,"close":1460000,"admnt":270315},
+{"date":"20130321","open":1461000,"high":1474000,"low":1456000,"close":1457000,"admnt":235371},
+{"date":"20130322","open":1458000,"high":1468000,"low":1452000,"close":1455000,"admnt":213742},
+{"date":"20130325","open":1480000,"high":1495000,"low":1470000,"close":1495000,"admnt":205441},
+{"date":"20130326","open":1495000,"high":1522000,"low":1491000,"close":1509000,"admnt":336600},
+{"date":"20130327","open":1515000,"high":1516000,"low":1487000,"close":1504000,"admnt":257628},
+{"date":"20130328","open":1503000,"high":1510000,"low":1497000,"close":1510000,"admnt":159792},
+{"date":"20130329","open":1524000,"high":1532000,"low":1517000,"close":1527000,"admnt":190674},
+{"date":"20130401","open":1535000,"high":1535000,"low":1512000,"close":1512000,"admnt":105910},
+{"date":"20130402","open":1510000,"high":1532000,"low":1510000,"close":1525000,"admnt":171497},
+{"date":"20130403","open":1526000,"high":1528000,"low":1509000,"close":1521000,"admnt":217654},
+{"date":"20130404","open":1517000,"high":1519000,"low":1499000,"close":1506000,"admnt":214009},
+{"date":"20130405","open":1505000,"high":1516000,"low":1493000,"close":1505000,"admnt":299547},
+{"date":"20130408","open":1505000,"high":1531000,"low":1497000,"close":1520000,"admnt":259190},
+{"date":"20130409","open":1527000,"high":1530000,"low":1510000,"close":1528000,"admnt":184880},
+{"date":"20130410","open":1540000,"high":1540000,"low":1513000,"close":1521000,"admnt":235594},
+{"date":"20130411","open":1521000,"high":1540000,"low":1518000,"close":1540000,"admnt":225830},
+{"date":"20130412","open":1540000,"high":1550000,"low":1513000,"close":1517000,"admnt":214881},
+{"date":"20130415","open":1503000,"high":1535000,"low":1503000,"close":1523000,"admnt":215346},
+{"date":"20130416","open":1505000,"high":1532000,"low":1501000,"close":1528000,"admnt":371037},
+{"date":"20130417","open":1566000,"high":1566000,"low":1514000,"close":1518000,"admnt":209822},
+{"date":"20130418","open":1520000,"high":1522000,"low":1481000,"close":1483000,"admnt":267168},
+{"date":"20130419","open":1465000,"high":1492000,"low":1455000,"close":1475000,"admnt":314080},
+{"date":"20130422","open":1490000,"high":1503000,"low":1465000,"close":1503000,"admnt":186717},
+{"date":"20130423","open":1500000,"high":1503000,"low":1474000,"close":1483000,"admnt":177297},
+{"date":"20130424","open":1485000,"high":1494000,"low":1474000,"close":1486000,"admnt":201731},
+{"date":"20130425","open":1470000,"high":1494000,"low":1470000,"close":1494000,"admnt":209278},
+{"date":"20130426","open":1495000,"high":1497000,"low":1472000,"close":1486000,"admnt":233032},
+{"date":"20130429","open":1491000,"high":1492000,"low":1475000,"close":1481000,"admnt":170003},
+{"date":"20130430","open":1490000,"high":1530000,"low":1488000,"close":1520000,"admnt":374100},
+{"date":"20130502","open":1526000,"high":1532000,"low":1517000,"close":1528000,"admnt":200979},
+{"date":"20130503","open":1535000,"high":1537000,"low":1521000,"close":1535000,"admnt":131181},
+{"date":"20130506","open":1540000,"high":1540000,"low":1512000,"close":1514000,"admnt":173086},
+{"date":"20130507","open":1508000,"high":1508000,"low":1491000,"close":1493000,"admnt":228690},
+{"date":"20130508","open":1493000,"high":1498000,"low":1479000,"close":1488000,"admnt":298439},
+{"date":"20130509","open":1490000,"high":1520000,"low":1489000,"close":1515000,"admnt":216123},
+{"date":"20130510","open":1514000,"high":1514000,"low":1476000,"close":1476000,"admnt":235897},
+{"date":"20130513","open":1471000,"high":1480000,"low":1462000,"close":1477000,"admnt":175002},
+{"date":"20130514","open":1487000,"high":1500000,"low":1483000,"close":1500000,"admnt":180053},
+{"date":"20130515","open":1485000,"high":1500000,"low":1484000,"close":1500000,"admnt":211896},
+{"date":"20130516","open":1501000,"high":1514000,"low":1500000,"close":1508000,"admnt":293151},
+{"date":"20130520","open":1502000,"high":1512000,"low":1496000,"close":1497000,"admnt":245777},
+{"date":"20130521","open":1510000,"high":1510000,"low":1485000,"close":1492000,"admnt":232008},
+{"date":"20130522","open":1504000,"high":1510000,"low":1491000,"close":1509000,"admnt":198462},
+{"date":"20130523","open":1492000,"high":1502000,"low":1484000,"close":1484000,"admnt":239883},
+{"date":"20130524","open":1487000,"high":1494000,"low":1472000,"close":1486000,"admnt":203812},
+{"date":"20130527","open":1490000,"high":1499000,"low":1487000,"close":1489000,"admnt":122928},
+{"date":"20130528","open":1481000,"high":1496000,"low":1481000,"close":1484000,"admnt":231761},
+{"date":"20130529","open":1484000,"high":1523000,"low":1483000,"close":1512000,"admnt":295211},
+{"date":"20130530","open":1518000,"high":1549000,"low":1512000,"close":1544000,"admnt":455560},
+{"date":"20130531","open":1546000,"high":1559000,"low":1537000,"close":1538000,"admnt":360501},
+{"date":"20130603","open":1536000,"high":1559000,"low":1528000,"close":1532000,"admnt":206189},
+{"date":"20130604","open":1533000,"high":1542000,"low":1521000,"close":1540000,"admnt":169932},
+{"date":"20130605","open":1549000,"high":1553000,"low":1521000,"close":1521000,"admnt":271813},
+{"date":"20130607","open":1475000,"high":1485000,"low":1424000,"close":1427000,"admnt":1085816},
+{"date":"20130610","open":1420000,"high":1443000,"low":1414000,"close":1425000,"admnt":533554},
+{"date":"20130611","open":1411000,"high":1419000,"low":1378000,"close":1389000,"admnt":692260},
+{"date":"20130612","open":1378000,"high":1403000,"low":1362000,"close":1385000,"admnt":457753},
+{"date":"20130613","open":1380000,"high":1397000,"low":1357000,"close":1357000,"admnt":670197},
+{"date":"20130614","open":1365000,"high":1377000,"low":1357000,"close":1369000,"admnt":351167},
+{"date":"20130617","open":1370000,"high":1378000,"low":1365000,"close":1366000,"admnt":235169},
+{"date":"20130618","open":1368000,"high":1387000,"low":1360000,"close":1387000,"admnt":220861},
+{"date":"20130619","open":1382000,"high":1385000,"low":1364000,"close":1369000,"admnt":205405},
+{"date":"20130620","open":1343000,"high":1348000,"low":1326000,"close":1329000,"admnt":356359},
+{"date":"20130621","open":1294000,"high":1333000,"low":1290000,"close":1325000,"admnt":553556},
+{"date":"20130624","open":1350000,"high":1350000,"low":1313000,"close":1313000,"admnt":316958},
+{"date":"20130625","open":1301000,"high":1318000,"low":1288000,"close":1297000,"admnt":415499},
+{"date":"20130626","open":1301000,"high":1305000,"low":1245000,"close":1261000,"admnt":635024},
+{"date":"20130627","open":1295000,"high":1344000,"low":1286000,"close":1339000,"admnt":515123},
+{"date":"20130628","open":1350000,"high":1350000,"low":1329000,"close":1342000,"admnt":419225},
+{"date":"20130701","open":1334000,"high":1346000,"low":1322000,"close":1326000,"admnt":256519},
+{"date":"20130702","open":1340000,"high":1352000,"low":1330000,"close":1335000,"admnt":204289},
+{"date":"20130703","open":1334000,"high":1339000,"low":1295000,"close":1301000,"admnt":256441},
+{"date":"20130704","open":1302000,"high":1317000,"low":1296000,"close":1317000,"admnt":180853},
+{"date":"20130705","open":1286000,"high":1315000,"low":1260000,"close":1267000,"admnt":607656},
+{"date":"20130708","open":1250000,"high":1258000,"low":1209000,"close":1226000,"admnt":529603},
+{"date":"20130709","open":1230000,"high":1250000,"low":1229000,"close":1237000,"admnt":393899},
+{"date":"20130710","open":1245000,"high":1252000,"low":1237000,"close":1248000,"admnt":346113},
+{"date":"20130711","open":1251000,"high":1312000,"low":1251000,"close":1312000,"admnt":415767},
+{"date":"20130712","open":1320000,"high":1324000,"low":1301000,"close":1312000,"admnt":227826},
+{"date":"20130715","open":1315000,"high":1319000,"low":1285000,"close":1313000,"admnt":192592},
+{"date":"20130716","open":1318000,"high":1321000,"low":1290000,"close":1298000,"admnt":186019},
+{"date":"20130717","open":1301000,"high":1330000,"low":1286000,"close":1320000,"admnt":246046},
+{"date":"20130718","open":1325000,"high":1325000,"low":1292000,"close":1292000,"admnt":314084},
+{"date":"20130719","open":1288000,"high":1295000,"low":1264000,"close":1273000,"admnt":325426},
+{"date":"20130722","open":1280000,"high":1289000,"low":1265000,"close":1273000,"admnt":207023},
+{"date":"20130723","open":1273000,"high":1307000,"low":1272000,"close":1307000,"admnt":238978},
+{"date":"20130724","open":1307000,"high":1317000,"low":1295000,"close":1315000,"admnt":175453},
+{"date":"20130725","open":1317000,"high":1322000,"low":1308000,"close":1315000,"admnt":169913},
+{"date":"20130726","open":1314000,"high":1319000,"low":1299000,"close":1303000,"admnt":272391},
+{"date":"20130729","open":1291000,"high":1300000,"low":1279000,"close":1283000,"admnt":236437},
+{"date":"20130730","open":1277000,"high":1295000,"low":1277000,"close":1290000,"admnt":188507},
+{"date":"20130731","open":1280000,"high":1290000,"low":1279000,"close":1280000,"admnt":254710},
+{"date":"20130801","open":1285000,"high":1288000,"low":1274000,"close":1280000,"admnt":181178},
+{"date":"20130802","open":1293000,"high":1300000,"low":1282000,"close":1286000,"admnt":224827},
+{"date":"20130805","open":1283000,"high":1283000,"low":1274000,"close":1274000,"admnt":161597},
+{"date":"20130806","open":1245000,"high":1272000,"low":1245000,"close":1254000,"admnt":289874},
+{"date":"20130807","open":1237000,"high":1240000,"low":1222000,"close":1222000,"admnt":315562},
+{"date":"20130808","open":1213000,"high":1235000,"low":1213000,"close":1217000,"admnt":358216},
+{"date":"20130809","open":1229000,"high":1241000,"low":1220000,"close":1230000,"admnt":241604},
+{"date":"20130812","open":1230000,"high":1248000,"low":1225000,"close":1232000,"admnt":202812},
+{"date":"20130813","open":1244000,"high":1290000,"low":1242000,"close":1290000,"admnt":418589},
+{"date":"20130814","open":1289000,"high":1300000,"low":1285000,"close":1300000,"admnt":259944}];
+
+//JavaScript function to be called to change the number of items in the chart.
+function changeVisibleItem(value){
+	visibleItemSize += value;
+	if(visibleItemSize > chartData.length)
+		visibleItemSize = chartData.length;
+	else if(visibleItemSize < 10)
+		visibleItemSize = 10;
+	document.getElementById("chart1").visibleItemSize(visibleItemSize);
+}
+
+//User-defined axis label
+function labelFunc(id, value){
+	return formatyyyymmdd(value).substring(5,10);
+}
+
+//User-defined Datatips
+function dataTipFunc(seriesId, seriesName, index, xName, yName, data, values){
+	return "Date: "+formatyyyymmdd(values[0])+"<br>Opening: "+insertComma(data.open)+"<br>Closing: "+insertComma(data.close)+"<br>Highest: "+
+					insertComma(data.high)+"<br>Lowest: "+insertComma(data.low)+"<br>Volume: "+insertComma(data.admnt);
+};
+
+//For data format (YYYY-MM-DD)
+function formatyyyymmdd(date){
+	var d = "";
+
+	d += date.substring(0,4)+"-";
+	d += date.substring(4,6)+"-";
+	d += date.substring(6,8);
+	return d;
+}
+
+//For thousand separators
+function insertComma(n) {
+  var reg = /(^[+-]?\d+)(\d{3})/;   // Regular expression
+  n += "";
+  while (reg.test(n))
+    n = n.replace(reg, '$1' + "," + '$2');
+
+  return n;
+}
+
+/**
+ * If you want to use themes provided with KoolChart version 3.0, call the following functions.
+ * otherwise, comment out or delete the following functions.
+ *
+ * -- The Themes registered in KoolChart.themes --
+ * - simple
+ * - cyber
+ * - modern
+ * - lovely
+ * - pastel
+ * - old
+ * -------------------------------------------------
+ *
+ * The KoolChart.themes variable is defined in theme.js
+ */
+KoolChart.registerTheme(KoolChart.themes);
+
+/**
+ * The function called when the theme button in the sample HTML is clicked.
+ * Parameter Values:
+ * - simple
+ * - cyber
+ * - modern
+ * - lovely
+ * - pastel
+ * - old
+ * - default
+ *
+ * default: Applies the default theme which is the basic design of KoolChart.
+ * old: Applies the design of KoolChart version 2.5.
+ */
+function KoolChartChangeTheme(theme){
+	document.getElementById("chart1").setTheme(theme);
+}
+
+//----------------------- The end of the configuration for creating a chart. -----------------------
+	
+</script>
+</head>
+<body>
+	<div id="content">
+		<!-- The DIV in which the chart is placed -->
+		<div id="chartHolder" style="width:600px; height:400px;">
+		</div>
+	</div>
+</body>
+</html>

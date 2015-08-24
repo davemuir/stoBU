@@ -1,0 +1,291 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="Content-Script-Type" content="text/javascript"/>
+<meta http-equiv="Content-Style-Type" content="text/css"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>KoolChart for HTML5 - History Chart</title>
+<link rel="stylesheet" type="text/css" href="./KoolChartSample.css"/>
+
+<!--  If you want to support IE 7/8, you'll need the conditional excanvas include. -->
+<!--[if IE]><script language="javascript" type="text/javascript" src="../KoolChart/JS/excanvas.js"></script><![endif]-->
+
+<!-- License Key -->
+<script language="javascript" type="text/javascript" src="../LicenseKey/KoolChartLicense.js"></script>
+
+<!-- KoolChart JavaScript library -->
+<script language="javascript" type="text/javascript" src="../KoolChart/JS/KoolHistoryChart.js"></script>
+
+<!-- The CSS style for KoolChart (This CSS style is required for only Legend, Preloader, Scroll Chart and History Chart) -->
+<link rel="stylesheet" type="text/css" href="../KoolChart/Assets/Css/KoolChart.css"/>
+
+<!-- Theme.js -->
+<script type="text/javascript" src="../KoolChart/Assets/Theme/theme.js"></script>
+
+<script type="text/javascript">
+
+//----------------------- Here we start creating a chart. -----------------------
+
+//Sets the value of KoolOnLoadCallFunction to the name of a JS function (e.g. chartReadyHandler) that is called when the chart is ready to be created.
+var chartVars = "KoolOnLoadCallFunction=chartReadyHandler";
+
+//Creates the chart.
+//Parameters:  
+//1. Chart ID: You can use any name you like. 
+//2. DIV ID: The chart will be placed in this DIV.
+//3. chartVars: Variables used for creating the chart.
+//4. Chart width: Default value is 100%
+//5. Chart height: Default value is 100%
+KoolChart.create("chart1", "chartHolder", chartVars, "100%", "100%"); 
+
+//The JavaScript function which is set to the value of KoolOnLoadCallFunction.
+//This function will call two functions, setLayout() and setData() which are two main functions of KoolChart.
+//Parameters: 
+//1. ID: The Chart ID which is used as the first parameter of KoolChart.create().
+function chartReadyHandler(id) {
+	document.getElementById(id).setLayout(layoutStr);
+	document.getElementById(id).setData(chartData);
+}
+
+//Declares Layout
+var layoutStr = 
+				'<KoolChart backgroundColor="0xFFFFFF" cornerRadius="12" borderStyle="none">'
+					+'<Options>'
+						+'<Caption text="History 3D Chart" fontFamily="Malgun Gothic"/>'
+					+'</Options>'
+					+'<NumberFormatter id="numfmt" useThousandsSeparator="true"/>' 
+					+'<HistoryChart>'
+					/* 
+						Creating the HistoryChart node. 
+						The History chart is composed of Displayer, Navigator and Selector. 
+					*/
+						+'<displayerChart>'
+					/* 
+							Displayer ((Displayer3D): Displays the selected items of the History chart.
+					*/
+							+'<Displayer3D id="chart1" showDataTips="true" width="100%" height="100%">'
+								+'<horizontalAxis>'
+									+'<CategoryAxis id="mainHAxis" categoryField="Index"/>'
+								+'</horizontalAxis>'
+								+'<verticalAxis>'
+									+'<LinearAxis  formatter="{numfmt}"/>'
+								+'</verticalAxis>'
+								+'<horizontalAxisRenderers>'
+									+'<Axis3DRenderer axis="{mainHAxis}" canDropLabels="true" tickPlacement="none">'
+										+'<axisStroke>'
+											+'<Stroke color="#555555"/>'
+										+'</axisStroke>'
+									+'</Axis3DRenderer>'
+								+'</horizontalAxisRenderers>'
+								+'<series>'
+									/* Defines Column3DSeries for the Profit field. */
+									+'<Column3DSeries id="columnSeries" yField="Profit" maxColumnWidth="20" displayName="Profit">'
+										+'<showDataEffect>'
+											+'<SeriesInterpolate duration="1000" elementOffset="0"/>'
+										+'</showDataEffect>'
+									+'</Column3DSeries>'
+									/* Defines Line2DSeries for the Cost field. */
+									+'<Line2DSeries id="lineSeries" yField="Cost"	displayName="Cost">'
+										+'<showDataEffect>'
+											+'<SeriesInterpolate duration="1000" elementOffset="0"/>'
+										+'</showDataEffect>'
+									+'</Line2DSeries>'
+								+'</series>'
+							+'</Displayer3D>'
+						+'</displayerChart>'
+						+'<navigator>'
+						/* 
+							Navigator: Displays the whole items of the History chart.
+						*/
+							+'<Navigator id="navi"  width="100%" height="80" gutterLeft="0" gutterRight="0" paddingLeft="30" paddingRight="10">'
+								/* defines the horizontal axis */
+								+'<horizontalAxis>'
+									+'<CategoryAxis categoryField="indeProfit" id="naviHAxis"  padding="0"/>' 
+								+'</horizontalAxis>'
+								+'<horizontalAxisRenderers>'
+									+'<Axis2DRenderer axis="{naviHAxis}" visible="false" showLabels="false"/>'
+								+'</horizontalAxisRenderers>'
+								/* defines the vertical axis */
+								+'<verticalAxis>'
+									+'<LinearAxis id="vAxis"/>'
+								+'</verticalAxis>'
+								+'<verticalAxisRenderers>'
+									+'<Axis2DRenderer axis="{vAxis}" visible="false"/>'
+								+'</verticalAxisRenderers>'
+								/* defines the background */
+								 +'<backgroundElements>'
+									+'<GridLines direction="horizontal"/>'
+								+'</backgroundElements>'
+								+'<series>'
+									+'<Area2DSeries yField="Profit"/>'
+									/* Area2DSeries is defined for Navigator. */
+								+'</series>'
+							+'</Navigator>'
+						+'</navigator>'
+						+'<selector>'
+						/* 
+							Selector: You can choose a certain area you want to view in Displayer.
+							You can choose the range using Selector from Navigator.
+							The 30% of the total data is displayed when the initial loading is finished.
+	
+							liveDragging: Whether or not to use live dragging for Selector. (default: true)
+						*/
+							+'<HistoryRangeSelector width="100%" startingRange="center" visibleItemSize="15" liveDragging="false"/>'
+							/* 
+								startingRange: the initial range of the data for Selector. The valid values are left, center and right.
+								visibleItemSize: the range of data selected when the initial rendering is finished. It is the percentage of the total number of data.
+							*/
+						+'</selector>'
+					+'</HistoryChart>'
+				+'</KoolChart>';
+
+//Declares Dataset
+var chartData = [{"Index":0,"Profit":231,"Cost":32,"Revenue":955},
+				{"Index":1,"Profit":144,"Cost":231,"Revenue":69},
+				{"Index":2,"Profit":817,"Cost":463,"Revenue":47},
+				{"Index":3,"Profit":50,"Cost":248,"Revenue":33},
+				{"Index":4,"Profit":544,"Cost":72,"Revenue":641},
+				{"Index":5,"Profit":707,"Cost":878,"Revenue":589},
+				{"Index":6,"Profit":916,"Cost":737,"Revenue":405},
+				{"Index":7,"Profit":337,"Cost":506,"Revenue":342},
+				{"Index":8,"Profit":921,"Cost":374,"Revenue":905},
+				{"Index":9,"Profit":839,"Cost":984,"Revenue":551},
+				{"Index":10,"Profit":576,"Cost":264,"Revenue":947},
+				{"Index":11,"Profit":534,"Cost":374,"Revenue":781},
+				{"Index":12,"Profit":918,"Cost":56,"Revenue":477},
+				{"Index":13,"Profit":674,"Cost":37,"Revenue":818},
+				{"Index":14,"Profit":493,"Cost":638,"Revenue":305},
+				{"Index":15,"Profit":707,"Cost":507,"Revenue":575},
+				{"Index":16,"Profit":257,"Cost":200,"Revenue":27},
+				{"Index":17,"Profit":97,"Cost":853,"Revenue":56},
+				{"Index":18,"Profit":84,"Cost":13,"Revenue":873},
+				{"Index":19,"Profit":622,"Cost":921,"Revenue":809},
+				{"Index":20,"Profit":392,"Cost":373,"Revenue":626},
+				{"Index":21,"Profit":214,"Cost":267,"Revenue":387},
+				{"Index":22,"Profit":26,"Cost":307,"Revenue":823},
+				{"Index":23,"Profit":710,"Cost":614,"Revenue":690},
+				{"Index":24,"Profit":172,"Cost":758,"Revenue":569},
+				{"Index":25,"Profit":642,"Cost":177,"Revenue":256},
+				{"Index":26,"Profit":591,"Cost":106,"Revenue":570},
+				{"Index":27,"Profit":410,"Cost":405,"Revenue":946},
+				{"Index":28,"Profit":639,"Cost":583,"Revenue":646},
+				{"Index":29,"Profit":179,"Cost":793,"Revenue":593},
+				{"Index":30,"Profit":606,"Cost":148,"Revenue":222},
+				{"Index":31,"Profit":843,"Cost":669,"Revenue":214},
+				{"Index":32,"Profit":577,"Cost":596,"Revenue":448},
+				{"Index":33,"Profit":329,"Cost":988,"Revenue":30},
+				{"Index":34,"Profit":603,"Cost":187,"Revenue":604},
+				{"Index":35,"Profit":193,"Cost":267,"Revenue":296},
+				{"Index":36,"Profit":614,"Cost":562,"Revenue":970},
+				{"Index":37,"Profit":43,"Cost":523,"Revenue":286},
+				{"Index":38,"Profit":603,"Cost":246,"Revenue":327},
+				{"Index":39,"Profit":227,"Cost":669,"Revenue":804},
+				{"Index":40,"Profit":479,"Cost":933,"Revenue":701},
+				{"Index":41,"Profit":367,"Cost":753,"Revenue":471},
+				{"Index":42,"Profit":125,"Cost":152,"Revenue":546},
+				{"Index":43,"Profit":704,"Cost":349,"Revenue":117},
+				{"Index":44,"Profit":340,"Cost":564,"Revenue":16},
+				{"Index":45,"Profit":214,"Cost":353,"Revenue":781},
+				{"Index":46,"Profit":532,"Cost":195,"Revenue":11},
+				{"Index":47,"Profit":707,"Cost":54,"Revenue":981},
+				{"Index":48,"Profit":548,"Cost":545,"Revenue":142},
+				{"Index":49,"Profit":989,"Cost":712,"Revenue":799},
+				{"Index":50,"Profit":85,"Cost":970,"Revenue":887},
+				{"Index":51,"Profit":972,"Cost":102,"Revenue":427},
+				{"Index":52,"Profit":896,"Cost":972,"Revenue":981},
+				{"Index":53,"Profit":664,"Cost":593,"Revenue":13},
+				{"Index":54,"Profit":700,"Cost":460,"Revenue":457},
+				{"Index":55,"Profit":576,"Cost":255,"Revenue":959},
+				{"Index":56,"Profit":490,"Cost":847,"Revenue":222},
+				{"Index":57,"Profit":865,"Cost":370,"Revenue":549},
+				{"Index":58,"Profit":581,"Cost":772,"Revenue":474},
+				{"Index":59,"Profit":378,"Cost":587,"Revenue":281},
+				{"Index":60,"Profit":605,"Cost":644,"Revenue":926},
+				{"Index":61,"Profit":966,"Cost":664,"Revenue":486},
+				{"Index":62,"Profit":121,"Cost":4,"Revenue":766},
+				{"Index":63,"Profit":707,"Cost":84,"Revenue":40},
+				{"Index":64,"Profit":681,"Cost":723,"Revenue":520},
+				{"Index":65,"Profit":201,"Cost":83,"Revenue":507},
+				{"Index":66,"Profit":984,"Cost":762,"Revenue":545},
+				{"Index":67,"Profit":333,"Cost":318,"Revenue":542},
+				{"Index":68,"Profit":317,"Cost":976,"Revenue":372},
+				{"Index":69,"Profit":760,"Cost":392,"Revenue":337},
+				{"Index":70,"Profit":565,"Cost":683,"Revenue":108},
+				{"Index":71,"Profit":974,"Cost":626,"Revenue":232},
+				{"Index":72,"Profit":57,"Cost":385,"Revenue":280},
+				{"Index":73,"Profit":965,"Cost":47,"Revenue":804},
+				{"Index":74,"Profit":714,"Cost":868,"Revenue":976},
+				{"Index":75,"Profit":464,"Cost":359,"Revenue":828},
+				{"Index":76,"Profit":872,"Cost":309,"Revenue":418},
+				{"Index":77,"Profit":664,"Cost":224,"Revenue":507},
+				{"Index":78,"Profit":336,"Cost":912,"Revenue":574},
+				{"Index":79,"Profit":301,"Cost":631,"Revenue":555},
+				{"Index":80,"Profit":126,"Cost":351,"Revenue":231},
+				{"Index":81,"Profit":425,"Cost":559,"Revenue":844},
+				{"Index":82,"Profit":427,"Cost":28,"Revenue":680},
+				{"Index":83,"Profit":471,"Cost":467,"Revenue":958},
+				{"Index":84,"Profit":708,"Cost":218,"Revenue":963},
+				{"Index":85,"Profit":250,"Cost":65,"Revenue":594},
+				{"Index":86,"Profit":705,"Cost":334,"Revenue":359},
+				{"Index":87,"Profit":766,"Cost":980,"Revenue":284},
+				{"Index":88,"Profit":309,"Cost":926,"Revenue":958},
+				{"Index":89,"Profit":64,"Cost":90,"Revenue":587},
+				{"Index":90,"Profit":789,"Cost":307,"Revenue":723},
+				{"Index":91,"Profit":962,"Cost":655,"Revenue":49},
+				{"Index":92,"Profit":843,"Cost":649,"Revenue":6},
+				{"Index":93,"Profit":826,"Cost":309,"Revenue":486},
+				{"Index":94,"Profit":252,"Cost":15,"Revenue":208},
+				{"Index":95,"Profit":272,"Cost":308,"Revenue":931},
+				{"Index":96,"Profit":755,"Cost":442,"Revenue":735},
+				{"Index":97,"Profit":729,"Cost":495,"Revenue":26},
+				{"Index":98,"Profit":859,"Cost":599,"Revenue":435},
+				{"Index":99,"Profit":986,"Cost":700,"Revenue":166}];
+
+/**
+ * If you want to use themes provided with KoolChart version 3.0, call the following functions.
+ * otherwise, comment out or delete the following functions.
+ *
+ * -- The Themes registered in KoolChart.themes --
+ * - simple
+ * - cyber
+ * - modern
+ * - lovely
+ * - pastel
+ * - old
+ * -------------------------------------------------
+ *
+ * The KoolChart.themes variable is defined in theme.js
+ */
+KoolChart.registerTheme(KoolChart.themes);
+
+/**
+ * The function called when the theme button in the sample HTML is clicked.
+ * Parameter Values:
+ * - simple
+ * - cyber
+ * - modern
+ * - lovely
+ * - pastel
+ * - old
+ * - default
+ *
+ * default: Applies the default theme which is the basic design of KoolChart.
+ * old: Applies the design of KoolChart version 2.5.
+ */
+function KoolChartChangeTheme(theme){
+	document.getElementById("chart1").setTheme(theme);
+}
+
+//----------------------- The end of the configuration for creating a chart. -----------------------
+	
+</script>
+</head>
+<body>
+	<div id="content">
+		<!-- The DIV in which the chart is placed -->
+		<div id="chartHolder" style="width:600px; height:400px;">
+		</div>
+	</div>
+</body>
+</html>

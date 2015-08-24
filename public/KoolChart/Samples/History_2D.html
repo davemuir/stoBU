@@ -1,0 +1,268 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="Content-Script-Type" content="text/javascript"/>
+<meta http-equiv="Content-Style-Type" content="text/css"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>KoolChart for HTML5</title>
+<link rel="stylesheet" type="text/css" href="./KoolChartSample.css"/>
+
+<!--  If you want to support IE 7/8, you'll need the conditional excanvas include. -->
+<!--[if IE]><script language="javascript" type="text/javascript" src="../KoolChart/JS/excanvas.js"></script><![endif]-->
+
+<!-- License Key -->
+<script language="javascript" type="text/javascript" src="../LicenseKey/KoolChartLicense.js"></script>
+
+<!-- KoolChart JavaScript library -->
+<script language="javascript" type="text/javascript" src="../KoolChart/JS/KoolHistoryChart.js"></script>
+
+<!-- The CSS style for KoolChart (This CSS style is required for only Legend, Preloader, Scroll Chart and History Chart) -->
+<link rel="stylesheet" type="text/css" href="../KoolChart/Assets/Css/KoolChart.css"/>
+
+<!-- Theme.js -->
+<script type="text/javascript" src="../KoolChart/Assets/Theme/theme.js"></script>
+
+<script type="text/javascript">
+
+//----------------------- Here we start creating a chart. -----------------------
+
+//Sets the value of KoolOnLoadCallFunction to the name of a JS function (e.g. chartReadyHandler) that is called when the chart is ready to be created.
+var chartVars = "KoolOnLoadCallFunction=chartReadyHandler";
+
+//Creates the chart.
+//Parameters:  
+//1. Chart ID: You can use any name you like. 
+//2. DIV ID: The chart will be placed in this DIV.
+//3. chartVars: Variables used for creating the chart.
+//4. Chart width: Default value is 100%
+//5. Chart height: Default value is 100%
+KoolChart.create("chart1", "chartHolder", chartVars, "100%", "100%"); 
+
+//The JavaScript function which is set to the value of KoolOnLoadCallFunction.
+//This function will call two functions, setLayout() and setData() which are two main functions of KoolChart.
+//Parameters: 
+//1. ID: The Chart ID which is used as the first parameter of KoolChart.create().
+function chartReadyHandler(id) {
+	document.getElementById(id).setLayout(layoutStr);
+	document.getElementById(id).setData(chartData);
+}
+
+//Declares Layout
+var layoutStr = 
+				'<KoolChart backgroundColor="0xFFFFFF" cornerRadius="12" borderStyle="none">'
+					+'<Options>'
+						+'<Caption text="History 2D Chart" fontFamily="Malgun Gothic"/>'
+					+'</Options>'
+					+'<NumberFormatter id="numfmt" useThousandsSeparator="true"/>' 
+					+'<HistoryChart>'
+				/* 
+					Creating the HistoryChart node. 
+					The History chart is composed of Displayer, Navigator and Selector. 
+				*/
+						+'<displayerChart>'
+				/* 
+					Displayer: Displays the selected items of the History chart.
+				*/
+							+'<Displayer id="chart1" showDataTips="true" fontFamily="Malgun Gothic">'
+								+'<horizontalAxis>'
+									+'<CategoryAxis id="mainHAxis" categoryField="Date"/>'
+								+'</horizontalAxis>'
+								+'<verticalAxis>'
+									+'<LinearAxis  formatter="{numfmt}"/>'
+								+'</verticalAxis>'
+								+'<series>'
+								+'<Column2DSet type="clustered">'
+								+'<series>'
+									+'<Column2DSeries id="columnSeries" yField="Data1" displayName="Data1">'
+									/* Column2DSeries is defined for Displayer. */
+										+'<showDataEffect>'
+											+'<SeriesInterpolate duration="1000"/>'
+										+'</showDataEffect>'
+									+'</Column2DSeries>'
+								+'</series>'
+								+'</Column2DSet>'
+								+'</series>'
+							+'</Displayer>'
+						+'</displayerChart>'
+						+'<navigator>'
+					/* 
+						Navigator: Displays the whole items of the History chart.
+					*/
+							+'<Navigator id="navi"  width="100%" height="80" gutterLeft="0" gutterRight="0" paddingLeft="30" paddingRight="10">'
+								/* defines the horizontal axis */
+								+'<horizontalAxis>'
+									+'<CategoryAxis categoryField="Date" id="naviHAxis"  padding="0"/>' 
+								+'</horizontalAxis>'
+								+'<horizontalAxisRenderers>'
+									+'<Axis2DRenderer axis="{naviHAxis}" visible="false"/>'
+								+'</horizontalAxisRenderers>'
+								/* defines the vertical axis */
+								+'<verticalAxis>'
+									+'<LinearAxis id="vAxis"/>'
+								+'</verticalAxis>'
+								+'<verticalAxisRenderers>'
+									+'<Axis2DRenderer axis="{vAxis}" visible="false"/>'
+								+'</verticalAxisRenderers>'
+								/* defines the background */
+								 +'<backgroundElements>'
+									+'<GridLines direction="horizontal"/>'
+								+'</backgroundElements>'
+								
+								+'<series>'
+									+'<Area2DSet>'
+										+'<series>'
+									+'<Area2DSeries name="A" yField="Data1"/>'
+										+'</series>'
+									+'</Area2DSet>'
+									/* Area2DSeries is defined for Navigator */
+								+'</series>'
+							+'</Navigator>'
+						+'</navigator>'
+						+'<selector>'
+					/* 
+						Selector: You can choose a certain area you want to view in Displayer.
+						You can choose the range using Selector from Navigator.
+						The 30% of the total data is displayed when the initial loading is finished. 
+					*/
+							+'<HistoryRangeSelector width="100%" startingRange="center" visibleItemSize="30"/>'
+					/* 
+						startingRange: the initial range of the data for Selector. The valid values are left, center and right.
+						visibleItemSize: the range of data selected when the initial rendering is finished. It is the percentage of the total number of data.
+					*/
+						+'</selector>'
+					+'</HistoryChart>'
+				+'</KoolChart>';
+
+//Declares Dataset
+var chartData = [{"Date":"2008/11/12","Data1":1000},
+				{"Date":"2008/11/13","Data1":1400},
+				{"Date":"2008/11/14","Data1":1500},
+				{"Date":"2008/11/15","Data1":1900},
+				{"Date":"2008/11/16","Data1":1400},
+				{"Date":"2008/11/17","Data1":2000},
+				{"Date":"2008/11/18","Data1":1800},
+				{"Date":"2008/11/19","Data1":2500},
+				{"Date":"2008/11/20","Data1":3000},
+				{"Date":"2008/11/21","Data1":2000},
+				{"Date":"2008/11/22","Data1":2100},
+				{"Date":"2008/11/23","Data1":1700},
+				{"Date":"2008/11/24","Data1":2400},
+				{"Date":"2008/11/25","Data1":1000},
+				{"Date":"2008/11/26","Data1":1400},
+				{"Date":"2008/11/27","Data1":1500},
+				{"Date":"2008/11/28","Data1":1900},
+				{"Date":"2008/11/29","Data1":1400},
+				{"Date":"2008/11/30","Data1":2000},
+				{"Date":"2008/12/1","Data1":1800},
+				{"Date":"2008/12/2","Data1":2500},
+				{"Date":"2008/12/3","Data1":3000},
+				{"Date":"2008/12/4","Data1":2000},
+				{"Date":"2008/12/5","Data1":2100},
+				{"Date":"2008/12/6","Data1":1700},
+				{"Date":"2008/12/7","Data1":2400},
+				{"Date":"2008/12/8","Data1":2100},
+				{"Date":"2008/12/9","Data1":2400},
+				{"Date":"2008/12/10","Data1":2000},
+				{"Date":"2008/12/11","Data1":1800},
+				{"Date":"2008/12/12","Data1":2500},
+				{"Date":"2008/12/13","Data1":3000},
+				{"Date":"2008/12/14","Data1":2000},
+				{"Date":"2008/12/15","Data1":2100},
+				{"Date":"2008/12/16","Data1":1700},
+				{"Date":"2008/12/17","Data1":2400},
+				{"Date":"2008/12/19","Data1":2500},
+				{"Date":"2008/12/20","Data1":3000},
+				{"Date":"2008/12/21","Data1":2000},
+				{"Date":"2008/12/22","Data1":2100},
+				{"Date":"2008/12/23","Data1":1700},
+				{"Date":"2008/12/24","Data1":2400},
+				{"Date":"2008/12/25","Data1":1000}];
+
+	//Due to the printing bug of IE7, 8, the transparent part of the chart cannot be printed properly, when you are using IE7, 8.
+	//If you have to use IE7, 8 for printing, you need to run the following JS function.
+	var selectors;
+	/**
+	 * str : remove - removes the filters and colors for transparency
+	 *	     insert - restores the filters and colors
+	 */
+	function divFilterRemove(str){
+		if(str === "remove" && selectors == null){
+			selectors = {};
+			var i = 0,
+				root = document.getElementById("chart1"),
+				className = "KoolChart__ChartRangeSelector_";
+			root = root.getElementsByTagName("div");
+			
+			while(true){
+				if(root[i].className === className + "Left" || root[i].className === className + "Center" || root[i].className === className + "Right"){
+					selectors[root[i].className] = root[i];
+					selectors[root[i].className + "_Filter"] = root[i].style.filter;
+					selectors[root[i].className + "_BackgroundColor"] = root[i].style.backgroundColor;
+					root[i].style.filter = "";
+					root[i].style.backgroundColor = "";	}
+				if(selectors[className + "Left"] !== undefined && selectors[className + "Center"] !== undefined && selectors[className + "Right"] !== undefined)
+					break;
+				i++;
+			}
+		}else if(str == "insert" && selectors != null){
+			var filter = "_Filter",
+				bc = "_BackgroundColor";
+			for(var o in selectors){
+				if(o.indexOf(filter) > -1){
+					selectors[o.substring(0, o.length - filter.length)].style.filter = selectors[o];
+				}else if(o.indexOf(bc) > -1){
+					selectors[o.substring(0, o.length - bc.length)].style.backgroundColor = selectors[o];
+				}
+			}
+			selectors = null;
+		}
+	}
+
+/**
+ * If you want to use themes provided with KoolChart version 3.0, call the following functions.
+ * otherwise, comment out or delete the following functions.
+ *
+ * -- The Themes registered in KoolChart.themes --
+ * - simple
+ * - cyber
+ * - modern
+ * - lovely
+ * - pastel
+ * - old
+ * -------------------------------------------------
+ *
+ * The KoolChart.themes variable is defined in theme.js
+ */
+KoolChart.registerTheme(KoolChart.themes);
+
+/**
+ * The function called when the theme button in the sample HTML is clicked.
+ * Parameter Values:
+ * - simple
+ * - cyber
+ * - modern
+ * - lovely
+ * - pastel
+ * - old
+ * - default
+ *
+ * default: Applies the default theme which is the basic design of KoolChart.
+ * old: Applies the design of KoolChart version 2.5.
+ */
+function KoolChartChangeTheme(theme){
+	document.getElementById("chart1").setTheme(theme);
+}
+
+//----------------------- The end of the configuration for creating a chart. -----------------------
+	
+</script>
+</head>
+<body>
+	<div id="content">
+		<!-- The DIV in which the chart is placed -->
+		<div id="chartHolder" style="width:600px; height:400px;">
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,252 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="Content-Script-Type" content="text/javascript"/>
+<meta http-equiv="Content-Style-Type" content="text/css"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>KoolChart for HTML5 - From-To Chart</title>
+<link rel="stylesheet" type="text/css" href="./KoolChartSample.css"/>
+
+<!--  If you want to support IE 7/8, you'll need the conditional excanvas include. -->
+<!--[if IE]><script language="javascript" type="text/javascript" src="../KoolChart/JS/excanvas.js"></script><![endif]-->
+
+<!-- License Key -->
+<script language="javascript" type="text/javascript" src="../LicenseKey/KoolChartLicense.js"></script>
+
+<!-- KoolChart JavaScript library -->
+<script language="javascript" type="text/javascript" src="../KoolChart/JS/KoolChart.js"></script>
+
+<!-- Theme.js -->
+<script type="text/javascript" src="../KoolChart/Assets/Theme/theme.js"></script>
+
+<script type="text/javascript">
+
+//----------------------- Here we start creating a chart. -----------------------
+
+//Sets the value of KoolOnLoadCallFunction to the name of a JS function (e.g. chartReadyHandler) that is called when the chart is ready to be created.
+var chartVars = "KoolOnLoadCallFunction=chartReadyHandler";
+
+//Creates the chart.
+//Parameters:  
+//1. Chart ID: You can use any name you like. 
+//2. DIV ID: The chart will be placed in this DIV.
+//3. chartVars: Variables used for creating the chart.
+//4. Chart width: Default value is 100%
+//5. Chart height: Default value is 100%
+KoolChart.create("chart1", "chartHolder", chartVars, "100%", "100%"); 
+
+//The JavaScript function which is set to the value of KoolOnLoadCallFunction.
+//This function will call two functions, setLayout() and setData() which are two main functions of KoolChart.
+//Parameters: 
+//1. ID: The Chart ID which is used as the first parameter of KoolChart.create().
+function chartReadyHandler(id) {
+	document.getElementById(id).setLayout(layoutStr);
+	document.getElementById(id).setData(chartData);
+}
+
+//Declares Layout
+var layoutStr = '<KoolChart cornerRadius="12">'
+					+'<Options>'
+						+'<Caption text="2013 Revenue Variation (Monthly)" fontFamily="Malgun Gothic"/>'
+						+'<SubCaption text="Unit: $K" textAlign="right" fontSize="11" fontFamily="Malgun Gothic"/>'
+					+'</Options>'
+					+'<NumberFormatter id="fmt"/>'
+					+'<Column2DChart showDataTips="true" dataTipJsFunction="dataTipFunc" fontSize="11" fontFamily="Malgun Gothic">'
+						+'<horizontalAxis>'
+							+'<CategoryAxis id="hAxis" categoryField="cat"/>'
+						+'</horizontalAxis>'
+						+'<verticalAxis>'
+							+'<LinearAxis formatter="{fmt}" interval="3000"/>'
+						+'</verticalAxis>'
+						+'<series>'
+							+'<Column2DSeries id="series1" minField="from" labelPosition="outside" insideLabelJsFunction="labelFunc" yField="to" fillJsFunction="fillFunc" outsideLabelYOffset="0">'
+								+'<showDataEffect>'
+									+'<SeriesSlide direction="up" duration="1000"/>'
+								+'</showDataEffect>'
+							+'</Column2DSeries>'
+						+'</series>'
+						+'<horizontalAxisRenderers>'
+							+'<Axis2DRenderer axis="{hAxis}" showLine="true" canDropLabels="false" fontFamily="Malgun Gothic"/>'
+						+'</horizontalAxisRenderers>'
+					+'</Column2DChart>'
+				+'</KoolChart>';
+
+//Declares Dataset
+var chartData = [
+      			{"cat":"JAN", "from":1000, "to":5000},
+                {"cat":"FEB", "from":5000, "to":12000},
+            	{"cat":"MAR", "from":12000, "to":16000},
+            	{"cat":"APR","from":16000, "to":10000},
+    			{"cat":"MAY", "from":10000, "to":100},
+    			{"cat":"JUN", "from":100, "to":-1000},
+    			{"cat":"JUL", "from":-1000, "to":3000},
+    			{"cat":"AUG", "from":3000, "to":8000},
+    			{"cat":"SEP", "from":8000, "to":12000},
+    			{"cat":"OCT", "from":12000, "to":14000},
+    			{"cat":"NOV", "from":14000, "to":7500},
+    			{"cat":"DEC", "from":7500, "to":2500},
+    			{"cat":"Next YR", "from":0, "to":20000}
+			];
+
+/*
+// ---------------------- The user-defined function to be used to generate the toolTips (dataTipJsFunction)--------------------------------------------
+// The JavaScript function to be called to show tooltips (showDataTips="true").
+// Sets the value of labelJsFunction to the JavaScript function name in layouts
+
+// e.g.) <Column3DChart showDataTips="true" dataTipJsFunction="dataTipFunc">
+//
+// Parameters
+// seriesId: Series ID
+// seriesName: The name of the series, which is set as the value of the displayName property.
+// index: The index of the item in the series.
+// xName: The value of the displayName property in the horizontalAxis node.
+// yName: The value of the displayName property in the verticalAxis node.
+// data: The record of the dataset declared for creating the chart.
+// values: The value is an array and each element in the array is different depending on the chart type.
+			Bar2D(3D)Series		0: X-axis value, 1: Y-axis value
+			Column2D(3D)Series	0: X-axis value, 1: Y-axis value
+			Area2DSeries		0: X-axis value, 1: Y-axis value
+			Bubble3DSeries		0: X-axis value, 1: Y-axis value 2: radius
+			Line2DSeries		0: X-axis value, 1: Y-axis value
+			Pie2D(3D)Series		0: value, 1: percentage, 2: nameField
+
+			**
+			* If you set the minField property in the From-To Chart, the last index of the array(values) has the value of minField.
+*/
+function dataTipFunc(seriesId, seriesName, index, xName, yName, data, values)
+{
+	// The usage example: using "data" parameter.
+	// The usage example: using "values" parameter.
+
+	var fromVal = data['from'];
+	var toVal = data['to'];
+
+	if(index >=12)
+		return "<font color='#0000FF'>"+values[0]+"</font>"
+			+"<br/>"+ insertComma(toVal) + ",000 exceeded";
+	
+	return "<font color='#0000FF'>"+values[0]+"</font>"
+		+"<br/>Amount increased: " + insertComma((toVal - fromVal)) + ",000";
+}
+
+
+/*
+// -------------------- fillJsFunction ----------------------------------------------------------------
+// The JS function called to fill the colors by the user-defined logic.
+// Sets the value of the fillJsFunction property to the name of a JS function.
+//
+// e.g) <Bar3DSeries xField="Profit" fillJsFunction="fillJsFunc">
+//
+// Parameters:
+// seriesId: Series ID 
+// index: The index of the item in the series.
+// data: The record of the dataset declared for creating the chart.
+// values: The value is an array and each element in the array is different depending on the chart type.
+		 Bar2D(3D)Series      0: X-axis value, 1: Y-axis value
+		 Column2D(3D)Series   0: X-axis value, 1: Y-axis value
+		 Area2DSeries         0: X-axis value, 1: Y-axis value
+		 Bubble3DSeries       0: X-axis value, 1: Y-axis value 2: radius
+		 Line2DSeries         0: X-axis value, 1: Y-axis value
+		 Pie2D(3D)Series      0: value, 1: percentage, 2: nameField
+
+// If you set the minField property in the From-To Chart, the last index of the array(values) has the value of minField.
+*/
+
+function fillFunc(seriesId, index, data, values)
+{
+	if(index >=12)
+		return "#81d733";
+
+	else if(values[1] < values[2])
+		return "#ff812d";
+
+	else
+		return "#ffd100";	
+}
+
+
+ /*
+// ------------------------- insideLabelJsFunction -----------------------------------------------------
+// If the value of the labelPosition property is set to "inside", the JS function, the name of which is the value of the insideLabelJsFunction property is called to generate the user-defined label.
+// Sets the value of the insideLabelJsFunction property to the name of a JS function.
+//
+// ex) <Column2DSeries yField="Profit" labelPosition="inside" insideLabelJsFunction="seriesLabelFunc">
+//
+// Parameters:
+// seriesID: Series ID
+// index: The index of the item in the series
+// data: The record of the dataset declared for creating the chart.
+// values: The value of the item. The value is an array and each element in the array is different depending on the chart type.
+
+            Pie2DSeries,Pie3DSeries			0: value, 1: percentage
+			Bubble3DSeries,Matrix2DSeries   0: X-axis value, 1: Y-axis value, 2: Z-axis value
+
+			All series except Pie, Bubble series  	0: X-axis value, 1: Y-axis value, 2: min
+			* The min value is valid only if type='100%' or type='stacked'. if the type is "stacked", the min value is the value of the bottom stack.
+//
+*/
+function labelFunc(seriesID, index, data, values)
+{
+	// Array type
+	return insertComma(Number(data["to"]) - Number(data["from"]));
+}
+
+// Formatting the data using the thousand separators.
+function insertComma(n) 
+{
+	var reg = /(^[+-]?\d+)(\d{3})/;   // Regular expression
+	n+=""; // Converting the number type to the string type.
+	while (reg.test(n))
+		n = n.replace(reg, '$1' + "," + '$2');
+
+	return n;
+}
+	
+/**
+ * If you want to use themes provided with KoolChart version 3.0, call the following functions.
+ * otherwise, comment out or delete the following functions.
+ *
+ * -- The Themes registered in KoolChart.themes --
+ * - simple
+ * - cyber
+ * - modern
+ * - lovely
+ * - pastel
+ * - old
+ * -------------------------------------------------
+ *
+ * The KoolChart.themes variable is defined in theme.js
+ */
+KoolChart.registerTheme(KoolChart.themes);
+
+/**
+ * The function called when the theme button in the sample HTML is clicked.
+ * Parameter Values:
+ * - simple
+ * - cyber
+ * - modern
+ * - lovely
+ * - pastel
+ * - old
+ * - default
+ *
+ * default: Applies the default theme which is the basic design of KoolChart.
+ * old: Applies the design of KoolChart version 2.5.
+ */
+function KoolChartChangeTheme(theme){
+	document.getElementById("chart1").setTheme(theme);
+}
+
+//----------------------- The end of the configuration for creating a chart. -----------------------
+	
+</script>
+</head>
+<body>
+	<div id="content">
+		<!-- The DIV in which the chart is placed -->
+		<div id="chartHolder" style="width:600px; height:400px;">
+		</div>
+	</div>
+</body>
+</html>
