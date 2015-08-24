@@ -1,0 +1,40 @@
+<div class="container roomContainer">
+	</h2><?php echo $room->name; ?></h2>
+
+	<!-- Table to display Total Beacon Analytics for selected Room -->
+	<table class="col-md-12 roomInfo">
+		<tr>
+			<th class="col-md-4"><h4>This Month</h4><span></span></th>
+			<th class="col-md-4"><h4>Last Week</h4><span></span> </th>
+			<th class="col-md-4"><h4>Total</h4><span></span></th>
+		</tr>
+		<tr>
+			<td class="col-md-4"><h3><?php echo $total_m;?>  </h3></td>
+			<td class="col-md-4"><h3><?php echo $total_w;?> </h3></td>
+			<td class="col-md-4"><h3><?php echo $total_a;?></h3></td>
+		</tr>
+	</table>
+
+	<!-- Displaying all the beacons and relevent analytics for selected Room -->	
+	<?php $count = 0;?>
+	<?php foreach($beacons as $key=>$value): ?>	
+
+		<table class="beaconTable col-md-12 ">
+			
+			<tr>
+				<td>Name : <?php echo $value->alias; ?></td>			
+			 	<td>View This Month : <?php echo $query1[$count] ; ?></td>				
+			</tr>
+			<tr>
+				<td> </td>
+				<td>View Last Week : <?php echo $query2[$count] ; ?></td>
+			</tr>
+		</table>
+		
+		<?php $count++; ?>
+
+		
+	<?php endforeach; ?>
+
+	
+</div>

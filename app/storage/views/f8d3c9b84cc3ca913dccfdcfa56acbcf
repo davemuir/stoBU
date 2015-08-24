@@ -1,0 +1,108 @@
+  <script>
+    $(document).ready(function(){
+      var companyName = $('.companyNameSet');
+      companyName.hide();
+      $('#user-access-link').click(function(){
+        companyName.show();
+      });
+
+      $('#companyNameSubmit').click(function(){
+        var name = $('#companyName').val();
+        window.location.assign('/requestAccess/'+name);
+      });
+
+    });
+  </script>
+
+   <?php $__env->startSection("content"); ?>
+    <div class="row">
+      <div class="col-md-12">
+        <div id="wrapper" class="forgotPasswordSlide">
+
+          
+          <div class="col-md-2"></div>
+          <div id="loginContent" class="col-md-4 passwordContent">
+
+        
+             <a href="/login"><img src='img/apengageBigLogo.png' id='frontBodyLogo'/></a>
+         
+            <br>
+           <p>Forgot your password? we'll send you a new one.</p>
+                <?php echo Form::open([
+                "route"        => "Password Send",
+                'action' => 'userController@passwordSend',
+                "autocomplete" => "off",
+                "enctype" =>"multipart/form-data",
+            ]); ?>
+
+            <br/>
+            <?php echo Form::text("email", null, [
+                          "placeholder" => "email","class" =>"form-control"
+            ]); ?>
+
+          <?php echo Form::submit("Reset Password", array('class' => 'linkBtn')); ?>
+
+          <?php echo Form::close(); ?>
+
+           
+
+           
+
+            
+
+          </div>
+
+          
+          <div class="col-md-6"></div>
+        </div>
+      </div>
+    </div>
+    <div class="clearfix"></div>  
+  <?php $__env->stopSection(); ?>
+
+<?php $__env->startSection("footer"); ?>
+    @parent
+<?php $__env->stopSection(); ?>
+
+        
+
+
+
+
+ <!--   <div class="row">
+      <div class="col-md-12">
+          <div id="wrapper">
+         <div class="row login-style">
+              <img src='img/apengageBigLogo.png' id='frontBodyLogo'/>
+
+                <h2>Reset Password</h2>
+                <?php echo Form::open([
+                "route"        => "Password Send",
+                'action' => 'userController@passwordSend',
+                "autocomplete" => "off",
+                "enctype" =>"multipart/form-data",
+            ]); ?>
+
+            <br/>
+            <?php echo Form::text("email", null, [
+                          "placeholder" => "email","class" =>"form-control"
+            ]); ?>
+
+          <?php echo Form::submit("Reset Password", array('class' => 'btn')); ?>
+
+          <?php echo Form::close(); ?>
+
+               </div>
+          </div>
+      </div>
+    </div>
+    <div class="clearfix"></div>-->
+
+           
+
+
+
+
+
+
+<?php echo $__env->make("layout", array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

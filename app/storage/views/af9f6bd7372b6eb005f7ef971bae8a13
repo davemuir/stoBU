@@ -1,0 +1,33 @@
+<?php $__env->startSection("content"); ?>
+<?php echo $__env->make("header", array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+
+<div class="innerContent laterContent">
+
+<div class="row" >
+  <div class="col-md-6">
+    <h3>App Template</h3>
+
+      <?php if(isset($settings[0])): ?>
+  App ID: <? print_r($settings[0]["_id"]);?> <br>
+    App ID: <?php echo HTML::image($settings[0]["app_logo"]); ?> <br>
+     <a href="<?php echo URL::route('Edit App Settings'); ?>">Edit app Settings</a>
+     <?php else: ?> 
+    <a href="<?php echo URL::route('Create App Settings'); ?>">create app Settings</a>
+    <?php endif; ?>
+  
+
+    
+  </div>
+
+ <div class="col-md-4">
+    <h3></h3>
+
+    
+
+  </div>
+</div>
+</div>
+
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make("layout_dash", array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

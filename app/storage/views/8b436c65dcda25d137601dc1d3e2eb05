@@ -1,0 +1,83 @@
+<?php $__env->startSection("content"); ?>
+<?php echo $__env->make("header", array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+<script type="text/javascript">
+    $( document ).ready(function() {
+    $( "#appLogoHover" ).click(function(){
+                $('#company_logo').click();
+              });
+    });
+</script>
+<!-- Create Company Settings Starts -->
+<div class="innerContent">
+<div id="analyticsBackground">
+<div class="row resetMargin" id="analyticsRow">
+<div class="col-md-12" id="analyticsCategory">
+  <?php echo Form::open([
+        'route' => 'company.store',
+        "enctype" =>"multipart/form-data",
+        'method' =>'POST'
+    ]); ?>
+
+            <div id="titleBarR">
+                <h2>
+                  Company Details
+                </h2>
+            </div>
+            <div class="col-md-12 customMargin">
+                <div class="col-md-5 setCompanyDetails">
+                  <div class="underline"><h4>Company Name</h4></div>
+               <?php echo Form::text("name", null, [
+                "placeholder" => "Company Name","class" =>"form-control"
+                ]); ?>
+
+              </div>
+              <div class="col-md-5 setCompanyDetails">
+                  <div class="underline"><h4>Company Logo</h4></div>
+                  <?php echo Form::file('company_logo',array( "id" => "company_logo", "class" => "form-hidden")); ?>
+
+                   <div id="appLogoHover" >
+                      <?php
+                      if(isset($company->setImage)){?>
+                      <img  id="createEditProfileAvatar" src="<?php echo $company->setImage; ?>">
+                      <?php }else{ ?>
+                      <img  id="createEditProfileAvatar" src="http://placehold.it/50x50">
+                      <?php } ?>
+                  </div>
+              </div>
+            </div>
+            <div class="clearfix"></div>
+            <div id="titleBarG">
+              <h2>
+                Floor Plan
+              </h2>
+            </div>
+            <div class="col-md-12 setCompanyFloor">
+
+              <?php
+              if(isset($company->floorPlan)){?>
+              <img class="floorPlanPreview" src="<?php echo $company->floorPlan; ?>">
+              <?php }else{ ?>
+              <img class="floorPlanPreview" src="http://placehold.it/800x576">
+              <?php } ?>
+
+              <?php echo Form::label("floorPlan", "Floor Plan"); ?>
+
+              <?php echo Form::file('floorPlan',array( "id" => "floorPlan", "class" => "")); ?>
+
+
+              <?php echo Form::submit("Create Company Settings", array('class'=>'btn btn-primary btn-mini') ); ?>
+
+              <?php echo Form::close(); ?>
+
+            </div>
+          </div>
+        </div>
+      </div>
+</div>
+
+
+<!-- End of Create Company Settings -->
+
+
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make("layout_dash", array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

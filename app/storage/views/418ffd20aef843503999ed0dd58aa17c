@@ -1,0 +1,34 @@
+<?php $__env->startSection("content"); ?>
+<?php echo $__env->make("header", array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+
+<!-- ============== Edit Room =========================== -->
+
+<div class="innerContent laterContent">
+
+    <div class="row">
+
+      <div class="col-md-11">
+
+          <div class='laterContent'>
+                <?php echo Form::model($room, array('method' => 'put', 'route' => array('Rooms.update', $room->id))); ?>
+
+
+                <?php echo Form::label('Name'); ?>
+
+                <?php echo Form::text('name'); ?>
+
+                <?php echo Form::submit('Send!'); ?>
+
+
+                <?php echo Form::close(); ?>
+
+
+          </div>
+
+      </div>
+
+    </div>
+</div>
+
+  <?php $__env->stopSection(); ?>
+<?php echo $__env->make("layout_dash", array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

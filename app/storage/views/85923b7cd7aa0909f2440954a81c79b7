@@ -1,0 +1,220 @@
+<?php $__env->startSection("title"); ?>
+<title>Beam Manager</title>
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection("content"); ?>
+<?php echo $__env->make("header", array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+
+<!-- ===================================== Beams Manager / Beams Preview Page ======================================= -->
+
+
+			</script>
+<div class="innerContent" ng-controller="beamCtrl">
+	<div class="row" >
+		<div class="col-md-8">
+
+			<div class="row">
+
+				<div class="col-md-4"> <!-- New Beam Request -->
+
+					<ul id="surveyControls">
+
+				  		<li>
+
+				  			<button type="button" class="btn btn-primary btn-xs newbtn">
+						  		<span class="glyphicon glyphicon-plus"></span>
+							    <a class="glyphLink" href="<?php echo URL::route('New Beam'); ?>"
+							    data-id='2'
+							    data-toggle="tooltip"
+							    data-placement="right"
+							    title="Create a new beam message">NEW BEAM</a>
+							</button>
+
+						</li>
+
+					</ul>
+
+				</div>
+
+			</div>
+
+			<div class="row">
+
+				<div class="col-md-12"> <!-- preview -->
+					<!--populate a table/list of active beams here-->
+					<div id="errorPanel">
+						<?php
+					      if(Session::get('message')){
+					        echo '<h3 class="glyphicons warning_sign"><i></i>Errors</h3>';
+					        echo '<h4>'.Session::get('message').'</h4>';
+					      }
+					    ?>
+			        </div>
+
+					<ul id="preview_beam_list">
+						<!--to be generated dynamically // for each loop-->
+
+					        <li ng-repeat="data in filtered = (list | filter:search) | filterForm:(currentPage-1)*entryLimit | limitTo:entryLimit">
+						        <div class="beam_preview_wrapper">
+						        	<div class="row-fluid">
+						         		<div class="col-md-12 title_wrap">
+							         		<span class="beam_preview_title beamTitleColor"><%data.title%></span>
+							         		<span class="beam_fl">
+												<div class="beam_preview_btn">
+
+													<form method="POST" action="/beams?<%data._id%>" accept-charset="UTF-8" class="ng-pristine ng-valid"><input name="_method" type="hidden" value="DELETE">
+													<input name="id" type="hidden" value="<%data._id%>">
+												<!-- <span class="btn-file btn glyphicon glyphicon-user" id="">
+														<input type="submit" value="Delete ">
+							            			</span>
+							            		-->
+							            			<button type="submit" class="btn btn-file" id="submitBtnDlt"><i class="glyphicon glyphicon-trash"></i></button>
+												</form>
+
+												</div>
+												<div class="beam_preview_btn">
+
+
+												    <a  href="/cms/editbeam/<%data._id%>"><?php echo Form::button('<i class="glyphicon glyphicon-pencil"></i>', array('type' => 'submit', 'class'=>"btn btn-file",'id'=>"submitBtn")); ?></a>
+												</div>
+											 	<h6 class="btn btn-file previewBeam" data-req='<%data._id%>'><i class="glyphicon glyphicon-zoom"></i>Preview</h6>
+
+
+
+												<!-- 	<span  class="beam_assigned glyphicon glyphicon-power"><i></i></span>
+
+
+
+													<span class="beam_unassigned glyphicon glyphicon-power"><i></i></span>
+ -->
+
+
+											 	<div class="clear"></div>
+											</span>
+						         		</div>
+						        	</div>
+
+
+						         	<div class="row beam_preview_dets">
+						         		<div class="col-md-8">
+							         		<p><span class="beam_preview_label">Date: </span> <span class="beam_preview_field"><%data.updated_at%></span></p>
+							         		<p><span class="beam_preview_label">Tags: </span> <span class="beam_preview_field"><%data.tags%></span></p>
+											<p>
+												<span class="beam_preview_label">Campaigns: </span>
+												<span class="beam_preview_field">
+
+													<%data.campaign_names%>
+												</span>
+											</p>
+										</div>
+						        	</div>
+						        </div>
+					        </li>
+
+
+
+					</ul>
+
+						 <script type="text/javascript">
+						    $('.beamDelete').bind("click", function (e) {
+						    	if (confirm('Do you really want to delete the Beam ?')){return true;}
+						    	return false;
+						    });
+
+						    $('#submitBtnDlt').click(function(){
+						        //event.preventDefault();
+						        var confirmed =  confirm('Are you Sure?');
+						        if(confirmed == false){
+						            return false;
+						        }
+						    });
+						    $('.previewBeam').click(function(){
+
+								alert('click');
+
+							});
+					    </script>
+				</div>
+
+			</div>
+
+		</div>
+
+		<!-- Preview of selected Beam Section -->
+		<div class="col-md-4">
+
+			<div class="row">
+
+				<div class="col-md-12">	<!--Filter Controllers-->
+
+					<h4>Filter Options</h4>
+
+					<div id="archiveHub">
+
+						<div class="row">
+
+							<div class="col-md-12">
+								<h5><%filtered.length%> out of <%totalItems%> matches found.</h5>
+							</div>
+
+						</div>
+
+						<div class="row">
+
+							<div class="col-md-3">List Length:
+
+								<select ng-model="entryLimit" class="form-control" id="placesize">
+
+									<option>5</option>
+									<option>10</option>
+									<option>20</option>
+									<option>50</option>
+									<option>100</option>
+
+								</select>
+
+							</div>
+
+							<div class="col-md-9">Search by name or tag.
+								<input type="text" ng-model="search" ng-change="filter()" placeholder="Filter" class="form-control" id="placesize"/>
+							</div>
+
+						</div>
+
+					</div>
+
+				</div>
+
+			</div>
+			<br>
+			<div class="row">
+
+		    	<div id="example_preview">
+		    		<div id="phoneHeader">
+		    			<div id="phoneMonitor"></div>
+		    			<div id="phoneCamera"></div>
+		    		</div>
+					<div id="example_wrapper">
+						<p id="example_header" style="background-color: <?echo Auth::user()->company->themeSet['header']?>;"><img style="width:15%" src=" <?echo Auth::user()->avatar['thumb'];?>"/> <span><?echo Auth::user()->lname;?> </span></p>
+						<div id="example_body">
+						</div>
+					</div>
+
+					<div id="phoneButton">
+						<div id="buttonSquare"></div>
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+		<!-- End of Preview of selected Beam Section -->
+
+	</div>
+</div>
+
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection("footer"); ?>
+	   @parent
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make("layout_dash", array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

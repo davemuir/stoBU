@@ -1,0 +1,10 @@
+<?php $__env->startSection("footer"); ?>
+    <div class="footer" >
+    	<div id="pre-container">
+    		<div class="container">
+            	Powered by <a href="http://www.ap1ication.com/"><img class="footer_logo" src="/img/apengage_logo.png"></a>
+        	</div>
+    	</div>
+    </div>
+
+<?php echo $__env->yieldSection(); ?>

@@ -1,0 +1,309 @@
+<?php $__env->startSection("content"); ?>
+<?php echo $__env->make("header", array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+
+<!-- =================================== View/Preview Survey Page =======================================-->
+
+<script>
+$( document ).ready(function() {
+	$('#submitBtnDlt').click(function(){
+
+		var confirmed =  confirm('Are you sure you want to delete this item?');
+		if(confirmed == false){
+			return false;
+		}
+		});
+ });
+function previewBeam(id){
+	var xhr = new XMLHttpRequest();
+      xhr.open('GET', '/previewSurvey/'+id, false);
+      xhr.send(null);
+      if (xhr.status == 200) {
+        var arr = JSON.parse(xhr.response);
+     	console.log(arr);
+     	$('.phonepreLogo').attr('src',arr['logo']);
+     	$('#innerHeader h4').html(arr['title']);
+     	$('.inner.1 p:first-child').html(arr['question']);
+     	$('.answerList li:first-child p').html(arr['choice1']);
+     	if(arr['icon1'] != null){
+     		$('.answerList li:first-child .after img').attr('src',arr['icon1']);
+     	}else{
+     		$('.answerList li:first-child .after img').attr('src','/img/noicon.png');
+     	}
+     	$('.answerList li:nth-last-child(3) p ').html(arr['choice2']);
+     	if(arr['icon2'] != null){
+     		$('.answerList li:nth-last-child(3) .after img').attr('src',arr['icon2']);
+     	}else{
+     		$('.answerList li:nth-last-child(3) .after img').attr('src','/img/noicon.png');
+     	}
+     	$('.answerList li:nth-last-child(2) p ').html(arr['choice3']);
+     	if(arr['icon3'] != null){
+     		$('.answerList li:nth-last-child(2) .after img').attr('src',arr['icon3']);
+     	}else{
+     		$('.answerList li:nth-last-child(2) .after img').attr('src','/img/noicon.png');
+     	}
+     	$('.answerList li:last-child p ').html(arr['choice4']);
+     	if(arr['icon4'] != null){
+     		$('.answerList li:last-child .after img').attr('src',arr['icon4']);
+     	}else{
+     		$('.answerList li:last-child .after img').attr('src','/img/noicon.png');
+     	}
+     	$('.inner.2 p').html(arr['thank_msg']);
+     	$('body').animate({scrollTop: $("#viewSurveyMenu").offset().top});
+      }
+}
+ </script>
+
+<div class="innerContent" id="analyticsDashBackground">
+
+	<div class="row">
+
+  		<div class="col-md-12">
+
+		  	<ul id="surveyControls">
+
+		  		<li>
+		  			<button type="button" class="btn btn-primary btn-mini">
+				  		<span class="glyphicon glyphicon-plus"></span>
+					    <a class="glyphLink" href="<?php echo URL::route('Create Survey'); ?>"
+					    data-id='2'
+					    data-toggle="tooltip"
+					    data-placement="right"
+					    title="Click here to create a new survey ">New Survey</a>
+					</button>
+				</li>
+
+			</ul>
+
+			<ul id="viewSurveyMenu">
+
+					<?php $array = array();?>
+				<?php foreach($survey as $key => $value): ?>
+					<?php $array[$value['_id']] = $value['title'];  ?>
+				<?php endforeach; ?>
+
+
+		   	</ul>
+
+			<?php foreach($survey as $key => $value): ?>
+			<?php if($value['active'] == true): ?>
+
+
+			<div ng-controller="PanelController as panel">
+
+				<div id="previewContainer" class="row-fluid">
+
+					<!-- Survey Preview Section-->
+					<div class="col-md-6" id="previewContainer">
+						<h2 class="titleHeading">Step 1 - Survey View</h2>
+
+						<div id="surveySteps">
+
+							<div id="example_preview">
+					    		<div id="phoneHeader">
+					    			<div id="phoneMonitor"></div>
+					    			<div id="phoneCamera"></div>
+					    		</div>
+								<div id="example_wrapper">
+									<div id="example_header">
+										<p>
+											<?php if(isset($value['logo'])): ?>
+												<img class="phonepreLogo" src="<?php echo $value['logo']; ?>">
+											<?php endif; ?>
+											<span>
+												<?php echo $settings->name; ?>
+
+											</span>
+										</p>
+									</div>
+									<div id="example_body">
+										<div id="innerHeader">
+											<h4><?php echo $value['title']; ?></h4>
+										</div>
+										<div class="inner 1">
+											<p><?php echo $value['question']; ?></p>
+											<p id="instruct">Click on answer to continue</p>
+											<ul class='answerList' type="1">
+												<li>
+													<div class="after">
+														<img class="phonepreIcon" src="<?php if(isset($value['icon1'])){echo $value['icon1'];}?>">
+													</div>
+													<p><?php echo $value['choice1']; ?></p>
+												</li>
+												<li>
+													<div class="after">
+														<img class="phonepreIcon" src="<?php if(isset($value['icon2'])){echo $value['icon2'];}?>">
+													</div>
+													<p><?php echo $value['choice2']; ?></p>
+												</li>
+												<li>
+													<div class="after">
+														<img class="phonepreIcon" src="<?php if(isset($value['icon3'])){echo $value['icon3'];}?>">
+													</div>
+													<p><?php echo $value['choice3']; ?></p>
+												</li>
+												<li>
+													<div class="after">
+														<img class="phonepreIcon" src="<?php if(isset($value['icon4'])){echo $value['icon4'];}?>">
+													</div>
+													<p><?php echo $value['choice4']; ?></p>
+												</li>
+											</ul>
+										</div>
+									</div>
+								</div>
+								<div id="phoneButton">
+									<div id="buttonSquare"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+						<!-- End of Survey Preview Section-->
+
+						<!-- Thank You Message Preview Section-->
+						<div class="col-md-6" id="previewContainer">
+							
+							<h2 class="titleHeading">Step 2 - Thank You View</h2>
+
+						<div id="surveySteps">
+							<div id="example_preview">
+					    		<div id="phoneHeader">
+					    			<div id="phoneMonitor"></div>
+					    			<div id="phoneCamera"></div>
+					    		</div>
+								<div id="example_wrapper">
+									<div id="example_header">
+										<p>
+											<?php if(isset($value['logo'])): ?>
+												<img class="phonepreLogo" src="<?php echo $value['logo']; ?>">
+											<?php endif; ?>
+											<span>
+												<?php echo $settings->name; ?>
+
+											</span>
+										</p>
+									</div>
+									<div id="example_body">
+										<div class="inner 2">
+
+											<img class="confirmButtons" src="/img/present.png">
+
+											<p><?php echo $value['thank_msg']; ?></p>
+
+											<img class="confirmButtons" src="/img/redeemButton.png">
+										</div>
+									</div>
+								</div>
+								<div id="phoneButton">
+									<div id="buttonSquare"></div>
+								</div>
+							</div>
+						</div>
+						<!-- End of Thank You Message Preview Section-->
+
+					</div>
+
+					<!-- List of Surveys to choose for the Preview -->
+					<div class="row-fluid ">
+						<div class="col-md-12">
+							<div id="survey_index" >
+								<ul id="preview_beam_list">
+									<?php foreach($survey as $key => $value): ?>
+									<li>
+									   <div class="beam_preview_wrapper">
+									        <div class="row-fluid ">
+								         		<div class="col-md-12 title_wrap surveyHeader">
+								         			<span class="beam_preview_title"><? echo $value->title; ?></span>
+								         			<span class="beam_fl">
+														<div class="beam_preview_btn">
+															<?php echo Form::open(array('route' => 'Destroy Survey', 'method'=>'POST')); ?>
+
+										   					<input type="hidden" name="destroySurvey"  id="destroySurvey" value="<?php echo $value->id; ?>">
+															<?php echo Form::button('<i class="glyphicon glyphicon-trash"></i>', array('type' => 'submit', 'class'=>"btn btn-file",'id'=>"submitBtnDlt")); ?>
+
+												   			<?php echo Form::close(); ?>
+
+														</div>
+														<div class="beam_preview_btn">
+
+													    <!-- <a type="submit" id="" class="glyphicon glyphicon-pencil" href="<?php echo URL::route('Edit Survey', $value->id); ?>" class=" "></a>-->
+													    		<?php echo Form::open(array('route' => 'Edit Survey', 'method'=>'POST')); ?>
+
+									   							<input type="hidden" name="editSurvey"  id="editSurvey" value="<?php echo $value->id; ?>">
+									   								<!--<span class="glyphicon glyphicon-pencil">-->
+																<?php echo Form::button('<i class="glyphicon glyphicon-pencil"></i>', array('type' => 'submit', 'class'=>"btn btn-file",'id'=>"submitBtn",'onclick'=>"if(!confirm('Are you sure to edit this item?')){return false;};")); ?>
+
+
+									   							<?php echo Form::close(); ?>
+
+
+													 	</div>
+														<a href="javascript:" class="btn btn-file" onclick="previewBeam('<?php echo $value->id; ?>');" id="submitBtn">
+															<i class="glyphicon glyphicon-zoom"></i>preview
+														</a>
+
+													 	<?
+															if (count($value->campaign)) {?>
+																<span class="beam_assigned"></span>
+																<?
+															}else{?>
+																<span class="beam_unassigned"></span>
+																<?
+														}?>
+
+													 	<div class="clear"></div>
+												 	</span>
+								         		</div>
+									        </div>
+
+									        <div class="row beam_preview_dets">
+								         		<div class="col-md-8">
+
+								         			<p><span class="beam_preview_label">Date: </span> <span class="beam_preview_field"><? echo $value->updated_at;?></span></p>
+								         			<p><span class="beam_preview_label">Tags: </span> <span class="beam_preview_field"><?
+														if (isset($value->tags) && is_array($value->tags)) {
+															foreach ($value->tags as $key => $tag) {
+																echo $tag;
+																echo "&nbsp;";
+															}
+														}
+													?></span></p>
+													<p>
+														<span class="beam_preview_label">Campaigns: </span>
+														<span class="beam_preview_field"><?
+															if (count($value->campaign)) {
+																	foreach ($value->campaign as $key => $camp) {
+																			echo $camp->title;
+																			echo ",&nbsp;";
+																	}
+																	}else{
+																		echo "Unassigned";
+
+																	}
+													?></span></p>
+
+												</div>
+									        </div>
+								        </div>
+
+									</li>
+									<?php endforeach; ?>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<!-- End of List of Surveys to choose for the Preview Section -->
+
+				</div>
+			</div>
+		</div>
+
+		<?php endif; ?>
+		<?php endforeach; ?>
+</div>
+
+</div>
+</div>
+
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make("layout_dash", array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

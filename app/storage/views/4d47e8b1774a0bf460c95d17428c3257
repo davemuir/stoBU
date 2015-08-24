@@ -1,0 +1,63 @@
+<?php $__env->startSection("content"); ?>
+
+<div id="wrapper">
+
+	<div class="row login-style">
+
+			<p id="ap1heading"><img id="login_logo" src="/img/login_logo.png"></p>
+
+
+     <?php if($errors->first('email') != null){?>
+      <li><h4><?php echo "the email provided was not valid";?></h4></li>
+     <?php } ?>
+      <?php if($errors->first('fname') != null){?>
+      <li><h4><?php echo "The first name provided was not valid.  Must be at least 2 characters";?></h4></li>
+     <?php } ?>
+      <?php if($errors->first('lname') != null){?>
+      <li><h4><?php echo "The last name provided was not valid.  Must be at least 2 characters";?></h4></li>
+     <?php } ?>
+
+		<?php echo Form::open([
+        "route"        => "New User Request",
+        'action' => 'userController@newUserRequestForm',
+        "autocomplete" => "off",
+        "enctype" =>"multipart/form-data",
+        'id'=>"user-acces-form"
+
+    ]); ?>
+
+
+      <?php echo Form::text("fname", Input::get("fname"), [
+              "placeholder" => "First Name ","class" =>"form-control"
+      ]); ?>
+
+
+      <?php echo Form::text("lname", Input::get("lname"), [
+              "placeholder" => "Last Name ","class" =>"form-control"
+      ]); ?>
+
+
+      <?php echo Form::text("email", Input::get("email"), [
+              "placeholder" => "Example@mail.com","class" =>"form-control"
+      ]); ?>
+
+
+
+       <?php echo Form::text("company",$company, [
+              "class" =>"form-hidden"
+      ]); ?>
+
+      <?php echo Form::submit("Add User", array('class' => 'btn')); ?>
+
+
+      <?php echo Form::close(); ?>
+
+
+		</div>
+	</div>
+</div>
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection("footer"); ?>
+    @parent
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make("layout", array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

@@ -1,0 +1,191 @@
+<?php $__env->startSection("content"); ?>
+<?php echo $__env->make("header", array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+
+<div class="container innerContent laterContent">
+    <script type="text/javascript">
+    $( document ).ready(function() {
+    $( "#appLogoHover" ).click(function(){
+                $('#app_logo').click();
+              });
+    });
+    </script>
+
+<!--  Sandeep Layout Style -->
+
+<div class="row">     
+    
+     <div class="col-md-12">
+
+      <!-- validation Errors -->
+
+      <div id="errorPanel">
+        <?php
+        if($errors->first() != null){?>
+        <h3 class="glyphicons warning_sign"><i></i>Errors</h3>
+        <?php } ?>
+        <?php if($errors != null ){ ?>
+        <ul>
+          <?php
+          foreach ($errors->all() as $message)
+          {
+            echo '<li>'.$message.'</li>';
+          }
+          ?>
+        </ul>
+        <?php } ?>
+      </div>
+
+      <!-- end of validation error -->
+      <?php echo Form::open([
+        'url'=> URL::to('/app/store'),
+        "autocomplete" => "off",
+        "enctype" =>"multipart/form-data",
+        "method"=>"POST"
+        ]); ?>
+
+        <h3>App template</h3>
+
+        <div class="col-md-6"> <!-- start of left side -->
+          <div class="row">
+
+            <img src="/img/addTextIcon.png" alt="add text icon">
+              <div class="form-group">
+                <?php echo Form::label("appSettingsFeed", "Placeholder Text for Feed [Default is Feed]"); ?>
+
+                <?php echo Form::text("appSettingsFeed","Feed", [
+                    "placeholder" => "Feed ","class" =>"form-control", "id"=>"appSettingsFeed"
+                ]); ?>
+
+              </div>
+              <div class="form-group">
+                <?php echo Form::label("appSettingsProfile", "Placeholder Text for Profile [Default is Profile]"); ?>
+
+                <?php echo Form::text("appSettingsProfile", "Profile", [
+                    "placeholder" => "Profile ","class" =>"form-control","id"=>"appSettingsProfile"
+                ]); ?>
+
+              </div>
+              <div class="form-group">
+                <?php echo Form::label("appSettingsCrowd", "Placeholder Text for Online Users [Default is Crowd]"); ?>
+
+                <?php echo Form::text("appSettingsCrowd", "Crowd", [
+                    "placeholder" => " Crowd","class" =>"form-control","id"=>"appSettingsCrowd"
+                ]); ?>
+
+              </div>
+              <div class="form-group">
+                
+                <?php echo Form::label("appTextSettings", "Placeholder Text for Settings [Default is Settings]"); ?>
+
+                <?php echo Form::text("appTextSettings", "Settings", [
+                    "placeholder" => "Settings ","class" =>"form-control","id"=>"appTextSettings"
+                ]); ?>
+
+              
+              </div>
+              
+                <div class="clearfix">
+                  <div class="app-groups">
+                  <?php echo Form::label("appUItype", "UI Type"); ?>
+
+                  <?php echo Form::select('appUItype',array('0' => 'Drawer List Navigation', '1' => 'Paging Navigation')); ?>
+
+                  </div>
+                </div>
+             
+              
+                <div class="app-groups">
+                  <?php echo Form::label("appColorScheme", "Color Scheme"); ?>
+
+                  <?php echo Form::select('appColorScheme', array(
+                      '0' => 'Light',
+                      '1' =>'Dark',
+                      '2' =>'Pomegranete',
+                      '3' =>'Pear',
+                      '4' =>'Custom'
+                  ));; ?>                
+              </div>
+              
+                       
+
+            
+            </div>  <!-- End of row -->
+            <div class="row col-md-4">   <!-- start of row -->  
+              <?php echo Form::submit("Add Settings" , array('class' => 'sendBeam', "id" => "sendSettings")); ?>  
+
+           </div>  <!-- End of row -->
+            <?php echo Form::close(); ?>
+
+        </div> <!-- End of left side -->
+
+        <div class="col-md-6"> <!-- Start of Right Side -->
+            
+              <img src="/img/addLogo.png" alt="add text icon">
+              <div class="row">
+                    <?php echo Form::file('app_logo',array( "id" => "app_logo", "class" => "form-hidden")); ?>
+
+                   <div id="appLogoHover" >
+
+                    <?php
+                    if(isset($settings['app_logo'])){?>
+                    <img class="editProfileAvatar" id="createEditProfileAvatar" src="">
+                    <?php }else{ ?>
+                    <img class="editProfileAvatar" id="createEditProfileAvatar" src="http://placehold.it/150x150">
+                    <?php } ?>
+                  </div> 
+              </div>
+              
+              <div class="row">
+                   <div id="createIconSettings">
+                      <div id="" class="appIconSettings row">
+                        <img class="" src="">
+                        <?php echo Form::label("feed_icon", "Icon for Feed menu item"); ?>
+
+                        <?php echo Form::file('feed_icon',array( "id" => "app_logo", "class" => "")); ?>
+
+                        
+                      </div>
+                      <div id="" class="appIconSettings row">
+                        <img class="" src="">
+                        <?php echo Form::label("profile_icon", "Icon for menu item"); ?>
+
+                        <?php echo Form::file('profile_icon',array( "id" => "app_logo", "class" => "")); ?>
+
+                        
+                      </div>
+                      <div id="" class="appIconSettings row">
+                        <img class="" src="">
+                        <?php echo Form::label("crowd_icon", "Icon for menu item"); ?>
+
+                        <?php echo Form::file('crowd_icon',array( "id" => "app_logo", "class" => "")); ?>
+
+                      </div>
+                      <div id="" class="appIconSettings row">
+                        <img class="" src="">
+                        <?php echo Form::label("settings_icon", "Icon for menu item"); ?>
+
+                        <?php echo Form::file('settings_icon',array( "id" => "app_logo", "class" => "")); ?>
+
+
+                        
+                      </div>
+                  </div>
+            </div>
+
+        </div> <!-- End of right side -->
+
+    </div> <!-- End of col12 -->
+                <!-- close foem here -->
+  </div> <!-- End of row -->
+  <div class="row">
+    
+
+  </div> <!-- End of row -->
+     <!-- End of Sandeep layout Style -->
+
+
+
+</div>
+
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make("layout_dash", array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

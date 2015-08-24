@@ -1,0 +1,701 @@
+<?php $__env->startSection("content"); ?>
+ <div id="overlay"></div>
+    <div id="popup">
+      <?php echo $__env->make("mediaManager", array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+    </div>
+<?php echo $__env->make("header", array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+<script type="text/javascript">
+  $('.collapse').collapse()
+</script>
+<div id="band"></div>
+
+<div class="innerContent">
+  <div class="beamContainer">
+    <div class="titleCampaign row">
+       <h3>Campaign Details</h3>
+    </div>
+  <div class="row bColor campRow campRowSeprator">
+    <?php echo Form::open([
+          "url"        => "campaigns/update",
+          "autocomplete" => "off",
+          "enctype" =>"multipart/form-data",
+          "method"=> "PUT"
+        ]); ?>
+
+
+
+      <div class="row campRowSeprator">
+        <div class="col-md-4">
+              <?php echo Form::label("campaigntitle", "Campaign Title"); ?>
+
+              <?php echo Form::text("campaigntitle", $editCampaign->title, [
+                "placeholder" => "campaign title ","class" =>"form-control campaignInput"
+              ]); ?>
+
+        </div>
+        <div class="col-md-4">
+              <?php echo Form::label("campaigntimelinestart", "Start Date"); ?>
+
+            <div class="campDateFields">
+              <?php echo Form::select('startYear',array(),null ,array("id" => "yeardropdown","class" => "dropDown form-control dateControl")); ?>
+
+              <?php echo Form::select('startMonth',array(),null,array("id" => "monthdropdown","class" => "dropDown form-control dateControl")); ?>
+
+              <?php echo Form::select('startDay',array(),null ,array("id" => "daydropdown","class" => "dropDown form-control dateControl")); ?>
+
+            </div>
+        </div>
+        <div class="col-md-4">
+            <?php echo Form::label("campaigntimelineend", "End Date"); ?>
+
+            <div class="campDateFields">
+              <?php echo Form::select('endYear',array(),null ,array("id" => "endyeardropdown","class" => "dropDown form-control dateControl")); ?>
+
+              <?php echo Form::select('endMonth',array(),null,array("id" => "endmonthdropdown","class" => "dropDown form-control dateControl")); ?>
+
+              <?php echo Form::select('endDay',array(),null ,array("id" => "enddaydropdown","class" => "dropDown form-control dateControl")); ?>
+
+            </div>
+        </div>
+      </div>
+       <div class="row campRowSeprator">
+           <div class="col-md-4">
+            <?php echo Form::label("campaignactive", "Active Campaign"); ?>
+
+            <?php echo Form::select('activeState',array('Active' => 'Active', 'Inactive' => 'Inactive'),null,array("id" => "dropDOWN","class" => "form-control dropDown")); ?>
+
+            </div>
+            <div class="col-md-4">
+              <?php if(isset($editCampaign->campaigntype)){$campaignType = $editCampaign->campaigntype;}else{$campaignType = '';};?>
+            <?php echo Form::label("campaigntype", "Type of Campaign"); ?>
+
+            <?php echo Form::text("campaigntype", $campaignType, [
+                "placeholder" => "campaign type ","class" =>"form-control campaignInput"
+            ]); ?>
+
+
+           </div>
+           <div class="col-md-4">
+            <?php if(isset($editCampaign->budgetcategory)){$budgetType = $editCampaign->budgetcategory;}else{$budgetType = '';};?>
+            <?php echo Form::label("budgetcategory", "Budget Category"); ?>
+
+            <?php echo Form::text("budgetcategory", $budgetType, [
+                "placeholder" => "Budget Category ","class" =>"form-control campaignInput"
+            ]); ?>
+
+           </div>
+
+      </div>
+      <div class="row campRowSeprator">
+        <div class="col-md-4">
+          <?php echo Form::label("", "Target Criteria"); ?><br>
+          <?if(isset($editCampaign->criteria_gender) || $editCampaign->criteria_gender != ''){
+            echo "<br>Gender: ".$editCampaign->criteria_gender."<br>";
+          }else{
+              echo "<br>Gender: Nothing Selected<br>";
+          }?>
+
+          <?if(isset($editCampaign->criteria_os) || $editCampaign->criteria_os != ''){
+            echo "Platform: ".$editCampaign->criteria_os;
+          }else{
+              echo "Platform: Nothing Selected<br>";
+          }?>
+        </div>
+        <div class="col-md-4">
+           <?php echo Form::label("gender", "Gender"); ?> <br>
+
+          <?php echo Form::select('criteria_gender',array(null=>'please select a gender',"Male"=>"Male", "Female"=>"Female", "Remove"=>"Remove Criteria"),null,array("id" => "dropDOWN","class" => "form-control dropDown")); ?>
+
+        </div>
+        <div class="col-md-4">
+          <?php echo Form::label("platform", "Platform"); ?>
+
+          <?php echo Form::select('criteria_os',array(null=>'please select a device',"Android"=>"Android", "iOS"=>"iOS","Remove"=>"Remove Criteria"),null ,array("id" => "dropDOWN","class" => "form-control dropDown")); ?>
+
+        </div>
+    </div>
+
+
+    </div>
+           <div class="titleCampaign row">
+            <h3>Select Rooms and Beacons</h3>
+      </div>
+
+
+      <div class="row bColor campRow campRowSeprator btmPadding">
+
+  <!-- checkbox Colapse -->
+      <div class="panel-group " id="accordion">
+              <div class="panel panel-default">
+                 <? $count= 0; ?>
+
+                      <?foreach ($rooms as $key => $value ) {?>
+                            <div class="beaconInfo">
+                                <div class="panel-heading roomHeading">
+                                    <h4 class="panel-title campLinks">
+                                        <input id="room" class="checkbox roomOnClick"  type="checkbox"  value="<?php echo $key; ?>">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#<? echo $count;?>">
+                                            <?php echo $value->name; ?>
+
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div id="<? echo $count;?>" class="panel-collapse collapse in">
+                                    <div class="panel-body">
+                                      <?foreach ($beacons as $key => $beacon) {?>
+                                        <? if($beacon->room_id ==  $value->_id) {?>
+                                            <div class="checkbox">
+
+                                            <label><input class="beacon_box checkbox room"
+                                              <? foreach($editCampaign->beacon_ids as $roomIn ){
+                                                if($roomIn == $beacon->_id){
+                                                  echo 'checked';
+                                                }
+                                              }
+                                              ?>
+                                              type="checkbox" name="beacons[]" value="<?php echo $beacon->_id; ?>" /><?php echo $beacon->alias; ?>
+
+
+
+                                            </label></br>
+                                            </div>
+                                        <?}?>
+                                      <?}?>
+                                    </div>
+                                </div>
+                            </div>
+                        <? $count++; ?>
+                    <? } ?>
+
+              </div>
+                      </div> 
+         <!-- end of checkbox Colapse -->
+      </div>
+
+    <div class="titleCampaign row">
+          <h3>Select Content (beams/surveys)</h3>
+    </div>
+    <div class="row bColor campRow campRowSeprator ">
+
+        <div class="tab_wrap">
+            <div class="tabs">
+              <ul>
+                  <li><a name="tab" id="tab_1" href="javascript:void(0)" onClick="tabs(1)" class="active">Entry Deals</a></li>
+                  <li><a name="tab" id="tab_2" href="javascript:void(0)" onClick="tabs(2)">Exit Deals</a></li>
+              </ul>
+            </div>
+            <div name="tab_content" id="tab_content_1" class="tab_content active">
+               <div class="col-md-5 entryLeftSide">
+                <div class="row entry_deets" >
+                    <div class="campBeamTitle campRowSeprator">
+                      <p>Entry Surveys</p>
+                    </div>
+                    <div class="entrySurveyList">
+                    <ul class='entrySurveys'>
+                      <?
+                      foreach ($survey as $key => $value) {?>
+
+                        <li data-req="<?php echo $value->_id; ?>" type='entrySurvey'><input  class="form-hidden entrySurvey" name='entrySurveys[]' data-req="<?php echo $value->_id; ?>" ><?php echo $value->title; ?></li>
+                        <?php }?>
+
+                    </ul>
+
+                  </div>
+                </br>
+                    <div class="campBeamTitle campRowSeprator">
+                      <p>Entry Beams</p>
+                    </div>
+                  <div class="entryBeamList">
+                  <ul class='entryBeams '>
+                    <?
+                    foreach ($beams as $key => $value) {?>
+
+                       <li data-req="<?php echo $value->_id; ?>" type='entryBeam'><input  class="form-hidden entryBeam" data-req="<?php echo $value->_id; ?>"><?php echo $value->title; ?></li>
+                        <?php } ?>
+
+
+                </ul>
+              </div>
+              </div>
+
+              </div>
+              <div class="col-md-2 entryMiddle">
+                  <input id="EntryaddElement" class="addCompaign EntryAddElement" type="button" value="+ Add to Deals" />
+                  <input id="EntryDeleteElement" class="addCompaign EntryAddElement btnBlack" type="button" value="Delete Deals -" />
+                  <input id="EntryaddAll" class="addCompaign EntryAddElement" type="button" value="+ Add All" />
+                  <input id="EntryDeleteAll" class="addCompaign EntryAddElement btnBlack" type="button" value="Delete All -" />
+              </div>
+              <div class="col-md-5 entryRightSide">
+                  <ul class='entryRight'>
+                    <?php if(isset($editCampaign->beams)){ ?>
+                       <? foreach($editCampaign->beams as $key){ ?>
+                        <?php $beam = Beam::find($key);?>
+                        <?php if(!empty($beam)){ ?>
+                        <li stuff='loaded' data-req="<?php echo $beam->_id; ?>" kind="entryBeam"><?php echo $beam->title; ?><input name='entryBeams[]'  value='<?php echo $key; ?>' class='form-hidden'></li>
+                        <? } ?>
+                      <? } ?>
+                    <? }?>
+                    <? foreach ($beams as $key => $value) {?>
+
+                        <li data-req="<?php echo $value->_id; ?>" type='entryBeam'><input  class="form-hidden entryBeam" name='entryBeams[]' data-req="<?php echo $value->_id; ?>" ><?php echo $value->title; ?></li>
+                    <?php }?>
+
+
+
+                    <?php if(isset($editCampaign->surveys)){ ?>
+                        <? foreach($editCampaign->surveys as $key){ ?>
+                          <?php $entrysurvey = Survey::find($key);?>
+                           <?php if(!empty($entrysurvey)){ ?>
+                          <li stuff='loaded' data-req="<?php echo $entrysurvey->_id; ?>" kind='entrySurvey'> <?php echo $entrysurvey->title; ?>
+
+                            <input value='<?php echo $entrysurvey->_id; ?>' name='entrySurveys[]' class='form-hidden'>
+                          </li>
+                          <? } ?>
+                      <? } ?>
+                    <? }?>
+
+                    <? foreach ($survey as $key => $value) {?>
+
+                        <li data-req="<?php echo $value->_id; ?>" type='entrySurvey'><input  class="form-hidden entrySurvey" name='entrySurveys[]' data-req="<?php echo $value->_id; ?>" ><?php echo $value->title; ?></li>
+                        <?php }?>
+                  </ul>
+             </div>
+
+
+           </div>
+            <div name="tab_content" id="tab_content_2" class="tab_content">
+              <div class="col-md-5 exitLeftSide">
+                 <div class="row exit_deets" >
+                    <div class="campBeamTitle campRowSeprator">
+                      <p>Exit Surveys</p>
+                    </div>
+                         <div class="exitSurveyList">
+                           <ul class="exitSurveys">
+
+                             <?
+                      foreach ($survey as $key => $value) {?>
+
+                        <li data-req="<?php echo $value->_id; ?>" type='exitSurvey'><input  class="form-hidden exitSurvey" name='exitSurveys[]' data-req="<?php echo $value->_id; ?>" ><?php echo $value->title; ?></li>
+                        <?php }?>
+
+                    </ul>
+                  </div>
+                  <div class="exitSurveyList">
+                   <div class="campBeamTitle campRowSeprator">
+                      <p>Exit Beams</p>
+                    </div>
+                    <ul class='exitBeams'>
+                     <?
+                    foreach ($beams as $key => $value) {?>
+
+                       <li data-req="<?php echo $value->_id; ?>" type='exitBeam'><input name='exitBeams[]' class="form-hidden exitBeam" data-req="<?php echo $value->_id; ?> value="<?php echo $value->_id; ?>"><?php echo $value->title; ?></li>
+
+                     <?
+                    }
+                    ?>
+                  </ul>
+                  </div>
+                  </div>
+
+
+              </div>
+              <div class="col-md-2 exitMiddle">
+                  <input id="ExitAddElement" class="addCompaign EntryAddElement" type="button" value="+ Add to Deals" />
+                   <input id="ExitDeleteElement" class="addCompaign EntryAddElement btnBlack" type="button" value="Delete Deals -" />
+                  <input id="ExitaddAll" class="addCompaign EntryAddElement" type="button" value="+ Add All" />
+                  <input id="ExitDeleteAll" class="addCompaign EntryAddElement btnBlack" type="button" value="Delete All -" />
+              </div>
+              <div class="col-md-5 exitRightSide">
+
+                    <ul class='exit'>
+                     <?php if(isset($editCampaign->exit_beams)){ ?>
+                       <? foreach($editCampaign->exit_beams as $key){ ?>
+                        <?php $beam = Beam::find($key);?>
+                        <?php if(!empty($beam)){ ?>
+                        <li stuff="loaded" data-req="<?php echo $beam->_id; ?>" type="exitBeam"><?php echo $beam->title; ?><input name='exitBeams[]'  value='<?php echo $beam->_id; ?>' class='form-hidden'></li>
+                        <? } ?>
+                      <? } ?>
+                    <? }?>
+                    <? foreach ($beams as $key => $value) {?>
+
+                        <li data-req="<?php echo $value->_id; ?>" type='exitBeam'><input  class="form-hidden entrySurvey" name='exitBeams[]' data-req="<?php echo $value->_id; ?>" ><?php echo $value->title; ?></li>
+                        <?php }?>
+
+
+                     <?php if(isset($editCampaign->exit_surveys)){ ?>
+                        <? foreach($editCampaign->exit_surveys as $key){ ?>
+                          <?php $exitsurvey = Survey::find($key);?>
+                          <?php if(!empty($exitsurvey)){ ?>
+                          <li stuff='loaded' data-req="<?php echo $exitsurvey->_id; ?>" kind='exitSurvey'> <?php echo $exitsurvey->title; ?>
+
+                            <input value='<?php echo $exitsurvey->_id; ?>' name='exitSurveys[]' class='form-hidden'>
+                          </li>
+                           <? } ?>
+                      <? } ?>
+                    <? }?>
+
+                    <? foreach ($survey as $key => $value) {?>
+
+                        <li data-req="<?php echo $value->_id; ?>" type='exitSurvey'><input  class="form-hidden entrySurvey" name='exitSurveys[]' data-req="<?php echo $value->_id; ?>" ><?php echo $value->title; ?></li>
+                        <?php }?>
+                    </ul>
+
+             </div>
+
+
+           </div>
+        </div>
+
+        <script type="text/javascript" >
+            function tabs(selectedtab) {
+                // contents
+                var s_tab_content = "tab_content_" + selectedtab;
+                var contents = document.getElementsByTagName("div");
+                for(var x=0; x<contents.length; x++) {
+                    name = contents[x].getAttribute("name");
+                    if (name == 'tab_content') {
+                        if (contents[x].id == s_tab_content) {
+                        contents[x].style.display = "block";
+                        } else {
+                        contents[x].style.display = "none";
+                        }
+                    }
+                }
+                // tabs
+                var s_tab = "tab_" + selectedtab;
+                var tabs = document.getElementsByTagName("a");
+                for(var x=0; x<tabs.length; x++) {
+                    name = tabs[x].getAttribute("name");
+                    if (name == 'tab') {
+                        if (tabs[x].id == s_tab) {
+                        tabs[x].className = "active";
+
+                        } else {
+                        tabs[x].className = "";
+
+                        }
+                    }
+                }
+            }
+      </script>
+
+      </div>
+   <!-- end of entry and exit tabs -->
+
+
+
+       <script type="text/javascript">
+// Entry Elements
+      // Add Element
+$(document).ready(function(){
+   $('.entryRight li').each(function(){
+
+      if($(this).attr('stuff') != 'loaded'){
+        $(this).hide();
+      }else{
+        var ids = $(this).attr('data-req');
+      }
+      $('ul.entrySurveys li').each(function(){
+          if($(this).attr('data-req') == ids){
+            $(this).hide();
+          }
+      });
+
+        $('ul.entryBeams li').each(function(){
+          if($(this).attr('data-req') == ids){
+            $(this).hide();
+          }
+      });
+
+    });
+
+   $('.exitRightSide li').each(function(){
+
+      if($(this).attr('stuff') != 'loaded'){
+        $(this).hide();
+      }else{
+        var ids = $(this).attr('data-req');
+      }
+      $('ul.exitSurveys li').each(function(){
+          if($(this).attr('data-req') == ids){
+            $(this).hide();
+          }
+      });
+
+        $('ul.exitBeams li').each(function(){
+          if($(this).attr('data-req') == ids){
+            $(this).hide();
+          }
+      });
+
+    });
+
+   $('#EntryDeleteElement').click(function () {
+      $('.entryRight li.active').each(function(){
+          var ids = $(this).attr('data-req');
+          $('ul.entrySurveys li').each(function(){
+              if($(this).attr('data-req') == ids){
+                //$(this).children('input').attr('value','');
+                $(this).show();
+              }
+          });
+          $('ul.entryBeams li').each(function(){
+              if($(this).attr('data-req') == ids){
+                //$(this).children('input').attr('value','');
+                $(this).show();
+              }
+          });
+          $(this).toggleClass('active');
+          $(this).children('input').attr('value','');
+          $(this).hide();
+      });
+    });
+   $('#EntryaddElement').click(function () {
+        $('.entryLeftSide li.active').each(function(){
+            var ids = $(this).attr('data-req');
+            $('.entryRight li').each(function(){
+              if($(this).attr('data-req') == ids){
+                if($(this).attr('stuff') == 'loaded'){
+                  $(this).remove();
+                }else{
+                  $(this).children('input').attr('value',ids);
+                  $(this).show();
+                }
+              }
+            });
+            $(this).hide();
+        });
+    });
+
+    $('#ExitAddElement').click(function () {
+        $('.exitLeftSide li.active').each(function(){
+            var ids = $(this).attr('data-req');
+            $('.exit li').each(function(){
+              if($(this).attr('data-req') == ids){
+                if($(this).attr('stuff') == 'loaded'){
+                  $(this).remove();
+                }else{
+                  $(this).children('input').attr('value',ids);
+                  $(this).show();
+                }
+              }
+            });
+            $(this).hide();
+        });
+    });
+    $('#ExitDeleteElement').click(function () {
+        $('.exitRightSide li.active').each(function(){
+            var ids = $(this).attr('data-req');
+            $('ul.exitSurveys li').each(function(){
+                if($(this).attr('data-req') == ids){
+                  //$(this).children('input').attr('value','');
+                  $(this).show();
+                }
+            });
+            $('ul.exitBeams li').each(function(){
+                if($(this).attr('data-req') == ids){
+                  //$(this).children('input').attr('value','');
+                  $(this).show();
+                }
+            });
+            $(this).toggleClass('active');
+            $(this).children('input').attr('value','');
+            $(this).hide();
+        });
+    });
+
+
+    $('.exitRightSide li').click(function () {  //exit left
+          $(this).toggleClass('active');
+    });
+    $('.exitLeftSide li').click(function () { //exit right
+        $(this).toggleClass('active');
+    });
+     $('.entryLeftSide li').click(function () {
+        $(this).toggleClass('active');
+    });
+    $('.entryRightSide li').each(function(){
+        $(this).click(function () {
+        $(this).toggleClass('active');
+        $(this).attr('type','selected');
+      });
+    });
+
+});
+
+
+
+            // on click of the move button
+
+// delete element one by one
+
+//$(document).ready(function(){
+
+
+
+
+      // Add All Elements
+
+            $('#EntryaddAll').click(function () {
+                var $items = $('.entryLeftSide li');
+                $('.entryRightSide ul').append($items);
+            });
+
+
+        // Delete All Elements
+            $('#EntryDeleteAll').click(function () {
+
+                    $('.entryRightSide ul').empty();
+                    $('.entryLeftSide li').each(function(){
+                      $(this).show();
+                    });
+            });
+
+// Exit Elements
+                    // make the items selectable by toogling an 'active' class
+
+
+
+            $('#ExitaddAll').click(function () {
+                var $items = $('.exitLeftSide li');
+                $('.exitRightSide ul').append($items);
+            });
+
+// delete all element
+             $('#ExitDeleteAll').click(function () {
+
+
+            });
+//});
+        </script>
+
+      </div>
+
+    <?php echo Form::text('campaignID', $editCampaign['_id'], ["class"=>"form-hidden"]); ?>
+
+     <?php echo Form::submit("Update Campaign" , array('class' => 'updateCampaign', "id" => "updateCampaign")); ?>
+
+    <?php echo Form::close(); ?>
+
+  </div>
+</div>
+
+
+<script type="text/javascript">
+  var crit_count = 0;
+
+
+  $(document).ready(
+   function() {
+       //clicking the parent checkbox should check or uncheck all child checkboxes
+       $(".roomOnClick").click(
+           function() {
+               $(this).parents('.beaconInfo:eq(0)').find('.beacon_box').prop('checked', this.checked);
+           }
+       );
+       //clicking the last unchecked or checked checkbox should check or uncheck the parent checkbox
+       $('.beacon_box').click(
+           function() {
+               if ($(this).parents('.beaconInfo:eq(0)').find('.roomOnClick').prop('checked') == true && this.checked == false)
+                   $(this).parents('.beaconInfo:eq(0)').find('.roomOnClick').prop('checked', false);
+               if (this.checked == true) {
+                   var flag = true;
+                   $(this).parents('.beaconInfo:eq(0)').find('.beacon_box').each(
+                     function() {
+                         if (this.checked == false)
+                             flag = false;
+                     }
+                   );
+                   $(this).parents('.beaconInfo:eq(0)').find('.roomOnClick').prop('checked', flag);
+               }
+           }
+       );
+   }
+);
+
+
+$(document).ready(
+
+     function() {
+
+    $('#add_criteria').click(
+
+        function () {
+            event.preventDefault();
+          if (!($('.crit_wrap').length >=2 )){
+          $('#criteria_div').append('<div class="crit_wrap" id="criteria_wrap'+crit_count+'"><a href="#" class="rm_wrap">X</a><select class=" form-control criteria_list'+crit_count+'"><option value="nil"></option><option value="Gender">Gender</option><option value="Platform">Platform</option></select></div>');
+
+          $('.rm_wrap').on('click', function(){
+              $(this).parent().remove();
+            });
+
+          $('.criteria_list'+crit_count).on('change', function() {
+            console.log($(this).parent().children());
+            $(this).parent().children('select.criteria_select').remove();
+            $(this).parent().children('p#criteria_error').remove();
+            switch(this.value) {
+              case "Gender":
+              if (!($('#criteria_gender').length)){
+                    $('<select class="criteria_select form-control" name="criteria_gender" id="criteria_gender"></option><option value="Male">Male</option><option value="Female">Female</option></select>').appendTo($(this).parent());
+                  }else{
+                    $("<p id='criteria_error'>cant' do that</p>").appendTo($(this).parent());}
+                  break;
+              case "Platform":
+              if (!($('#criteria_os').length)){
+                    $('<select class="criteria_select form-control"  name="criteria_os" id="criteria_os"><option value="iOS">iOS</option><option value="AndroidOS">AndroidOS</option></select>').appendTo($(this).parent());
+                  }else{
+                   $("<p id='criteria_error'>cant' do that</p>").appendTo($(this).parent());}
+                  break;
+
+          }
+
+          });
+        }
+      }
+      );
+
+
+   });
+
+
+</script>
+<script>
+/***********************************************
+* Drop Down Date select script- by JavaScriptKit.com
+* This notice MUST stay intact for use
+* Visit JavaScript Kit at http://www.javascriptkit.com/ for this script and more
+***********************************************/
+
+var monthtext=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sept','Oct','Nov','Dec'];
+
+function populatedropdown(dayfield, monthfield, yearfield, defday, defmonth, defyear ){
+var today=new Date()
+var dayfield=document.getElementById(dayfield)
+var monthfield=document.getElementById(monthfield)
+var yearfield=document.getElementById(yearfield)
+for (var i=1; i<=31; i++)
+dayfield.options[i]=new Option(i, i+1)
+dayfield.options[today.getDate()]=new Option(defday, defday, true, true) //select today's day
+for (var m=1; m<12; m++)
+monthfield.options[m]=new Option(monthtext[m], monthtext[m])
+monthfield.options[today.getMonth()]=new Option(defmonth, defmonth, true, true) //select today's month
+var thisyear=today.getFullYear()
+for (var y=1; y<20; y++){
+yearfield.options[y]=new Option(thisyear, thisyear)
+thisyear+=1
+}
+yearfield.options[0]=new Option(defyear, defyear, true, true) //select today's year
+}
+
+</script>
+
+<script type="text/javascript">
+
+//populatedropdown(id_of_day_select, id_of_month_select, id_of_year_select)
+window.onload=function(){
+populatedropdown("daydropdown", "monthdropdown", "yeardropdown", <?php echo $editCampaign->startDay; ?>, "<?php echo $editCampaign->startMonth; ?>", <?php echo $editCampaign->startYear; ?>)
+populatedropdown("enddaydropdown", "endmonthdropdown", "endyeardropdown",<?php echo $editCampaign->endDay; ?>, "<?php echo $editCampaign->endMonth; ?>", <?php echo $editCampaign->endYear; ?> )
+}
+</script>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make("layout_dash", array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

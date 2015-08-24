@@ -1,0 +1,69 @@
+<?php $__env->startSection("content"); ?>
+<?php echo $__env->make("header", array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+
+<!-- ========================================== Edit Beacon ======================================= -->
+
+<div class="innerContent laterContent">
+
+	<div class="row">
+		<!-- new style begins here-->
+		<div class="col-md-12">
+			<h2 class="titleHeading">Edit Beacon</h2>
+		</div>
+	</div>
+
+	<div class="row">
+
+		<div class="col-md-6">
+
+			<div class="editBeaconForm">
+
+				<?php echo Form::model($beacon, array('method' => 'put','route' => array('beacon.update', $beacon->id))); ?>
+
+
+					<div  class="editBeaconRow">
+						<h4>Select Room</h4>
+					
+						<?php echo Form::select('rooms', $rooms,null, array('class'=>'form-control editBeaconMargin roomSelect ')); ?>
+
+					</div>	
+					<div class="editBeaconRow">
+						<h4>Major</h4>
+					
+						<?php echo Form::text('major', '', array('class'=>'txt_align form-control editBeaconMargin')); ?>
+
+					</div>
+					<div class="editBeaconRow">
+						<h4>Minor</h4>
+					
+						<?php echo Form::text('minor', '', array('class'=>'txt_align form-control editBeaconMargin')); ?>
+
+					</div>						
+					<div class="editBeaconRow">
+						<h4>Alias</h4>
+					
+						<?php echo Form::text('alias', '', array('class'=>'txt_align form-control editBeaconMargin')); ?>
+
+					</div>
+					<div class="editBeaconRow">
+						<?php echo Form::submit('Send!',array('class' => 'btn btn-primary btn-mini')); ?>
+
+					</div>
+						
+
+				<?php echo Form::close(); ?>
+
+					
+				</div>
+					
+				
+
+			</div>
+
+		</div>
+
+</div>
+
+
+	<?php $__env->stopSection(); ?>
+<?php echo $__env->make("layout_dash", array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

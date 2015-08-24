@@ -1,0 +1,47 @@
+<?php $__env->startSection("content"); ?>
+
+<div id="wrapper">
+
+       <div class="row login-style">
+
+                     
+
+        
+                     <div class="col-md-6"></div>
+
+                      <div id="loginContent" class="col-md-4">
+
+                        <p id="ap1heading"><img id="login_logo" class="fritoRegister" src="
+                      <?php
+                      if(isset($company)){
+                          echo $company->setImage;
+                      }else{
+                        echo '/img/apengage_logo.png';
+                      }
+
+                      ?>
+                      "></p>
+
+
+                      <?php echo Form::open(array('url'=> URL::to('/register', $companyId), 'class'=>'form-signup')); ?>
+
+
+                      <?php echo Form::text('fname', null, array('placeholder'=>'First Name')); ?>;
+                       <?php echo Form::text('lname', null, array('placeholder'=>'Last Name')); ?>;
+                       <?php echo Form::text('email', null, array('placeholder'=>'Email Address')); ?>;
+                       <?php echo Form::password('password', array('placeholder'=>'Password')); ?>;
+                       <?php echo Form::password('password_confirmation', array('placeholder'=>'Confirm Password')); ?>;
+
+                       <?php echo Form::submit('Register', array('class'=>'btn btn-primary')); ?>;
+                       <?php echo Form::close(); ?>;
+                     </div>
+
+                    <div class="col-md-2"></div>
+
+       </div>
+</div>
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection("footer"); ?>
+    @parent
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make("layout", array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

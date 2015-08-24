@@ -1,0 +1,92 @@
+<?php $__env->startSection("content"); ?>
+ <div id="overlay"></div>
+    <div id="popup">
+      <?php echo $__env->make("mediaManager", array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+    </div>
+<?php echo $__env->make("header", array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+
+<div class="innerContent">
+
+<a href="<?php echo URL::to('/profilehome'); ?>" id="back">Back</a>
+<div class="row" id="branch-list-top">
+  <div class="clear"></div>
+  <div class="branch-list" >
+
+    <div class="clear"></div>
+  <div class="col-md-5">
+    <div id="errorPanel">
+
+     <?php if($errors->first() != null){?>
+      <h3 class="glyphicons warning_sign"><i></i>Errors</h3>
+    <?php } ?>
+   <?php if($errors->first('fname') != null){?>
+      <li><h4><?php echo $errors->first('fname');?></h4></li>
+    <?php } ?>
+ <?php if($errors->first('lname') != null){?>
+      <li><h4><?php echo $errors->first('lname');?></h4></li>
+    <?php } ?>
+     <?php if($errors->first('email') != null){?>
+      <li><h4><?php echo $errors->first('email');?></h4></li>
+    <?php } ?>
+    <?php
+          if(Session::get('message')){
+            echo '<h3 class="glyphicons warning_sign"><i></i>Errors</h3>';
+            echo '<h4>'.Session::get('message').'</h4>';
+          }
+      ?>
+
+  </div>
+    <?php echo Form::open([
+       'method' => 'POST',
+        'action' => array('UserController@updateUser', $user->_id),
+        "autocomplete" => "off",
+        "enctype" =>"multipart/form-data"
+
+    ]); ?>
+
+     <?php echo Form::label("fname", "First Name"); ?>
+
+      <?php echo Form::text("fname", $user->fname, [
+              "placeholder" => $user->fname,"class" =>"form-control"
+      ]); ?>
+
+      <?php echo Form::label("lname", "Last Name"); ?>
+
+      <?php echo Form::text("lname", $user->lname, [
+              "placeholder" => $user->lname,"class" =>"form-control"
+      ]); ?>
+
+      <?php echo Form::label("email", "Email Address"); ?>
+
+      <?php echo Form::text("email", $user->email, [
+              "placeholder" => "Example@mail.com","class" =>"form-control"
+      ]); ?>
+
+      </div>
+      <div class="col-md-3" id="addusebtn">
+        <?php echo Form::label("acessLevel", "Access Level"); ?>
+
+        <?php echo Form::select('selectAccess',array('Admin' => 'Admin', 'Staff' => 'Staff'),null,array("id" => "accessSelect","class" => "form-control dropDown")); ?>
+
+
+      <!--<?php echo Form::text('userID', $user->_id, ["class"=>"form-hidden"]); ?>-->
+  
+     <?php echo Form::submit("Update User"); ?>
+
+
+      <?php echo Form::close(); ?>
+
+    </div>
+
+</div>
+
+<div class="clear"></div>
+</div>
+
+
+</div>
+</div>
+</script>
+
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make("layout_dash", array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

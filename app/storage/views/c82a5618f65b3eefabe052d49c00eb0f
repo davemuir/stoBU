@@ -1,0 +1,333 @@
+<?php $__env->startSection("content"); ?>
+<?php echo $__env->make("header", array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+
+<script type="text/javascript">
+  $( document ).ready(function() {
+    $( "#profileImgPhoto" ).hover(function() {
+      $(".phoneProfileImg").css("opacity","0.2");
+    }, function() {
+      $(".phoneProfileImg").css("opacity","1");
+    });
+
+    $( "#avatarHover" ).click(function(){
+      $('#avatar').click();
+      });
+
+    $( ".feedFile1" ).click(function(){
+      $('.feedFile').click();
+      });
+    $( ".crowdFile1" ).click(function(){
+      $('.crowdFile').click();
+      });
+    $( ".profileFile1" ).click(function(){
+      $('.profileFile').click();
+      });
+    $( ".settingsFile1" ).click(function(){
+      $('.settingsFile').click();
+      });
+
+
+
+    $("#removeThis1").click(function(){
+      $("#defaultIcon1").attr('value',"http://localhost:8000/img/feed.png");
+      $(".defaultIcon1").attr("src","http://localhost:8000/img/feed.png");
+    });
+     $("#removeThis2").click(function(){
+      $("#defaultIcon2").attr('value',"http://localhost:8000/img/profile.png");
+      $(".defaultIcon2").attr("src","http://localhost:8000/img/profile.png");
+    });
+     $("#removeThis3").click(function(){
+      $("#defaultIcon3").attr('value',"http://localhost:8000/img/crowdMessaging.png");
+      $(".defaultIcon3").attr("src","http://localhost:8000/img/crowdMessaging.png");
+    });
+      $("#removeThis4").click(function(){
+      $("#defaultIcon4").attr('value',"http://localhost:8000/img/settings.png");
+      $(".defaultIcon4").attr("src","http://localhost:8000/img/settings.png");
+    });
+
+      
+    var currentSrc1 = $('.defaultIcon1').attr('src');
+    if(currentSrc1==null || currentSrc1==""){
+        $('.defaultIcon1').attr('src','http://localhost:8000/img/feed.png');
+    }
+     var currentSrc2 = $('.defaultIcon2').attr('src');
+    if(currentSrc2==null || currentSrc2==""){
+        $('.defaultIcon2').attr('src','http://localhost:8000/img/profile.png');
+    }
+    var currentSrc3 = $('.defaultIcon3').attr('src');
+    if(currentSrc3==null || currentSrc3==""){
+        $('.defaultIcon3').attr('src','http://localhost:8000/img/crowdMessaging.png');
+    }
+    var currentSrc4 = $('.defaultIcon4').attr('src');
+    if(currentSrc4==null || currentSrc4==""){
+        $('.defaultIcon4').attr('src','http://localhost:8000/img/settings.png');
+    }
+
+
+   
+
+  });
+</script>
+
+<div class="innerContent">
+
+  <!-- Error Message Display Section -->
+  <div id="errorPanel">
+    <?php
+      if($errors->first() != null){?>
+        <h3 class="glyphicons warning_sign"><i></i>Errors</h3>
+      <?php }
+      if($errors != null ){ ?>
+        <ul>
+          <?php
+            foreach ($errors->all() as $message)
+              {
+                echo '<li>'.$message.'</li>';
+              }
+          ?>
+        </ul>
+      <?php } ?>
+  </div>
+  <!-- End of Error Message Display Section -->
+
+  <div class="row" id="outerWrap">
+    <h3>App Template</h3>
+    <div class="col-md-12 center-block" ng-controller="AppEditController as appEdit">  
+
+      <div id="contentPad">
+
+        <!-- Left Side : Edit app Settings Options  -->
+        <div class="col-md-9 center-block" id="formLeft"> 
+          <?php echo Form::open([
+            'url'=> URL::to('/app/update'),
+            "autocomplete" => "off",
+            "enctype" =>"multipart/form-data",
+            "method"=>"PUT"
+          ]); ?>
+
+
+          <h4>
+            Edit Menu Settings
+          </h4>
+
+          <ul id="surveyControls">
+            <li>
+              <button type="button" class="btn btn-primary btn-xs">
+                <span class="glyphicon glyphicon-plus"></span>
+                  <a class="glyphLink" href="<?php echo URL::to('/client'); ?>" data-id='2' data-toggle="tooltip" data-placement="right" title="Manage API Clients">
+                    API clients
+                  </a>
+               </button>
+            </li>
+          </ul>
+          <div class="row" id="whiteBackground">
+
+            <!-- Feed Name -->
+            <div class="form-group" id="formFields">
+              <?php echo Form::label("appSettingsFeed", "Name for Feed"); ?>
+
+              <?php echo Form::text("appSettingsFeed", $settings['feedText'], array("placeholder" => $settings['feedText'],"class" =>"form-control", "id" => "formLength", "ng-model" => "feed")
+              ); ?>
+
+              <div class="appIconSettings">
+                <span class="btn btn-file fileAppBtn feedFile1" id="fileBtn">
+                  <p class="glyphicons plus iconText"><i></i>Feed Icon</p>
+                </span>
+                  <?php echo Form::file('feed_icon',array( "id" => "app_logo", "class" => "appInputFileBtn feedFile", "ng-model" => "imgFeed")); ?>
+
+                  <!-- Remove Icon -->
+                  <?php echo Form::text("defaultIcon1", Input::get("defaultIcon1"), ["class" =>"form-hidden",'id'=>'defaultIcon1']); ?>
+
+                  <a id ="removeThis1" class="btn btn-primary btn-mini removeMe" href="">Remove Icon</a>
+              </div>
+
+              
+              
+
+            </div>
+
+            <!-- Profile Name -->
+            <div class="form-group" id="formFields">
+              <?php echo Form::label("appSettingsProfile", "Name for Profile"); ?>
+
+              <?php echo Form::text("appSettingsProfile", $settings['profileText'], ["placeholder" => $settings['profileText'],"class" =>"form-control", "id" => "formLength", "ng-model" => "profile"]); ?>
+
+              <div id="" class="appIconSettings">
+                <span class="btn btn-file fileAppBtn profileFile1" id="fileBtn">
+                  <p class="glyphicons plus iconText"><i></i>Profile Icon</p>
+                </span>
+
+                <?php echo Form::file('profile_icon',array( "id" => "app_logo", "class" => "appInputFileBtn profileFile", "ng-model" => "imgProfile")); ?>
+
+                <?php echo Form::text("defaultIcon2", Input::get("defaultIcon2"), ["class" =>"form-hidden",'id'=>'defaultIcon2']); ?>
+
+                 <a id ="removeThis2" class="btn btn-primary btn-mini removeMe" href="" >Remove Icon</a>
+              </div>
+              
+
+            </div>
+
+            <!-- Crowd Name -->
+            <div class="form-group" id="formFields">
+              <?php echo Form::label("appSettingsCrowd", "Name for Crowd"); ?>
+
+              <?php echo Form::text("appSettingsCrowd", Input::get("appSettingsCrowd"), ["placeholder" => $settings['crowdText'],"class" =>"form-control", "id" => "formLength", "ng-model" => "crowd"]); ?>
+
+              <div id="" class="appIconSettings">
+                <span class="btn btn-file fileAppBtn crowdFile1" id="fileBtn">
+                  <p class="glyphicons plus iconText"><i></i>Crowd Icon</p>
+                </span>
+                <?php echo Form::file('crowd_icon',array( "id" => "app_logo", "class" => "appInputFileBtn crowdFile", "ng-model" => "imgCrowd")); ?>
+
+                <?php echo Form::text("defaultIcon3", Input::get("defaultIcon3"), ["class" =>"form-hidden",'id'=>'defaultIcon3']); ?>
+
+                 <a id ="removeThis3" class="btn btn-primary btn-mini removeMe" href="" >Remove Icon</a>
+              </div>
+              
+
+            </div>
+
+            <!-- Settings Name -->
+            <div class="form-group" id="bottomFields">
+              <?php echo Form::label("appTextSettings", "Name for settings"); ?>
+
+              <?php echo Form::text("appTextSettings", Input::get("appTextSettings"), ["placeholder" => $settings['settingsText'],"class" =>"form-control", "id" => "formLength", "ng-model" => "settings"]); ?>
+
+                <div id="" class="appIconSettings">
+                  <span class="btn btn-file fileAppBtn settingsFile1" id="fileBtn">
+                    <p class="glyphicons plus iconText"><i></i>Settings Icon</p>
+                  </span>
+                  <?php echo Form::file('settings_icon',array( "id" => "app_logo", "class" => "appInputFileBtn settingsFile", "ng-model" => "imgSettings")); ?>
+
+                  <?php echo Form::text("defaultIcon4", Input::get("defaultIcon4"), ["class" =>"form-hidden",'id'=>'defaultIcon4']); ?>
+
+                 <a id ="removeThis4" class="btn btn-primary btn-mini removeMe" href="" >Remove Icon</a>
+                </div>
+                <div class="appIconSettings">
+                
+              </div>
+
+            </div>
+
+          </div>  <!-- End of row -->
+
+          <!-- UI Type and Color Scheme -->
+          <div class="row" id="bottomWhiteBackground">
+
+            <div class="form-group" id="formFields">
+              <?php echo Form::label("appUItype", "UI Type", array('class' => 'labels')); ?>
+
+              <?php echo Form::select('appUItype', array('0' => 'Drawer List Navigation', '1' => 'Paging Navigation')); ?>
+
+            </div>
+
+            <div class="app-groups" id="bottomFields">
+              <?php echo Form::label("appColorScheme", "Color Scheme", array('class' => 'labels')); ?>
+
+              <?php echo Form::select('appColorScheme', array(
+                  '0' => 'Light',
+                  '1' =>'Dark',
+                  '2' =>'Pomegranete',
+                  '3' =>'Pear',
+                  '4' =>'Custom'
+              ));; ?>
+
+            </div>
+          
+          </div>
+
+          <!--Submit Button -->
+          <div class="row col-md-12" id="bottomConfirm">   
+
+            <span class="btn btn-file" id="fileBtn">
+              <?php echo Form::submit("Add Settings" , array('class' => 'sendBeam')); ?>
+
+              <p>Apply Settings</p>
+            </span>
+
+          </div>  <!-- End of row -->
+          
+          <?php echo Form::close(); ?>
+
+
+        </div> 
+        <!-- End of Left Side : Edit app Settings  -->
+
+        <!-- Right Side : App Settings Preview  -->
+        <div class="col-md-3" id="phonePreview"> 
+
+          <div id="example_preview" class="center-block">
+            <div id="phoneHeader">
+              <div id="phoneMonitor"></div>
+              <div id="phoneCamera"></div>
+            </div>
+            <div id="example_wrapper">
+              <p id="example_header"></p>
+
+                <div id="example_menu">
+                  <div class="inner">
+                    <div id="appMenu">
+                      <div id="profileImg">
+                        <div id="profileImgPhoto">
+                            <a href="">                              
+                                <img class="phoneProfileImg" src="<? if (isset(Auth::user()->avatar['square'])) {echo Auth::user()->avatar['square'];} ?>">
+                            </a>
+                          <h4>Hello <? if (isset(Auth::user()->fname)) {echo Auth::user()->fname;} else{
+                              echo "User";}
+                            ?></h4>
+                        </div>
+                      </div>
+                      <div id="menuOptions">
+                        <ul>
+                          <li>
+                            
+                              <img class="preAngularimg appIconsSmall defaultIcon1" ng-init="imgFeed='<?if(isset($settings['feed_icon'])) echo $settings['feed_icon'];?>'" src="<%imgFeed%>" >
+                           
+                            <p ng-init="feed='<?if(isset($settings['feedText'])) echo $settings['feedText'];?>'"><% feed %></p>
+                          </li>
+                        </ul>
+                      </div>
+                      <div id="menuOptions">
+                        <ul>
+                          <li>
+                            <img class="preAngularimg appIconsSmall defaultIcon2" ng-init="imgProfile='<?if(isset($settings['profile_icon'])) echo $settings['profile_icon'];?>'" src="<%imgProfile%>">
+                            <p ng-init="profile='<?if(isset($settings['profileText'])) echo $settings['profileText'];?>'"><% profile %></p>
+                          </li>
+                        </ul>
+                      </div>
+                      <div id="menuOptions">
+                        <ul>
+                          <li>
+                            <img class="preAngularimg appIconsSmall defaultIcon3" ng-init="imgCrowd='<?if(isset($settings['crowd_icon'])) echo $settings['crowd_icon'];?>'" src="<%imgCrowd%>">
+                            <p ng-init="crowd='<?if(isset($settings['crowdText'])) echo $settings['crowdText'];?>'"><% crowd %></p>
+                          </li>
+                        </ul>
+                      </div>
+                      <div id="menuOptions">
+                        <ul>
+                          <li>
+                          <img class="preAngularimg appIconsSmall defaultIcon4" ng-init="imgSettings='<?if(isset($settings['settings_icon'])) echo $settings['settings_icon'];?>'" src="<%imgSettings%>">
+                          <p ng-init="settings='<?if(isset($settings['settingsText'])) echo $settings['settingsText'];?>'"><% settings %></p>
+                        </li>
+                      </ul>
+                    </div>
+                  
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div id="phoneButton">
+              <div id="buttonSquare"></div>
+            </div>
+          </div>
+        </div>
+        <!-- End of Right Side : App Settings Preview  -->
+
+      </div>
+    </div>
+  </div><!-- End of outer Wrap -->
+</div>
+
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make("layout_dash", array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

@@ -1,0 +1,559 @@
+<?php $__env->startSection("content"); ?>
+<link type="text/css" rel="stylesheet" href="/css/registerBootstrap/bootstrap.css"/>
+<script src="//code.jquery.com/jquery-1.11.1.js"></script>
+  <script src="/js/jquery.onepage-scroll.min.js"></script>
+  <script src="/js/bootstrap.min.js"></script>
+  <script src="/js/jquery.nicescroll.min.js"></script>
+
+
+  <script>
+    $(document).ready(function(){
+      var planChoice = 0;
+
+      /*var companyName = $('.companyNameSet');
+      companyName.hide();
+      $('#user-access-link').click(function(){
+        companyName.show();
+      });
+
+      $('#companyNameSubmit').click(function(){
+        var name = $('#companyName').val();
+        window.location.assign('/requestAccess/'+name);
+      });*/
+      
+      
+      $("#onePageScroll").onepage_scroll({
+   sectionContainer: "section",     // sectionContainer accepts any kind of selector in case you don't want to use section
+   easing: "linear",                  // Easing options accepts the CSS3 easing animation such "ease", "linear", "ease-in",
+                                    // "ease-out", "ease-in-out", or even cubic bezier value such as "cubic-bezier(0.175, 0.885, 0.420, 1.310)"
+   animationTime: 1000,             // AnimationTime let you define how long each section takes to animate
+   pagination: true,                // You can either show or hide the pagination. Toggle true for show, false for hide.
+   updateURL: false,                // Toggle this true if you want the URL to be updated automatically when the user scroll to each page.
+   beforeMove: function(index) {},  // This option accepts a callback function. The function will be called before the page moves.
+   afterMove: function(index) {},   // This option accepts a callback function. The function will be called after the page moves.
+   loop: false,                     // You can have the page loop back to the top/bottom when the user navigates at up/down on the first/last page.
+   keyboard: true,                  // You can activate the keyboard controls
+   responsiveFallback: false,        // You can fallback to normal page scroll by defining the width of the browser in which
+                                    // you want the responsive fallback to be triggered. For example, set this to 600 and whenever
+                                    // the browser's width is less than 600, the fallback will kick in.
+   direction: "vertical"            // You can now define the direction of the One Page Scroll animation. Options available are "vertical" and "horizontal". The default value is "vertical".  
+});
+  
+    //modal actions
+    $('#litePlan').click(function(event){
+        event.preventDefault();
+        $("#onePageScroll").destroy_onepage_scroll();
+        
+         $("#onePageScroll").onepage_scroll({
+           disableMouseMove: true     
+        });
+        $('#liteModal').modal('show');
+        $('#liteModal #modalContent').html('<div class="row"> <div class="col-md-2"></div><div class="col-md-8"><h3>ApEngage Lite</h3><p>Suitable for small businesses and boutiques, ApEngage Lite offers the standard capabilities of ApEngage without multiple beacons and geo-fencing.</p></div><div class="col-md-2"></div></div> <div class="row"><div class="col-md-4"> </div> <div class="col-md-4 registerModal"> <img src="/img/whiteSmall2.png"> </div> <div class="col-md-4"> </div> </div> <div class="row"> <div class="col-md-2"> </div> <div class="col-md-8"> <h3>1 Beacon (+1 backup beacon)</h3> <p> ApBeacons are small,powerful devices allowing interactions between a customers smartphone and the customized content you create. Beacons can detect indoor positions to the nearest meter and can be placed anywhere within your location to improve the customer experience.</p> </div> <div class="col-md-2"> </div> <div class="row"> <div class="col-md-4"> </div> <div class="col-md-4 registerModal"> <img src="/img/listPhone2.png" style="margin-top:50px;"> </div> <div class="col-md-4"> </div> </div> <div class="row"> <div class="col-md-2"> </div> <div class="col-md-8"> <h3>Stand Alone Smartphone App</h3> <p> The ApEngage app is easily customizable from your dashboard. Change the colours to align with your brand and add a company logo as your icon to solidify your brands identity within the app world.</p> </div> <div class="col-md-2"> </div> <div class="row"> <div class="col-md-4"> </div> <div class="col-md-4 registerModal"> <img src="/img/dashList.png"> </div> <div class="col-md-4"> </div> </div> <div class="row"> <div class="col-md-2"> </div> <div class="col-md-8"> <h3>Dashboard</h3> <p> The Dashboard is the control centre for your ApEngage system. Interact with customers by creating custom messages,run store campaigns,track customers in-store locations,gather resourceful analytics,manage your entire staff and branch. </p> </div> <div class="col-md-2"> </div> </div> <div class="modal-footer"> <button type="button" class="btn btn-default closeModal regular" data-dismiss="modal" >Close</button> </div>');
+        setTimeout(function(){
+         $("#lite-modal-dialog").niceScroll({horizrailenabled:false,cursorcolor:"#65addd",cursorfixedheight:100,cursoropacitymax:0.3}).show();
+         $("#lite-modal-dialog").niceScroll({cursoropacitymin:0},{disableoutline:true}).resize();
+       }, 1000);
+    });
+    $(".closeModal.lite").click(function(){
+      $("#onePageScroll").onepage_scroll({
+         disableMouseMove: false 
+      });
+      $("#onePageScroll").moveTo(2);
+      $("#lite-modal-dialog").niceScroll().hide();
+    });
+
+    $('#liteModal').click(function(event){
+      $('#liteModal').modal('hide');
+      $("#onePageScroll").onepage_scroll({
+        disableMouseMove: false 
+      });
+      $("#lite-modal-dialog").niceScroll().hide();
+      $("#onePageScroll").moveTo(2);
+    });
+
+    //modal for regular plan
+    $('#regularPlan').click(function(event){
+        event.preventDefault();
+        $("#onePageScroll").destroy_onepage_scroll();
+        
+         $("#onePageScroll").onepage_scroll({
+           disableMouseMove: true     
+        });
+        $('#liteModal').modal('show');
+        $('#liteModal #modalContent').html('<div class="row"> <div class="col-md-2"></div><div class="col-md-8"><h3>ApEngage</h3><p>Paired with the ability to collect data from every in-store interaction, ApEngage becomes a powerful tool for gaining market insights. This package is suitable for locations with network infrastructure and multiple areas or floors.</p></div><div class="col-md-2"></div></div><div class="row"> <div class="col-md-4"> </div> <div class="col-md-4 registerModal"> <img src="/img/whiteSmall2.png"> </div> <div class="col-md-4"> </div> </div> <div class="row"> <div class="col-md-2"> </div> <div class="col-md-8"> <h3>4 Beacons (+1 backup beacon)</h3> <p> ApBeacons are small,powerful devices allowing interactions between a customers smartphone and the customized content you create. Beacons can detect indoor positions to the nearest meter and can be placed anywhere within your location to improve the customer experience.</p> </div> <div class="col-md-2"> </div> <div class="row"> <div class="col-md-4"> </div> <div class="col-md-4 registerModal"> <img src="/img/listPhone2.png" style="margin-top:50px;"> </div> <div class="col-md-4"> </div> </div> <div class="row"> <div class="col-md-2"> </div> <div class="col-md-8"> <h3>Stand Alone Smartphone App</h3> <p> The ApEngage app is easily customizable from your dashboard. Change the colours to align with your brand and add a company logo as your icon to solidify your brands identity within the app world.</p> </div> <div class="col-md-2"> </div> <div class="row"> <div class="col-md-4"> </div> <div class="col-md-4 registerModal"> <img src="/img/dashList.png"> </div> <div class="col-md-4"> </div> </div> <div class="row"> <div class="col-md-2"> </div> <div class="col-md-8"> <h3>Dashboard</h3> <p> The Dashboard is the control centre for your ApEngage system. Interact with customers by creating custom messages,run store campaigns,track customers in-store locations,gather resourceful analytics,manage your entire staff and branch. </p> </div> <div class="col-md-2"> </div> </div> <div class="modal-footer"> <button type="button" class="btn btn-default closeModal regular" data-dismiss="modal" >Close</button> </div>');
+
+        setTimeout(function(){
+         $("#lite-modal-dialog").niceScroll({horizrailenabled:false,cursorcolor:"#65addd",cursorfixedheight:100,cursoropacitymax:0.3}).show();
+         $("#lite-modal-dialog").niceScroll({cursoropacitymin:0},{disableoutline:true}).resize();
+       }, 1000);
+    });
+
+$('#wifiPlan').click(function(event){
+        event.preventDefault();
+        $("#onePageScroll").destroy_onepage_scroll();
+        
+         $("#onePageScroll").onepage_scroll({
+           disableMouseMove: true     
+        });
+        $('#liteModal').modal('show');
+        $('#liteModal #modalContent').html('<div class="row"> <div class="col-md-2"></div><div class="col-md-8"><h3>ApEngage Wi-fi</h3><p>ApEngage-Wi-Fi deploys high-speed local wireless networks with powerful device management capabilities. Combined with the ability to produce the most advanced analytics for your business -- in a variety of charts, reports and graphs -- ApEngage Wi-Fi is a powerful tool for gaining customer and audience information.</p></div><div class="col-md-2"></div></div><div class="row"> <div class="col-md-4"> </div> <div class="col-md-4 registerModal"> <img src="/img/whiteSmall2.png"> </div> <div class="col-md-4"> </div> </div> <div class="row"> <div class="col-md-2"> </div> <div class="col-md-8"> <h3>4 Beacons (+1 backup beacon)</h3> <p> ApBeacons are small,powerful devices allowing interactions between a customers smartphone and the customized content you create. Beacons can detect indoor positions to the nearest meter and can be placed anywhere within your location to improve the customer experience.</p> </div> <div class="col-md-2"> </div> <div class="row"> <div class="col-md-4"> </div> <div class="col-md-4 registerModal"> <img src="/img/listPhone2.png" style="margin-top:50px;"> </div> <div class="col-md-4"> </div> </div> <div class="row"> <div class="col-md-2"> </div> <div class="col-md-8"> <h3>Stand Alone Smartphone App</h3> <p> The ApEngage app is easily customizable from your dashboard. Change the colours to align with your brand and add a company logo as your icon to solidify your brands identity within the app world.</p> </div> <div class="col-md-2"> </div> <div class="row"> <div class="col-md-4"> </div> <div class="col-md-4 registerModal"> <img src="/img/dashList.png"> </div> <div class="col-md-4"> </div> </div> <div class="row"> <div class="col-md-2"> </div> <div class="col-md-8"> <h3>Dashboard</h3> <p> The Dashboard is the control centre for your ApEngage system. Interact with customers by creating custom messages,run store campaigns,track customers in-store locations,gather resourceful analytics,manage your entire staff and branch. </p> </div> <div class="col-md-2"> </div> </div> <div class="modal-footer"> <button type="button" class="btn btn-default closeModal regular" data-dismiss="modal" >Close</button> </div>');
+
+        setTimeout(function(){
+         $("#lite-modal-dialog").niceScroll({horizrailenabled:false,cursorcolor:"#65addd",cursorfixedheight:100,cursoropacitymax:0.3}).show();
+         $("#lite-modal-dialog").niceScroll({cursoropacitymin:0},{disableoutline:true}).resize();
+       }, 1000);
+    });
+    
+  $('#submitCompany').click(function(event){
+       // event.preventDefault();
+         var re = /\S+@\S+\.\S+/;
+        if($('#registerCompanyName').val() == ''){
+          alert('provide your company name');
+           $("#onePageScroll").moveTo(1);
+          return false;
+        }if($('#registerFirstName').val() == ''){
+          alert('provide your first name');
+           $("#onePageScroll").moveTo(1);
+          return false;
+        }if($('#registerLastName').val() == ''){
+          alert('provide your last name');
+           $("#onePageScroll").moveTo(1);
+          return false;
+        }if($('#registerPhone').val() == ''){
+          
+          alert('provide your phone #');
+           $("#onePageScroll").moveTo(1);
+          return false;
+        }if($('#registerPhone').val().length < 10 || $('#registerPhone').val().length >= 11 || isNaN($('#registerPhone').val())){ 
+          alert('Provide a full 10 digit phone #. Include your poastal code and ensure you have entered only numbers.');
+           $("#onePageScroll").moveTo(1);
+          return false;
+        }if($('#registerEmail').val() == ''){
+
+          alert('provide your email');
+          $("#onePageScroll").moveTo(1);
+          return false;
+        }
+        var emailValid = re.test($('#registerEmail').val());
+        if(emailValid == false){
+          alert("the email you have provided is not a valid email (eg. user@provider.com)");
+          $("#onePageScroll").moveTo(1);
+          return false;
+        }
+        if(planChoice == 0){
+          alert('Pick one of our plans that will suit your needs.');
+          $("#onePageScroll").moveTo(2);
+          return false;
+        }
+        var confirmBox = confirm('Are you ready to complete your order?');
+        if(confirmBox == false){
+          return false;
+        }
+
+  });
+
+  $('#registerCompanyName').keyup(function() { 
+        $('#reviewCompanyName').html($(this).val());  
+  }); 
+    $('#registerFirstName').keyup(function() { 
+        $('#reviewFirstName').html($(this).val());  
+  }); 
+      $('#registerLastName').keyup(function() { 
+        $('#reviewLastName').html($(this).val());  
+  }); 
+        $('#registerPhone').keyup(function() { 
+        $('#reviewPhone').html($(this).val());  
+  }); 
+          $('#registerEmail').keyup(function() { 
+        $('#reviewEmail').html($(this).val());  
+  }); 
+
+  $("#litePlanChoice").click(function(event){
+           event.preventDefault();
+      if($(this).hasClass('checked')){
+        
+      }else{
+        $('.checkArea img').each(function(){
+          $(this).css('display','none');
+        });
+         $('.check').each(function(){
+           $(this).removeClass('checked');
+        });
+        $('.checkArea#litePlanCheck img').fadeIn("slow");
+        $(this).addClass('checked');
+        $("#planName").html('ApEngage Lite');
+        $("#planTotal").html('$69/Month');
+        planChoice = 1;
+      }
+  });
+
+   $("#regularPlanChoice").click(function(event){
+      event.preventDefault();
+      if($(this).hasClass('checked')){
+        
+      }else{
+        $('.checkArea img').each(function(){
+          $(this).css('display','none');
+        });
+         $('.check').each(function(){
+           $(this).removeClass('checked');
+        });
+        $('.checkArea#regularPlanCheck img').fadeIn("slow");
+        $(this).addClass('checked');
+        $("#planName").html('ApEngage Standard');
+        $("#planTotal").html('$99/Month');
+        planChoice = 2;
+      }
+  });
+
+  $("#wifiPlanChoice").click(function(event){
+      event.preventDefault();
+      if($(this).hasClass('checked')){
+        
+      }else{
+        $('.checkArea img').each(function(){
+          $(this).css('display','none');
+        });
+         $('.check').each(function(){
+           $(this).removeClass('checked');
+        });
+        $('.checkArea#wifiPlanCheck img').fadeIn("slow");
+        $(this).addClass('checked');
+        $("#planName").html('ApEngage Wifi');
+        $("#planTotal").html('$175/Month');
+        planChoice = 3;
+      }
+  });
+
+  $("#continueStep2").click(function(event){
+      event.preventDefault();
+      $("#onePageScroll").moveTo(2);
+  });
+  
+  $( "#loginHeader" ).insertBefore($( "#onePageScroll" ));
+});
+  
+
+
+  </script>
+   <div id="onePageScroll">
+ <section>
+<div id="wrapper" class="registerBG">
+        <div class="row">
+          <div class="col-md-2">
+          </div>
+            <div class="col-md-8">
+              <h1 class="openHeading">Register your Company</h1>
+              <p style="color:#fff;text-align:center;">Let's start with some basic information</p>
+          </div>
+            <div class="col-md-2">
+          </div>
+        </div>
+       <div class="row noCompany">
+
+        <div class="col-md-3"></div>
+
+        <div class="col-md-6">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="registerFormDiv">
+                <!--<p id="ap1heading"><img id="login_logo" class="fritoRegister" src="/img/apengage_logo.png"></p>
+                 <h2>No Company <?php if(isset($company)){echo $company.' exists';}else{echo 'provided';}?></h2>
+      					<h2>http://apex.apengage.io/register/ <span>'company name here'</span></h2>-->
+
+                  <?php if(isset($emailError)){
+                      echo ' <h2>The Email you just entered is already taken.</h2>';
+                  }?>
+
+      					 <?php echo Form::open([
+      				        "route"        => "New Company Request",
+      				        'action' => 'userController@newCompanyRequest',
+      				        "autocomplete" => "off",
+      				        "enctype" =>"multipart/form-data",
+                      'class'=>'companyForm'
+      				    ]); ?>
+
+      				    <br/>
+      					 <?php echo Form::text("companyName", null, [
+                    						"placeholder" => "company name ","class" =>"form-control","id"=>"registerCompanyName"
+           				]); ?>
+
+           				<?php echo Form::text("fname", null, [
+                    						"placeholder" => "first name ","class" =>"form-control","id"=>"registerFirstName"
+           				]); ?>
+
+           				<?php echo Form::text("lname", null, [
+                    						"placeholder" => "last name","class" =>"form-control","id"=>"registerLastName"
+           				]); ?>
+
+                  <?php echo Form::text("phone", null, [
+                                "placeholder" => "phone number","class" =>"form-control","id"=>"registerPhone"
+                  ]); ?>
+
+           				<?php echo Form::text("email", null, [
+                    						"placeholder" => "email","class" =>"form-control","id"=>"registerEmail"
+           				]); ?>
+
+      					
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+              </div>
+              <div class="col-md-4">
+                <div class="link" id="continueStep2">
+                  <a href="" >Continue</a>
+                </div>
+                  
+              </div>
+              <div class="col-md-4">
+              </div>
+            </div>
+       </div>
+
+       <div class="col-md-3"></div>
+</div>
+</section>
+ <section>
+      <div class="row">
+      <div class="col-md-12">
+        <div id="wrapper" class="slide3 register2">
+            <div class="row">
+              <div class="col-md-12">
+                  <h1 class="openHeading">Individual Plans for Individual Needs</h1>
+                  <!--<p class="center">Scale your space at $0.50 per square foot and let us do the rest</p>-->
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-1">
+              </div>
+              <div class="col-md-10" style="overflow-x:hidden;">
+
+                  <div id="table">
+                            <table id="plans">
+                                <tbody>
+                                    <tr class="top">
+                                        <td>
+                                             <div>
+                                                <h3>ApEngage Light</h3>
+                                                <h1>$69<span>/MO</span></h1>
+                                                <div class="row">
+                                                  <div class="col-md-2">
+                                                  </div>
+                                                  <div class="col-md-4">
+                                                    <div class="link" id="litePlan">
+                                                      <a href="">Learn More</a>
+                                                    </div>
+                                                    <!--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newModal">
+                                                        New Table
+                                                      </button>-->
+                                                  </div>
+
+                                                  <div class="col-md-4">
+                                                    <div class="link check" id="litePlanChoice">
+                                                      <a href="">Choose Plan</a>
+                                                    </div>
+                                                  </div>
+                                                  <div class="col-md-2">
+                                                  </div>
+                                                </div>
+                                                <div class="row">
+                                                  <div class="col-md-12 checkArea" id="litePlanCheck" style="" >
+                                                      <div class="checkAreaImgCon">
+                                                        <img class="checkAreaImg" src="/img/planCheck.png">
+                                                      </div>
+                                                  </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div>
+                                                <h3>ApEngage</h3>
+                                                <h1>$99<span>/MO</span></h1>
+                                                <div class="row">
+                                                  <div class="col-md-2">
+                                                  </div>
+                                                  <div class="col-md-4">
+                                                    <div class="link" id="regularPlan">
+                                                      <a href="" >Learn More</a>
+                                                    </div>
+                                                  </div>
+
+                                                  <div class="col-md-4">
+                                                    <div class="link check" id="regularPlanChoice">
+                                                      <a href="">Choose Plan</a>
+                                                    </div>
+                                                  </div>
+                                                  <div class="col-md-2">
+                                                  </div>
+                                                </div>
+                                                <div class="row">
+                                                  <div class="col-md-12 checkArea" id="regularPlanCheck">
+                                                    <div class="checkAreaImgCon">
+                                                        <img class="checkAreaImg" src="/img/planCheck.png">
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                             </div>
+                                        </td>
+                                        <td>
+                                            <div>
+                                                <h3>ApEngage WiFi</h3>
+                                                <h1>$175<span>/MO</span></h1>
+                                                 <div class="row">
+                                                  <div class="col-md-2">
+                                                  </div>
+                                                  <div class="col-md-4">
+                                                    <div class="link">
+                                                      <a href="" id="wifiPlan">Learn More</a>
+                                                    </div>
+                                                  </div>
+
+                                                  <div class="col-md-4">
+                                                    <div class="link check" id="wifiPlanChoice">
+                                                      <a href="" >Choose Plan</a>
+                                                    </div>
+                                                  </div>
+                                                  <div class="col-md-2" >
+                                                  </div>
+                                                </div>
+                                                <div class="row">
+                                                  <div class="col-md-12 checkArea" id="wifiPlanCheck">
+                                                    <div class="checkAreaImgCon">
+                                                        <img class="checkAreaImg" src="/img/planCheck.png">
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                            </div>
+                                        </td> 
+                                    </tr>
+                                    
+                                </tbody>
+                            </table>
+                         
+                        </div>
+                </div>
+               <div class="col-md-1">
+              </div>
+        </div>
+        </div>
+
+
+      </div>
+    </div>
+     
+ 
+    </section>
+    <section>
+    <div class="row">
+      <div class="col-md-12">
+        <div id="wrapper" class="slide3 register3">
+            <div class="row">
+              <div class="col-md-12">
+                  <h1 class="openHeading">Review Your Order</h1>
+              </div>
+              <div class="col-md-2">
+              </div>
+               <div class="col-md-8">
+                  <div id="orderReview">
+                    <div class="row">
+                      <div class="col-md-6">
+                        
+                          <div class="companyInfo">
+                            <h3>Company Information</h3>
+                          <ul>
+                            <li>
+                              <label>Company Name : </label>
+                              <label id="reviewCompanyName"></label>
+                            </li>
+                            <li>
+                              <label>First Name : </label>
+                              <label id="reviewFirstName"></label>
+                            </li>
+                            <li>
+                              <label>Last Name : </label>
+                              <label id="reviewLastName"></label>
+                            </li>
+                            <li>
+                              <label>Phone : </label>
+                              <label id="reviewPhone"></label>
+                            </li>
+                            <li>
+                              <label>Email : </label>
+                              <label id="reviewEmail"></label>
+                            </li>
+                          </ul>
+                          </div>
+                      </div>
+                       <div class="col-md-6">
+                       
+                          <div class="planInfo">
+                            <h3>Plan Information</h3>
+                             <ul>
+                                <li>
+                                  <label>Plan : </label>
+                                  <label id="planName"></label>
+                                </li>
+                            </ul>
+                          </div>
+                      </div>
+                       <div class="col-md-8">
+                          <div class="planInfo">
+                            <ul>
+                                <li>
+                                  <label>Total : </label>
+                                  <label id="planTotal"></label>
+                                </li>
+                            </ul>
+                          </div>
+                      </div>
+                      <div class="col-md-4">
+                        
+                      </div>
+                    </div>
+                  </div>
+               </div>
+              <div class="col-md-2">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-8">
+              </div>
+              <div class="col-md-2">
+                     <?php echo Form::button("Complete Registration", array('type' => 'submit', 'class' => 'linkBtn','id'=>'submitCompany')); ?>
+
+                    <?php echo Form::close(); ?>
+
+              </div>
+              <div class="col-md-2">
+                
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+     
+ 
+    </section>
+    
+</div>
+ <!--start  modal-->
+          <div class="modal fade" id="liteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog" id="lite-modal-dialog">
+              <div class="modal-content" id="modalContent">
+                
+              </div>
+            </div>
+                 
+          </div>
+<!--end Modals-->
+
+
+         
+          
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection("footer"); ?>
+    @parent
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make("layout", array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

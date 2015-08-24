@@ -1,0 +1,439 @@
+<?php $__env->startSection("content"); ?>
+<?php echo $__env->make("header", array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+<div class="innerContent">
+
+  <div class="row">
+    <div class="col-md-12">
+      <div id="errorPanel">
+
+      </div>
+      <!-- Form Wizard / Arrow navigation & Progress bar -->
+
+      <div id="rootwizard" class="wizard">
+
+        <!-- Wizard heading -->
+        <div class="wizard-head">
+          <ul>
+            <li><a href="#tab1" data-toggle="tab">First</a></li>
+            <li><a href="#tab2" data-toggle="tab">Second</a></li>
+            <li><a href="#tab3" data-toggle="tab">Third</a></li>
+            <li><a href="#tab4" data-toggle="tab">Fourth</a></li>
+
+          </ul>
+        </div>
+        <!-- // Wizard heading END -->
+
+        <div class="widget">
+         <?php echo Form::open([
+           "route"        => "Save Beacons",
+           "autocomplete" => "off",
+           'method' =>'POST'
+           ]); ?>
+
+           <!-- Wizard Progress bar -->
+           <div class="widget-head progress" id="bar">
+            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="45">Step <strong class="step-current">1</strong> of <strong class="steps-total">3</strong> - <strong class="steps-percent">100%</strong></div>
+          </div>
+          <!-- // Wizard Progress bar END -->
+
+          <div class="widget-body">
+            <div class="tab-content">
+
+              <!-- Step 1 -->
+              <div class="tab-pane active" id="tab1">
+               <h4>Add Beacons</h4>
+               <p>Configure your beacons through this step by step guide. Create the different rooms of your location below and assign your beacons to them.
+                See who is in your  at any given time from your <a href="<?php echo URL::to('/'); ?>">dashboard</a>.</p>
+              </div>
+              <!-- // Step 1 END -->
+
+              <!-- Step 2 -->
+              <div class="tab-pane" id="tab2">
+                <div class="row">
+
+
+
+              <!-- Add Beacon Drop down-->
+
+                      <div class="col-md-8">
+                        <h4>Select your Beacon</h4>
+                        <div id="beacon_list_wrapper">
+
+
+                        </div>
+                        <?php echo Form::text("manufacturer", Input::get("manufacturer"), [
+                    "placeholder" => "Manufacturer","class" =>"form-control hidden", "id" => "manuTF"
+                    ]); ?>
+
+
+
+                        <?php echo Form::label("uuid", "UUID of Beacons" , array('class'=>'hidden','id'=>'uuidTFLabel') ); ?>
+
+                  <?php echo Form::text("uuid", Input::get("uuid"), [
+                    "placeholder" => "find this on your box","class" =>"form-control hidden", "id" => "uuidTF"
+                    ]); ?>
+
+                    <div id="beac_wrapper" style="display: none;">
+                    <?php echo Form::label("major", "Major of Beacon" , array('class'=>'')); ?>
+
+                  <?php echo Form::text("major", Input::get("major"), [
+                    "placeholder" => "find this on your box","class" =>"form-control ", "id" => "majorTF"
+                    ]); ?>
+
+
+                    <?php echo Form::label("minor", "Minor of Beacon", array('class'=>'')); ?>
+
+                  <?php echo Form::text("minor", Input::get("minor"), [
+                    "placeholder" => "find this on your box","class" =>"form-control ", "id" => "minorTF"
+                    ]); ?>
+
+                  </div>
+
+
+
+
+                      </div>
+              <!-- End of add Beacon functionality-->
+
+                  <div class="col-md-12 sysBeacons">
+
+
+                 </div>
+
+
+
+                </div>
+              </div>
+              <!-- // Step 2 END -->
+
+              <!-- Step 3 -->
+              <div class="tab-pane" id="tab3">
+                <div class="row">
+                  <div class="col-md-3">
+                    <strong>Description</strong>
+                    <p class="muted">Give your beacon an easily idenitifiable Alias.</p>
+                  </div>
+                  <div class="col-md-9">
+                   <?php echo Form::label("alias", "Give your beacon a Name"); ?>
+
+                   <?php echo Form::text("alias", Input::get("alias"), [
+                     "placeholder" => "Frodo's Beacon","class" =>"form-control", "id"=>"beaconAlias"
+                     ]); ?>
+
+
+                    <!-- <?php echo Form::label("branch", "Choose a Branch"); ?>
+
+                   <?php echo Form::text("branch", Input::get("branch"), [
+                     "placeholder" => "The Shire","class" =>"form-control"
+                     ]); ?>-->
+
+                     <?php echo Form::label("room", "Choose a room"); ?>
+
+                    <?php echo Form::select("room", $rooms->lists('name','_id'), null, array('class' => 'form-control','id'=>'beacon_room')  ); ?>
+
+
+                     <?php echo Form::text("company", Auth::user()->company->_id, [
+                    "class" =>"form-control hidden", "id" => "minorTF"
+                    ]); ?>
+
+
+
+                   <script>
+
+                    $("#campaignSelect option").each(function(index){
+                      $(this).text($(this).text().replace(/_/g, ' '));
+                    });
+
+                  </script>
+
+                </select>
+              </div>
+            </div>
+          </div>
+          <!-- // Step 3 END -->
+
+          <!-- Step 4 -->
+          <div class="tab-pane" id="tab4">
+            <div class="row">
+              <div class="col-md-3">
+                <strong>Review </strong>
+                <p class="muted">Review and Submit your form</p>
+              </div>
+              <div class="col-md-9">
+                  <p><b>Manufacturer:</b> <span id="review_manu"> </span></p>
+                  <p><b>UUID:</b> <span id="review_uuid"> </span></p>
+                  <p><b>Major:</b> <span id="review_major"> </span></p>
+                  <p><b>Minor:</b> <span id="review_minor"> </span></p>
+                  <p><b>Alias:</b> <span id="review_alias"> </span></p>
+                  <p><b>Room:</b> <span id="review_room"> </span></p>
+
+              </div>
+            </div>
+          </div>
+          <!-- // Step 4 END -->
+
+
+
+        </div>
+
+        <!-- Wizard pagination controls -->
+        <ul class="pagination margin-bottom-none">
+          <li class="primary previous first"><a href="#" class="no-ajaxify">First</a></li>
+          <li class="primary previous"><a href="#" class="no-ajaxify">Previous</a></li>
+          <li class="last primary"><a href="#" class="no-ajaxify">Last</a></li>
+          <li class="next primary"><a href="#" class="no-ajaxify">Next</a></li>
+          <li class="next finish primary" style="display:none;"><?php echo Form::submit("Finish", ['class'=> 'no-ajaxify finish_beacon']); ?></li>
+          <li>
+            <div id="tt-wrapper" class="tt-sysAdmin">
+              <a id="tt-help" href="#">
+                <span>Steps to setting up and managing your beacons.</span>
+              </a>
+            </div>
+          </li>
+        </ul>
+        <!-- // Wizard pagination controls END -->
+        <?php echo Form::close(); ?>
+
+      </div>
+    </div>
+  </div>
+  <!-- // Form Wizard / Arrow navigation & Progress bar END -->
+</div>
+</div>
+
+
+
+<div class="col-md-12">
+<div class="row" ng-app='appSurvey'>
+  <div class="clear"></div>
+<div ng-controller="PanelController as panel">
+
+    <ul class='nav nav-pills'>
+      <li ng-class="{ active: panel.isSelected(1) }">
+        <a id="pane1"href ng-click="panel.selectTab(1)">Beacons</a>
+      </li>
+      <li ng-class="{ active: panel.isSelected(2) }">
+        <a id="pane2" href ng-click="panel.selectTab(2)">Rooms</a>
+      </li>
+    </ul>
+    <div id="previewContainer">
+      <div class="col-md-12 panel noBG" id="surveySteps" ng-show="panel.isSelected(1)">
+      <div class="beaconInfoTool">
+        <div class="tt">
+        <a id="tt-help" href="#"></a>
+        <div class="tt-arrow"></div>
+        <div id="tt-wrapper" class="tt-floorPlan">
+          <p>All of your configured beacons</p>
+        </div>
+        </div>
+      </div>
+
+
+
+
+
+      <?php
+      $beacons = Auth::user()->company->beacons;
+      foreach ($beacons as $value) {
+       ?>
+       <div class="col-md-6 beaconContainer">
+        <?if (isset($value->manufacturer)) {
+          ?>
+          <img src="<?php echo getbeaconImg($value->manufacturer); ?>" style="width: 20%;float:left;">
+          <?
+        }else{?>
+        <img src="/img/customBeacon.png" style="width: 20%;float:left;">
+        <?}?>
+
+        <div class="beaconInfo beaconInfoBox">
+          <p><span class="orange_bold"> Alias:</span> <?php echo $value->alias;?></p>
+          <p><span class="orange_bold"> Proximity UUID:</span> <?php echo $value->proximity_uuid;?></p>
+          <p><span class="orange_bold"> Major:</span> <?php echo $value->major;?> <span class="orange_bold"> Minor:</span> <?php echo $value->minor;?></p>
+        <!-- ToDo: Make relation between rooms and beacons stronger -->
+          <p><span class="orange_bold"> Room:</span><?if (isset($value->room_id)) {echo $value->room->name;}?></p>
+          <p><span class="orange_bold"> Campaigns:</span>
+            <?
+              foreach ($value->campaign as $key => $campaign) {
+                echo $campaign->title;
+                echo ", ";
+              }
+            ?>
+          </p>
+          <hr>
+          <p><b>Status</b></p>
+          <p>Health:</p>
+          <p>Signal Strength:</p>
+           <div class="beaconInfoOptions">
+          <a class='btn btn-primary btn-mini' href="<?php echo URL::route('beacon.edit', array('id'=>$value->_id)); ?>">Change Settings</a>
+          <a id="<?php echo $value->id ?>" href="<?php echo URL::route('beacon.dup', array('id'=>$value->_id)); ?>" class='btn btn-primary btn-mini duplicateMe'>Duplicate </a>
+          <a id="<?php echo $value->id ?>" href="<?php echo URL::route('Destroy Beacon', array('id'=>$value->_id)); ?>" class='btn btn-primary btn-mini deleteMe' >Delete </a>
+        </div>
+        </div>
+
+      </div>
+      <?php } ?>
+
+
+    </div>
+
+
+        <div class="col-md-12 panel noBG" id="surveySteps" ng-show="panel.isSelected(2)">
+         <div class="beaconInfoTool">
+            <div class="tt">
+              <a id="tt-help" href="#"></a>
+              <div class="tt-arrow"></div>
+              <div id="tt-wrapper" class="tt-floorPlan">
+                <p>Configure 'rooms'</p>
+              </div>
+            </div>
+          </div>
+
+<!-- =====Rooms Display Area Section========= -->
+          <div class="col-md-6 roomBorder">
+              <div id="addNewRoom">
+                <button type='button' class='newRoomAjax btn btn-primary btn-mini'>New Room</button>
+              </div>
+              <table class="roomTable">
+                <tr>
+                    <th>Name</th>
+                    <th>#of beacons</th>
+                    <th>Floor</th>
+                    <th><span class="iconTH">options</span></th>
+                </tr>
+
+                <? foreach ($rooms as $room) { ?>
+                <tr>
+                  <td>
+
+                    <b><?php echo $room->name;?></b>
+                  </td>
+                  <td>
+                   <!-- get no. of beacons for selected room -->
+                    <? $beacons = Beacon::where('room_id','=', $room->_id)->get();?>
+                    <? echo sizeof($beacons);?>
+
+                  </td>
+                  <td>
+                    <?php if($room->floor): ?>
+                      <?php echo $room->floor->name; ?>
+
+                    <?php endif; ?>
+
+
+                  </td>
+                  <td>
+                      <a class='glyphLink gIconsColor' href='/Rooms/<?php echo $room->id; ?>/edit/'>
+                  <span class='glyphicon glyphicon-pencil'>
+                  </span>
+                  </a>
+                    <a class='glyphLink gIconsColor' href='#'>
+                    <span id='<?php echo $room->id; ?>' class='deleteThisRoom  glyphicon glyphicon-trash'>
+                    </span>
+                  </a>
+                    <a class='glyphLink gIconsColor' href='#'> <span id='<?php echo $room->id; ?>' class=' showThisRoom glyphicon glyphicon-zoom-in'>
+                  </span>
+
+                  </a>
+                  </td>
+
+              </tr>
+              <? } ?>
+            </table>
+        </div>
+<!-- =====End of Rooms Display Section========= -->
+
+<!-- =====Analytics Section for selected room  ========= -->
+      <div class="col-md-6" id="roomAnalytics">
+
+
+      </div>
+<!-- =====End of Analytics Section for selected room  ========= -->
+    </div>
+
+    </div>
+
+    </div>
+</div>
+</div>
+</div>
+</div>
+<script type="text/javascript">
+  $(document).ready(function(){
+
+    $('.newRoomAjax').on('click', function(e){
+      console.log('clicked');
+      e.preventDefault();
+
+      $.get("<?php echo URL::Route('Rooms.create'); ?>", function(data){
+        console.log(data);
+        $('#addNewRoom').html(data);
+      });
+    });
+
+    $('.duplicateMe').on('click', function(e){
+      e.preventDefault();
+      var id = $(this).attr('id');
+      console.log(id);
+      $.post("beacon/dup/"+id, function(id){
+        window.location.reload();
+      });
+
+    });
+
+    // Delete Beacon
+
+
+    $('.deleteMe').click(function(){
+
+        var confirmed =  confirm('Are you sure you want to delete this Beacon?');
+        if(confirmed == false){
+            return false;
+        }
+        });
+
+
+
+    $('.showThisRoom').on('click', function(e){
+      e.preventDefault();
+      $('tr.active').removeClass('active');
+       $(this).closest('tr').toggleClass('active'); // make the selected row active(change background color)
+
+
+      var id = $(this).attr('id');
+      $.ajax({
+        type: 'POST',
+        url:  "/Rooms/analytics/"+id,
+        data: {'_method': 'post'}
+      }).done(function(data,url){
+        //console.log(url);
+        $('#roomAnalytics').html(data);
+        console.log(data);
+      });
+
+    });
+
+    $('.deleteThisRoom').on('click', function(e){
+      e.preventDefault();
+      $.ajax({
+        type: 'POST',
+        url: "Rooms/" + $(this).attr('id'),
+        data: {'_method': 'delete'}
+      }).done(function(data){
+        window.location.reload();
+      });
+    });
+
+    $('#beaconDelete').bind("click", function (e) {
+      if (confirm('Do you really want to delete the Beam ?')){return true;}
+      return false;
+    });
+  });
+</script>
+
+<?php echo HTML::script('js/angular/angular.min.js'); ?>
+
+ <?php echo HTML::script('js/angular/appSurvey.js'); ?>
+
+ <script src="/js/classie.js"></script>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make("layout_dash", array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

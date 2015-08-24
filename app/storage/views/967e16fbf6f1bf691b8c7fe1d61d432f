@@ -1,0 +1,12 @@
+<div class="row-fluid">
+
+  <div class="col-md-9 mediaPreview">
+	<div id="test_arrayContainer">
+    	<div id="test_array"></div>
+    </div>
+  </div>
+   <div class="col-md-3" id="display_pre"><span></span></div>
+	<div class="col-md-12 mediaSubmitDiv">
+   		 <span id="mediaSubmit" class="btn btn-block btn-inverse">Submit</span>
+	</div>
+</div>

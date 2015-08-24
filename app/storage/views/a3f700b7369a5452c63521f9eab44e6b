@@ -1,0 +1,503 @@
+<?php $__env->startSection("content"); ?>
+
+
+<?php echo $__env->make("header", array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+
+<style type="text/css">
+
+canvas{
+              width: 781px;
+                height: 560px;
+                margin: 0;
+                padding: 0;
+                font-family: sans-serif;
+                color: rgba(232, 199, 196, 0.61);;
+                overflow: hidden;
+                position:relative;
+              z-index:20;
+            }
+
+             ul
+{
+margin: 0;
+padding: 0;
+list-style-type: none;
+}
+
+#floornavcontainer ul li {
+  display: inline-block;
+padding: 2px 5px;
+border: 1px solid #0f0f0f;
+border-radius: 5px;
+margin-right: 5px;
+}
+#map_container{
+margin: 0 auto;
+width: 70%;
+}
+
+#map_wrapper{
+  background-color: #ffffff;
+padding: 20px;
+margin-bottom: 20px;
+z-index: -2;
+}
+
+#floor_name{
+  display:inline-block;
+}
+
+.contents h2 {
+text-align: center;
+color: #e4412d;
+font-size: 40px;
+}
+
+.contents h3 {
+  margin-top:20px;
+text-align: center;
+color: #e4412d;
+font-size: 22px;
+}
+
+.contents, .middle  {
+  text-align: center;
+background-color: #fff;
+height: 100%;
+/*max-height: 150px;*/
+padding-top: 40px;
+padding-bottom: 26px;
+margin-bottom:25px;
+}
+
+.middle h2{
+  float: left;
+color: #e4412d;
+}
+
+.middle h3{
+  color: #5f5f5f;
+font-size: 16px;
+margin-left: 20px;
+}
+
+.middle table {
+margin: 0 auto;
+}
+
+h2.chart_title {
+  font-size: 20px !important;
+}
+
+</style>
+<script type="text/javascript">
+$( document ).ready(function() {
+
+  $('.floor_preview').on('click', function(){
+
+
+
+
+});
+
+
+});
+
+function show_heatMap(domElem){
+  var field = document.getElementById('preview_area');
+  field.src = domElem.data('src');
+
+  $('#floor_canvas').show();
+  $('#canvasContainer').remove();
+  //Set up Canvas and plot heat map
+   var width = field.width,
+     height =field.height;
+  var fcanvas = document.getElementById("floor_canvas");
+  fcanvas.width = width;
+  fcanvas.height = height;
+
+  var container = document.getElementById("map_container");
+  var heatmap = createWebGLHeatmap({canvas: fcanvas});
+
+   container.appendChild(heatmap.canvas);
+
+   $.ajax({
+        type: 'GET',
+        url:  "/roomActivity/"+domElem.data('id')
+      }).done(function(data,url){
+         var points = [];
+
+         arr =data.children;
+
+        var max = Math.max.apply(Math,arr.map(function(o){return o.value;}));
+             for (var i = 0; i < arr.length; i++)
+             {
+                var val = Math.floor(Math.random()*500);
+                var radius = Math.floor(Math.random()*70);
+                var point = {
+                  x: arr[i].plotx+50,
+                  y: arr[i].ploty+46,
+                  size: 175,
+                  intensity: arr[i].value/max
+                };
+                points.push(point);
+             }
+             heatmap.addPoints(points);
+             heatmap.update();
+            heatmap.display();
+      });
+
+
+
+ show_room(domElem.data('id'));
+}
+
+
+function show_room(data_id){
+
+ $.ajax({
+        type: 'GET',
+        url:  "/floors/"+data_id
+      }).done(function(data,url){
+        document.getElementById('floor_data').innerHTML =  data ;
+
+        $('.show_room').on('click', function(e){
+      e.preventDefault();
+
+
+      var id =$(this).data('id');
+      $.ajax({
+        type: 'POST',
+        url:  "/Rooms/analytics/"+id,
+        data: {'_method': 'post'}
+      }).done(function(data,url){
+        //console.log(url);
+        $('#roomAnalytics').html(data);
+      });
+
+    });
+
+
+      });
+
+}
+
+</script>
+
+<div class="innerContent laterContent">
+
+
+
+       <div class="row" >
+          <div class="col-md-12">
+            <div id="errorPanel">
+              <?php
+                  if(Session::get('message')){
+                    echo '<h3 class="glyphicons warning_sign"><i></i>Errors</h3>';
+                    echo '<h4>'.Session::get('message').'</h4>';
+                  }
+                ?>
+                </div>
+
+            <div class="campaignBar" >
+
+               <?php if(!empty($floors)): ?>
+                <select id="floor_position">
+                  <?php foreach($floors as $key => $value): ?>
+
+              <option   data-src="<?php echo $value->floorPlan; ?>" data-id="<?php echo $value->_id; ?>" data-width=" " data-height="" value=""><?php echo $value->name; ?></option>
+
+               <?php endforeach; ?>
+            </select>
+              <?php endif; ?>
+                  <h3 id="floor_name"></h3>
+                   <a id="floor_heatMap" class="btn btn-primary btn-mini" >Heat Map</a>
+                <a id="floor_default" class="btn btn-primary btn-mini" >Default</a>
+
+
+               <!--  <a id="newCampaign" class="btn btn-primary btn-mini" href="<?php echo URL::to('floors/create'); ?>">New Floor +</a> -->
+
+            </div>
+
+            </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-9">
+
+                <div class="row-fluid">
+                <div class="col-md-12" id="map_wrapper">
+                  <div id="map_container" >
+                  <img src="http://placehold.it/800x576" id="preview_area" style=" max-width: 100%; max-height:100%; z-index: -1; position: absolute;"/>
+
+                      <canvas id="floor_canvas" width= "781" height= "560"></canvas>
+
+                  <div class="clearfix"></div>
+                </div>
+                </div>
+                <!-- <div class="col-md-2">
+
+
+               </div> -->
+
+            </div>
+
+            <div class="row-fluid">
+              <div class="col-md-12">
+                <div id="floor_data">
+                    <p > </p>
+
+                  </div>
+              </div>
+            </div>
+
+        </div>
+        <div class="col-md-3 ">
+
+          <div class="row-fluid first">
+        <div class="contents">
+          <h2>
+            250
+          </h2>
+          <h3>
+            Users have your App
+          </h3>
+        </div>
+      </div>
+
+
+       <div class="row_fluid">
+        <div class=" middle">
+          <table>
+            <tr>
+              <td><h2>150</h2></td>
+              <td><h3>New Users in the Last 3 Months</h3></td>
+            </tr>
+
+            <tr>
+              <td><h2>250</h2></td>
+              <td><h3>New Users in Past Year</h3></td>
+            </tr>
+          </table>
+
+        </div>
+      </div>
+
+
+      <div class="row_fluid">
+        <div class="contents">
+          <div id='ufo-sightings'></div>
+
+
+        </div>
+      </div>
+
+
+
+        </div>
+      </div>
+
+
+
+
+
+</div>
+
+<script>
+$(document).ready(function() {
+        // hljs.initHighlightingOnLoad();
+
+        d3.json('data/traffic.json', function(data) {
+            data_graphic({
+                title: "Monthly Traffic",
+                description: "Breakdown of this month's daily unique traffic",
+                data: data,
+                markers: [{'date': 3, 'label': 'Windows Store Launch'}, {'date': 11, 'label': 'Rememberance Day'}],
+                width: 350,
+                height: 150,
+                target: '#ufo-sightings',
+                x_accessor: 'date',
+                y_accessor: 'visits'
+            })
+        });
+      });
+    </script>
+
+
+<script>
+  $(document).ready(function() {
+
+
+    $('#floor_position').on('change', function(){
+      $('#floor_name').text($(this).find(':selected').text())
+      show_default($(this).find(':selected'));
+    } );
+
+    $('#floor_heatMap').on('click', function(){
+      show_heatMap( $('#floor_position').find(':selected'));
+
+    });
+
+    $('#floor_default').on('click', function(){
+      show_default( $('#floor_position').find(':selected'));
+    });
+
+   $("a.show_room").click(function(event){
+         $(this).parent('li').css( "background-color", '#e5412d');
+         $(this).css("color", "#ffffff");
+    });
+
+   $("#floor_position").val($('#floor_position option:first').val());
+
+
+});
+
+
+function show_default(domElem){
+    var field = document.getElementById('preview_area');
+    console.log('here');
+    console.log(domElem);
+
+     field.src = domElem.data('src');
+     var width = field.width,
+     height =field.height;
+
+     if ($("#canvasContainer").length > 0)
+     {
+         d3.select("#map_container").selectAll("svg").remove();
+     }
+
+     var canvas = d3.select("#map_container").append("svg:svg")
+    .attr("width", width)
+    .attr("height", height)
+    .attr("id", "canvasContainer")
+    .append("g")
+    .attr("transform", "translate(50, 50)");
+
+    var pack = d3.layout.pack()
+    .size([width, height - 50])
+    .padding(10);
+
+    var color = d3.scale.linear()
+    .domain([0,1,39, 40, 150, 151, 250])
+    .range(["#0016A6", "#000","#0077FF", "#FFFB00", "#FF6303", "#FF0A0A", "#e7422e"]);
+
+
+
+    d3.json('/roomActivity/'+domElem.data('id'), function(data) {
+
+      var nodes = pack.nodes(data);
+      var beacons = data['beacons'];
+
+      var rooms = data['children'];
+      var size = data['size'];
+      size = size.length;
+
+      if(rooms != null)
+      {
+        var node = canvas.selectAll(".node")
+        .data(nodes)
+        .enter()
+        .append("g")
+        .attr("class", "node")
+        .attr("id", function(d) {
+          return d.children ? "" : d.name.replace(/\s/g, "");
+        })
+        .attr("val", function(d) {
+          return d.children ? "" : d._id;
+        })
+        .attr("name", function(d) {
+          return d.children ? "" : d.name.replace(/\s/g, "");
+        })
+        .attr("transform", function(d) {
+          return "translate(" + d.plotx + "," + d.ploty + ")";
+        });
+
+        node.append("circle")
+        .attr("r", function(d) {
+          return 30;
+        })
+        .attr("opacity", 0.5)
+        .attr("class", "circle")
+        .attr("stroke", function(d) {
+          return d.children ? "#fff" : "#ADADAD";
+        })
+        .attr("stroke-width", "2")
+        .attr("fill", "#ffffff");
+
+        $(".node").each(function(index)
+        {
+          if ($(this).attr("name") == "")
+          {
+            $(this).remove();
+          } else
+          {
+            $('#aliasList').append("<option value='" + $(this).attr("val") + "'>" + $(this).attr("name").replace(/\s/g, "") + "</option>");
+          }
+        });
+
+
+        $(".node").on("mouseover",function(){
+          var element = $(this).attr("id");
+           console.log("there");
+          console.log(element);
+          d3.select('.node#'+element+" .circle").attr("r", function (d) { return 30; });
+        });
+
+        $(".svgtext").each(function(index)
+        {
+          var theText = $(this);
+          theText.text(theText.text().replace(/_/g, ' '));
+        });
+
+
+
+
+        node.append("text")
+        .attr("font-size", "15px")
+        .attr("fill", "#000")
+        .attr("font-weight", "bold")
+        .attr("class","svgtext")
+        .attr("text-anchor", "middle")
+        .text(function (d) { return d.children ? "" : d.name; });
+
+        for (var j = 0; j < rooms.length; j++)
+        {
+          for (var k = 0; k < beacons.length; k++)
+          {
+            if (rooms[j]._id == beacons[k].room_id)
+            {
+              $(".node").each(function(index)
+              {
+                if ($(this).attr('val') == rooms[j]._id)
+                {
+                  var color = d3.scale.linear()
+                  .domain([0, 1000]).
+                  range(["#FFFFFF", "#F0F0F0"]);
+
+                  // d3.select('g#\\'+rooms[j].name.replace(/\s/g, ""))
+                  // .attr("fill", function (d) {
+                  //   return color(d.value)
+                  // });
+
+                }
+              });
+            }
+          }
+        }
+
+      }else{
+
+        $('.beaconPlaceForm').hide();
+      }
+
+  $('#floor_canvas').hide();
+});
+show_room(domElem.data('id'));
+}
+
+</script>
+
+
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make("layout_dash", array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

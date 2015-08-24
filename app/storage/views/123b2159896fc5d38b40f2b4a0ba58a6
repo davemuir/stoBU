@@ -1,0 +1,15 @@
+<?$company= Auth::user()->company;
+
+?>
+<?php echo Form::model($room, array('url' => array('Rooms'), 'method' =>'POST')); ?>
+
+<?php echo Form::text('name',null,['class'=>'floatLeft form-control','placeholder'=>'Room Name']); ?>
+
+ <?php echo Form::select("floor", $company->floors->lists('name','_id'), null, array('class' => 'form-control','id'=>'floor_room')  ); ?>
+
+<?php echo Form::submit('Add Room!',['class'=>'btn btn-primary btn-mini floatLeft']); ?>
+
+<?php echo Form::close(); ?>
+
+
+

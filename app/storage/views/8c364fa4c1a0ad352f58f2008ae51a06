@@ -1,0 +1,290 @@
+<?php $__env->startSection("content"); ?>
+<?php echo $__env->make("header", array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+<script type="text/javascript">
+  $(document).ready(function(){
+    $("#icon1parent").click(function(){
+      $("#csvUsers").click();
+    });
+  });
+
+</script>
+
+ <!-- ====================================================Add New User=======================================  -->
+
+<div class="innerContent" ng-controller="AppEditController as appEdit">
+
+  <!-- Error Messages Display Section-->
+  <div id="errorPanel">
+
+    <?php if($errors->first() != null): ?>
+
+      <h4 class="glyphicons warning_sign"><i></i>Errors</h4>
+
+    <?php endif; ?>
+
+    <?php if($errors->first('fname') != null): ?>
+
+      <li><h4><?php echo $errors->first('fname'); ?>></h4></li>
+
+    <?php endif; ?>
+
+    <?php if($errors->first('lname') != null): ?>
+
+      <li><h4><?php echo $errors->first('lname'); ?></h4></li>
+
+    <?php endif; ?>
+
+    <?php if($errors->first('email') != null): ?>
+
+      <li><h4><?php echo $errors->first('email'); ?></h4></li>
+
+    <?php endif; ?>
+
+    <?php if(Session::get('message')): ?>
+
+      <h4 class="glyphicons warning_sign"><i></i>Errors</h4>';
+
+      <h4><?php echo Session::get('message'); ?></h4>
+
+    <?php endif; ?>
+                  
+    <?php echo Form::open([
+      "route"         =>  "Store New User",
+      'action'        =>  'userController@storeNewUser',
+      "autocomplete"  =>  "off",
+      "enctype"       =>  "multipart/form-data"
+    ]); ?>
+
+  </div>
+  <!-- End of Error Messages Display Section-->
+
+    <!-- Left Side : User's First name and Last name -->
+  <div class="col-md-12">
+   <h2 class="titleHeading">Add User</h2>
+    <div class="tt">
+          <a id="tt-help" href="#"></a>
+          <div class="tt-arrow"></div>
+          <div id="tt-wrapper" class="tt-floorPlan">
+            <p>Add a specific user with this form.  Adding Users allows other people to access your system.  User's added will recieve a confirmation email and will gain access to your company's ApEngage Dashboard.  Set their permission level to enable/restrict actions.</p>
+          </div>
+        </div>
+      </div>
+
+
+    <div class="col-md-6">
+      
+      <div id="contact-info-left">
+      
+        <div id="headerBorder">
+          <h4>First Name</h4>
+        </div>
+
+        <?php echo Form::text("fname", Input::get("fName"), ["placeholder" => "First Name ","class" =>"form-control"]); ?>
+
+
+        <div id="headerBorder">
+          <h4>Last Name</h4>
+        </div>
+                    
+        <?php echo Form::text("lname", Input::get("lName"), ["placeholder" => "Last Name ","class" =>"form-control"]); ?>
+
+
+      </div>
+                
+    </div>
+    <!-- End of Left Side  -->
+        
+    <!-- Right Side:Email, Access Level and Add User button  -->
+    <div class="col-md-6">
+      
+      <div id="contact-info-right">
+      
+        <div id="headerBorder">
+          <h4>Email</h4>
+        </div>
+
+        <?php echo Form::text("email", Input::get("email"), ["placeholder" => "Example@mail.com","class" =>"form-control"]); ?>
+
+
+        <div id="headerBorder">
+          <h4>Access Level</h4>
+        </div>
+            
+        <?php echo Form::select('selectAccess',array('Admin' => 'Admin', 'Staff' => 'Staff'),null,array("id" => "accessSelect","class" => "form-control dropDown adduserSelect col-md-3")); ?>
+
+
+        <div class="col-md-2 adduserButton">
+          <?php echo Form::submit("Add User", array('class' => 'btn btn-primary btn-mini')); ?>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <?php echo Form::close(); ?>
+
+    <!-- End of Right Side  -->
+
+  
+  <!--  Second Block CSV Info-->
+  <div class="col-md-12" id="csvOptions">
+
+    <h2 class="titleHeading">Add CSV</h2>
+    <div class="myToolTip">
+        <div class="tt">
+          <a id="tt-help" href="#"></a>
+          <div class="tt-arrow"></div>
+          <div id="tt-wrapper" class="tt-floorPlan">
+            <p>Easily upload a csv file of all your employees and instantly add them to your dashboard.  Specify in what column number each of the required fields are in and hit 'import csv'.</p>
+          </div>
+        </div>
+      </div>
+    <div class="addCsv col-md-12" id="whiteBackground">
+        <?php echo Form::open([
+          "route"        => "Import CSV Users",
+          'action' => 'userController@importCSVUser',
+          "autocomplete" => "off",
+          "enctype" =>"multipart/form-data"
+        ]); ?>
+
+                      
+        <div class="col-md-2 answerChoice">
+          
+          <div id="icon1parent" class="btn btn-primary btn-mini">
+          
+            <span>Choose File</span>
+          
+          </div>
+          
+          <?php echo Form::file('csvUsers',array( "class" => "uploadSurveyIcon form-hidden", "id"=>"csvUsers")); ?>
+
+        
+        </div>
+        
+        <div class="col-md-2">
+        
+          <div class="answerChoice">First Name Order</div>
+        
+          <div style="background-image: url('img/listArrow.png')" class="dropList">
+        
+            <?php echo Form::selectRange('fnameOrder', 1 , 25 , null, array("id"=>"", "class"=>"")); ?>
+
+        
+          </div>
+        
+        </div>
+                   
+        <div class="col-md-2">
+          
+          <div class="answerChoice">Second Name Order</div>
+          
+          <div style="background-image: url('img/listArrow.png')" class="dropList">
+          
+            <?php echo Form::selectRange('lnameOrder', 1 , 25, null, array("id"=>"", "class"=>"")); ?>
+
+          
+          </div>
+        
+        </div>
+        
+        <div class="col-md-3">
+          
+          <div class="answerChoice">Email Order</div>
+          
+          <div style="background-image: url('img/listArrow.png')" class="dropList">
+            
+            <?php echo Form::selectRange('emailOrder', 1 , 25, null, array("id"=>"", "class"=>"")); ?>
+
+          
+          </div>
+        
+        </div>
+        
+        <div class="col-md-2 answerChoice">
+                        
+          <?php echo Form::submit("Import CSV", array('class' => 'btn btn-primary btn-mini')); ?>
+
+                        
+        </div>
+
+        <?php echo Form::close(); ?>
+
+
+      </div>
+      
+    </div>
+    <!-- End of Second Block -->
+
+    <!--Third Block : User List -->
+    <div class="col-md-12" id="userList">
+
+       <h2 class="titleHeading">User List</h2>
+        <div class="tt">
+          <a id="tt-help" href="#"></a>
+          <div class="tt-arrow"></div>
+          <div id="tt-wrapper" class="tt-floorPlan">
+            <p>Campaigns provide a way to connect the messages and survey content you send out to a customer to a real campaign you may be running in the real world.
+              Set up a New campaign, or edit an existing one and attach beams and surveys you have created from your cms.  Campaigns allow you to deliver specific content to the beacons and rooms you are tracking in your campaign.  Get all the data you need from the campaigns you are running right here.</p>
+          </div>
+        </div>
+      </div>
+      <div class="surveyRow col-md-12" id="whiteBackground">
+        
+        <div class="addUserTableHolder tableHolde" id="userTable">
+
+          <table class="table-strped table stripes tableStyles">
+            
+            <thead>
+              
+              <tr>
+                
+                <th>Name</th>
+                
+                <th>Role</th>
+                
+                <th>Email</th>
+                
+                <th>Branch</th>
+                
+                <th>Edit/Delete</th>
+              
+              </tr>
+            
+            </thead>
+          
+          <tbody>
+          
+            <?php foreach($all as $value): ?>
+            
+              <tr>
+                
+                <td><?php echo $value->fname; ?> <?php echo $value->lname; ?></td>
+                
+                <td><?php echo $value->user_access; ?></td>
+                
+                <td> <?php echo $value->email; ?></td>
+                
+                <td>Branch</td>
+                
+                <td><a href="<?php echo URL::route('Edit User', array('userid' => $value->_id) ); ?>">Edit</a>/<a href="<?php echo URL::route('Delete User', array('userid' => $value->_id) ); ?> ">Delete</a></td>
+              
+              </tr>
+            
+            <?php endforeach; ?>
+          
+          </tbody>
+        
+        </table>
+      
+      </div>
+
+    </div> <!-- third row -->
+
+  </div>
+  <!-- End of Third Block : User List -->
+
+</div>
+
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make("layout_dash", array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

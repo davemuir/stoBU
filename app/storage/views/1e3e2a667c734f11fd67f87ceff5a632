@@ -1,0 +1,90 @@
+<?php $__env->startSection("content"); ?>
+<?php echo HTML::script("js/entries.js"); ?>
+
+<?php echo $__env->make("header", array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+
+<!-- ================================================ Analytics for Customers and Repeat Customers =============================== -->
+
+<div class="innerContent"> 
+
+    <div id="analyticsBackground">
+        <?php echo $__env->make('partials/_navoptions', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+        <?php echo $__env->make('partials/_graphdivs', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+        <div id="titleBarG">
+          <h2>Your Customers</h2>
+        </div>
+        <div class='laterContent tableHolder'>
+          <div class="customerControls">
+
+            <? if ($choice == 'Customers'){ ?>
+            <a href="#" class="btn btn-success btn-primary btn-mini customersTableButton"><i class="icon-white icon-refresh"></i> Customers</a>
+            <a href="#" class="btn btn-primary btn-mini repeatCustomersTableButton"><i class="icon-white icon-refresh"></i> Repeat Customers</a>
+            <? } ?>
+
+          </div>
+          <div class="analyticsRow">
+            <? if ($choice == 'Customers'){ ?>
+              <!-- Table with list of repeat Customers -->
+              <div class='repeatTable'>
+                <table class='table stripes tableStyles'>
+                  <tr>
+                    <th class='tableTitle'>Repeat Customers</th>
+                  </tr>
+                  <tr>
+                    <th>Visits: </th>
+                    <th>Name </th>
+                    <th>Gender </th>
+                    <th>Platform</th>
+                  </tr>
+                  <? foreach ($repeatCustomers as $value) { ?>
+                  <tr>
+                    <td><? echo $value->No;?></td>
+                    <td><? echo $value->Name;?></td>
+                    <td><? echo $value->Gender;?></td>
+                    <td><? echo $value->Platform;?></td>
+                  </tr>
+                  <? } ?>
+                </table>
+              </div>
+
+              <!-- Table with list of all Customers -->
+              <div class='customersTable'>
+                <table class='table stripes tableStyles'>
+                  <tr>
+                    <th class='tableTitle'>Customers</th>
+                  </tr>
+                  <tr>
+                    <th>Name </th>
+                    <th>Gender </th>
+                    <th>Date of Birth </th>
+                    <th>Platform </th>
+                  </tr>
+                  <? foreach ($customers as $value) { ?>
+                  <tr>
+                    <td><? echo $value->Name;?></td>
+                    <td><? echo $value->Gender;?></td>
+                    <td><? echo $value->DOB;?></td>
+                    <td><? echo $value->Platform;?></td>
+                  </tr>
+                  <? } ?>
+                </table>
+                <? } ?>
+              </div>
+            </div>
+            <script>
+              $(document).ready(function(){
+                hidePieCharts();
+                showCustomersTable();
+              });
+            </script>
+          </div>
+
+    </div>
+  </div>
+    <script src="/js/classie.js"></script>
+    <script src="/js/helper.js"></script>
+    <script src="/js/grid3d.js"></script>
+    <?php $__env->stopSection(); ?>
+
+
+<?php echo $__env->make("layout_dash", array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

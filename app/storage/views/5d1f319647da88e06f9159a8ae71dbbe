@@ -1,0 +1,41 @@
+<?php $__env->startSection("content"); ?>
+<?php echo $__env->make("header", array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+
+<!-- =================================== View/Preview Survey Page =======================================-->
+
+<script>
+
+ </script>
+
+<div class="innerContent" >
+
+	<div class="row">
+		<div class="col-md-6">
+
+	<!--<a href="https://www.simpleinout.com/oauth/authorize?client_id=f5c013af3828a2ad75bdd8a1692023fa7bf04cfc374652a4c8dd577f0a5dd78d&redirect_uri=http://localhost:8000/simpleinout/board&response_type=code" >enter</a>
+	-->
+
+			<?php echo Form::open([
+
+		      'action'        =>  'InOutController@saveKeys',
+		      "autocomplete"  =>  "off",
+		      "enctype"       =>  "multipart/form-data"
+		    ]); ?>
+
+
+		    <h3>Client ID</h3>
+			<?php echo Form::text("client_id", Input::get("client_id"), ["placeholder" => "Client ID ","class" =>"form-control"]); ?>
+
+			<h3>Secret ID</h3>
+			<?php echo Form::text("secret_id", Input::get("secret_id"), ["placeholder" => "Secret ID ","class" =>"form-control"]); ?>
+
+
+			 <?php echo Form::submit("Add Keys", array('class' => 'btn btn-primary btn-mini')); ?>
+
+		    <?php echo Form::close(); ?>
+
+		</div>
+	</div>
+</div>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make("layout_dash", array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

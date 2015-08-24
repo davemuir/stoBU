@@ -1,0 +1,185 @@
+<?php $__env->startSection("content"); ?>
+<?php echo $__env->make("header", array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+
+<div class="innerContent" ng-controller="mediaCtrl">
+
+<?$user = Auth::user(); $company = $user->company; ?>
+
+	<div class="row">
+
+		<div class="col-md-6">
+
+			<!--Filter Controllers-->
+
+			<h3>Filter Options</h3>
+
+			<div id="archiveHub">
+
+				<div class="row">
+
+					<div class="col-md-6">List Length:
+
+						<select ng-model="entryLimit" class="form-control" id="placesize">
+
+							<option>5</option>
+							<option>10</option>
+							<option>20</option>
+							<option>50</option>
+							<option>100</option>
+
+						</select>
+
+					</div>
+
+					<div class="col-md-6">
+						<h5><%filtered.length%> out of <%totalItems%> matches found.</h5>
+					</div>
+
+				</div>
+
+				<div class="row">
+
+					<div class="col-md-6">Search by name or tag.
+						<input type="text" ng-model="search" ng-change="filter()" placeholder="Filter" class="form-control" id="placesize"/>
+					</div>
+
+					<div class="col-md-6" ng-show="filteredItems > 0">
+						<ul id="filterOptions">
+							<li><a ng-click="sort_by('name');"><p>Sort by name</p></a></li>
+							<li><a ng-click="sort_by('type');"><p>Sort by type</p></a></li>
+							<li><a ng-click="sort_by('extension');"><p>Sort by extension</p></a></li>
+							<li><a ng-click="sort_by('update_at');"><p>Sort by date</p></a></li>
+						</ul>
+
+					</div>
+
+				</div>
+
+			</div>
+
+		</div>
+
+
+		<!--Media Loader-->
+		<div class="col-md-6" id="mediaLoader">
+			<h3>Add Media</h3>
+			<div class="innerLR">
+				<!-- Widget -->
+					<div class="widget widget-heading-simple widget-body-gray">
+
+						<!--<div class="widget-body">-->
+						<!-- Plupload -->
+						<form id="pluploadForm"></form>
+
+							<div id="pluploadUploader">
+
+
+							<!-- // Plupload END -->
+
+							<!--</div>-->
+							</div>
+							<!-- // Widget END -->
+					</div><!--inner LR end-->
+			</div>
+
+		</div>
+
+	</div>
+
+	<div class="row">
+		<div class="col-md-12">
+			<div id="meta_data_wrapper">
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+
+		<div class="col-md-12" id="archiveSection">
+
+				<h3>Archives</h3>
+
+				<div id="archiveHub">
+
+					<ul id="mediaList">
+
+						<!--View of media assets-->
+
+						<li ng-repeat="data in filtered = (list | filter:search | orderBy : predicate :reverse) | startForm:(currentPage-1)*entryLimit | limitTo:entryLimit">
+
+							<div id="mediaView">
+								<img ng-src="<%data.path%>">
+								</br>
+									Name: <%data.name%>
+								</br>
+									Type: <%data.type%>/<%data.extension%>
+								</br>
+									Tags: <%data.tags%>
+								</br>
+									Campaign: <%data.campaign%>
+								</br>
+									Date: <%data.updated_at%>
+								</br>
+							</div>
+
+						</li>
+
+					</ul>
+				</div>
+
+				<div class="col-md-6" ng-show="filteredItems == 0">
+
+					<div class="col-md-12">
+
+						<h4>No seaches found</h4>
+
+					</div>
+
+				</div>
+
+				<div class="col-md-6" ng-show="filteredItems > 0">
+					<div pagination="" page="currentPage" on-select-page="setPage(page)" boundary-links="true" total-items="filteredItems" items-per-page="entryLimit" class="pagination-small" previous-text="&laquo;" next-text="&raquo;"></div>
+
+				</div>
+
+			</div>
+
+		</div>
+</div>
+
+	
+
+
+		<!-- // Content END -->
+
+
+<!-- // Main Container Fluid END -->
+	<script type="text/javascript">
+		$( document ).ready(function() {
+		$('.pree_img').bind("click", function(e) {
+			event.preventDefault();
+			$('#display_pre > span').html('<img align="middle" src="'+$(this).attr("href")+'"/><p><a class="delete_media" data-method="delete" href="'+$(this).attr("href").replace('uploads', 'media/image')+'">delete</a></p>');
+				bindDelete();
+		});
+		$('.pree_vid').bind("click", function(e) {
+			event.preventDefault();
+			$('#display_pre > span').html('<video width="480" height="360" controls><source src="'+$(this).attr("href")+'" type="video/mp4">Your browser does not support the video tag.</video><p><a class="delete_media" data-method="delete" href="'+$(this).attr("href").replace('uploads/videos', 'media/video')+'">delete</a></p>');
+			bindDelete();
+			});
+
+
+		});
+		function bindDelete() {
+			$('.delete_media').bind("click", function() {
+				var result = confirm("Want to delete?");
+				if (result==true) {
+				    return true;
+					}
+				return false;
+			});
+		}
+	</script>
+
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make("layout_dash", array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

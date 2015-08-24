@@ -1,0 +1,1005 @@
+<?php $__env->startSection("content"); ?>
+<?php echo $__env->make("header", array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+
+<!-- =================================== Filemaker home Page =======================================-->
+<script src="http://html2canvas.hertzen.com/build/html2canvas.js"></script>
+<input class="hidden" id="dboName" value="<?php echo $currentConnection[0]['name'];?>">
+<input class="hidden" id="dboHost" value="<?php echo $currentConnection[0]['host'];?>">
+<input class="hidden" id="dboUser" value="<?php echo $currentConnection[0]['user'];?>">
+<input class="hidden" id="dboPass" value="<?php echo $currentConnection[0]['pass'];?>">
+<input class="hidden" id="dboLayout" value="<?php echo $currentConnection[0]['layouts'];?>">
+<div class="innerContent" >
+
+	<div class="row">
+		<div class="col-md-10" >
+			<div role="tabpanel">
+			  <!-- Nav tabs -->
+			  <ul class="nav nav-tabs" role="tablist">
+			    <li role="presentation" class="active"><a href="#query" aria-controls="query" role="tab" data-toggle="tab">Query</a></li>
+			    <li role="presentation"><a href="#csv" aria-controls="csv" role="tab" data-toggle="tab">Records</a></li>
+			    <li role="presentation"><a href="#manager" aria-controls="manager" role="tab" data-toggle="tab">Manager</a></li>
+			     <li role="presentation"><a href="#visualization" aria-controls="visualization" role="tab" data-toggle="tab">Visualization</a></li>
+			  </ul>
+
+			  <!-- Tab panes -->
+			<div class="tab-content">
+			    <div role="tabpanel" class="tab-pane active" id="query">	
+			    	<h3>Query DB - <?php echo $currentConnection[0]['name'];?></h3>
+			    	<div id='options'>
+			
+					</div>
+					<label>select a database layout</label><br><br>
+					<select id='queryLayout' class='layoutSelect'></select>
+					<div style="clear:both;margin-bottom:30px;">
+						<button class='btn btn-mini' type="submit" name="submit" id='fetchMaker'>Query</button>	
+			    	<!--<button class='btn btn-mini' type="submit" name="submit" id='getMaker'>Get All</button>	-->
+			    		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exportModal">Export</button>
+			    	</div>
+			    	<div style="overflow-x:scroll;clear:both;">
+				    	<table id='fmTable' CLASS='table table-hover display'>
+				    		<thead>
+				    		</thead>
+				    		<tbody>
+				    		</tbody>
+				    	</table>
+				    </div>
+			    	<div id='errors'>
+			    	</div>
+			    	<div id="exportPreview">
+
+			    	</div>
+			    	<!-- export Modal -->
+					<div class="modal fade" id="exportModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+					  <div class="modal-dialog">
+					    <div class="modal-content">
+					      <div class="modal-header">
+					        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+					        <h4 class="modal-title" id="myModalLabel">Export Options</h4>
+					      </div>
+					      <div class="modal-body">
+					        <div class="row">
+					        	<div class='col-md-8'>
+					        		<h3>Export Data</h3>
+						    		<form id="exportType">
+							    		<input type="radio" name="exportType" value="csv">CSV File<br/>
+							    		<input type="radio" name="exportType" value="html">HTML<br/>
+							    		<input type="radio" name="exportType" value="beam">Beam<br/>
+							    		<input type="radio" name="exportType" value="screen">Screen-shot(jpg)<br/>
+							    	</form>  
+
+					    		</div>
+
+				    		</div>
+				    		<div class="row">
+					        	<div class='col-md-12'>
+				    			<div id="beamTitle">
+
+					    		</div>
+					    		</div>
+				    		</div>
+					      </div>
+					      <div class="modal-footer">
+					      	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					       <button class="btn btn-primary btn-mini" id="exportData">Export</button>
+					      </div>
+					    </div>
+					  </div>
+					</div>
+					<!--end modal-->
+			    </div>
+			    <div role="tabpanel" class="tab-pane" id="visualization">
+			    	<div class="row">
+			    		<h3>Visualization</h3>
+			    			<!--<iframe style="width:100%;height:500px;" src="http://192.168.128.136/fmi/webd#test">
+							</iframe>-->
+						<div id="visualConnect">
+							<div id="tableauEns" class="col-md-6">
+								<p>connect to your hosted data by submitting the workbook name and a work-sheet</p>
+								<label>Workbook Name</label>
+								<input class="form-control" id="queryBooks"/>
+								<label>Sheet Name</label>
+								<input class="form-control" id="querySheets"/>
+								<button class="btn btn-primary btn-mini" style="float: left;" id="submitqueryBooks">Get Workbook</button>
+								<button class="btn  btn-mini" style="float: left;" id="seeConfigured">See Configured</button>
+							</div>
+							<div id="tableauCons" class="col-md-6">
+								<!--loop out the connections-->
+								<p>Select already established and saved connections</p>
+								<label>Workbooks</label>
+								<select id="workbookSelect" class="form-control"></select>
+
+								<label>Sheets</label>
+								<select id="sheetSelect" class="form-control"></select>
+
+								<button class="btn btn-primary btn-mini" style="float: left;" id="submitConnectedBook">Get Workbook</button>
+								<button class="btn  btn-mini" style="float: left;" id="setNew">Set New</button>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div id="tableauViz">
+						</div>
+					</div>
+					<div class="row">
+						<div id="tableauButtons">
+							
+							<button class="btn" id="sheets"> See Sheets</button>
+							<button class="btn" id="clean">Clear</button>
+							<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#connectionModal" id="saveConnectionButton"> Save Connection</button>
+							<div id="sheetList">
+
+							</div>
+						</div>
+					</div>
+			    </div>
+				<div role="tabpanel" class="tab-pane" id="csv">
+			    	<h3>Update Record</h3>
+			    	<h4>current data-base: <?php echo $currentConnection[0]["name"]; ?></h4>
+			    	<!-- Button trigger modal -->
+			    	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#recordModal">
+					  New Record
+					</button>
+					<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newModal">
+					  New Table
+					</button>
+					<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#updateModal">
+					  Update/Modify Record Fields
+					</button>
+
+					<!-- New Record Modal -->
+					<div class="modal fade" id="recordModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+					  <div class="modal-dialog">
+					    <div class="modal-content">
+					      <div class="modal-header">
+					        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+					        <h4 class="modal-title" id="myModalLabel">New Record</h4>
+					      </div>
+					      <div class="modal-body">
+					        <div class="row">
+					        	<div class='col-md-8'>
+					    			<h3>Add New Record</h3>
+					    			<label>select a database layout</label><br><br>
+					    			<select id='recordLayout' class='layoutSelect'></select>
+					    		</div>
+				    		</div>
+					    	<div class="row">
+						    	<div class="col-md-8">
+						    		<div id="record_fields">
+						    		
+							    	</div>
+						    	</div>
+					    	
+				    		</div>
+					      </div>
+					      <div class="modal-footer">
+					      	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					        <button class="btn btn-primary" id="createRecord">Create Record</button>
+					      </div>
+					    </div>
+					  </div>
+					</div>
+					<!--end modal-->
+					<!--layout-->
+					<div class="modal fade" id="newModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+					  <div class="modal-dialog">
+					    <div class="modal-content">
+					      <div class="modal-header">
+					        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+					        <h4 class="modal-title" id="myModalLabel">New Table/Layout</h4>
+					      </div>
+					      <div class="modal-body">
+					        	<div class="row">
+				    	<h3>Make a new table</h3>
+				    	<div class="col-md-8">
+				    		<button class="btn btn-primary" id='addNewField'>Add Table Column</button>
+				    
+				    		<div id="add_fields">
+				    				
+								<label>Name of new Table/Layout</label>
+					    		<input name='tableName' class='form-control' />
+				    			<label>Column 1 Name</label>
+					    		<input name='tableCol' class='form-control' />
+					    	</div>
+					 
+				    	</div>
+				    </div>
+					      </div>
+					      <div class="modal-footer">
+					      	
+					      
+					    <button class="btn btn-primary" id="createLayout">Create Table/Layout</button>
+					  
+					    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					      </div>
+					    </div>
+					  </div>
+					</div>
+					<!--end modal-->
+					<!-- Button trigger modal -->
+				
+
+					<!-- Modal -->
+					<div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+					  <div class="modal-dialog">
+					    <div class="modal-content">
+					      <div class="modal-header">
+					        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+					        <h4 class="modal-title" id="myModalLabel">Update/Modify Record</h4>
+					      </div>
+					      <div class="modal-body">
+					        <div class="row">
+						    	<div class="col-md-8">
+						    		<button class="btn btn-primary" id='updateNewField'>Add New Field</button>
+						    		<div id="update_fields">
+						    			<label>1</label>
+							    		<input class='form-control' />
+							    	</div>
+						    	</div>
+						    </div>
+					      </div>
+					      <div class="modal-footer">
+					        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					        <button class="btn btn-primary" id="updateLayout">Update</button>
+					      </div>
+					    </div>
+					  </div>
+					</div>
+			    	
+				    
+			</div>
+			
+			<div role="tabpanel" class="tab-pane" id="manager">
+		    	<h3>Database Manager</h3>
+		    	<p>Setup a direct connection to a filemaker database and start utilizing your data</p>
+		    	
+			 	<div class="row">
+				    <div class="col-md-8">
+				     <h5>Current Connection : <?php echo $currentConnection[0]['name'];?></h5>
+				      <?php 
+				      	$connex = [];
+				      	foreach($connections as $connection){
+				      		$id = $connection->_id;
+				      		$name = $connection->name;
+				      		$connex[$id] = $name; 
+				      	}
+				      ?>
+				      	<?php echo Form::open([
+					      'action'        =>  'FileMakerController@newDefaultConnection',
+					      "autocomplete"  =>  "off",
+					      "enctype"       =>  "multipart/form-data"
+					    ]); ?>
+
+				      	<?php echo Form::select('curConnection',$connex); ?>
+
+				      	<?php echo Form::submit("Make Default", array('class' => 'btn btn-primary btn-mini')); ?>
+
+					    <?php echo Form::close(); ?>
+
+				    </div>
+				</div>
+			 	<div class="row">
+			 			
+				    <div class="col-md-8">
+				    	<br/><br/>
+				    	<h3>Create a New Database Connection</h3>
+			    		<?php echo Form::open([
+					      'action'        =>  'FileMakerController@newConnection',
+					      "autocomplete"  =>  "off",
+					      "enctype"       =>  "multipart/form-data"
+					    ]); ?>
+
+					    <h4>Database Name</h4>
+						<?php echo Form::text("name", Input::get("name"), ["placeholder" => "DB Name","class" =>"form-control"]); ?>
+
+						<h4>Host</h4>
+						<?php echo Form::text("host", Input::get("host"), ["placeholder" => "Host Address","class" =>"form-control"]); ?>
+
+						<h4>User Name</h4>
+						<?php echo Form::text("user_name", Input::get("user_name"), ["placeholder" => "User Name","class" =>"form-control"]); ?>
+
+						<h4>Password</h4>
+						<?php echo Form::password("pass",array("placeholder" => "Password","class" =>"form-control")); ?>
+
+						<h4>Layout Name</h4>
+						<?php echo Form::text("layout", Input::get("layout"), ["placeholder" => "User Name","class" =>"form-control"]); ?>
+
+						<?php echo Form::submit("Add Connection", array('class' => 'btn btn-primary btn-mini')); ?>
+
+					    <?php echo Form::close(); ?>
+
+					</div>
+				</div>
+			</div>
+		</div>
+			
+	
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<div id="ex">
+
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<div id='q'>
+
+			</div>
+				
+			<br><br><br>
+	
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+	
+
+		</div>
+	</div>
+
+	</div>
+</div>
+
+
+<!-- connection Modal -->
+	<div class="modal fade" id="connectionModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+	        <h4 class="modal-title" id="myModalLabel">Save a Tableau Connection</h4>
+	      </div>
+	      <div class="modal-body">
+	        <div class="row">
+		    	<div id="innerConnection" class="col-md-8">
+		    		
+		    	</div>
+		    </div>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	        <button class="btn btn-primary btn-mini" id="connection">Save This Connection</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+<!-- edit/delete record modal -->
+	<div class="modal fade" id="expandRecordModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+	        <h4 class="modal-title" id="myModalLabel">Edit Selected Record</h4>
+	      </div>
+	      <div class="modal-body">
+	        <div class="row">
+		    	<div id="innerExpandRecord" class="col-md-8">
+		    		
+		    	</div>
+		    </div>
+	      </div>
+	      <div class="modal-footer">
+	      	<div id='confirmTarget'>
+	      	</div>
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	        <button class="btn btn-primary" data-toggle="confirmation-popout" data-placement="left" data-original-title="" title="" id="deleteRecord">Delete Record</button>
+	        <button class="btn btn-primary btn-mini" id="updateRecord">Update Record</button>
+
+	      </div>
+	    </div>
+	  </div>
+	</div>
+
+
+<style>
+	.tab-pane{
+		margin-top: 30px;
+	}
+	#beamPre{
+		clear:both;
+		width:100%;
+		background:#000;
+		color:#dedede;
+		min-height:150px;
+	}
+	.ICON{
+		max-width:100px;
+	}
+	#tableauViz{
+		overflow:auto;
+	}
+	#tableauButtons,#tableauCons{
+		display:none;
+	}
+
+
+</style>
+
+<script>
+$(document).ready(function(){
+	var dataTableCheck = false;
+	//populate the workbook select
+	function getSelect(){
+		var xhr = new XMLHttpRequest();
+		xhr.open('GET', '/tableau/connections', false);
+		xhr.send(null);
+		if (xhr.status == 200) {
+			     var resp = JSON.parse(xhr.response);	
+			     console.log(resp);
+			     //var workbook = resp[0].workbook;	
+			     //var sheets = resp[0].sheet;	
+				 var size = resp.length;
+				 $('#workbookSelect').empty();
+				 $('#sheetSelect').empty(); 
+				for(var i = 0;i<size;i++){
+					//$('#sheetSelect').append('<option>'+sheets[i]+'</option>');
+					$('#workbookSelect').append('<option value="'+resp[i].workbook+'"">'+resp[i].workbook+'</option>');
+				}
+				$('#workbookSelect').prepend('<option> - </option>');
+		}
+	}
+	getSelect();
+
+	function getAaron(){
+		
+		var fdata = {email:"dmuir@ap1.io",uuid:"12345678"};
+		var fData = JSON.stringify(fdata);
+		console.log(fdata);
+		$.ajax({
+			    type: 'post',
+				url: 'http://192.168.128.157/filemaker/login.php',
+			    data: {restaurant:"Marcel's Bistro",layout:"default",fbo:fdata},
+			    success: function(response) {
+			    	//console.log(response);
+			    	var resp = JSON.parse(response);
+			    	console.log(resp);
+			    	console.log('^^^');
+			    }
+		});
+	}
+	getAaron();
+
+
+
+
+	var selectedBookName = $('#workbookSelect option:selected').text();
+	console.log(selectedBookName);
+
+	//click to do something
+	$('#recordLayout').change(function() {
+		var selected = $('#recordLayout option:selected').text();
+		$.ajax({
+		    type: 'post',
+		    url: 'http://192.168.128.157/filemaker/layoutFields.php',
+		    data: {layout: selected, dbo:dbo},
+		    success: function(response) {
+		    	 var resp = JSON.parse(response);
+		    	 var layoutName = resp[0];
+		    	 var fields = resp[1];
+		    	 $('#record_fields').empty();
+		    	 for(var field in fields){
+		    	 	$('#record_fields').append("<label>"+fields[field]+"</label><input id='"+fields[field]+"'' class='form-control' />");
+		    	 }
+		    	 console.log(resp);
+		    }
+		});
+
+	});
+
+
+	//add a new record when form filled and sent
+	$('#createRecord').click(function(){
+		var fields = [];
+		var values = [];
+		$('#record_fields input').each(function(){
+			var value = $(this).val();
+			var field = $(this).attr('id');
+			if(field == '' || value == ''){
+				alert("please fill out all fields");
+				return false;
+
+			}
+			values.push(value);
+			fields.push(field);
+		});	
+		var layout = $('#recordLayout option:selected').text();
+		$.ajax({
+		    type: 'post',
+		    url: 'http://192.168.128.157/filemaker/addRecord.php',
+		    data: {fields:fields,values:values,layout:layout,dbo:dbo},
+		    success: function(response) {
+	    	var resp = JSON.parse(response);
+	    	console.log(resp);
+	    	$('#recordModal').modal('hide');
+	    	}
+	    });
+	});
+    //add fields on button click
+    $('#updateNewField').click(function(){
+    	var len = $("#update_fields input").length;
+    	len = len+1;
+    	$('#update_fields').append('<label>'+len+'</label><input class="form-control"/>');
+    });
+
+    $('#addNewField').click(function(){
+    	var len = $("#add_fields input").length;
+    	len = len-1;
+    	$('#add_fields').append('<label>Column '+len+' Name</label><input name="tableCol" class="form-control"/>');
+    });
+    $('#createLayout').click(function(){
+     	var cFields = [];
+     	$('#add_fields input').each(function(){
+     		var cFieldName = $(this).val();
+			cFields.push(cFieldName);
+		});
+	    $.ajax({
+		    type: 'post',
+		  	url: 'http://192.168.128.157/filemaker/addTable.php',   //url:'/csvtable.php',
+		    data: {table:cFields},
+		    success: function(response) {
+	    	var resp = JSON.parse(response);
+	    	console.log(resp);
+	    	}
+	    });
+	});
+	$('#fetchMaker').click(function(){
+		//bring in options
+		var choices = [];
+		var fields = [];
+		$('#options select option:selected').each(function(){
+			var choice = $(this).text();
+			var choiceFieldName = $(this).attr('id');
+			if(choice != '-'){
+				choices.push(choice);
+				fields.push(choiceFieldName);
+			}
+		});
+		var queryLayout = $('#queryLayout option:selected').val();
+		console.log(choices);
+		//result paramaters to be queried
+		$.ajax({
+		    type: 'POST',
+		    url: 'http://192.168.128.157/filemaker/index.php',//url: '/FileMaker/filterfm',
+		    data: {choices: choices, fields: fields, dbo: dbo, layout:queryLayout},
+		    success: function(response) {
+		    	 var resp = JSON.parse(response);
+		    	 console.log(resp);
+		    	 var records = resp[0];
+		    	 var respSize = records.length;
+		    	 if(dataTableCheck === true){
+		      		var table = $('#fmTable').dataTable();
+		      		table.fnDestroy();
+		      		//remake the thead and body for datatables 
+		      	}
+		      	
+		    	$('#fmTable thead').empty();
+		    	$('#fmTable tbody').empty();
+		    	$('#errors').empty();
+		    	
+		    	//make header for table with first result
+    			var head = '<tr>'; 
+    			for(var val in records[0]['_impl']['_fields']){
+    				head += "<th>"+val+"</th>";
+    			}
+    			head += "</tr>";
+    			$('#fmTable thead').append(head);
+	    		
+		    	for(var i=0;i<respSize;i++){
+		    		var record = records[i]['_impl'];
+		    		var recordID = record._recordId;
+		    		
+		    		var row = '<tr data-req="'+recordID+'" class="expandRecord">';
+		    		
+
+		    		
+		    		for(var val in record['_fields']){
+		    			row += "<td>"+record['_fields'][val]+"</td>";
+
+		    		}
+		    		
+		    		row += '</tr>';
+		    		
+		    		$('#fmTable tbody').append(row);
+		    	}
+		    	if(dataTableCheck === false){
+		      		$('#fmTable').dataTable();
+		      		dataTableCheck = true;
+		      	}else{
+		      		$('#fmTable').dataTable();
+		      	}
+		      	//add some click functionality on a row
+		        $('.expandRecord').click(function(){
+					$('#expandRecordModal').modal('show');
+					var elemObj = $(this);
+					var recordID = $(this).attr('data-req');
+					var headers = $('#fmTable thead tr');
+					var headersHTML = $('#fmTable thead tr').prop('outerHTML');
+					var elem = $(this).prop('outerHTML');
+					return handleRecord(elem,elemObj,recordID,headers,headersHTML);
+				});
+		    },
+		    error: function (xhr, ajaxOptions, thrownError) {
+		        if(xhr.status == 500){
+		        	
+					$('#fmTable thead').empty();
+		    		$('#fmTable tbody').empty();
+		    		$('#errors').html('<h1>No Results Found!</h1><p>Try simplifying your search and ensure the result you want is within the set parameters.</p>');
+		        }
+		        
+		    }
+
+
+		});
+		
+	});
+	
+});//end document .ready
+var dbo = [];
+var dboName = $('#dboName').val();
+var dboHost = $('#dboHost').val();
+var dboUser = $('#dboUser').val();
+var dboPass = $('#dboPass').val();
+var dboLayout = $('#dboLayout').val();
+
+dbo.push(dboName,dboHost,dboUser,dboPass,dboLayout);
+		
+var bookConnection, sheetConnection;
+
+
+function handleRecord(elem,elemObj,recordID,headers,headersHTML){
+	var innerRecordHTML = '';
+	headers.children('th').each(function(){
+		var field = $(this).text();
+		innerRecordHTML += '<label>'+field+'</label><input id="'+field+'" class="field form-control" />';
+	});
+	var vals = [];
+	elemObj.children('td').each(function(){
+		var value = $(this).text();
+		vals.push(value);
+		
+	});
+	$('#innerExpandRecord').html(innerRecordHTML);
+	//console.log(vals);
+	var counter = 0;
+	$('#innerExpandRecord input.field').each(function(){
+		$(this).val(vals[counter]);
+		counter++;
+	});
+
+	//button Actions
+	$('#updateRecord').click(function(){
+		var conf = confirm('update'+recordID);
+		if(conf == true){
+			var values = {};
+			$('#innerExpandRecord input.field').each(function(){
+				var v = $(this).val();
+				var f = $(this).attr('id');
+				values[f] = v;
+				
+			});
+			console.log(values);
+			$.ajax({
+			    type: 'post',
+			    url: 'http://192.168.128.157/filemaker/editRecord.php',
+			    data: {recordID : recordID , edit : values},
+			    success: function(response) {
+			    	 var resp = JSON.parse(response);
+			    	 
+			    	 console.log(resp);
+					$('#expandRecordModal').modal('hide');
+			    }
+			});
+		}
+		$('#expandRecordModal').modal('hide');
+	});
+	$('#deleteRecord').click(function(){
+		//var conf = $window.confirm('delete'+recordID);
+		//if(conf == true){
+			$.ajax({
+			    type: 'post',
+			    url: 'http://192.168.128.157/filemaker/deleteRecord.php',
+			    data: {recordID: recordID, dbo:dbo},
+			    success: function(response) {
+			    	 var resp = JSON.parse(response);
+			    	 console.log(resp);
+			    	 elemObj.remove();
+					$('#expandRecordModal').modal('hide');
+			    }
+			});
+			
+		//}
+		//console.log('dling');	
+		//delete window.conf;
+	});
+}
+//populate dropdown of sheets from workbook 
+$('#workbookSelect').change(function() {
+		var bookName = ($(this).children('option:selected').val());
+		//get sheets from this var
+		var xhr = new XMLHttpRequest();
+		xhr.open('GET', '/tableau/sheets/'+bookName+'/', false);
+		xhr.send(null);
+		if(xhr.status == 200) {
+		     var resp = JSON.parse(xhr.response);	
+		     
+		    var sheets = resp[0].sheet;	
+			var size = resp[0].sheet.length;
+			console.log(size);
+			$('#sheetSelect').empty(); 
+			for(var i = 0;i<size;i++){
+				$('#sheetSelect').append('<option>'+sheets[i]+'</option>');
+			
+			}
+		}
+
+});
+//tableau functions
+
+
+
+$('#sheets').click(function() {
+    $(querySheets);
+}); 
+$('.sheetChoice').click(function() {
+	var sheetChoice = $(this).attr('id');
+	console.log("click");
+});
+$('#clean').click(function() {
+    $(dispose);
+}); 
+$('#seeConfigured').click(function(){
+	$('#tableauEns').hide();
+	$('#tableauCons').fadeIn();
+});
+$('#setNew').click(function(){
+	$('#tableauCons').hide();
+	$('#tableauEns').fadeIn();
+});
+$('#submitqueryBooks').click(function() {
+	var book = $('#queryBooks').val();
+	var sheet = $('#querySheets').val();
+	bookConnection = book; 
+	sheetConnection = sheet;
+	$('#connectionModal #innerConnection').html("<label>Book Name</label><input id='bookConnection' value='"+bookConnection+"'/><label>Sheet Name</label><input id='sheetConnection' value='"+sheetConnection+"'/>");
+    initializeBook(book,sheet);
+    querySheets();
+    
+}); 
+$('#submitConnectedBook').click(function() {
+	var book = $('#workbookSelect option:selected').val();
+	var sheet = $('#sheetSelect option:selected').val();
+    $('#connectionModal #innerConnection').html("<label>Book Name</label><input id='bookConnection' value='"+book+"'/><label>Sheet Name</label><input id='sheetConnection' value='"+sheet+"'/>");
+
+    initializeBook(book,sheet);
+    $('#saveConnectionButton').css('display','none');
+    
+}); 
+$('#connection').click(function() {
+	 bookConnection = bookConnection.replace(/\s+/g, '');
+  	 sheetConnection = sheetConnection.replace(/\s+/g, '');
+    
+     var connection = [bookConnection,sheetConnection];
+     $.ajax({
+	    type: 'post',
+		url: '/tableau/saveConnection',
+	    data: {connection:connection},
+	    success: function(response) {
+	    	console.log(response);
+	    	$('#innerConnection').html(response);
+	    	getSelect();
+	    }
+	});
+});
+
+//other stuff
+
+	$('input[name="exportType"]').change(function(){
+		if($(this).val() == "beam"){
+			$('#beamTitle').html('<label>Beam Title</label><input name="beamInput"/>');
+		}else if($(this).val() == "html"){
+			var data = $('#fmTable').prop('outerHTML');
+			$.ajax({
+			    type: 'post',
+				url: '/FileMaker/beam',
+			    data: {html:data},
+			    success: function(response) {
+			    	$('#beamTitle').html('<label>Raw HTML</label><textarea wrap="hard" id="beamPre"></textarea><button id="copy-button" class="btn btn-primary btn-mini" data-clipboard-text="Copy Me!" title="Click to copy me.">Copy to Clipboard</button>');
+			    	$('#beamPre').val(response);
+			    	$('#copy-button').attr('data-clipboard-text',response);
+			    	var client = new ZeroClipboard( document.getElementById("copy-button") );
+
+					client.on( "ready", function( readyEvent ) {
+					
+					});
+			    }
+			});
+			
+		}else if($(this).val() == "csv"){
+			$('#beamTitle').html('<label>CSV File</label><p style="clear:both;">Export all current data to a csv file.</p><img class="ICON" src="/img/csvIco.png">');
+		}else if($(this).val() == "screen"){
+			$('#beamTitle').html('<label>Screen Shot</label><p style="clear:both;">Export all current data to a jpg file.</p><img class="ICON" src="/img/jpgIco.png">');
+		}else{
+			$('#beamTitle').empty();
+		}
+	});
+	//export data 
+	$('#exportData').click(function(){	 	
+   		var type = $('input[name=exportType]:checked', '#exportType').val();
+   		
+   		if(type == "screen"){
+	   		var preview = document.getElementById('exportPreview');
+	   		var chartwidth = $('#query').width();
+	   		var chartheight = $('#query').height();
+	   		console.log(chartwidth);
+	   		console.log(chartheight);
+
+	   		html2canvas($('#fmTable_wrapper'), {
+	  			onrendered: function(canvas) {		
+			
+			    	 var myImage = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");  
+	            	 window.location.href=myImage;
+			  	}
+			  	  
+			});
+
+		}else if(type == "beam"){
+			var beamTitle = $('input[name=beamInput]').val();
+			var beamContent = $('#fmTable').prop('outerHTML');
+			$.ajax({
+			    type: 'post',
+				url: '/FileMaker/beam',
+			    data: {beam: beamTitle, data:beamContent},
+			    success: function(response) {
+			    	console.log(response);
+			    	$('#exportModal').modal('hide');
+			    }
+			});
+		}else if(type == "csv"){
+			
+			var headerArr = [];
+			var bodyArr = [];
+			$('#fmTable thead tr').each(function(){
+				var headerFields = [];
+				$(this).children('th').each(function(){
+					var text = $(this).text();
+					headerFields.push(text);
+				});
+				headerArr.push(headerFields);
+			});
+			$('#fmTable tbody tr').each(function(){
+				var bodyFields = [];
+				$(this).children('td').each(function(){
+					var text = $(this).text();
+					bodyFields.push(text);
+				});
+				bodyArr.push(bodyFields);
+			});
+			var csv = [headerArr,bodyArr];
+
+			$.ajax({
+			    type: 'post',
+				url: '/FileMaker/beam',
+			    data: {csv: csv},
+			    success: function(response) {
+			    	console.log(response);
+			    	window.location.href=response;
+			    }
+			});
+		}
+
+	});
+
+	$('#getMaker').click(function(){	
+		//pull out everything from index.php
+		var xhr = new XMLHttpRequest();
+		xhr.open('GET', 'http://192.168.128.157/filemaker/index.php', false);
+		xhr.send(null);
+		if (xhr.status == 200) {
+			 var resp = JSON.parse(xhr.response);		
+			 console.log(resp);
+			 var records = resp[0];
+		    	 var respSize = records.length;
+		    	$('#fmTable thead').empty();
+		    	$('#fmTable tbody').empty();
+		    	$('#errors').empty();
+
+		    	//make header for table with first result
+    			var head = '<tr>'; 
+    			for(var val in records[0]['_impl']['_fields']){
+    				head += "<th>"+val+"</th>";
+    			}
+    			head += "</tr>";
+    			$('#fmTable thead').append(head);
+	    		
+		    	for(var i=0;i<respSize;i++){
+		    		var record = records[i]['_impl'];
+
+		    		
+		    		var row = '<tr>';
+		    		
+
+		    		
+		    		for(var val in record['_fields']){
+		    			row += "<td>"+record['_fields'][val]+"</td>";
+
+		    		}
+		    		
+		    		row += '</tr>';
+		    		
+		    		$('#fmTable tbody').append(row);
+		    	}
+		    	
+		      	$('#fmTable').dataTable();
+		}else{
+			console.log('nope');
+		}
+	});
+		
+		//get some options from options
+		$.ajax({
+		    type: 'POST',
+			url: 'http://192.168.128.157/filemaker/options.php',
+		    data: {dbo: dbo},
+		    success: function(response) {
+		    	// console.log(response);
+		    	var opt = JSON.parse(response);
+				console.log(opt);
+				 var options = opt[0];		
+				 var values = opt[1];	
+				 var layouts = opt[2];	
+				 for(var i=0;i<layouts.length;i++){
+				 	$('#recordLayout').append('<option value="'+layouts[i]+'">'+layouts[i]+'</option>');
+				 	$('#queryLayout').append('<option value="'+layouts[i]+'">'+layouts[i]+'</option>');
+				 }	
+				 $('#recordLayout').prepend('<option> - </option>');
+				 for(var i=0;i<options.length;i++){
+				 		$('#options').append("<div style='float:left;padding:10px;'><label>"+options[i]+":</label><select style='max-width:50px;' class='optionSet"+i+"''></select></div>");	
+				 }
+				 for(i=0;i<values.length;i++){
+				 	var valSet = values[i];
+				 	for(var key in valSet){
+				 		var storeKey = key;
+				 		for(var j=0;j<valSet[key].length;j++){
+				 			$('.optionSet'+i).append("<option id='"+storeKey+"'>"+valSet[key][j]+"</option>");	
+				 		}
+				 		$('.optionSet'+i).prepend("<option id='empty'>-</option>");
+				 	}
+				 }
+		    	
+		    }
+		});
+		/*var xhr = new XMLHttpRequest();
+		xhr.open('GET', 'http://192.168.128.157/filemaker/options.php', false);
+		xhr.send(null);
+		if (xhr.status == 200) {
+			 var opt = JSON.parse(xhr.response);
+			
+			 var options = opt[0];		
+			 var values = opt[1];	
+			 var layouts = opt[2];	
+			 for(var i=0;i<layouts.length;i++){
+			 	$('#recordLayout').append('<option value="'+layouts[i]+'">'+layouts[i]+'</option>');
+			 }	
+			 for(var i=0;i<options.length;i++){
+			 		$('#options').append("<div style='float:left;padding:10px;'><h3>"+options[i]+"</h3><select class='optionSet"+i+"''></select></div>");	
+			 }
+			 for(i=0;i<values.length;i++){
+			 	var valSet = values[i];
+			 	for(var key in valSet){
+			 		var storeKey = key;
+			 		for(var j=0;j<valSet[key].length;j++){
+			 			$('.optionSet'+i).append("<option id='"+storeKey+"'>"+valSet[key][j]+"</option>");	
+			 		}
+			 		$('.optionSet'+i).prepend("<option id='empty'>-</option>");
+			 	}
+			 }
+		}*/
+	
+
+
+
+</script>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make("layout_dash", array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

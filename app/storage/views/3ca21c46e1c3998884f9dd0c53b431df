@@ -1,0 +1,33 @@
+<!-- ========== Analytics Graphs for Entries and Exits ============= -->  
+
+  
+  <?php $__env->startSection("content"); ?>
+  <?php echo $__env->make("header", array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+  <div class="innerContent">
+
+    <div id="analyticsBackground">
+      <?php echo HTML::script("js/entries.js"); ?>
+
+      <?php echo $__env->make('partials/_navoptions', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+      <?php echo $__env->make('partials/_timeform', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+
+      <?php echo $__env->make('partials/_graphbuttons', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>      
+
+      <?php echo $__env->make('partials/_graphdivs', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>  
+      <script>
+        $(document).ready(function(){
+          Gcharts.drawChart(<?echo $gdata;?>);
+          window.onresize=function(){Gcharts.drawChart(<?echo $gdata;?>);};
+        });
+      </script>
+    </div>
+
+  </div>
+  <script src="/js/classie.js"></script>
+  <script src="/js/helper.js"></script>
+  <script src="/js/grid3d.js"></script>
+
+  <?php $__env->stopSection(); ?>
+
+
+<?php echo $__env->make("layout_dash", array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

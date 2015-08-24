@@ -1,0 +1,405 @@
+<?php $__env->startSection("content"); ?>
+<?php echo HTML::script("js/entries.js"); ?>
+
+<?php echo $__env->make("header", array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+<script>
+  $(document).ready(function(){
+    Gcharts.indexChart(<?echo $gdata;?>);
+    window.onresize=function(){Gcharts.indexChart(<?echo $gdata;?>);}
+  });
+</script>
+
+<!-- ================================================ Analytics Index Page ========================================= -->
+
+<div class="innerContent">
+  <div id="analyticsDashBackground">
+
+
+    <div class="analyticsOverview">
+
+      <!-- Total Number of App Users -->
+      <div class="col-md-4 first">
+        <div class="contents">
+          <h2>
+            <?php echo $userCount; ?>
+
+          </h2>
+          <h3>
+            Users have your App
+          </h3>
+        </div>
+      </div>
+
+      <!-- Number of New Users in last 3 months and past one Year -->
+      <div class="col-md-4">
+        <div class="contents middle">
+          <table>
+            <tr>
+              <td><h2><?php echo $last3; ?></h2></td>
+              <td><h3>New Users in the Last 3 Months</h3></td>
+            </tr>
+            <tr>
+              <td><h2><?php echo $lastYear; ?></h2></td>
+              <td><h3>New Users in Past Year</h3></td>
+            </tr>
+          </table>
+        </div>
+      </div>
+
+      <!-- Graph for Number of Users based on the Age Groups -->
+      <div class="col-md-4">
+
+        <div id="piechart"></div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+ <div class="clearfix"></div>
+ <?php if(isset($floorPlan)): ?>
+ <h2 class='titleHeading'>Floor Activity</h2>
+          <!-- Tool Tip-->
+          <div class="myToolTip">
+              <div class="tt">
+              <a id="tt-help" href="#"></a>
+              <div class="tt-arrow"></div>
+              <div id="tt-wrapper" class="tt-floorPlan">
+                <p>Tick Mark the edit Mode and then choose the room from dropdown. Then click on any location to represent the Beacons</p>
+              </div>
+              </div>
+          </div>
+ <!--d3 tings-->
+ <div id="masterFloorplan">
+ <div  id="placeBeaconContainer">
+
+  <div id="chart_lines_test" class="flotchart-holder d3canvas" style="padding: 0px; position: relative; height:560px;width:800px;margin:auto;clear:none;float:left;">
+  </div>
+  <div id="floorPlanContainer" style='width:800px;clear:none;'>
+    <img src="<?php echo $floorPlan; ?>" id="floorPlanImg" class="mapper showcoords" usemap="#floor">
+    <p class="coords"></p>
+  </div>
+
+  <div class="beaconPlaceForm">
+    <?php echo Form::open(array('url'=> URL::to('newBeaconArea'), 'class'=>'place-beacon','id'=>'placebeaconform', "enctype" =>"multipart/form-data")); ?>
+
+    <input type="checkbox" id="editMode" name="edit" class="off" value="draw"><p>edit mode</p>
+    <input type="hidden" name="xCo" id="xCo" value="">
+    <input type="hidden" name="yCo" id="yCo" value="">
+    <input type="hidden" name="baseWidth" id="baseWidth" value="">
+    <input type="hidden" name="baseHeight" id="baseHeight" value="">
+    <input type="hidden" name="alias" id="alias" value="">
+
+    <select id="aliasList">
+    </select>
+    <p class="info">Select which Room you would like to place from the drop down and click the new location on your floor plan.</p>
+    <input name="editbtn" id="editbtn" class="btn" type="submit" value="SUBMIT"/>
+    <?php echo Form::close(); ?>
+
+  </div>
+</div>
+  <map name="floor" id="dots">
+    <area shape="poly" id="EH" class="aliasHolder" coords="204,60, 204,47, 207,45, 210,44, 213,45, 215,47, 216,49, 216,60, 212,60, 212,51, 211,52, 211,49, 211,50, 208,50, 206,52, 205,56, 205,60">
+  </map>
+  <script type="text/javascript">
+//window.onload = function() {
+  $( document ).ready(function() {
+    var floorPlan = document.getElementById('floorPlanImg');
+    cvi_map.add(floorPlan,{opacity: 50, areacolor: '#e5412d', noborder: true});
+//ById('parliament_blind').innerHTML = "<p><b>Show Hot Spots<\/b><\/p>";
+});
+//}
+function getMousePos(canvas, evt) {
+  var rect = canvas.getBoundingClientRect();
+  return {
+    x: evt.clientX - rect.left,
+    y: evt.clientY - rect.top
+  };
+}
+var canvas = document.getElementById('floorPlanImg');
+
+setTimeout(function(){$('.d3canvas').css('position','relative')}, 1000);
+
+canvas.addEventListener('mousemove', function(evt) {
+  var mousePos = getMousePos(canvas, evt);
+  var message = 'Mouse position: ' + mousePos.x + ',' + mousePos.y;
+  $(".coords").html(message);
+
+}, false);
+
+$('#editMode').click(function() {
+  if($('#editMode').is(':checked')) {
+    $(".beaconPlaceForm #aliasList").show();
+    $(".beaconPlaceForm .info").show();
+    $('.d3canvas').hide();
+    $('#floorPlanContainer').css('z-index','1');
+    canvas.addEventListener('click', function(evt) {
+      var mousePos = getMousePos(canvas, evt);
+      var dt = document.getElementById('dots');
+      var dta = $('#dots area').attr("id");
+      var ct = document.getElementById('floorPlanImg_canvas').getContext("2d");
+
+      ct.beginPath();
+      ct.arc(mousePos.x , mousePos.y, 30, 0, 2*Math.PI);
+      ct.fillStyle = 'green';
+      ct.fill();
+      ct.closePath();
+      $("#xCo").val(mousePos.x);
+      $("input#yCo").val(mousePos.y);
+      $("input#baseWidth").val($("#floorPlanImg").width());
+      $("input#baseHeight").val($("#floorPlanImg").height());
+      var aliasList = $('#aliasList');
+      var aValue = aliasList.find(":selected").val();
+      //document.getElementById('EH').id = aValue;
+      $(".aliasHolder").attr("id",aValue);
+      $("input#alias").val(aValue);
+      var base_url = 'http://localhost:8000'
+      $( "#placebeaconform" ).submit();
+    });
+
+    }else{
+      $(".beaconPlaceForm #aliasList").hide();
+      $(".beaconPlaceForm #editbtn").hide();
+      $(".beaconPlaceForm .info").hide();
+      $('.d3canvas').show();
+      $('#floorPlanContainer').css('z-index','1');
+    }
+});
+if($('#editMode').is(':checked')) {
+    $(".beaconPlaceForm #aliasList").show();
+    $(".beaconPlaceForm .info").show();
+    $('.d3canvas').hide();
+    $('#floorPlanContainer').css('z-index','1');
+  $('canvas').click(function(canvas,evt) {
+      var mousePos = getMousePos(canvas, evt);
+      //var dt = document.getElementById('dots');
+      var dta = $('#dots area').attr("id");
+      var ct = document.getElementById('floorPlanImg_canvas').getContext("2d");
+
+      ct.beginPath();
+      ct.arc(mousePos.x , mousePos.y, 30, 0, 2*Math.PI);
+      ct.fillStyle = 'green';
+      ct.fill();
+      ct.closePath();
+      $("#xCo").val(mousePos.x);
+      $("input#yCo").val(mousePos.y);
+      var aliasList = $('#aliasList');
+      var aValue = aliasList.find(":selected").val();
+      //document.getElementById('EH').id = aValue;
+      $(".aliasHolder").attr("id",aValue);
+      $("input#alias").val(aValue);
+      var base_url = 'http://localhost:8000'
+      $( "#placebeaconform" ).submit();
+    });
+}
+</script>
+<map name="floor" id="dots">
+  <area shape="poly" id="EH" class="aliasHolder" coords="204,60, 204,47, 207,45, 210,44, 213,45, 215,47, 216,49, 216,60, 212,60, 212,51, 211,52, 211,49, 211,50, 208,50, 206,52, 205,56, 205,60">
+</map>
+<script>
+  $(document).ready(function() {
+
+    var width = $('#chart_lines_test').width(),
+    height = $('#chart_lines_test').height();
+    var canvas = d3.select("#chart_lines_test").append("svg:svg") // Setting up the canvas -->
+    .attr("width", width)
+    .attr("height", height)
+
+        .attr("id", "canvasContainer")
+        .append("g") // append to group(g) -->
+        .attr("transform", "translate(50, 50)");
+    var pack = d3.layout.pack() // Calling the bubble layout from D3 -->
+    .size([width, height - 50])
+    .padding(10);
+    var color = d3.scale.linear()
+    .domain([0,1,39, 40, 150, 151, 250]).range(["#0016A6", "#000","#0077FF", "#FFFB00", "#FF6303", "#FF0A0A", "#e7422e"]);
+
+
+    //alert(color.domain); // }else
+    d3.json('/roomActivity', function(data) {
+      var nodes = pack.nodes(data);
+      var beacons = data['beacons'];
+
+      var rooms = data['children'];
+      var size = data['size'];
+      size = size.length;
+
+      console.log(rooms);
+
+      if(rooms != null){
+      var node = canvas.selectAll(".node")
+      .data(nodes)
+      .enter()
+      .append("g")
+      .attr("class", "node")
+      .attr("id", function(d) {
+        return d.children ? "" : d.name;
+      })
+      .attr("val", function(d) {
+        return d.children ? "" : d._id;
+      })
+      .attr("name", function(d) {
+        return d.children ? "" : d.name;
+      })
+      .attr("transform", function(d) {
+        //console.log(d.name + " translate(" + d.testx + "," + d.testy + ")");
+        return "translate(" + d.plotx + "," + d.ploty + ")";
+      });
+      node.append("circle")
+      .attr("r", function(d) {
+        return 30;
+      })
+      .attr("opacity", 0.5)
+      .attr("class", "circle")
+      .attr("stroke", function(d) {
+        return d.children ? "#fff" : "#ADADAD";
+      })
+      .attr("stroke-width", "2");
+      $(".node").each(function(index) {
+        if ($(this).attr("name") == "") {
+          $(this).remove();
+        } else {
+          $('#aliasList').append("<option value='" + $(this).attr("val") + "'>" + $(this).attr("name").replace(/_/g, ' ') + "</option>");
+        }
+      });
+      $(".svgtext").each(function(index) {
+        var theText = $(this);
+        theText.text(theText.text().replace(/_/g, ' '));
+      });
+        node.append("text").attr("font-size", "15px").attr("fill", "#000").attr("font-weight", "bold").attr("class","svgtext").attr("text-anchor", "middle").text(function (d) { return d.children ? "" : d.name; });
+
+        for (var j = 0; j <= rooms.length; j++) {
+          for (var k = 0; k <= beacons.length; k++) {
+            //console.log(beacons[k].room_id);
+            if (rooms[j]._id == beacons[k].room_id) {
+
+              $(".node").each(function(index) {
+
+                if ($(this).attr('val') == rooms[j]._id) {
+                 /* var heat = '';
+                  if(size >= 1 && size <=  25){
+                    heat = '#0016A6';
+                  }else if(size >= 26 && size <=  75){
+                    heat = '#0077FF';
+                  }else if(size >= 76 && size <=  150){
+                    heat = '#FFFB00';
+                  }else{
+                    heat = '#FF6303';
+                  }*/
+
+                  var color = d3.scale.linear().domain([0,39, 40, 150, 151, 250]).range(["#0016A6", "#0077FF", "#FFFB00", "#FF6303", "#FF0A0A", "#e7422e"]);
+                  //d3.select('.node#'+rooms[j].name).attr("fill", heat);
+                  d3.select('.node#'+rooms[j].name).attr("fill", function (d) {
+                      d.value = size;
+                    console.log(d.value);
+                    return color(d.value)
+                  });
+
+                  d3.select('.node#'+rooms[j].name).append("text").attr("dy", "1em").attr("font-size", "18px").attr("fill", "#fff").attr("font-weight", "bold").attr("class", "svgtext").attr("text-anchor", "middle").text(function(d) {return size;});
+                  // .domain([0,1,39, 40, 150, 151, 250]).range(["#0016A6", "#000","#0077FF", "#FFFB00", "#FF6303", "#FF0A0A", "#e7422e"]);
+
+
+                  //d3.select('.node#'+rooms[j].name)
+                }
+              });
+            }else{
+
+            }
+          }
+        }
+      }else{
+
+        $('.beaconPlaceForm').hide();
+      }//end check size of beacons to see if any are there for drawing
+
+/* -----------     Following Javascript Code is in Progress        ------------ */
+
+        /* $(".node").mouseenter(function(){
+        var element = $(this).attr("name");
+        var length = " ";
+        $(this).insertAfter(".node:last-child");
+
+        d3.select('.node#'+element)
+        .append("svg")
+        .attr("class","svgImageContainer")
+        .style("overflow", "auto")
+        .append("g")
+        .attr("class","profileImageContainer")
+        ;
+        */
+        /* var xhr = new XMLHttpRequest();
+        xhr.open('GET', '/onlineGuest', false);
+        xhr.send(null);
+        if (xhr.status == 200) {
+        var guestAppend = '';
+        var arr = JSON.parse(xhr.response);
+        // console.log(arr);
+        for (var i = 0; i < arr.length; i++) {
+        var radius =10;
+        var j= i*radius*2;
+
+        if(arr[i].location == element){
+        length = $('#'+element+' g.profileImageContainer').children().size();
+        d3.select('.node#'+element+" svg.svgImageContainer g.profileImageContainer")
+        .append("svg:image")
+        .attr("y", function(j){ return -87+26*((length/8) | 0);})
+        .attr("x", function(j){return(-87+((length%8)*22))})
+        .attr('width', 20)
+        .attr('height', 24)
+        .attr("class","profileImage")
+        .attr("xlink:href",arr[i].img);
+        }
+        }
+        }
+        d3.select('.node#'+element).datum(function (d) {
+        d3.select('.node#'+element).append("text").attr("dy", "1em").attr("text-anchor", "middle").attr("id", "roomview").attr("top","10px").attr("font-weight", "bold").attr("class","circleContent").text(function (d) { return d.children ? "" : "See All"; });
+        for(var i=0; i<d.beacons.length; i++){
+        d3.select('.node#'+element).append("text").attr("dy", 2+i+"em").attr("text-anchor", "middle").attr("font-weight", "bold").attr("class","circleContent").attr('width', 150).text(function (d) { return d.children ? "" : d.beacons[i].bName+", "; } );
+        d3.select('.node#'+element+" .circle").attr("r", function () { return 150}).attr("opacity", 0.85);
+        }; return d;});
+        $("#roomview").mouseenter(function(){
+        $("#roomview").css("fill","#fff");
+        // console.log($(this).parent('g').attr('val'));
+        var selectedId = $(this).parent('g').attr('val');
+        $(this).click(function(){
+        window.location.href = "http://localhost:8000/online/"+selectedId;
+        });
+        });
+        $("#roomview").mouseleave(function(){
+        $("#roomview").css("fill","#000");
+        });
+        });
+
+        $(".node").mouseleave(function(){
+        var element = $(this).attr("name");
+        //alert(element);
+        $(this).css("opacity", 1);
+        d3.select('.node#'+element).selectAll(".circleContent").remove();
+        d3.select('.node#'+element).selectAll(".profileImage").remove()
+        d3.select('.node#'+element+" .circle").attr("r", function (d) { return 30; })
+        .attr("fill", function (d) { return color(d.value) })
+        .attr("opacity", 0.5)
+        .attr("stroke", function (d) { return d.children ? "#fff" : "#ADADAD"; })
+        .attr("stroke-width", "2");
+        });
+*/
+
+});
+});
+
+
+</script>
+<?php else: ?>
+<a href="<?php echo URL::route('company.index'); ?>" >Add a floor plan through settings</a>
+<?php endif; ?>
+</div>
+</div>
+</div>
+
+<script src="/js/classie.js"></script>
+<script src="/js/helper.js"></script>
+<script src="/js/grid3d.js"></script>
+<link href='http://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make("layout_dash", array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

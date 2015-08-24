@@ -1,0 +1,251 @@
+<?php
+$user = Auth::user();
+$access =$user->accessToken;
+
+function fetchUrl($url){
+
+	$ch = curl_init();
+	curl_setopt($ch, CURLOPT_URL, $url);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+	curl_setopt($ch, CURLOPT_TIMEOUT, 20);
+ // You may need to add the line below
+ // curl_setopt($ch,CURLOPT_SSL_VERIFYPEER,false);
+
+	$feedData = curl_exec($ch);
+	curl_close($ch);
+
+	return $feedData;
+
+}
+
+//App Info, needed for Auth
+$app_id = "1421939381401572";
+$app_secret = "0ea24eb95d6dd31b1945446e6f20142d";
+
+//Retrieve auth token
+// $authToken = fetchUrl("https://graph.facebook.com/oauth/access_token?grant_type=client_credentials&client_id={$app_id}&client_secret={$app_secret}");
+
+?>
+<!DOCTYPE html>
+<!--[if lt IE 7]>
+	<html class="ie lt-ie9 lt-ie8 lt-ie7 fluid top-full menuh-top sticky-top sidebar sidebar-full sidebar-collapsible sidebar-width-mini sticky-sidebar sidebar-hat"> <![endif]-->
+<!--[if IE 7]>
+	<html class="ie lt-ie9 lt-ie8 fluid top-full menuh-top sticky-top sidebar sidebar-full sidebar-collapsible sidebar-width-mini sticky-sidebar sidebar-hat"> <![endif]-->
+<!--[if IE 8]>
+	<html class="ie lt-ie9 fluid top-full menuh-top sticky-top sidebar sidebar-full sidebar-collapsible sidebar-width-mini sticky-sidebar sidebar-hat"> <![endif]-->
+<!--[if gt IE 8]>
+	<html class="animations ie gt-ie8 fluid top-full menuh-top sticky-top sidebar sidebar-full sidebar-collapsible sidebar-width-mini sticky-sidebar sidebar-hat"> <![endif]-->
+	<!--[if !IE]><!-->
+	<html class="animations fluid top-full menuh-top sticky-top sidebar sidebar-full sidebar-collapsible sidebar-width-mini sticky-sidebar sidebar-hat" lang="en">
+	<!-- <![endif]-->
+
+	<head>
+		<meta charset="UTF-8">
+		<meta charset="utf-8">
+    	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    	<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link type="text/css" rel="stylesheet" href="/css/layout.css"/>
+		<link type="text/css" rel="stylesheet" href="/css/dashboard.css"/>
+		<link type="text/css" rel="stylesheet" href="/css/summernote.css"/>
+		<link href='http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900' rel='stylesheet' type='text/css'>
+		<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+		<link rel="stylesheet" href="/less/assets/css/admin/module.admin.page.file_managers.min.css"/>
+		<link href="/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+		<link href="/css/froala_editor.min.css" rel="stylesheet" type="text/css">
+		
+		<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.4/css/jquery.dataTables.css">
+		<link href="/css/red.css" rel="stylesheet" type="text/css">
+		<title>ApBeacon</title>
+
+		<script src="/less/assets/components/library/jquery/jquery.min.js?v=v2.3.0"></script>
+		<script src="/less/assets/components/library/jquery/jquery-migrate.min.js?v=v2.3.0"></script>
+		<script src="/less/assets/components/modules/admin/charts/flot/assets/lib/excanvas.js?v=v2.3.0"></script>
+		<script src="/less/assets/components/plugins/browser/ie/ie.prototype.polyfill.js?v=v2.3.0"></script>
+		<script src="/js/jscolor/jscolor.js"></script>
+		<!--<script src="/js/modernizr.js"></script>-->
+		<script src="/js/summernote.min.js"></script>
+		<script src="/js/jsFBSDK.js"></script>
+		<script src="/js/webgl-heatmap.js"></script>
+		<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.js"></script>
+
+ 		<?php echo HTML::script('js/angular/app.js'); ?>
+
+
+
+		<script>
+			<?php echo "var AppAccessToken ='".$access."';";?>
+			if (/*@cc_on!@*/false && document.documentMode === 10) {
+				document.documentElement.className += ' ie ie10';
+			}
+			String.prototype.capitalize = function() {
+				return this.charAt(0).toUpperCase() + this.slice(1);
+			}
+		</script>
+		<!--Accordion Stuff-->
+		<link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+		<script src="//code.jquery.com/jquery-1.11.1.js"></script>
+		<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+    <script src='js/metricsgraphics.min.js'></script>
+
+		<!--End Accordion Stuff-->
+		 <link href='css/metricsgraphics.css' rel='stylesheet' type='text/css'>
+    <link href='css/metricsgraphics-demo.css' rel='stylesheet' type='text/css'>
+    <!-- <link href='css/highlightjs-default.css' rel='stylesheet' type='text/css'> -->
+
+	</head>
+	<body class="document-body clearfix" onload="startTime()" ng-app='app'>
+	<div id='animation' style='width:100%;height:100%;background:rgba(0,0,0,0.4);position:absolute;z-index:99999999999999999999;display: none; padding: 15% 0;'>
+		<div id="circularG">
+			<div id="circularG_1" class="circularG">
+			</div>
+			<div id="circularG_2" class="circularG">
+			</div>
+			<div id="circularG_3" class="circularG">
+			</div>
+			<div id="circularG_4" class="circularG">
+			</div>
+			<div id="circularG_5" class="circularG">
+			</div>
+			<div id="circularG_6" class="circularG">
+			</div>
+			<div id="circularG_7" class="circularG">
+			</div>
+			<div id="circularG_8" class="circularG">
+			</div>
+		</div>
+	</div>
+		<div id="container">
+			<div id="wrapper">
+				<?$company = Auth::user()->company?>
+				<? if (isset($company->themeSet)) {?>
+				<div id="sidebar" style="background: <?php echo $company->themeSet['sidebar']; ?> !important;">
+					<?}else{?>
+					<div id="sidebar">
+						<?}?>
+
+						<?php echo $__env->make("sidebar", array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+
+					</div>
+					<div id="secondarySideNav">
+						</div>
+					<?php
+					$user = Auth::user();
+					$name = $user? $user->fname . ' ' . $user->lname : 'stranger';
+					$avatar = $user->avatar;
+					?>
+					<div class="subProfileSide">
+					<span class="arrow"><img src="/img/leftArrow.png"></span>
+
+							<div class="circleBase type1"><img src="<?php echo $avatar['thumb']; ?>" alt=""></div>
+							<h6>User Access : <span><?php echo $user->user_access; ?></span></h6>
+								<ul>
+							        <li><a href="<?php echo URL::to('profile'); ?>" class="glyphicons user"><i></i></a></li>
+							        <li><a href="<?php echo URL::to('company'); ?>" class="glyphicons cogwheel"><i></i></a></li>
+							        <li><a class="glyphicons power" href="<?php echo URL::to('logout'); ?>"><i></i></a></li>
+							    </ul>
+					</div>
+
+					<div id="content">
+
+						<?php echo $__env->yieldContent("content"); ?>
+
+					</div>
+
+				</div>
+			</div><!--end container-->
+			<?php echo $__env->make("footer", array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+
+
+			<!-- Global -->
+			<script>
+				var basePath = '',
+				commonPath = '/less/assets/',
+				rootPath = '/less/',
+				DEV = false,
+				componentsPath = '/less/assets/components/';
+
+				var primaryColor = '#e5412d',
+				dangerColor = '#b55151',
+				infoColor = '#5cc7dd',
+				successColor = '#609450',
+				warningColor = '#ab7a4b',
+				inverseColor = '#45484d';
+
+				var themerPrimaryColor = primaryColor;
+
+				$(document).ready(function () {
+
+					$.getScript('/less/assets/components/modules/admin/charts/flot/assets/lib/jquery.flot.js?v=v2.3.0');
+					$.getScript('/less/assets/components/modules/admin/charts/flot/assets/lib/jquery.flot.resize.js?v=v2.3.0');
+					$.getScript('/less/assets/components/modules/admin/charts/flot/assets/lib/plugins/jquery.flot.tooltip.min.js?v=v2.3.0');
+					$.getScript('/less/assets/components/modules/admin/charts/flot/assets/custom/js/flotcharts.common.js?v=v2.3.0');
+			//here is our graphing script
+			//$.getScript('/less/assets/components/modules/admin/charts/flot/assets/custom/js/flotchart-line-2.init.js?v=v2.3.0');
+
+			//then load the JavaScript file
+			//$.getScript('/less/assets/components/modules/admin/charts/flot/assets/custom/js/flotchart-bars-horizontal.init.js?v=v2.3.0');
+
+			//$.getScript('/less/assets/components/modules/admin/charts/flot/assets/custom/js/flotchart-mixed-1.init.js?v=v2.3.0');
+
+			$.getScript("/js/campaignReach.js");
+		});
+			</script>
+
+			<script src="/less/assets/components/library/bootstrap/js/bootstrap.min.js?v=v2.3.0"></script>
+			<script src="/less/assets/components/plugins/breakpoints/breakpoints.js?v=v2.3.0"></script>
+
+			<script  src="/mapper/wz_jsgraphics.js"></script>
+			<script src="/mapper/cvi_map_lib.js"></script>
+			<script  src="/mapper/maputil.js"></script>
+			<script type="text/javascript" src="/mapper/mapper.js"></script>
+			<script src="/less/assets/components/modules/admin/charts/easy-pie/assets/lib/js/jquery.easy-pie-chart.js?v=v2.3.0"></script>
+			<script src="/less/assets/components/modules/admin/charts/easy-pie/assets/custom/easy-pie.init.js?v=v2.3.0"></script>
+			<script src="/less/assets/components/modules/admin/charts/sparkline/jquery.sparkline.min.js?v=v2.3.0"></script>
+			<script src="/less/assets/components/modules/admin/charts/sparkline/sparkline.init.js?v=v2.3.0"></script>
+			<script src="/less/assets/components/modules/admin/maps/vector/assets/lib/jquery-jvectormap-1.2.2.min.js?v=v2.3.0"></script>
+			<script src="/less/assets/components/modules/admin/maps/vector/assets/lib/maps/jquery-jvectormap-world-mill-en.js?v=v2.3.0"></script>
+			<script src="/less/assets/components/modules/admin/maps/vector/assets/custom/maps-vector.world-map-markers.init.js?v=v2.3.0"></script>
+			<script src="/less/assets/components/plugins/jquery.event.move/js/jquery.event.move.js?v=v2.3.0"></script>
+			<script src="/less/assets/components/plugins/jquery.event.swipe/js/jquery.event.swipe.js?v=v2.3.0"></script>
+			<script src="/less/assets/components/core/js/megamenu.js?v=v2.3.0"></script>
+			<script src="/less/assets/components/core/js/core.init.js?v=v2.3.0"></script>
+			<script src="/less/assets/components/modules/admin/forms/file_manager/plupload/assets/lib/plupload.full.js?v=v2.3.0"></script>
+			<script src="/less/assets/components/modules/admin/forms/file_manager/plupload/assets/lib/jquery.plupload.queue/jquery.plupload.queue.js?v=v2.3.0"></script>
+			<script src="/less/assets/components/modules/admin/forms/file_manager/plupload/assets/custom/plupload.init.js?v=v2.3.0"></script>
+			
+			
+			<script src="/less/assets/components/modules/admin/forms/editors/wysihtml5/assets/lib/js/wysihtml5-0.3.0_rc2.min.js?v=v2.3.0"></script>
+			<script src="/less/assets/components/modules/admin/forms/editors/wysihtml5/assets/lib/js/bootstrap-wysihtml5-0.0.2.js?v=v2.3.0"></script>
+			<script src="/less/assets/components/modules/admin/forms/editors/wysihtml5/assets/custom/wysihtml5.init.js?v=v2.3.0"></script>
+			<script src="/less/assets/components/modules/admin/forms/wizards/assets/lib/jquery.bootstrap.wizard.js?v=v2.3.0"></script>
+			<script src="/less/assets/components/modules/admin/forms/wizards/assets/custom/js/form-wizards.init.js?v=v2.3.0"></script>
+			<script src='/js/jspdf.js'></script>
+			<script src='/js/png.js'></script>
+			<script src='/js/html2canvas.js'></script>
+			<script src='/js/zlib.js'></script>
+			<script src='/js/jspdf.png_support.js'></script>
+			<script src='/js/jspdf.plugin.addimage.js'></script>
+			<script src='/js/FileSaver.js'></script>
+			<script src="/js/froala_editor.min.js"></script>
+			<script src='/js/zeroclipboard/dist/ZeroClipboard.js'></script>
+			<script src='https://public.tableausoftware.com/javascripts/api/tableau_v8.js'></script>
+			<script src='/js/tableauT.js'></script>
+			<script src='/js/confirmation.js'></script>
+
+
+  <!--[if lt IE 9]>
+    <script src="/js/froala_editor_ie8.min.js"></script>
+  <![endif]-->
+  <script src="/js/plugins/colors.min.js"></script>
+  <script src="/js/plugins/media_manager.min.js"></script>
+  <script src="/js/plugins/font_family.min.js"></script>
+  <script src="/js/plugins/font_size.min.js"></script>
+  <script src="/js/plugins/block_styles.min.js"></script>
+  <script src="/js/plugins/video.min.js"></script>
+  <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.4/js/jquery.dataTables.min.js"></script>
+
+		</body>
+
+		</html>

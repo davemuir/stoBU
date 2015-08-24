@@ -1,0 +1,199 @@
+
+<!-- ============================================== Side-Bar ======================================================== -->
+
+<?php
+$company=Auth::user()->company;
+?>
+<?php if(sizeOf($company) <= 0 ): ?>
+<a href="<?php echo URL::to('/'); ?>" class="appbrand" <? if (isset($company->themeSet)) {?>
+        style="background:<?php echo $company->themeSet['header']; ?> !important;"
+            <?}?> > <img id="sideLogo" src="/img/logo.png"/></a>
+<?php else: ?>
+
+<a href="<?php echo URL::to('/'); ?>" class="appbrand" <? if (isset($company->themeSet)) {?>
+        style="background:<?php echo $company->themeSet['header']; ?> !important;"
+            <?}?> > <img id="sideLogo" src="<?php echo $company->setImage; ?>"/></a>
+
+<?php endif; ?>
+
+
+<script>
+ $(document).ready(function(){
+    var hideSide = true;
+    var showSub = false;
+    var showProfile = false;
+
+    $('.subMenu').each(function(){
+
+               var menu = $(this).clone();
+               menu.appendTo('#secondarySideNav');
+             });
+        $('.dd-1 a').click(function(){
+            if(hideSide === true){
+                if(showSub === false){
+                    $(this).parent().addClass('active');
+                    var parent = $(this).parent().attr('id');
+                    $('#'+parent+' .subMenu').slideDown( 600,'easeOutQuad',function() {
+            // Animation complete.
+
+                    });
+                    showSub = true;
+                }else if(showSub === true){
+
+                   var parent = $(this).parent().attr('id');
+                    $('#'+parent+' .subMenu').slideUp( 600,'easeOutQuad', function() {
+                        // Animation complete.
+                        $(this).parent().removeClass('active');
+                    });
+                    showSub = false;
+                }
+
+            }else if(hideSide === false){
+                var type = $(this).parent().attr('id');
+
+                if(showSub === false){
+                    if($(this).parent().attr('class') == 'dd-1'){
+
+                        $('#secondarySideNav .subMenu').each(function(){
+                            if($(this).attr('data-req') !== type){
+                                $(this).hide();
+                            }else{
+                                $(this).show();
+                            }
+                        });
+                        $(this).parent().addClass('active');
+                        $('#secondarySideNav').show("slide",{direction:'left'},600);
+                        showSub = true;
+                    }
+                    else if($(this).parent().hasClass('dd-1 active')){
+                        $(this).parent().removeClass('active');
+                        $('#secondarySideNav').hide("slide",{direction:'left'},600);
+                        showSub = false;
+                    }
+
+                }else if(showSub === true){
+                    //alert('sub true');
+                    var type = $(this).parent().attr('id');
+
+                    if($(this).parent().attr('class') == 'dd-1'){
+                         $('.dd-1.active').each(function(){
+                            $(this).removeClass('active');
+                         });
+                         $('#secondarySideNav').show("slide",{direction:'left'},600);
+                         $(this).parent().addClass('active');
+                         $('#secondarySideNav .subMenu').each(function(){
+                            if($(this).attr('data-req') !== type){
+                                $(this).hide();
+                            }else{
+                                $(this).show();
+                            }
+                        });
+                        showSub = true;
+                    }else if($(this).parent().attr('class') == 'dd-1 active'){
+                        $(this).parent().removeClass('active');
+                        $('#secondarySideNav').hide("slide",{direction:'left'},600);
+                        showSub = false;
+                    }
+
+                }
+            }
+        });
+
+
+    $('#hideSidebar').click(function(){
+        if ( hideSide === true ) {
+             $( "#sidebar" ).addClass('slideIn');
+             $( "#content" ).addClass('slideIn');
+             $('#sidebar li a span').hide();
+             $('.subProfileSide').addClass('in');
+             //$('#secondarySideNav').hide();
+            //$('.subMenu').empty();
+
+             $('#sideNav li.active .subMenu').each(function(){
+                $(this).toggle( "slide", { direction: "left" }, 10);
+             });
+             $('.dd-1.active').each(function(){
+                $(this).attr('class','dd-1');
+             });
+             hideSide = false;
+             showSub = false;
+        } else if ( hideSide === false ) {
+            $('#secondarySideNav').hide();
+            $( "#sidebar" ).removeClass('slideIn');
+            $( "#content" ).removeClass('slideIn');
+            $('#sidebar li a span').show();
+            $('.subProfileSide').removeClass('in');
+            $('.dd-1.active').each(function(){
+                $(this).removeClass('active');
+            });
+            hideSide = true;
+        }
+    });
+    $('#profileSide').click(function(event){
+
+            if(showProfile === false){
+                //$(this).addClass('active');
+                $('.subProfileSide').toggle( "slide", { direction: "left" }, 600);
+                $('.subProfileSide').css('z-index','99999');
+                showProfile = true;
+            }else if(showProfile === true){
+                $('.subProfileSide').css('z-index','999');
+                $('.subProfileSide').toggle( "slide", { direction: "left" }, 800);
+                showProfile = false;
+            }
+
+    });
+ });
+</script>
+<?php
+$user = Auth::user();
+$name = $user? $user->fname . ' ' . $user->lname : 'stranger';
+$avatar = $user->avatar;
+?>
+<ul id="profileSide">
+    <li class="account dropdown"><a data-toggle="dropdown" href="my_account_advanced.html?lang=en">Welcome<br><?php echo $name; ?></a></li>
+</ul>
+<ul id="sideNav">
+
+    <li  class="dd-1" id='cms'>
+        <a href="#" class=" glyphicons notes"><i></i><span>CMS</span></a>
+        <ul class="subMenu" id='cms' data-req='cms'>
+            <li><a href="<?php echo URL::route('View Survey'); ?>">Survey</a></li>
+            <li><a href="<?php echo URL::route('Beam Manager'); ?>">Beam Manager</a></li>
+            <li><a href="<?php echo URL::route('Media Manager'); ?>">Media Manager</a></li>
+        </ul>
+    </li>
+
+    <li class="dd-1" id='analytics'>
+        <a href="#" class="glyphicons stats"><i></i><span>Analytics</span></a>
+        <ul class="subMenu" id='d' data-req='analytics'>
+            <li><a href="<?php echo URL::route('Analytics'); ?>">Index</a></li>
+            <li><a href="<?php echo URL::route('Guest Entries'); ?>">Surveys</a></li>
+            <li><a href="<?php echo URL::route('Beacon Analytics'); ?>">Beacons</a></li>
+        </ul>
+    </li>
+     <li class="dd-1 single">
+        <a href="<?php echo URL::route('Campaign Manager'); ?>" class="glyphicons flag"><i></i><span>Campaigns</span></a>
+    </li>
+    <li class="dd-1 single">
+        <a href="<?php echo URL::route('App Settings'); ?>" class="glyphicons iphone"><i></i><span>App</span></a>
+    </li>
+    <li class="dd-1 single">
+        <a href="<?php echo URL::route('System Admin'); ?>" class="glyphicons settings"><i></i><span>System Admin</span></a>
+    </li>
+    <li class="dd-1" id='settings'>
+        <a href="#" class="glyphicons cogwheels"><i></i><span>Settings</span></a>
+        <ul class="subMenu" data-req='settings' id='settingsSd'>
+            <li><a href="<?php echo URL::route('company.index'); ?>">Company</a></li>
+            <li><a href="<?php echo URL::route('Profile'); ?>">Profile</a></li>
+            <li><a href="<?php echo URL::route('Add User'); ?>" >Add User</a></li>
+        </ul>
+    </li>
+
+</ul>
+
+ <li class="sideButton">
+        <a id="hideSidebar" href="#" class="glyphicons right_arrow"><i></i></a>
+</li>
+
+

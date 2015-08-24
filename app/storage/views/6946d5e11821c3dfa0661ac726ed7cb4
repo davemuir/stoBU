@@ -1,0 +1,128 @@
+
+<!-- =================================================
+      Navigation Bar for Survey Analytics
+      Enteries, Accepted Survey, Completed Survey,
+      Confirmed Offer, Customers, Gender by Phone
+     ================================================ -->
+     
+<div class="row resetMargin navbar navbar-default" id="analyticsRow">
+  <div class="container-fluid" id="analyticsCategory">
+    <div class="navbar-header col-md-12" id="anaNavPadding">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <div class="navbar-collapse collapse" id="anaMenuBtns">
+        <ul id="analyticsMenu" class="nav navbar-nav">
+          <li class="col-md-2">
+            
+            <?php if($choice == 'entries'): ?> 
+
+              <div id="activeSelection">
+
+            <?php else: ?>
+
+              <div>
+
+            <?php endif; ?>
+
+                <span class="glyphicon glyphicon-edit"></span>
+                <a class="glyphLink" href="<?php echo URL::route('Guest Entries'); ?>">Entries</a>
+                <br>
+              </div>
+
+          </li>
+          <li class="col-md-2">
+
+            <?php if($choice == 'accepted'): ?> 
+
+              <div id="activeSelection">
+
+            <?php else: ?>
+
+              <div>
+
+            <?php endif; ?>
+
+                <span class="glyphicon glyphicon-check"></span>
+                <a class="glyphLink" href="<?php echo URL::route('Accepted Survey'); ?>">Accepted</a>
+                <br>
+              </div>
+
+          </li>
+          <li class="col-md-2">
+            
+            <?php if($choice == 'completed'): ?> 
+
+              <div id="activeSelection">
+
+            <?php else: ?>
+
+              <div>
+
+            <?php endif; ?>
+
+              <span class="glyphicon glyphicon-share"></span>
+              <a class="glyphLink" href="<?php echo URL::route('Completed Survey'); ?>">Completed</a>
+              <br>
+            </div>
+          </li>
+          <li class="col-md-2">
+
+            <?php if($choice == 'confirmed'): ?> 
+
+              <div id="activeSelection">
+
+            <?php else: ?>
+
+              <div>
+
+            <?php endif; ?>
+
+              <span class="glyphicon glyphicon-barcode"></span>
+              <a class="glyphLink" href="<?php echo URL::route('Confirmed Survey'); ?>"
+             >Confirmed Offer</a>
+              <br>
+            </div>
+          </li>
+          <li class="col-md-2">
+            
+            <?php if($choice == 'Customers'): ?> 
+
+              <div id="activeSelection">
+
+            <?php else: ?>
+
+              <div>
+
+            <?php endif; ?>
+
+              <span class="glyphicon glyphicon-usd"></span>
+              <a class="glyphLink" href="<?php echo URL::route('Customers'); ?>">Customers</a>
+              <br>
+            </div>
+          </li>
+          <li class="col-md-2">
+
+            <?php if($choice == 'phone'): ?> 
+
+              <div id="activeSelection">
+
+            <?php else: ?>
+
+              <div>
+
+            <?php endif; ?>
+
+              <span class="glyphicon glyphicon-phone"></span>
+              <a class="glyphLink" href="<?php echo URL::route('Phone Charts'); ?>">Gender by Phone</a>
+              <br>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

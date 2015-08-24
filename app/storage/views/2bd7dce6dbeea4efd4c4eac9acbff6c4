@@ -1,0 +1,22 @@
+<!-- Divs to Display Various Graphs Based on users' selection  -->
+
+  <div id="chart_div0" class="chart1"></div>
+
+  <div id="chart_div1" class="chart2"></div>
+
+  <div id="chart_div2" class="chart3"></div>
+
+  <div id="chart_div3" class="chart4"></div>
+
+  <div id="chart_div4" class="chart5"></div>
+
+<div class="row resetMargin" id="analyticsRow">
+  <div class="col-md-12 hideMe">
+    <div id="phone0" class="pie"></div>
+    <div id="phone1" class="pie"></div>
+    <div id="phone2" class="pie"></div>
+    <div id="phone3" class="pie"></div>
+    <div id="piechartGender" class="pieLeft"></div>
+    <div id="piechartDevice" class="pieRight"></div>
+  </div>
+</div>

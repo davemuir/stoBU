@@ -1,0 +1,48 @@
+<?php $__env->startSection("content"); ?>
+<?php echo $__env->make("header", array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+
+<!-- =================================== View/Preview Survey Page =======================================-->
+
+<script>
+
+ </script>
+
+<div class="innerContent" >
+
+	<div class="row">
+		<div class="col-md-6">
+				
+
+			<?php echo Form::open([
+		      'action'        =>  'FileMakerController@setupPost',
+		      "autocomplete"  =>  "off",
+		      "enctype"       =>  "multipart/form-data"
+		    ]); ?>
+
+
+		 
+					    <h4>Database Name</h4>
+						<?php echo Form::text("name", Input::get("name"), ["placeholder" => "DB Name","class" =>"form-control"]); ?>
+
+						<h4>Host</h4>
+						<?php echo Form::text("host", Input::get("host"), ["placeholder" => "Host Address","class" =>"form-control"]); ?>
+
+						<h4>User Name</h4>
+						<?php echo Form::text("user_name", Input::get("user_name"), ["placeholder" => "User Name","class" =>"form-control"]); ?>
+
+						<h4>Password</h4>
+						<?php echo Form::password("pass",array("placeholder" => "Password","class" =>"form-control")); ?>
+
+						<h4>Layout Name</h4>
+						<?php echo Form::text("layout",Input::get("layout"),array("placeholder" => "Layout Name","class" =>"form-control")); ?>
+
+						<?php echo Form::submit("Add Connection", array('class' => 'btn btn-primary btn-mini')); ?>
+
+					    <?php echo Form::close(); ?>
+
+		</div>
+	</div>
+</div>
+
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make("layout_dash", array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

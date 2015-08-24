@@ -1,0 +1,260 @@
+<?
+// set_include_path(public_path());
+// require_once public_path().'/Google/Client.php';
+// require_once public_path().'/Google/Auth/AppIdentity.php';
+// require_once public_path().'/Google/Service/Storage.php';
+
+ // var_dump($poi);
+$apikey ="AIzaSyBC25XF1ExOSX7RN75QD5qGPuFGA8rVTJo";
+  $lat = 43.6370939;
+  $long = -79.4078637;
+  $zoom = 15;
+
+  $maps = array(
+  array(1, 45.52, -122.682, 9),
+  array(2, -33.98, 18.424, 10),
+  array(3, 57.48, -4.225, 12)
+);
+
+$mappoints = array(
+  array(1, 45.249, -122.897, "Champoeg State Park"),
+  array(1, 45.374, -121.696, "Mount Hood"),
+  array(2, -33.807, 18.366, "Robben Island"),
+  array(2, -33.903, 18.411, "Cape Town Stadium"),
+  array(3, 57.481, -4.225, "Inverness Bus Station"),
+  array(3, 57.476, -4.226, "Inverness Castle"),
+  array(3, 57.487, -4.139, "The Barn Church")
+);
+?>
+
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport"
+        content="initial-scale=1.0, user-scalable=no" />
+    <style type="text/css">
+      html { height: 100% }
+      body { height: 100%; margin: 0; padding: 0 }
+      #map-canvas { height: 50% }
+      #poi-list { height: 500px }
+    </style>
+    <script type="text/javascript"
+      src="https://maps.googleapis.com/maps/api/js?key=<?php echo $apikey; ?>&sensor=false&libraries=drawing,places">
+    </script>
+    <script type="text/javascript">
+    var boundaryColor = '#ED1B24'; // initialize color of polygon
+    var polyCoordinates =[]; // initialize an array where we store latitude and longitude pair
+    var count=0;
+    var  drawingManager = new google.maps.drawing.DrawingManager({
+        drawingMode: google.maps.drawing.OverlayType.MARKER,
+        drawingControl: true,
+        drawingControlOptions: {
+          position: google.maps.ControlPosition.TOP_CENTER,
+          drawingModes: [
+            google.maps.drawing.OverlayType.CIRCLE,
+            google.maps.drawing.OverlayType.POLYGON
+            // google.maps.drawing.OverlayType.RECTANGLE
+          ]
+        },
+        markerOptions: {
+
+        },
+        circleOptions: {
+          fillColor: '#ffff00',
+          fillOpacity: 0.2,
+          strokeWeight: 2,
+          clickable: false,
+          zIndex: 1,
+          editable: true
+        }
+      });
+      function initialize() {
+        var mapOptions = {
+          center: new google.maps.LatLng(<?php echo $lat.', '.$long; ?>),
+          zoom: <?php echo $zoom; ?>
+        };
+         map = new google.maps.Map(document.getElementById("map-canvas"),
+            mapOptions);
+
+        <?
+        foreach ($poi as $key => $value) {
+          if ($value['shape_type']=='Polygon') {
+            echo'var polyCoords=[ ';
+            foreach ($value['co_ords']as $key => $latlang) {
+             echo 'new google.maps.LatLng('.implode(",",$latlang).'),';
+
+            }
+            echo '];';
+          echo   $value['title'].' = new google.maps.Polygon({
+                 paths: polyCoords,
+                 strokeColor: \'#FF0000\',
+                 strokeOpacity: 0.8,
+                 strokeWeight: 2,
+                 fillColor: \'#FF0000\',
+                 fillOpacity: 0.35
+               });
+
+               '.$value['title'].'.setMap(map);';
+
+
+
+          };
+          if ($value['shape_type']=='Circle') {
+
+         echo    'var populationOptions = {
+                strokeColor: \'#FF0000\',
+                strokeOpacity: 0.8,
+                strokeWeight: 2,
+                fillColor: \'#FF0000\',
+                fillOpacity: 0.35,
+                map: map,
+                center: new google.maps.LatLng('.implode(",",$value["center"]).'),
+                radius: '.$value["radius"].'
+              };
+
+             var tnew = new google.maps.Circle(populationOptions);';
+
+
+
+          };
+
+
+
+          }
+
+        ?>
+
+
+
+
+      drawingManager.setMap(map);
+
+      google.maps.event.addListener(drawingManager, 'polygoncomplete', function(polygon) {
+        var coordinates = JSON.parse(JSON.stringify((polygon.getPath().getArray())));
+    console.log(JSON.parse(JSON.stringify(coordinates)));
+         // console.log(e.center);
+          document.getElementById("shape_type").value = "Polygon";
+
+          document.getElementById("savedata").value = JSON.stringify(coordinates);
+        console.log("polygon");
+      });
+
+       google.maps.event.addListener(drawingManager, 'circlecomplete', function(circle) {
+        var coordinates = JSON.parse(JSON.stringify( circle.getCenter()));
+         console.log(JSON.stringify(coordinates));
+          document.getElementById("shape_type").value = "Circle";
+
+          document.getElementById("savedata").value = JSON.stringify(coordinates);
+           document.getElementById("radius").value = JSON.stringify(circle.radius);
+        console.log(circle.radius);
+      });
+
+      //   google.maps.event.addListener(drawingManager, 'rectanglecomplete', function(rectangle) {
+      //   var coordinates = rectangle.getBounds();
+      //    console.log(JSON.stringify(coordinates));
+
+      //   console.log("rectangle");
+      // });
+
+      }
+
+
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+
+    </script>
+  </head>
+  <body>
+
+    <div id="map-canvas"></div>
+    <div id="poi-list">
+      <script type="text/javascript">
+
+      </script>
+
+         <?php echo Form::open([
+        'url'=> URL::to('/'),
+        "autocomplete" => "off",
+        "enctype" =>"multipart/form-data"
+
+    ]); ?>
+
+     <?php echo Form::label("title", "Title"); ?>
+
+      <?php echo Form::text("title", Input::get("title"), [
+              "placeholder" => "Title ","class" =>"form-control"
+      ]); ?>
+
+      <?php echo Form::label("extra", "Meta Data"); ?>
+
+      <?php echo Form::text("extra", Input::get("extra"), [
+              "placeholder" => "Meta Data ","class" =>"form-control"
+      ]); ?>
+
+      <?php echo Form::label("co_ords", "Co-Ordinates"); ?>
+
+      <?php echo Form::text("co_ords", Input::get("co_ords"), [
+              "placeholder" => "","class" =>"form-control","id"=>"savedata"
+      ]); ?>
+
+
+ <?php echo Form::text("radius", Input::get("radius"), [
+              "placeholder" => "","class" =>"form-control","id"=>"radius"
+      ]); ?>
+
+      <?php echo Form::text("shape_type", Input::get("shape_type"), [
+              "placeholder" => "","class" =>"form-control","id"=>"shape_type"
+      ]); ?>
+
+
+
+
+      <?php echo Form::submit("Add POI" ); ?>
+
+
+      <?php echo Form::close(); ?>
+
+
+
+<br>
+
+  <?php echo Form::open([
+        'url'=> URL::to('/device'),
+        "autocomplete" => "off",
+        "enctype" =>"multipart/form-data"
+
+    ]); ?>
+
+
+      <?php echo Form::label("name", "Device Name"); ?>
+
+      <?php echo Form::text("name", Input::get("name"), [
+              "placeholder" => "Title ","class" =>"form-control"
+      ]); ?>
+
+
+    <?php echo Form::submit("Add Device" ); ?>
+
+    <?php echo Form::close(); ?>
+
+    <button type='button' class='btn btn-default btn-xs' id='logoutbutton'>
+      Logout
+    </button>
+<h1>Test Feed</h1>
+
+<?
+
+ foreach ($device as $key => $value) {
+   echo '<p>'.$value['name'].'</p>';
+   $list =Device::find($value['_id'])->microposts->toArray();
+   foreach ($list as $key => $value) {
+     echo '<p>'.$value['body'].'</p>';
+   }
+   // var_dump();
+ }
+?>
+    </div>
+  </body>
+</html>
+

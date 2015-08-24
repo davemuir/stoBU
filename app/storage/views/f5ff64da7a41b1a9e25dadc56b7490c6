@@ -1,0 +1,168 @@
+<?php $__env->startSection("content"); ?>
+<?php echo $__env->make("header", array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+<script type="text/javascript" src="jscolor/jscolor.js"></script>
+<script type="text/javascript">
+  $( document ).ready(function() {
+    $( "#appLogoHover" ).click(function(){
+      $('#company_logo').click();
+    });
+    $('#headerSwatch').click(function(){
+        $('#headerInput').focus();
+    });
+    $('#resetColors').click(function(){
+    //event.preventDefault();
+    var confirmed =  confirm('Are you Sure?\nThis will Reset the colors to default.');
+    if(confirmed == false){
+      return false;
+    }
+    });
+  });
+
+</script>
+
+<!-- ******************************************* Edit Company Settings *********************************************** -->
+
+ <div class="innerContent">
+
+  <?php echo Form::open([
+    'route' => 'company.update',
+    "enctype" =>"multipart/form-data",
+    'method' =>'PUT'
+  ]); ?>
+
+
+  <div id="profileEdit"> 	    
+    
+    <div id="mainBox" class="col-md-6">
+      <h2 class='titleHeading'>Company Details</h2>
+          <!-- Tool Tip-->
+          <div class="myToolTip">
+              <div class="tt">
+                  <a id="tt-help" href="#"></a>
+                  <div class="tt-arrow"></div>
+                  <div id="tt-wrapper" class="tt-floorPlan">
+                    <p>Edit your Company details here.  Add a company logo for your app and to give your dashboard a custom look for you and your employees.</p>
+                  </div>
+              </div>
+          </div>   
+
+          <!-- Company Details Section-->
+          <div id="company-info">
+            
+              <div id="headerBorder">
+                <h4>Company Name</h4>
+              </div>
+              
+              <?php echo Form::text("name", $company->name, [ "placeholder" => "Company Name","class" =>"form-control"]); ?>
+
+
+              <div id="breakBar"></div>
+
+              <div id="headerBorder">
+                <h4>Company Logo</h4>
+              </div>
+              
+              <?php echo Form::file('company_logo',array( "id" => "company_logo", "class" => "form-hidden")); ?>
+
+              
+              <div id="appLogoHover">
+                
+                  <?php if(isset($company->setImage)): ?>
+                    <img  id="createEditProfileAvatar" src="<?php echo $company->setImage; ?>">
+                  <?php else: ?>
+                    <img  id="createEditProfileAvatar" src="http://placehold.it/150x150">
+                  <?php endif; ?>
+              
+              </div>
+
+          </div>
+
+    </div>
+
+    <!-- Color Layout Section-->
+    <div id="mainBox" class="col-md-6">
+      <h2 class='titleHeading'>Color Layout</h2>
+          <!-- Tool Tip-->
+          <div class="myToolTip">
+              <div class="tt">
+                <a id="tt-help" href="#"></a>
+                <div class="tt-arrow"></div>
+                <div id="tt-wrapper" class="tt-floorPlan">
+                  <p>Change the colors to give your dashboard the right look to match your brand.</p>
+                </div>
+              </div>
+          </div>    
+
+          <div id="company-info">
+
+            <div id="headerBorder">
+              <h4>Header Color</h4>
+            </div>
+            <?php echo Form::text("headerColor", $company->themeSet['header'], ["placeholder" => "Header Color eg. #fff","class" =>"form-control color{hash:true}","id"=>"headerSwatch",]); ?>
+
+
+            <input id="headerInput" class="color form-hidden">
+
+            <div id="breakBar"></div>
+
+            <div id="headerBorder">
+              <h4>Side-Bar Color</h4>
+            </div>
+            <?php echo Form::text("sidebarColor", $company->themeSet['sidebar'], ["placeholder" => "Side-bar Color eg.#000","class" =>"form-control color{hash:true}"]); ?>
+
+
+              <div id="breakBar"></div>
+
+              <div id="headerBorder">
+                <h4>Default Colors</h4>
+              </div>
+
+              <a class="btn btn-primary btn-mini" id='resetColors' style="margin-top:30px;" href="<?php echo URL::route('Reset Theme'); ?>">Reset Colors</a>
+
+          </div>
+
+     </div>
+
+   </div>
+    
+  <!-- Section to Upload Floor Plan Image-->
+  <div class="col-md-12 setCompanyFloor">
+
+    <h2 class='titleHeading'>Floor Plan</h2>
+          <!-- Tool Tip-->
+          <div class="myToolTip">
+              <div class="tt">
+              <a id="tt-help" href="#"></a>
+              <div class="tt-arrow"></div>
+              <div id="tt-wrapper" class="tt-floorPlan">
+                <p>Choose Floor Plan Image</p>
+              </div>
+              </div>
+          </div>
+
+          <div class="col-md-12">
+
+              <?php if(isset($company->floorPlan)): ?>
+                <img class="floorPlanPreview" src="<?php echo $company->floorPlan; ?>">
+              <?php else: ?>
+                <img class="floorPlanPreview" src="http://placehold.it/800x576">
+              <?php endif; ?>
+
+              <div id="floorInput">
+                <?php echo Form::label("floorPlan", "Set Floor Plan"); ?>
+
+                <?php echo Form::file('floorPlan',array( "id" => "floorPlan", "class" => "")); ?>
+
+                <?php echo Form::close(); ?>
+
+              </div>
+              <?php echo Form::submit("update company Settings", array('class'=>'btn btn-primary btn-mini') ); ?>
+
+
+          </div>
+  </div>
+
+</div>
+
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make("layout_dash", array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

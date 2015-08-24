@@ -1,0 +1,376 @@
+<?php $__env->startSection("content"); ?>
+<?php echo $__env->make("header", array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+<script>
+
+$(document).ready(function(){
+
+      var theid = '<?php echo $campaign->_id; ?>';
+      console.log(theid);
+      var wid = $('#campaignStatsContainer').width();
+      wid = (wid - 15);
+      $('#campaignStatsContainer').css({'max-width':wid+'px','width':wid+'px'});
+      drawChart(theid,wid);
+
+      $('.graphButtons').click(function(){
+          $('#animation').show();
+          if($(this).attr('id') == 'pie'){
+              pieChart(theid,wid);
+          }
+      });
+
+      function drawChart(theid,wid) { // initial for drawing entries
+
+        var buttons = '';
+        var counter = 1;
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', 'http://localhost:8000/campaignData/'+theid, false);
+        xhr.send(null);
+
+        if (xhr.status == 200) {
+          var arr = JSON.parse(xhr.response);
+          var arr = arr['Enters'];
+          var size = arr.length;
+          console.log(size);
+           $('#animation').hide();
+        }
+          $("#chartControls").empty();
+          //$("#chartReach."+theid).empty();
+          size = size-1;
+          for(var i = 0; i <= size; i++){
+            //console.log('operation#'+i)
+            //if(arr[i].type == 'interactions'){
+            //  $("#chartReach1" ).append('<p># of Interactions :'+arr[i].interactions+'</p>');
+           // }
+           // else if(arr[i].type == 'unique'){
+           //   $("#chartReach2").append('<p>Unique Customers :'+arr[i].unique+' <a href="/analytics/campaignCustomers/'+theid+'">See Customers involved in this Campaign</a></p>');
+           // }
+            if(arr[i].type == 'line'){
+
+              $("#chartControls").append( '<a class="btn btn-primary btn-mini buttonChart"  data-req="'+i+'" style="background-color: rgb(228, 65, 45);">Chart '+arr[i].title+'</a>' );
+
+
+               var data = new google.visualization.DataTable();
+               var Adata = [];
+               var garr = '';
+               var jData = arr[i].time;
+               data.addColumn('string', 'day');
+               data.addColumn('number', arr[i].title);
+               for (var key in jData) {
+                 if (jData.hasOwnProperty(key)) {
+                    var dd = key;
+                    var mm = jData[key];
+                     garr = [dd,mm];
+                    Adata.push(garr);
+                 }
+               }
+              data.addRows(Adata);
+
+              var options = {
+              title: arr[i].title,
+              width:wid+'px',
+              legend: { position: 'bottom' },
+              colors:['#83cdb8', '#ed8369', '#efc174', '9dabd7'],
+              backgroundColor: 'rgba(0,0,0,0)',
+              titleTextStyle: {
+                fontName: 'lato',
+                position: 'center',
+                },
+              };
+
+
+              var chart = new google.visualization.LineChart(document.getElementById('chart_div'+i));
+              chart.draw(data, options);
+              counter++;
+          }else{
+
+          }
+        }
+         $('.buttonChart').click(function(){
+          var button = $(this);
+          var datareq = button.attr('data-req');
+          $('.campaignGraph').each(function(){
+            var chart = $(this);
+            if(chart.attr('data-req') == datareq){
+               console.log(chart.attr('data-req'));
+                if(button.attr('active') == 'active'){
+                  button.removeClass('active');
+                  button.attr('active','inactive');
+                   chart.show();
+                }else{
+                  button.attr('active','active');
+                  button.addClass('active');
+                 chart.hide();
+                }
+
+            }
+
+          });
+        });
+        $(window).bind('resizeEnd', function() {//resize function to draw charts
+                var theid = '<?php echo $campaign->_id; ?>';
+                var wid = $('#campaignStatsContainer').width();
+                wid = wid - 15;
+                $('#campaignStatsContainer').css({'max-width':wid+'px','width':wid+'px'});
+                drawChart(theid,wid);
+      });
+
+      $(window).resize(function() {
+        if(this.resizeTO) clearTimeout(this.resizeTO);
+        this.resizeTO = setTimeout(function() {
+            $(this).trigger('resizeEnd');
+        }, 800);
+      });
+  };
+  //draw charts for pie graphs
+
+});//end document .ready
+
+
+function pieChart(theid,wid) { // initial for drawing entries
+
+        $('.campaignGraph').each(function(){
+            $(this).empty();
+        });
+        var buttons = '';
+        var counter = 1;
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', 'http://localhost:8000/campaignData/'+theid, false);
+        xhr.send(null);
+
+        if (xhr.status == 200) {
+          var arr = JSON.parse(xhr.response);
+          var arr = arr['Pie'];
+          var size = arr.length;
+          console.log(size);
+          $('#animation').hide();
+        }
+          $("#chartControls").empty();
+          //$("#chartReach."+theid).empty();
+          size = size-1;
+          for(var i = 0; i <= size; i++){
+
+           if(arr[i].type == 'agepie'){ //draw pies if not line types
+              //
+              //$('#pie_chart'+theid+'_'+i).parent('.stats-body').css('max-width',wid+'px');
+              $("#chartControls").append( '<a class="btn btn-primary btn-mini buttonChart"  data-req="'+i+'">Chart '+arr[i].title+'</a>' );
+              var fourwidth = (wid/3);
+               //$('#pie_chart'+i).css('max-width',fourwidth+'px');
+
+
+              var parr = arr[i].data;
+              var genderArray = new Array;
+              for (var j = parr.length - 1; j >= 0; j--) {
+
+                var garr = 'Ages '+parr[j]['age_group'];
+                var age = parseInt(parr[j]['number_of_users']);
+                genderArray.unshift([garr,age]);
+
+              };
+              genderArray.unshift(['age-group','value']);
+
+              var data = google.visualization.arrayToDataTable(
+                genderArray
+                );
+              var options = {
+              title: 'Age Groups',
+              legend: { position: 'bottom' },
+              pieHole: 0.4,
+             // width:fourwidth+'px',
+              colors:['9dabd7','#83cdb8', '#ed8369', '#efc174' ],
+              titleTextStyle: {
+                fontName: 'lato',
+                position: 'center',
+              },
+                backgroundColor: 'rgba(0,0,0,0)',
+                pieSliceTextStyle: {color: 'black'},
+              };
+
+            var chart = new google.visualization.PieChart(document.getElementById('pie_chart'+i));
+            chart.draw(data, options);
+
+          }else if(arr[i].type == 'devicepie'){ //draw pies if not line types
+              //
+              var fourwidth = (wid/3);
+              $("#chartControls").append( '<a class="btn btn-primary btn-mini buttonChart"  data-req="'+i+'">Chart '+arr[i].title+'</a>' );
+              //$('#pie_chart'+theid+'_'+i).parent('.col-md-4').css('max-width',fourwidth+'px');
+             // $('#pie_chart'+i).css('max-width',fourwidth+'px');
+
+              var darr = arr[i].data;
+               var data = google.visualization.arrayToDataTable([
+               ['Device', 'Number'],
+               ['IOS', darr['ios']], ['Android', darr['android']], ['Other', darr['unknown']]
+               ]);
+
+             var options = {
+              title: 'Gender Representation',
+              legend: { position: 'bottom' },
+              colors:['#83cdb8', '#ed8369', '#efc174', '9dabd7'],
+              pieHole: 0.6,
+              //width:fourwidth+'px',
+              titleTextStyle: {
+                fontName: 'lato',
+                position: 'center',
+              },
+              backgroundColor: 'rgba(0,0,0,0)',
+              pieSliceTextStyle: {color: 'black'},
+            };
+
+            var chart = new google.visualization.PieChart(document.getElementById('pie_chart'+i));
+            chart.draw(data, options);
+
+          }else if(arr[i].type == 'genderpie'){ //draw pies if not line types
+              //
+              var fourwidth = (wid/3);
+              $("#chartControls").append( '<a class="btn btn-primary btn-mini buttonChart"  data-req="'+i+'">Chart '+arr[i].title+'</a>' );
+              //$('#pie_chart'+theid+'_'+i).parent('.col-md-4').css('max-width',fourwidth+'px');
+              //$('#pie_chart'+i).css('max-width',fourwidth+'px');
+
+              var darr = arr[i].data;
+               var data = google.visualization.arrayToDataTable([
+               ['Gender', 'Number'],
+               ['Males', darr['males']], ['Females', darr['females']], ['Unconfirmed', darr['unknown']]
+               ]);
+
+             var options = {
+              title: 'Gender Representation',
+              legend: { position: 'bottom' },
+              colors:['#83cdb8', '#ed8369', '#efc174', '9dabd7'],
+              pieHole: 0.6,
+              //width:fourwidth+'px',
+              titleTextStyle: {
+                fontName: 'lato',
+                position: 'center',
+              },
+              backgroundColor: 'rgba(0,0,0,0)',
+              pieSliceTextStyle: {color: 'black'},
+            };
+
+            var chart = new google.visualization.PieChart(document.getElementById('pie_chart'+i));
+            chart.draw(data, options);
+
+          }else{
+
+          }
+        }
+         $('.buttonChart').click(function(){
+          var button = $(this);
+          var datareq = button.attr('data-req');
+          $('.campaignGraph').each(function(){
+            var chart = $(this);
+            if(chart.attr('data-req') == datareq){
+               console.log(chart.attr('data-req'));
+                if(button.attr('active') == 'active'){
+                  button.removeClass('active');
+                  button.attr('active','inactive');
+                   chart.show();
+                }else{
+                  button.attr('active','active');
+                  button.addClass('active');
+                 chart.hide();
+                }
+
+            }
+
+          });
+        });
+        $(window).bind('resizeEnd', function() {//resize function to draw charts
+                var theid = '<?php echo $campaign->_id; ?>';
+                var wid = $('#campaignStatsContainer').width();
+                wid = wid - 15;
+                $('#campaignStatsContainer').css({'max-width':wid+'px','width':wid+'px'});
+                pieChart(theid,wid);
+      });
+
+      $(window).resize(function() {
+        if(this.resizeTO) clearTimeout(this.resizeTO);
+        this.resizeTO = setTimeout(function() {
+            $(this).trigger('resizeEnd');
+        }, 800);
+      });
+  };
+</script>
+<div class="innerContent">
+<script type="text/javascript">
+   google.load("visualization", "1", {packages:["corechart"]});
+</script>
+      <div class="row">
+    <div class="row resetMargin navbar navbar-default" id="analyticsRow">
+    <div class="container-fluid" id="analyticsCategory">
+      <div class="navbar-header col-md-12" id="anaNavPadding">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <div class="navbar-collapse collapse" id="anaMenuBtns">
+          <ul id="analyticsMenu" class="nav navbar-nav">
+            <li class="col-md-2">
+                <div id="activeSelection">
+                  <span class="glyphicon glyphicon-edit"></span>
+                  <a class="glyphLink" href="">Entries</a>
+                  <br>
+                </div>
+
+            </li>
+            <li class="col-md-2">
+                <div id="activeSelection">
+                  <span class="glyphicon glyphicon-check"></span>
+                  <a class="glyphLink" href="">Accepted</a>
+                  <br>
+                </div>
+            </li>
+            <li class="col-md-2">
+             <div id="activeSelection">
+                <span class="glyphicon glyphicon-share"></span>
+                <a class="glyphLink" href="">Completed</a>
+                <br>
+              </div>
+            </li>
+            <li class="col-md-2">
+              <div id="activeSelection">
+                <span class="glyphicon glyphicon-barcode"></span>
+                <a class="glyphLink" href=""
+                title="Breakdown of gender by iOS/Android">Confirmed Offer</a>
+                <br>
+              </div>
+            </li>
+            <li class="col-md-2">
+              <div id="activeSelection">
+                <span class="glyphicon glyphicon-usd"></span>
+                <a class="glyphLink" href="/analytics/campaignCustomers/<?php echo $campaign->_id; ?>">Customers</a>
+                <br>
+              </div>
+            </li>
+            <li class="col-md-2">
+              <div id="activeSelection">
+                <span class="glyphicon glyphicon-phone"></span>
+                <a class="glyphLink graphButtons" id='pie' href="">Demographics</a>
+                <br>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+    <div id="#campaignStatsContainer">
+         <div id="chartControls"></div>
+        <div id="pie_chart0" class='campaignGraph' data-req='0'></div>
+        <div id="pie_chart1" class='campaignGraph' data-req='1'></div>
+        <div id="pie_chart2" class='campaignGraph' data-req='2'></div>
+        <div id="chart_div0" class='campaignGraph' data-req='0'></div>
+        <div id="chart_div1" class='campaignGraph' data-req='1'></div>
+        <div id="chart_div2" class='campaignGraph' data-req='2'></div>
+        <div id="chart_div3" class='campaignGraph' data-req='3'></div>
+
+
+      </div>
+    </div>
+
+
+</div>
+
+<!--<?php echo $__env->make("campaignjs", array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>-->
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make("layout_dash", array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

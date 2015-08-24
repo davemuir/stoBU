@@ -1,0 +1,571 @@
+<?php $__env->startSection("content"); ?>
+ <div id="overlay"></div>
+    <div id="popup">
+      <?php echo $__env->make("mediaManager", array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+    </div>
+<?php echo $__env->make("header", array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+<script type="text/javascript">
+  $('.collapse').collapse()
+</script>
+
+<!-- ========================================= New Campaign Begins Here============================================ -->
+<div class="innerContent">
+    <div class="beamContainer">
+        <?php echo Form::open([
+            "url"        => "campaigns",
+            "autocomplete" => "off",
+            "enctype" =>"multipart/form-data",
+            "method"=> "POST"
+        ]); ?>
+
+
+        <div class="titleCampaign row">
+            <h3>Campaign Details</h3>
+        </div>
+
+        <div class="row bColor campRow campRowSeprator">
+            <div class="row campRowSeprator">
+                <div class="col-md-4">
+                  <?php echo Form::label("campaigntitle", "Campaign Title"); ?>
+
+                  <?php echo Form::text("campaigntitle", Input::get("campaignTitle"), [
+                      "placeholder" => "campaign title ","class" =>"form-control campaignInput"
+                  ]); ?>
+
+
+                </div>
+                <div class="col-md-4">
+
+                    <?php echo Form::label("campaigntimelinestart", "Start Date"); ?>
+
+                    <div class="campDateFields">
+                      <?php echo Form::select('startYear',array(),null ,array("id" => "yeardropdown","class" => "dropDown form-control dateControl")); ?>
+
+                      <?php echo Form::select('startMonth',array(),null,array("id" => "monthdropdown","class" => "dropDown form-control dateControl")); ?>
+
+                      <?php echo Form::select('startDay',array(),null ,array("id" => "daydropdown","class" => "dropDown form-control dateControl")); ?>
+
+                    </div>
+
+                </div>
+                <div class="col-md-4">
+                    <?php echo Form::label("campaigntimelineend", "End Date"); ?>
+
+                     <div class="campDateFields">
+                    <?php echo Form::select('endYear',array(),null ,array("id" => "endyeardropdown","class" => "dropDown form-control dateControl")); ?>
+
+                    <?php echo Form::select('endMonth',array(),null,array("id" => "endmonthdropdown","class" => "dropDown form-control dateControl")); ?>
+
+                    <?php echo Form::select('endDay',array(),null ,array("id" => "enddaydropdown","class" => "dropDown form-control dateControl")); ?>
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="row campRowSeprator">
+                <div class="col-md-4">
+                    <?php echo Form::label("campaignactive", "Active Campaign"); ?>
+
+                    <?php echo Form::select('activeState',array('Active' => 'Active', 'Inactive' => 'Inactive'),null,array("id" => "dropDOWN","class" => "form-control dropDown")); ?>
+
+                </div>
+                <div class="col-md-4">
+                    <?php echo Form::label("campaigntype", "Type of Campaign"); ?>
+
+                    <?php echo Form::text("campaigntype", " ", [
+                        "placeholder" => "campaign type ","class" =>"form-control campaignInput"
+                    ]); ?>
+
+
+                </div>
+                <div class="col-md-4">
+                    <?php echo Form::label("budgetcategory", "Budget Category"); ?>
+
+                    <?php echo Form::text("budgetcategory", "", [
+                    "placeholder" => "Budget Category ","class" =>"form-control campaignInput"
+                    ]); ?>
+
+                </div>
+            </div>
+            <div class="row campRowSeprator">
+                <div class="col-md-4">
+
+                </div>
+                <div class="col-md-4">
+                    <?php echo Form::label("gender", "Gender"); ?> <br>
+
+                    <?php echo Form::select('criteria_gender',array(null => 'Please select one option',"Male"=>"Male", "Female"=>"Female"),null,array("id" => "dropDOWN","class" => "form-control dropDown")); ?>
+
+                </div>
+                <div class="col-md-4">
+                    <?php echo Form::label("platform", "Platform"); ?>
+
+                    <?php echo Form::select('criteria_os',array(null => 'Please select one option',"Android"=>"Android", "iOS"=>"iOS"),null ,array("id" => "dropDOWN","class" => "form-control dropDown")); ?>
+
+                </div>
+            </div>
+
+        </div>
+        <div class="titleCampaign row">
+            <h3>Select Rooms and Beacons</h3>
+        </div>
+
+
+        <div class="row bColor campRow campRowSeprator btmPadding">
+    <!-- checkbox Colapse -->
+            <div class="panel-group " id="accordion">
+                <div class="panel panel-default">
+                    <? $count= 0; ?>
+
+                        <?foreach ($rooms as $key => $value ) {?>
+                            <div class="beaconInfo">
+                                <div class="panel-heading roomHeading">
+                                    <h4 class="panel-title campLinks">
+                                        <input id="room" class="checkbox roomOnClick"  type="checkbox"  value="<?php echo $key; ?>">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#<? echo $count;?>">
+                                            <?php echo $value->name; ?>
+
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div id="<? echo $count;?>" class="panel-collapse collapse in">
+                                    <div class="panel-body">
+                                      <?foreach ($beacons as $key => $beacon) {?>
+                                        <? if($beacon->room_id ==  $value->_id) {?>
+                                            <div class="checkbox">
+                                            <label><input class="beacon_box checkbox room"
+                                              type="checkbox" name="beacons[]" value="<?php echo $beacon->_id; ?>" /><?php echo $beacon->alias; ?></label></br>
+                                            </div>
+                                        <?}?>
+                                      <?}?>
+                                    </div>
+                                </div>
+                            </div>
+                        <? $count++; ?>
+                    <? } ?>
+
+                </div>
+            </div>
+    <!-- End of Checkbox Colapse Acordian  -->
+        </div>
+
+        <div class="titleCampaign row">
+            <h3>Add Deals</h3>
+        </div>
+    <!--  entry and exit tabs -->
+        <div class="row bColor campRow campRowSeprator ">
+            <div class="tab_wrap">
+                <div class="tabs">
+                    <ul>
+                        <li><a name="tab" id="tab_1" href="javascript:void(0)" onClick="tabs(1)" class="active">Entry Deals</a></li>
+                        <li><a name="tab" id="tab_2" href="javascript:void(0)" onClick="tabs(2)">Exit Deals</a></li>
+                    </ul>
+                </div>
+                <div name="tab_content" id="tab_content_1" class="tab_content active">
+                    <div class="col-md-5 entryLeftSide">
+                        <div class="row entry_deets" >
+                  <div class="campBeamTitle campRowSeprator">
+                    <p>Entry Surveys</p>
+                  </div>
+                  <div class="entrySurveyList">
+                    <ul>
+                      <?
+                      foreach ($survey as $key => $value) {?>
+                        <li class="entrySurvey"><input id="" class="form-hidden entrySurvey" value="<?php echo $value->_id; ?>"><?php echo $value->title; ?></li>
+                      <? } ?>
+                    </ul>
+                  </div>
+
+                </br>
+
+                    <div class="campBeamTitle campRowSeprator">
+                      <p>Entry Beams</p>
+                    </div>
+
+                  <div class="entryBeamList">
+                  <ul>
+                    <?
+                    foreach ($beams as $key => $value) {?>
+                      <li class="entryBeam" ><input id="" class="form-hidden entryBeam" value="<?php echo $value->_id; ?>"> <?php echo $value->title; ?>
+
+                      </li>
+                     <?
+                    }
+                    ?>
+                </ul>
+              </div>
+              </div>
+
+              </div>
+              <div class="col-md-2 entryMiddle">
+                  <input id="EntryaddElement" class="addCompaign EntryAddElement" type="button" value="+ Add to Deals" />
+                  <input id="EntryDeleteElement" class="addCompaign EntryAddElement btnBlack" type="button" value="Delete Deals -" />
+                  <input id="EntryaddAll" class="addCompaign EntryAddElement" type="button" value="+ Add All" />
+                  <input id="EntryDeleteAll" class="addCompaign EntryAddElement btnBlack" type="button" value="Delete All -" />
+              </div>
+              <div class="col-md-5 entryRightSide">
+                  <ul>
+                  </ul>
+             </div>
+
+
+           </div>
+            <div name="tab_content" id="tab_content_2" class="tab_content">
+              <div class="col-md-5 exitLeftSide">
+                 <div class="row exit_deets" >
+                    <div class="campBeamTitle campRowSeprator">
+                      <p>Exit Surveys</p>
+                    </div>
+                         <div class="exitSurveyList">
+                       <ul>
+                      <?
+                      foreach ($survey as $key => $value) {?>
+                        <li class="exitSurvey"><input id=""  class="form-hidden exitSurvey"  value="<?php echo $value->_id; ?>"><?php echo $value->title; ?></li>
+                       <?
+                      }
+                      ?>
+                    </ul>
+                  </div>
+                    </br>
+                      <div class="campBeamTitle campRowSeprator">
+                       <p>Exit Beams</p>
+                    </div>
+                      <div class="exitBeamList">
+                      <ul>
+                       <?
+                      foreach ($beams as $key => $value) {?>
+                        <li class="exitBeam"> <input id=""  class="form-hidden exitBeam"  value="<?php echo $value->_id; ?>">
+                          <?php echo $value->title; ?></li>
+                       <?
+                      }
+                      ?>
+                    </ul>
+                  </div>
+                  </div>
+
+
+              </div>
+              <div class="col-md-2 exitMiddle">
+                  <input id="ExitAddElement" class="addCompaign EntryAddElement" type="button" value="+ Add to Deals" />
+                   <input id="ExitDeleteElement" class="addCompaign EntryAddElement btnBlack" type="button" value="Delete Deals -" />
+                  <input id="ExitaddAll" class="addCompaign EntryAddElement" type="button" value="+ Add All" />
+                  <input id="ExitDeleteAll" class="addCompaign EntryAddElement btnBlack" type="button" value="Delete All -" />
+              </div>
+              <div class="col-md-5 exitRightSide">
+                  <ul>
+                  </ul>
+             </div>
+
+
+           </div>
+        </div>
+
+        <script type="text/javascript" >
+            function tabs(selectedtab) {
+                // contents
+                var s_tab_content = "tab_content_" + selectedtab;
+                var contents = document.getElementsByTagName("div");
+                for(var x=0; x<contents.length; x++) {
+                    name = contents[x].getAttribute("name");
+                    if (name == 'tab_content') {
+                        if (contents[x].id == s_tab_content) {
+                        contents[x].style.display = "block";
+                        } else {
+                        contents[x].style.display = "none";
+                        }
+                    }
+                }
+                // tabs
+                var s_tab = "tab_" + selectedtab;
+                var tabs = document.getElementsByTagName("a");
+                for(var x=0; x<tabs.length; x++) {
+                    name = tabs[x].getAttribute("name");
+                    if (name == 'tab') {
+                        if (tabs[x].id == s_tab) {
+                        tabs[x].className = "active";
+                        } else {
+                        tabs[x].className = "";
+                        }
+                    }
+                }
+            }
+      </script>
+
+      </div>
+
+<!-- ==end of entry and exit tabs==== -->
+
+
+
+        <script type="text/javascript">
+// Entry Elements
+      // Add Element
+
+                $('.entryLeftSide li').click(function () {
+                $(this).toggleClass('active');
+            });
+            $('#EntryaddElement').click(function () {
+                var $items = $('.entryLeftSide li.active');
+                $items.removeClass('active');
+                $items.children("input.entryBeam").attr('name','entryBeams[]');
+                $items.children("input.entrySurvey").attr('name','entrySurveys[]');
+
+                $('.entryRightSide ul').append($items);
+            });
+
+      // Delete Element One by One
+            $('.entryRightSide li').click(function () {
+                $(this).toggleClass('active');
+            });
+
+            $('#EntryDeleteElement').click(function () {
+                if ($('.entryRightSide li.active').hasClass('entryBeam')){
+                    var $beam_items = $('.entryRightSide li.active');
+                    $('.entryBeamList ul').append($beam_items);
+                    $beam_items.removeClass('active');
+                 }
+                 else
+                 {
+                    var $beam_items = $('.entryRightSide li.active');
+                    $('.entrySurveyList ul').append($beam_items);
+                    $beam_items.removeClass('active');
+                 }
+          });
+
+
+      // Add All Elements
+            $('.entryRightSide li').click(function () {
+                $(this).toggleClass('active');
+            });
+            $('#EntryaddAll').click(function () {
+                var $items = $('.entryLeftSide li');
+                $('.entryRightSide ul').append($items);
+            });
+
+
+        // Delete All Elements
+        $('#EntryDeleteAll').click(function () {
+                 $('.entryRightSide li').each(function(){
+                  var $this = $(this);
+                  if($this.hasClass('entryBeam')){
+                    var $beam_items = $this;
+                    $('.entryBeamList ul').append($beam_items);
+                  }
+                  else{
+                    var $beam_items = $this;
+                    $('.entrySurveyList ul').append($beam_items);
+                  }
+
+                 });
+            });
+
+
+
+        </script>
+
+     <script type="text/javascript">
+
+// Exit Elements
+                    // make the items selectable by toogling an 'active' class
+            $('.exitLeftSide li').click(function () {
+                $(this).toggleClass('active');
+            });
+
+
+            $('#ExitAddElement').click(function () {
+                var $items = $('.exitLeftSide li.active');
+                $items.removeClass('active');
+                $items.children("input.exitBeam").attr('name','exitBeams[]');
+                $items.children("input.exitSurvey").attr('name','exitSurveys[]');
+                $('.exitRightSide ul').append($items);
+            });
+
+// delete element one by one
+             $('.exitRightSide li').click(function () {
+                $(this).toggleClass('active');
+            });
+
+            $('#ExitDeleteElement').click(function () {
+
+
+              if ($('.exitRightSide li.active').hasClass('exitBeam')){
+                  var $beam_items = $('.exitRightSide li.active');
+                // append them to the right side list
+                $('.exitBeamList ul').append($beam_items);
+                $beam_items.removeClass('active');
+
+                 }
+                 else
+                 {
+                    var $beam_items = $('.exitRightSide li.active');
+                    $('.exitSurveyList ul').append($beam_items);
+                    $beam_items.removeClass('active');
+                 }
+
+            });
+
+            $('.exitRightSide li').click(function () {
+                $(this).toggleClass('active');
+            });
+            $('#ExitaddAll').click(function () {
+                var $items = $('.exitLeftSide li');
+                $('.exitRightSide ul').append($items);
+            });
+
+// delete all element
+             $('#ExitDeleteAll').click(function () {
+                 $('.exitRightSide li').each(function(){
+                  var $this = $(this);
+                  if($this.hasClass('exitBeam')){
+                    var $beam_items = $this;
+                    $('.exitBeamList ul').append($beam_items);
+                  }
+                  else{
+                    var $beam_items = $this;
+                    $('.exitSurveyList ul').append($beam_items);
+                  }
+
+                 });
+            });
+
+        </script>
+
+      </div>
+
+      <div class="row  campRow campRowSeprator">
+         <?php echo Form::submit("Add Campaign" , array('class' => 'addCampaign', "id" => "addCampaign")); ?>
+
+      </div>
+
+      <?php echo Form::close(); ?>
+
+  </div>
+</div>
+<!-- =========================================New Style Ends Here============================================ -->
+
+
+
+
+
+
+
+<script type="text/javascript">
+  var crit_count = 0;
+
+  $(document).ready(
+   function() {
+
+
+       //clicking the parent checkbox should check or uncheck all child checkboxes
+       $(".roomOnClick").click(
+           function() {
+               $(this).parents('.beaconInfo:eq(0)').find('.beacon_box').prop('checked', this.checked);
+           }
+       );
+       //clicking the last unchecked or checked checkbox should check or uncheck the parent checkbox
+       $('.beacon_box').click(
+           function() {
+               if ($(this).parents('.beaconInfo:eq(0)').find('.roomOnClick').prop('checked') == true && this.checked == false)
+                   $(this).parents('.beaconInfo:eq(0)').find('.roomOnClick').prop('checked', false);
+               if (this.checked == true) {
+                   var flag = true;
+                   $(this).parents('.beaconInfo:eq(0)').find('.beacon_box').each(
+                     function() {
+                         if (this.checked == false)
+                             flag = false;
+                     }
+                   );
+                   $(this).parents('.beaconInfo:eq(0)').find('.roomOnClick').prop('checked', flag);
+               }
+           }
+       );
+   }
+);
+
+
+$(document).ready(
+
+     function() {
+
+    $('#add_criteria').click(
+
+        function () {
+            event.preventDefault();
+          if (!($('.crit_wrap').length >=2 )){
+          $('#criteria_div').append('<div class="crit_wrap" id="criteria_wrap'+crit_count+'"><a href="#" class="rm_wrap">X</a><select class=" form-control criteria_list'+crit_count+'"><option value="nil"></option><option value="Gender">Gender</option><option value="Platform">Platform</option></select></div>');
+
+          $('.rm_wrap').on('click', function(){
+              $(this).parent().remove();
+            });
+
+          $('.criteria_list'+crit_count).on('change', function() {
+            console.log($(this).parent().children());
+            $(this).parent().children('select.criteria_select').remove();
+            $(this).parent().children('p#criteria_error').remove();
+            switch(this.value) {
+              case "Gender":
+              if (!($('#criteria_gender').length)){
+                    $('<select class="criteria_select form-control" name="criteria_gender" id="criteria_gender"></option><option value="Male">Male</option><option value="Female">Female</option></select>').appendTo($(this).parent());
+                  }else{
+                    $("<p id='criteria_error'>cant' do that</p>").appendTo($(this).parent());}
+                  break;
+              case "Platform":
+              if (!($('#criteria_os').length)){
+                    $('<select class="criteria_select form-control"  name="criteria_os" id="criteria_os"><option value="iOS">iOS</option><option value="AndroidOS">AndroidOS</option></select>').appendTo($(this).parent());
+                  }else{
+                   $("<p id='criteria_error'>cant' do that</p>").appendTo($(this).parent());}
+                  break;
+
+          }
+
+          });
+        }
+      }
+      );
+
+
+   });
+
+
+</script>
+<script type="text/javascript">
+
+/***********************************************
+* Drop Down Date select script- by JavaScriptKit.com
+* This notice MUST stay intact for use
+* Visit JavaScript Kit at http://www.javascriptkit.com/ for this script and more
+***********************************************/
+
+var monthtext=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sept','Oct','Nov','Dec'];
+
+function populatedropdown(dayfield, monthfield, yearfield){
+var today=new Date()
+var dayfield=document.getElementById(dayfield)
+var monthfield=document.getElementById(monthfield)
+var yearfield=document.getElementById(yearfield)
+for (var i=1; i<=31; i++)
+dayfield.options[i]=new Option(i, i+1)
+dayfield.options[today.getDate()]=new Option(today.getDate(), today.getDate(), true, true) //select today's day
+for (var m=1; m<12; m++)
+monthfield.options[m]=new Option(monthtext[m], monthtext[m])
+monthfield.options[today.getMonth()]=new Option(monthtext[today.getMonth()], monthtext[today.getMonth()], true, true) //select today's month
+var thisyear=today.getFullYear()
+for (var y=1; y<20; y++){
+yearfield.options[y]=new Option(thisyear, thisyear)
+thisyear+=1
+}
+yearfield.options[0]=new Option(today.getFullYear(), today.getFullYear(), true, true) //select today's year
+}
+
+</script>
+
+<script type="text/javascript">
+
+//populatedropdown(id_of_day_select, id_of_month_select, id_of_year_select)
+window.onload=function(){
+populatedropdown("daydropdown", "monthdropdown", "yeardropdown")
+populatedropdown("enddaydropdown", "endmonthdropdown", "endyeardropdown")
+}
+</script>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make("layout_dash", array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

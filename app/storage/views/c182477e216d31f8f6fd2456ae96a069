@@ -1,0 +1,41 @@
+
+<!-- Graph Buttons for Enteries, Exits, Average Duration, Accepted and Completed Surveys, Time Spents on Surveys etc  -->
+
+<div id="titleBarG">
+        <h2>Graphs & Charts</h2>
+    </div>
+
+<div id="graphControls">
+	<?php if($choice == "entries"): ?>
+
+	    <a id="button1" class="btn btn-primary btn-mini">Entries</a>
+
+        <a id="button2" class="btn btn-primary btn-mini">Exits</a>
+
+        <a id="button3" class="btn btn-primary btn-mini">Average Duration</a>
+
+	<?php endif; ?>
+
+	<?php if($choice == "accepted"): ?>
+
+		<a id="button1" class="btn btn-primary btn-mini">Accepted</a>
+
+        <a id="button2" class="btn btn-primary btn-mini">Completed</a>
+
+        <a id="button3" class="btn btn-primary btn-mini">Averages</a>
+
+	<?php endif; ?>
+
+	<?php if($choice == 'completed'): ?>
+
+		<a id="button1" class="btn btn-primary btn-mini">Average Time Spent</a>
+
+        <a id="button2" class="btn btn-primary btn-mini">Total Minutes</a>
+
+        <a id="button3" class="btn btn-primary btn-mini">Accepted vs Completed</a>
+
+	<?php endif; ?>
+
+</div>
+
+

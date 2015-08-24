@@ -1,0 +1,124 @@
+<?php $__env->startSection("title"); ?>
+<title>Profile Settings</title>
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection("content"); ?>
+
+<?php echo $__env->make('header', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+
+	<script type="text/javascript">
+		$( document ).ready(function() {
+			$( "#avatarHover" ).hover(function() {
+				$(".editProfileAvatar").css("opacity","0.2");
+			}, function() {
+				$(".editProfileAvatar").css("opacity","1");
+			});
+
+			$( "#avatarHover" ).click(function(){
+				$('#avatar').click();
+				});
+			 });
+	</script>
+
+<div class="innerContent">
+
+  <div class="row" id="profileWrapper" ng-app="appEdit">
+
+		<?php
+
+			$user = Auth::user();
+			$name = $user? $user->fname . ' ' . $user->lname : 'stranger';
+			$avatar = $user->avatar;
+		?>
+
+			<h3>My Profile</h3>
+
+		<div id="whiteBackground">
+
+			<!--create profile picture and fall back default picture for no img-->
+
+			<div id="avatarHover">
+				<img class="editProfileAvatar"  src="<?if (isset($avatar['square'])) {echo $avatar['square'];} ?>" >
+			</div>
+			
+			<div id="outerInfo">
+
+				<div id="profileInfo">
+					<h4><?php echo $name; ?></h4>
+					<br>
+					<h5>Your current e-mail is </h5>
+					<h4><?php echo $email; ?></h4>
+				</div>
+
+			</div>
+
+		</div>
+
+		<div id="profileEdit">
+
+			<h3>Edit My Profile</h3>
+
+			<div id="innerProfile">
+
+					<div class="col-md-6">
+
+						<div id="contact-info-left">
+
+							<div id="headerBorder">
+								<h4>Contact Information</h4>
+							</div>
+
+							<?php echo Form::open(array('url'=> URL::to('profile'), 'class'=>'form-signup', "enctype" =>"multipart/form-data"));; ?>
+
+							<?php echo Form::file('avatar',array( "id" => "avatar", "class" => "form-hidden")); ?>
+
+							<?php echo Form::text('fname', $fname, array('placeholder'=>'First Name', "id"=>"placesize", 'style' => 'margin-top:10px;')); ?>
+
+							<?php echo Form::text('lname', $lname, array('placeholder'=>'Last Name', "id"=>"placesize", 'style' => 'margin-top:10px;')); ?>
+
+							<?php echo Form::text('email', $email, array('placeholder'=>'Email Address', "id"=>"placesize", 'style' => 'margin-top:10px;')); ?>
+
+
+						</div>
+						
+					</div>
+
+					<div class="col-md-6">
+
+						<div id="contact-info-right">
+							
+							<div id="headerBorder">
+								<h4>Password Change</h4>
+							</div>
+
+							<br>
+							<?php echo Form::password('password', array("id"=>"placesize",'placeholder'=>'Enter a new password to update', 'style' => 'margin-top:10px;')); ?>
+
+							<?php echo Form::password('password_confirmation', array("id"=>"placesize",'placeholder'=>'Confirm Password', 'style' => 'margin-top:10px;')); ?>
+
+							<div id="saveProfile">
+							<?php echo Form::submit('Save Settings', array('class'=>'btn btn-primary', 'id'=>'profileSubmit', 'style' => 'margin-top: 20px;')); ?>
+
+
+							<?php echo Form::close(); ?>
+
+
+						</div>
+
+					</div>
+
+				</div>
+
+			</div>
+
+		</div>
+
+	</div>
+
+</div>
+
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection("footer"); ?>
+	@parent
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make("layout_dash", array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

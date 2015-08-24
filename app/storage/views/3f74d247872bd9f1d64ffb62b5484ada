@@ -1,0 +1,48 @@
+
+<!-- ============Start Date and End Date =====================  -->
+<div class='row'>
+  <div class="col-md-12" id="timeHeader">
+    <div id="titleBarR">
+      <h2>
+        Form & Elements Controls
+      </h2>
+    </div>
+    <ul id="timeMenu" class="styleSelect">
+      <li>  
+        <h5>Start Date</h5>
+        <?php echo Form::open(array(null, null, 'onsubmit' => 'Gcharts.rangeChart(); return false;')); ?>
+
+        <?php echo Form::selectRange('number', 1, 31 , null, array('id' => "start_chart_day")); ?> 
+        <?php echo Form::selectMonth('month', null, array('id' => "start_chart_month")); ?>
+
+        <?php echo Form::selectYear('year', 2010, 2020 , null,  array('id' => "start_chart_year")); ?>
+
+      </li>
+      <li>
+        <h5>End Date</h5>
+        <?php echo Form::selectRange('number', 1, 31 , null, array('id' => "end_chart_day" )); ?>
+
+        <?php echo Form::selectMonth('month', null, array('id' => "end_chart_month" )); ?>
+
+        <?php echo Form::selectYear('year', 2010, 2020 , null,  array('id' => "end_chart_year" )); ?>
+
+        <?php echo Form::text('choice', $choice, array('id' => "choice","class"=>"form-hidden")); ?>
+
+      </li>
+      <li>
+        <?php echo Form::submit('Apply Date Span', array('id' => "dateButton", 'class' => "btn btn-primary btn-mini")); ?>
+
+        <?php echo Form::close(); ?>
+
+      </li>
+      <li>
+        <a href="#" class="btn btn-primary btn-mini refreshMe">Refresh</a>
+      </li>
+      <li>
+        <a href="#" class="btn btn-primary btn-mini exportPDF">Export PDF</a>
+      </li>
+    </ul>
+  </div>
+</div>
+<br><br>
+

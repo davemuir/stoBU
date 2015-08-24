@@ -1,0 +1,285 @@
+<?php $__env->startSection("content"); ?>
+<div id="overlay"></div>
+<div id="popup">
+     <?php echo $__env->make("mediaManager", array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+</div>
+
+<?php echo $__env->make("header", array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+<div class="innerContent">
+
+     <div class="row" >
+          <div class="col-md-12">
+               <div id="errorPanel">
+      
+               </div>
+               <div id = "titleBarG" class=" campTitle">
+                    <h2> <?php echo $campaignTitle; ?> </h2>
+               </div>
+               <div class="customerControls">
+                    <a href="#" class="btn btn-primary btn-mini repeatCustomersTableButton" id="<?php echo $campaignid; ?>"><i class="icon-white icon-refresh"></i> Repeat Customers</a>
+                    <a href="#" class="btn btn-primary btn-mini newCustomersTableButton" id="<?php echo $campaignid; ?>"><i class="icon-white icon-refresh"></i> New Customers</a>
+                    <a href="#" class="btn btn-primary btn-mini customersTableButton" id="<?php echo $campaignid; ?>"><i class="icon-white icon-refresh"></i> Customers</a>
+                    <a href="#" class="btn btn-primary btn-mini reverseOrder"><i class="icon-white icon-refresh"></i> Reverse Order</a>
+               </div> 
+               <div id="custView">
+
+               </div>
+               <div id="repeatCustomers">               
+
+               </div>
+               <div id="newCustomers">
+
+               </div>
+          </div>
+
+     </div>
+</div>
+
+<script type="text/javascript"> 
+
+     $( document ).ready(function() {
+
+          viewCustomers();
+
+          $('#repeatCustomers').hide();
+          $('#newCustomers').hide();
+
+          $(document).on('click', '.reverseOrder', function(e){
+               $.fn.reverse = [].reverse;
+               $("#myTable > tbody > tr").reverse().appendTo("#myTable > tbody");
+          });
+          $(document).on('click', '.reverseOrder', function(e){
+               $.fn.reverse = [].reverse;
+               $("#newcustomersTable > tbody > tr").reverse().appendTo("#newcustomersTable > tbody");
+          });
+          $(document).on('click', '.reverseOrder', function(e){
+               $.fn.reverse = [].reverse;
+               $("#repeatTable > tbody > tr").reverse().appendTo("#repeatTable > tbody");
+          });
+
+          showRepeatCustomers = function() {
+
+               $('#repeatCustomers').show();
+
+               var xhr = new XMLHttpRequest();
+               xhr.open('GET','http://localhost:8000/analytics/getrepeatCustomers/<?php echo $campaignid; ?>', false);
+     
+               xhr.send(null);
+               if (xhr.status == 200) {
+                   
+                    var arr = JSON.parse(xhr.response);
+                    var msg = "";
+                    console.log(arr);
+                    console.log("repeatcustomers");
+
+                    if(arr.length){ 
+                 
+                         for(var i = 0; i <= arr.length - 1; i++) {
+
+                              var visits = arr[i].No;
+                              var email = arr[i].Email;
+                              var name = arr[i].Name;
+                              var gender = arr[i].Gender;
+
+                              msg += "<tr><td>"+visits+"</td><td>"+name+"</td><td>"+email+"</td><td>"+gender+"</td></tr>";                                        
+                         }
+
+                         var msg = "<div class=' campCustomersTable'><h2>Repeat Customers</h2><table id='repeatTable' class='table stripes tableStyles'><thead><tr><th>No. of Visits </th><th>Name </th><th>Email</th><th>Gender</th></tr></thead><tbody>"+msg+"</tbody></table> </div>"
+                    }
+                    else
+                    {
+                         var msg = "<div class=' campCustomersTable'><h3> No customer related to this Campaign ...</h3></div>"
+                    }
+
+                    $('#repeatCustomers').html(msg);
+  
+               }
+
+               hideCustomers();
+               hideNewCustomers();
+              
+          };
+
+          showNewCustomers = function() {
+
+               $('#newCustomers').show();
+               var xhr = new XMLHttpRequest();
+               xhr.open('GET','http://localhost:8000/analytics/getNewCustomers/<?php echo $campaignid; ?>', false);
+     
+               xhr.send(null);
+               if (xhr.status == 200) {
+                   
+                    var arr = JSON.parse(xhr.response);
+                    var msg = "";
+                    console.log(arr);
+
+                    if(arr.length){
+                                                  
+                         for(var i = 0; i <= arr.length - 1; i++) {
+
+                              var name = arr[i].Name;
+                              var gender = arr[i].Gender;
+                              var platform = arr[i].Platform;
+
+                              msg += "<tr><td>"+name+"</td><td>"+gender+"</td><td>"+platform+"</td></tr>";
+
+                         }
+                         
+                         var msg = "<div class='campCustomersTable'><h2>New Customers</h2><table id = 'newcustomersTable' class='table stripes tableStyles'><thead><tr><th class = 'newcustomershead'>Name </th><th>Gender </th><th>Platform</th></tr></thead><tbody>"+msg+"</tbody></table></div>"
+                    }
+                    else
+                    {
+                         var msg = "<div class=' campCustomersTable'><h3> No New customer in the last 3 months ...</h3></div>"
+                    }
+
+                    $('#newCustomers').html(msg);
+   
+               }
+
+               hideCustomers();
+               hideRepeatCustomers();
+
+          };
+
+          hideCustomers = function() {
+               $('#custView').hide();
+
+          };
+
+          hideRepeatCustomers = function() {
+               $('#repeatCustomers').hide();
+          
+          };
+
+          hideNewCustomers = function() {
+               $('#newCustomers').hide();                         
+
+          };
+
+          $(document).on('click', '.repeatCustomersTableButton', function(e){
+              e.preventDefault();
+
+              showRepeatCustomers();                             
+              $('.repeatCustomersTableButton')
+              .addClass("hideRepeatCustomersTableButton")
+              .removeClass("repeatCustomersTableButton")
+              .removeClass("btn-primary")
+              .addClass("btn-success");
+          });
+
+          $(document).on('click', '.hideRepeatCustomersTableButton', function(e){
+              e.preventDefault();
+              hideRepeatCustomers();
+              //hideCustomers();
+              $('#custView').show();
+              hideNewCustomers();
+              $('.hideRepeatCustomersTableButton')
+              .removeClass("hideRepeatCustomersTableButton")
+              .addClass("repeatCustomersTableButton")
+              .addClass("btn-primary")
+              .removeClass("btn-success");
+          });
+
+          $(document).on('click', '.newCustomersTableButton', function(e){
+              e.preventDefault();
+
+              showNewCustomers();                             
+              $('.newCustomersTableButton')
+              .addClass("hideNewCustomersTableButton")
+              .removeClass("newCustomersTableButton")
+              .removeClass("btn-primary")
+              .addClass("btn-success");
+          });
+
+          $(document).on('click', '.hideNewCustomersTableButton', function(e){
+              e.preventDefault();
+              hideRepeatCustomers();
+              //hideCustomers();
+              $('#custView').show();
+              hideNewCustomers();
+              $('.hideNewCustomersTableButton')
+              .removeClass("hideNewCustomersTableButton")
+              .addClass("newCustomersTableButton")
+              .addClass("btn-primary")
+              .removeClass("btn-success");
+          });
+
+          $(document).on('click', '.customersTableButton', function(e){
+              e.preventDefault();
+
+               $('#custView').show();
+               hideRepeatCustomers();
+               hideNewCustomers(); 
+
+              $('.customersTableButton')
+              .addClass("hideCustomersTableButton")
+              .removeClass("customersTableButton")
+              .removeClass("btn-primary")
+              .addClass("btn-success");
+          });
+
+          $(document).on('click', '.hideCustomersTableButton', function(e){
+              e.preventDefault();
+              hideRepeatCustomers();
+              //hideCustomers();
+              $('#custView').show();
+              hideNewCustomers();
+              $('.hideCustomersTableButton')
+              .removeClass("hideCustomersTableButton")
+              .addClass("customersTableButton")
+              .addClass("btn-primary")
+              .removeClass("btn-success");
+          });
+
+
+     });
+     
+
+     function viewCustomers(){
+
+          var xhr = new XMLHttpRequest();
+          xhr.open('GET','http://localhost:8000/analytics/getCustomers/<?php echo $campaignid; ?>', false);
+
+          xhr.send(null);
+          if (xhr.status == 200) {
+              
+               var arr = JSON.parse(xhr.response);
+              
+               var msg = "";
+
+              
+               console.log(arr);
+               console.log("customers"); 
+
+               if(arr.length){
+
+                    for(var i = 0; i <= arr.length - 1; i++) {
+
+                         var name = arr[i].Name;
+                         var gender = arr[i].Gender;
+                         var platform = arr[i].Platform;
+
+                         msg += "<tr><td>"+name+"</td><td>"+gender+"</td><td>"+platform+"</td></tr>";
+
+                    }
+                     var msg = "<div class=' campCustomersTable'><h2>Campaign Customers</h2><table id = 'myTable' class='table stripes tableStyles'><thead><tr><th>Name </th><th>Gender </th><th>Platform</th></tr></thead><tbody>"+msg+"</tbody></table></div>"
+               }
+               else{
+
+                    var msg = "<div class=' campCustomersTable'><h3> No customer related to this Campaign ...</h3></div>"
+               }
+                                            
+               $('#custView').html(msg);
+
+               $('#newCustomers').hide();
+
+  
+          }
+
+     }         
+            
+</script>
+
+<!--<?php echo $__env->make("campaignjs", array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>-->
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make("layout_dash", array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

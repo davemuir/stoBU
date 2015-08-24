@@ -1,0 +1,248 @@
+<?php $__env->startSection("content"); ?>
+<div id="overlay"></div>
+<div id="popup">
+  <?php echo $__env->make("mediaManager", array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+</div>
+<?php echo $__env->make("header", array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+<script>
+$(document).ready(function(){
+  //check the submission and process new values
+$('#submitMe').click(function(){
+    //event.preventDefault();
+      $('iframe').each(function(){
+        $(this).addClass('ae_video');
+      });
+      var count = 0;
+      $('.wsi').each(function(){
+          count++;
+
+      });
+
+      for (var i = 0; i < count; i++) {
+            var val = $("#edit_"+i).editable("getHTML");
+            $("#field_name_"+i).attr('value',val);
+            $("#field_value_"+i).attr('value',val);
+            var string = $("#field_name_"+i).val();
+            //$("#edit_"+i).editable({imageUploadURL: '/uploadImage',inlineMode: false,  preloaderSrc: "", imageDeleteURL: ""});
+      };
+
+
+    var confirmed =  confirm('Are you Sure?');
+    if(confirmed == false){
+        return false;
+    }else{
+
+
+    }
+});
+
+  $('.option_remove').bind("click", function(){
+     event.preventDefault();
+
+     var critID = $(this).attr('id');
+     $('#'+critID).parent().attr('ting','removeThis');
+
+     var currentCount = $('#counter').val();
+      $('#counter').val(currentCount-1);
+
+      var dltcount = 0;
+      $('.wsi').each(function(){
+          dltcount++;
+      });
+      //alert(dltcount);
+      for (var s = 0; s <= dltcount; s++) {
+        $('.field').each(function(){
+           if($(this).attr('id') == 'crit_'+s && $(this).attr('id') != 'crit_'+0){
+
+                $(this).children('.field_name').attr('name','field_name_'+(s-1)).attr('id','field_name_'+(s-1));
+                $(this).children('.field_value').attr('name','field_value_'+(s-1)).attr('id','field_value_'+(s-1-1));
+                $(this).parent().attr('class','field crit_'+(s-1));
+                $(this).children('#editor').children('.froala-box').attr('id','edit_'+(s-1));
+                $(this).attr('id','crit_'+(s-1)).attr('class','field crit_'+(s-1));
+                $(this).children('p').children('.option_remove').attr('id','crit_'+(s-1));
+            }
+
+        });
+
+      }
+       $('.field').each(function(){
+        if($(this).attr('ting') == "removeThis"){
+            $(this).remove();
+        }
+       });
+  });
+
+  $('#option_html').bind("click", function(){
+   event.preventDefault();
+    appendField("html");
+  });
+});
+</script>
+<div class="innerContent">
+  <div class="beamContainer">
+    <div class="row bColor beamRow" >
+
+
+              <?php if($beamID): ?>
+                  <?php echo Form::open([
+                    "route"        => "Update Beam",
+                    "autocomplete" => "off",
+                    "enctype" =>"multipart/form-data",
+                    "method" => "PUT"
+                  ]); ?>
+
+
+
+                <div class="col-md-6">
+                  <div class="item">
+                      <?php echo Form::label("beamtitle", "Beam Title"); ?>
+
+                      <?php echo Form::text("beamtitle", $beamID['title'], [
+                        "placeholder" => $beamID['title'] ,"class" =>"form-control"
+                      ]); ?>
+
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <?
+                    $tags = '';
+                    foreach($beamID['tags'] as $key=>$value){
+                      $tags .= $value.' ';
+                    }
+                  ?>
+                  <div class="item">
+                    <?php echo Form::label("beamtag", "Tags"); ?>
+
+                    <?php echo Form::text("beamtag", "$tags", [
+                        "placeholder" => "tags ","class" =>"form-control"
+                    ]); ?>
+
+                  </div>
+                </div>
+                <div class="col-md-6">
+                    <?php echo Form::label("beamcontent", "Beam Content"); ?>
+
+                </div>
+                <div class="col-md-6">
+                  <div class="sendBeamButtonContainer">
+                    <!--<?php echo Form::label("sendBeam", "SendBeam"); ?>-->
+                    <!-- <?php echo Form::submit("Update Beam" , array('class' => 'sendBeam')); ?> -->
+
+                    <?php echo Form::text('beamID', $beamID['_id'], ["class"=>"form-hidden"]); ?>
+
+                    <button type="submit" id='submitMe' class="beamDelete  sendBeam">Update</button>
+
+                  </div>
+                </div>
+      </div>
+
+      <div class="row beamRow beamFields rowSeprator">
+
+                <div class=" col-md-1">
+                  <h4><!-- Fields --></h4>
+                </div>
+
+                <div class=" col-md-11">
+                  <ul>
+                     <!-- <li><div id="option_html" class="optionButton">Add Body</div></li>-->
+                  </ul>
+                </div>
+
+      </div>
+                <!--  <?php echo Form::textarea("beamcontent", $beamID['content'], [
+                    "placeholder" => $beamID['content'],"class" =>"form-control","id"=>"wysiwyg"
+                ]); ?> -->
+      <div class="row beamRow rowSeprator"> <!-- 3rd row for content for eg field choosen-->
+
+        <div class="col-md-12">
+                <div id="field_wrap">
+
+                      <? foreach ($beamID['elements'] as $key => $value) {  ?>
+                        <div class="field crit_<?echo $key?>">
+                         <?php $string = ($value['content']);
+                          $string =  strip_tags($string,'<img>,<table>,<td>,<th>,<thead>,<tbody>,<tr>,<iframe>,<a>,<b>,<i>,<br>,<div>,<h1>,<h2>,<h3>,<h4>,<h5>,<h6>,<p>');
+                       
+                         ?>
+
+                          <div class="field crit_<? echo $key;?>" id='crit_<? echo $key;?>'><p><span class="option_title"></span><a class="option_remove glyphicons remove_2" id="crit_<? echo $key;?>" href=""><i></i></a></p><input value="" class="field_name wsi form-control hidden" type="text" id="field_name_<? echo $key;?>" name="field_name_<? echo $key;?>" /></input> <section id="editor"><div class='editAll' id="edit_<? echo $key;?>" style="margin-top: 30px;"></div></section><hr/><input class="field_value form-control hidden" type="text" id="field_value_<? echo $key;?>" name="field_value_<? echo $key;?>" /></input></div>
+
+                          <hr/>
+                        </div>
+
+                         <script>
+
+                        $(function() {
+                          $("#edit_<? echo $key;?>").editable({imageUploadURL: "/uploadImage",inlineMode: false,  preloaderSrc: "", imagesLoadURL: "/asset/images/true",  imageDeleteURL: "",placeholder:''});
+                          $("#edit_<? echo $key;?>").editable("setHTML", '<? echo $string; ?>', false);
+                          //$(".editAll").editable({imageUploadURL: "/uploadImage"});
+                          $('#counter').val('<?php echo $key ?>');
+                          /*$('.option_remove').off('click').on("click", function() {
+                            event.preventDefault();
+                            $(".crit_<? echo $key;?>").remove();
+                            var currentCount = $('#counter').val();
+                            $('#counter').val(currentCount-1);
+                          });*/
+
+                          });
+                        </script>
+                      <? } ?>
+                </div>
+          </div>
+      </div>
+
+
+
+                <input type="number" name="size" id="counter" value="<?php echo sizeOf($beamID['elements']);?>" hidden >
+
+
+                  <script type="text/javascript" src="/js/mediaManager.js" ></script>
+                  <script type="text/javascript">
+                    var accounts = <?php echo json_encode($media); ?>;
+                    console.log(accounts);
+                  </script>
+                  <!-- // Step 2 END -->
+
+                  <!-- drop down for the alias name of beacon -->
+
+
+
+                  <?php echo Form::close(); ?>
+
+              <?php endif; ?>
+         <div class="col-md-6">
+            <input type="number" name="size" id="counter" value='0' hidden >
+        </div>
+    </div>
+</div>
+
+
+
+
+<script type="text/javascript">
+
+  function appendField() {
+
+      var count = 0;
+      var fcount = 0;
+      var tcount = 0;
+      var ccount = 0;
+      $('.wsi').each(function(){
+          count++;
+          fcount++;
+          tcount++;
+          ccount++;
+      });
+
+
+      //alert(fcount);
+      var ibody = '<div class="field crit_'+fcount+'" id="crit_'+fcount+'"><p><span class="option_title"></span><a class="option_remove glyphicons remove_2" id="crit_'+fcount+'" href=""><i></i></a></p><input value="" class="field_name form-control wsi hidden" type="text" id="field_name_'+fcount+'" name="field_name_'+fcount+'" /></input> <section id="editor"><div id="edit_'+fcount+'" style="margin-top: 30px;"></div></section><hr/><input class="field_value form-control hidden" type="text" id="field_value_'+fcount+'" name="field_value_'+fcount+'" /></input></div>';
+
+      $('#field_wrap').append(ibody);
+
+      $("#edit_"+fcount).editable({inlineMode: false,  preloaderSrc: "", imagesLoadURL: "/asset/images/true",  imageDeleteURL: "",placeholder:''});
+
+      $('#counter').val(fcount);
+}
+</script>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make("layout_dash", array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

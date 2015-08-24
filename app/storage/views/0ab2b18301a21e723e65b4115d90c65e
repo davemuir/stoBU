@@ -1,0 +1,70 @@
+<script>
+	$(document).ready(function(){
+		var companyName = $('.companyNameSet');
+		companyName.hide();
+		$('#user-access-link').click(function(){
+			companyName.show();
+		});
+
+		$('#companyNameSubmit').click(function(){
+			var name = $('#companyName').val();
+			window.location.assign('/requestAccess/'+name);
+		});
+
+	});
+</script>
+
+<?php
+
+	$name = Route::currentRouteName();
+	
+	if($name == "user/login"){
+?>	
+
+<div class="row" id="loginHeader">
+
+		<div class='col-md-6'>
+			<img src='img/apengageBigLogo.png' id='frontPageLogo'/>
+		</div>
+
+		<div class="col-md-6">
+		<div class="row">
+			<?php echo Form::open(['route' => 'user/login', 'autocomplete' => 'off', "class" => "form-inline", 'id' => 'loginForm']); ?>
+
+			    	
+			<div class="col-md-4">
+
+			    
+			    <?php echo Form::text('email', Input::get('email'), ["id"=>"placeLogin",'placeholder' => 'E-mail', 'class' => 'form-control']); ?>
+
+			</div>
+
+			<div class="col-md-4">
+			
+			    <?php echo Form::password('password', ["id"=>"placeLogin",'placeholder' => 'Password', 'class' => 'form-control']); ?>
+
+
+			   <?php echo '<label class="checkbox inline"><div id="check-section"><input type="checkbox" name="persistent" value="yes"></label><span id="check-text">Remember Me</span></div>'; ?>
+
+
+			</div>
+
+			<div class="col-md-4">
+			
+			    <?php echo Form::button('SIGN IN', array('type' => 'submit', 'class' => 'btn', 'id' => 'signInBtn')); ?>
+
+		
+			<div class="row">
+			   	<a style="clear:both;margin-left:7.5px;color: #fff;" href="<?php echo URL::route('Reset Password'); ?>">Forgot password?</a>
+			</div>
+			</div>
+		
+			<?php echo Form::close(); ?>
+
+		</div>
+		</div>
+
+		
+
+</div>
+<?php } ?>

@@ -1,0 +1,291 @@
+<?php $__env->startSection("content"); ?>
+<?php echo $__env->make("header", array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+
+<!-- CSS Style for multiple select drop-down-->
+<style type="text/css">
+
+
+</style>
+
+<!-- Javascript/Jquery Code for displaying Beacon Analytics Graphs -->
+<script type="text/javascript">
+
+    //load the google graphs from the api
+    google.load("visualization", "1", {packages:["corechart"]});
+    $(document).ready(function()
+    {
+        $(".dropdown dt a").on('click', function () 
+        {
+          $(".dropdown dd ul").slideToggle('fast');
+        });
+        $(".dropdown dd ul li a").on('click', function () 
+        {                    
+          $(".dropdown dd ul").hide();
+        });
+        function getSelectedValue(id) {
+          return $("#" + id).find("dt a span.value").html();
+        }
+        $('#submitBeacons').click(function(){
+          var check = false;
+          $('.beaconCheck:checked').each(function(){
+              check = true;
+          });
+          if(check == false){
+            alert('nothing checked');
+            return;
+          }
+          $('#animation').show()
+          setTimeout(function(){ drawdem();}, 100);
+
+        });
+        function drawdem()
+        {
+            var compareSet =[];
+            var aliases = [];
+            $('#chart_area').empty();
+            $('.beaconCheck:checked').each(function(){
+               compareSet.push([$(this).attr('name'),$(this).attr('data-req-maj'),$(this).attr('data-req-min')]);
+               aliases.push([$(this).attr('data-req-alias')]);
+            });
+
+            var parseSet = [];
+            for (var key in compareSet){
+              var xhr = new XMLHttpRequest();
+              xhr.open('GET', '/analytics/beacons/'+compareSet[key][0]+'/'+compareSet[key][1]+'/'+compareSet[key][2], false);
+              xhr.send(null);
+
+                if (xhr.status == 200) {
+                 var arr = JSON.parse(xhr.response);
+                  parseSet.push(arr);
+                  $('#animation').hide();
+                }
+            }
+            drawVisualization(parseSet,aliases);
+            $(".dropdown dd ul").hide();
+            //});//end click function
+        }
+          /*function to draw a chart based on the beacon selected.  makes an ajax request to db and comes back here to be
+          parsed and drawn on a google graph*/
+        function drawVisualization(parseSet,aliases) 
+        {
+          var size = parseSet.length;
+          for(var i = 0; i <= size-1; i++)
+          {
+              $('#chart_area').append('<div id="chart_parent'+i+'" class="beaconChart" style="width:100%;"><h1>'+aliases[i]+'</h1><div class="controls"></div></div>');
+              for(var key in parseSet[i])
+              {  
+                 //for each piece of data from index of entries,exits etc.
+                  var count = key;
+
+                if(parseSet[i][key].type == 'line'){
+                  var data = new google.visualization.DataTable();
+                  var Adata = [];
+                  var garr = '';
+                  if(count == 0){count = parseSet[i][key].entries;var type = 'entries';}
+                  if(count == 1){count = parseSet[i][key].exits;var type = 'exits';}
+
+                  var wid = document.getElementById('chart_area').offsetWidth;
+                  $('#chart_parent'+i+' .controls').append('<a href="#" class="btn btn-primary btn-mini" data-req="'+type+i+'">'+type+'</a>');
+                  $('#chart_parent'+i).append('<div class="beaconChartGraph" style="width:90%" id="'+type+i+'"></div>');
+                  data.addColumn('string', 'day');
+                  data.addColumn('number', parseSet[i][key].title);
+                  for(var key in count)
+                  {
+                     garr = [key,count[key]];
+                     Adata.push(garr);
+                  }
+
+                  data.addRows(Adata);
+
+                  var options = {
+                    title: type,
+                    backgroundColor: 'rgba(0,0,0,0)'
+                  };
+
+                  var chart = new google.visualization.LineChart(document.getElementById(type+i));
+                  chart.draw(data, options);
+
+                }else if(parseSet[i][key].type == 'agepie'){
+                  var type = 'ages';
+                  $('#chart_parent'+i).append('<div class="beaconChartGraph" style="width:90%" id="'+type+i+'"></div>');
+                  var parr = parseSet[i][key].data;
+                  var genderArray = new Array;
+                  for (var j = parr.length - 1; j >= 0; j--) {
+
+                    var garr = 'Ages '+parr[j]['age_group'];
+                    var age = parseInt(parr[j]['number_of_users']);
+                    genderArray.unshift([garr,age]);
+
+                  };
+                  genderArray.unshift(['age-group','value']);
+
+                  var data = google.visualization.arrayToDataTable(
+                    genderArray
+                    );
+                  var options = {
+                  title: 'Age Groups',
+                  legend: { position: 'bottom' },
+                  pieHole: 0.4,
+                  colors:['9dabd7','#83cdb8', '#ed8369', '#efc174' ],
+                  titleTextStyle: {
+                    fontName: 'lato',
+                    position: 'center',
+                  },
+                    backgroundColor: 'rgba(0,0,0,0)',
+                    pieSliceTextStyle: {color: 'black'},
+                  };
+
+                var chart = new google.visualization.PieChart(document.getElementById(type+i));
+                chart.draw(data, options);
+
+                }else if(parseSet[i][key].type == 'devicepie'){ //draw pies if not line types
+                  var type = 'devices';
+                  $('#chart_parent'+i).append('<div class="beaconChartGraph" style="width:90%" id="'+type+i+'"></div>');
+                  var darr = parseSet[i][key].data;
+                   var data = google.visualization.arrayToDataTable([
+                   ['Device', 'Number'],
+                   ['IOS', darr['ios']], ['Android', darr['android']], ['Other', darr['unknown']]
+                   ]);
+
+                   var options = {
+                    title: 'Device Representation',
+                    legend: { position: 'bottom' },
+                    colors:['#83cdb8', '#ed8369', '#efc174', '9dabd7'],
+                    pieHole: 0.6,
+                    titleTextStyle: {
+                      fontName: 'lato',
+                      position: 'center',
+                    },
+                    backgroundColor: 'rgba(0,0,0,0)',
+                    pieSliceTextStyle: {color: 'black'},
+                  };
+
+                  var chart = new google.visualization.PieChart(document.getElementById(type+i));
+                  chart.draw(data, options);
+
+               }else if(parseSet[i][key].type== 'genderpie'){ //draw pies if not line types
+                  var type = 'gender';
+                  $('#chart_parent'+i).append('<div class="beaconChartGraph" style="width:90%" id="'+type+i+'"></div>');
+
+                  var darr = parseSet[i][key].data;
+                   var data = google.visualization.arrayToDataTable([
+                   ['Gender', 'Number'],
+                   ['Males', darr['males']], ['Females', darr['females']], ['Unconfirmed', darr['unknown']]
+                   ]);
+
+                   var options = {
+                    title: 'Gender Representation',
+                    legend: { position: 'bottom' },
+                    colors:['#83cdb8', '#ed8369', '#efc174', '9dabd7'],
+                    pieHole: 0.6,
+                    titleTextStyle: {
+                      fontName: 'lato',
+                      position: 'center',
+                    },
+                    backgroundColor: 'rgba(0,0,0,0)',
+                    pieSliceTextStyle: {color: 'black'},
+                    };
+
+                  var chart = new google.visualization.PieChart(document.getElementById(type+i));
+                  chart.draw(data, options);
+
+                }else{//end if there is a type for graphing, start else
+
+                  $('#chart_parent'+i+' .controls').prepend('<h4><a href="../analytics/beaconCustomers/'+parseSet[i][key].beaconID+'">See all your customers interacting with this beacon</a></h4><h4>Current Location (room): '+parseSet[i][key].roomName+'</h4><h4># of Total Interactions: '+parseSet[i][key].interactions +'</h4><h4>Unique Users in the Past 3 months: '+parseSet[i][key].threemonths+'</h4><h4>Unique Users in the Past Year: '+parseSet[i][key].oneyear+'</h4>');
+
+                }
+            } //end for keys
+          } //end for selected beacons to draw
+
+          $('.controls .btn').click(function()
+          {
+             var val = ($(this).attr('data-req'));
+             var parent = $(this).parent('.controls').parent('.beaconChart');
+             var parentID = (parent.attr('id'));
+             //console.log(val);
+             $('#'+parentID+' .beaconChartGraph').each(function(){
+                if($(this).attr('id') != val){
+                    $(this).hide();
+                }
+                else{
+                   $(this).show();
+                }
+             });
+          });
+
+    }
+
+    $( window ).resize(function() {
+      drawdem();
+    });
+});
+
+</script>
+<div class="innerContent">
+  <div class="surveyBackground" ng-app="appEdit">
+      <h2 class='titleHeading'>Select Multiple Beacons</h2>
+      <!-- Tool Tip-->
+      <div class="myToolTip">
+        <div class="tt">
+          <a id="tt-help" href="#"></a>
+          <div class="tt-arrow"></div>
+          <div id="tt-wrapper" class="tt-floorPlan">
+            <p>Choose Beacons to display corresponding Graph</p>
+          </div>
+        </div>
+      </div>
+      <div class="row selectBeacons">
+          <div class="col-md-12">
+
+          <!-- Code for multiple select box to select multiple beacons at a time -->
+          <div class="beaconSelHolder">
+              <?php echo Form::open([
+                "Routes"=>"Beacon Analytics",
+                "action"=> "AnalyticsController@beacons",
+                "autocomplete"=>"off",
+                "enctype"=>"multipart/form-data"
+              ]); ?> 
+              <dl class="dropdown">               
+                  <dt>
+                    <a href="#">
+                      <span class="hida">Select Beacons</span>    
+                      <p class="multiSel"></p>  
+                    </a>
+                  </dt>
+                  <dd>
+                      <div class="mutliSelect">
+                        <ul>
+                          <? foreach($beacons as $key => $value){ ?>
+                            <? echo '<li>'; ?> 
+                              <input type="checkbox" class="beaconCheck" data-req-alias="<? echo $value->alias; ?>" name="<? echo $value->proximity_uuid; ?>" data-req-maj="<? echo $value->major; ?>" data-req-min="<? echo $value->minor; ?>">
+                              <span id="bname" > <? echo $value->alias; ?> </span>
+                            <? echo'</li>'; ?>
+                          <? } ?>                            
+                        </ul>
+                      </div>
+                  </dd>                  
+              </dl>
+            </div> 
+
+            <div class=" mulBeacon beaconSelHolder">
+              <a href="#" class="btn btn-primary btn-mini" id="submitBeacons">submit</a>
+              <?php echo Form::close(); ?>
+
+            </div>
+          </div>
+      </div>
+
+      <div class="row">
+          <div class="col-md-12">
+            <!-- Analytics Area to display analytics based on selected Beacons-->
+            <div id="chart_area">
+            </div>
+          </div>
+      </div>
+
+  </div>
+</div>
+
+
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make("layout_dash", array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

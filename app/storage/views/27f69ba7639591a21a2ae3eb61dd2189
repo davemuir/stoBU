@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<script src="/js/jsFBSDK.js"></script>
+	<link rel="shortcut icon" href="http://www.apengage.com/favicon.ico">
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<link type="text/css" rel="stylesheet" href="/css/login.css"/>
+	<link type="text/css" rel="stylesheet" href="/css/register-placeholder"/>
+	<link type="text/css" rel="stylesheet" href="/css/bootstrap.css"/>
+	<link type="text/css" rel="stylesheet" href="/less/assets/components/library/icons/glyphicons/assets/css/glyphicons_regular.css"/>
+	<link type="text/css" rel="stylesheet" href="/css/summernote.css"/>
+	<link href='http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900' rel='stylesheet' type='text/css'>
+	<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+	<link rel="stylesheet" href="/less/assets/css/admin/module.admin.page.file_managers.min.css"/>
+	<link href="/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+	<link href="/css/froala_editor.min.css" rel="stylesheet" type="text/css">
+	<link href="/css/onepage-scroll.css" rel="stylesheet" type="text/css">
+	<link href="/css/red.css" rel="stylesheet" type="text/css">
+		<title>ApEngage</title>
+
+	<script src="/less/assets/components/library/jquery/jquery.min.js?v=v2.3.0"></script>
+	<script src="/js/jquery.onepage-scroll.min.js"></script>
+
+	    <svg display="none" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="416" height="32" viewBox="0 0 416 32">
+<defs>
+<g id="icon-activeBeams">
+    <path class="path1" d="M17.42 7.677v1.948c-5.533 0-10.033 4.5-10.033 10.033h-1.947c0 6.616 5.363 11.98 11.98 11.98 6.621 0 11.985-5.364 11.985-11.98s-5.364-11.981-11.985-11.981zM17.42 11.594v3.155c-2.71 0-4.908 2.198-4.908 4.908h-3.154c0-4.445 3.616-8.063 8.061-8.063z"></path>
+    <path class="path2" d="M6.672 14.253c-0.106 0-0.214-0.013-0.321-0.039-0.704-0.177-1.131-0.891-0.954-1.594 0.774-3.085 2.902-5.354 6.156-6.557 0.68-0.252 1.437 0.095 1.688 0.776 0.252 0.681-0.095 1.437-0.776 1.689-2.438 0.902-3.958 2.495-4.52 4.733-0.15 0.595-0.685 0.993-1.273 0.993z"></path>
+    <path class="path3" d="M1.316 15.399c-0.060 0-0.119-0.004-0.179-0.012-0.718-0.097-1.222-0.76-1.125-1.479 0.868-6.385 4.616-11.164 10.55-13.457 0.678-0.262 1.438 0.076 1.7 0.753 0.26 0.676-0.076 1.437-0.753 1.699-6.411 2.476-8.375 7.544-8.893 11.359-0.090 0.659-0.654 1.137-1.3 1.137z"></path>
+</g>
+<g id="icon-stats">
+    <path class="path1" d="M0.846 32h4.972v-8.333z"></path>
+    <path class="path2" d="M0 17.656v13.554l5.818-9.756v-3.798z"></path>
+    <path class="path3" d="M8.39 17.15l3.971 8.811 0.002-0.001v-16.845h-5.818v11.127z"></path>
+    <path class="path4" d="M12.036 27.991l-3.786-8.399-1.704 2.856v9.551h5.818v-4.366z"></path>
+    <path class="path5" d="M14.951 23.137l2.24 3.584 1.718-4.084v-8.071h-5.818v10.6z"></path>
+    <path class="path6" d="M17.388 29.171l-2.608-4.172-1.688 1.842v5.159h5.818v-6.445z"></path>
+    <path class="path7" d="M23.645 14.296l-4.008 9.53v8.173h5.818v-12.119z"></path>
+    <path class="path8" d="M23.782 11.052l1.672 5.16v-10.567h-5.818v15.264z"></path>
+    <path class="path9" d="M28.186 24.64l3.814-4.375v-9.882h-5.818v8.073z"></path>
+    <path class="path10" d="M27.725 26.89l-1.544-4.764v9.874h5.818v-10.013z"></path>
+</g>
+<g id="icon-file">
+    <path class="path1" d="M27.879 5.879l-3.757-3.757c-1.167-1.167-3.471-2.121-5.121-2.121h-14c-1.65 0-3 1.35-3 3v26c0 1.65 1.35 3 3 3h22c1.65 0 3-1.35 3-3v-18c0-1.65-0.955-3.955-2.121-5.121zM20 4.236c0.069 0.025 0.139 0.053 0.211 0.082 0.564 0.234 0.956 0.505 1.082 0.631l3.757 3.757c0.126 0.126 0.397 0.517 0.631 1.082 0.030 0.072 0.057 0.143 0.082 0.211h-5.764v-5.764zM26 28h-20v-24h12v8h8v16zM8 16h16v2h-16zM8 20h16v2h-16zM8 24h16v2h-16z"></path>
+</g>
+<g id="icon-mobile">
+    <path class="path1" d="M23 0h-14c-1.65 0-3 1.35-3 3v26c0 1.65 1.35 3 3 3h14c1.65 0 3-1.35 3-3v-26c0-1.65-1.35-3-3-3zM12 1.5h8v1h-8v-1zM16 30c-1.105 0-2-0.895-2-2s0.895-2 2-2 2 0.895 2 2-0.895 2-2 2zM24 24h-16v-20h16v20z"></path>
+</g>
+<g id="icon-download">
+    <path class="path1" d="M16 18l8-8h-6v-8h-4v8h-6zM23.273 14.727l-2.242 2.242 8.128 3.031-13.158 4.907-13.158-4.907 8.127-3.031-2.242-2.242-8.727 3.273v8l16 6 16-6v-8z"></path>
+</g>
+<g id="icon-dashboard">
+    <path class="path1" d="M16 0c-8.837 0-16 7.163-16 16s7.163 16 16 16 16-7.163 16-16-7.163-16-16-16zM16 28c-6.627 0-12-5.373-12-12s5.373-12 12-12c6.627 0 12 5.373 12 12s-5.373 12-12 12zM14 8c0-1.105 0.895-2 2-2s2 0.895 2 2c0 1.105-0.895 2-2 2s-2-0.895-2-2zM20 10c0-1.105 0.895-2 2-2s2 0.895 2 2c0 1.105-0.895 2-2 2s-2-0.895-2-2zM8 10c0-1.105 0.895-2 2-2s2 0.895 2 2c0 1.105-0.895 2-2 2s-2-0.895-2-2zM14 22v2h4v-2l-2-10z"></path>
+</g>
+<g id="icon-location">
+    <path class="path1" d="M16.002 17.746c3.309 0 6-2.692 6-6s-2.691-6-6-6c-3.309 0-6 2.691-6 6s2.691 6 6 6zM16.002 6.746c2.758 0 5 2.242 5 5s-2.242 5-5 5c-2.758 0-5-2.242-5-5s2.242-5 5-5zM16 0c-6.618 0-12 5.316-12 12.001 0 7 6.001 14.161 10.376 19.194 0.016 0.020 0.718 0.805 1.586 0.805 0.002 0 0.073 0 0.077 0 0.867 0 1.57-0.785 1.586-0.805 4.377-5.033 10.377-12.193 10.377-19.194 0-6.685-5.383-12.001-12.002-12.001zM16.117 29.883c-0.021 0.020-0.082 0.064-0.135 0.098-0.010-0.027-0.084-0.086-0.129-0.133-3.665-4.217-9.853-11.334-9.853-17.847 0-5.514 4.487-10.001 10-10.001 5.516 0 10.002 4.487 10.002 10.002 0 6.512-6.188 13.629-9.885 17.881z"></path>
+</g>
+<g id="icon-phone">
+    <path class="path1" d="M24 0h-16c-1.658 0-3 1.343-3 3v26c0 1.658 1.343 3 3 3h16c1.656 0 3-1.344 3-3v-26c0-1.658-1.344-3-3-3zM25 29c0 0.551-0.449 1-1 1h-16c-0.552 0-1-0.447-1-1v-2.004h18v2.004zM25 25.996h-18v-19.996h18v19.996zM25 5h-18v-2c0-0.552 0.448-1 1-1h16c0.551 0 1 0.448 1 1v2zM18 3.5c0 0.276-0.225 0.5-0.5 0.5h-3c-0.277 0-0.5-0.224-0.5-0.5v0c0-0.277 0.223-0.5 0.5-0.5h3c0.275 0 0.5 0.223 0.5 0.5v0zM17 28.496c0 0.275-0.225 0.5-0.5 0.5h-1c-0.276 0-0.5-0.225-0.5-0.5v0c0-0.277 0.224-0.5 0.5-0.5h1c0.275 0 0.5 0.223 0.5 0.5v0z"></path>
+</g>
+<g id="icon-mail">
+    <path class="path1" d="M28 5h-24c-2.209 0-4 1.792-4 4v13c0 2.209 1.791 4 4 4h24c2.209 0 4-1.791 4-4v-13c0-2.208-1.791-4-4-4zM2 10.25l6.999 5.25-6.999 5.25v-10.5zM30 22c0 1.104-0.898 2-2 2h-24c-1.103 0-2-0.896-2-2l7.832-5.875 4.368 3.277c0.533 0.398 1.166 0.6 1.8 0.6 0.633 0 1.266-0.201 1.799-0.6l4.369-3.277 7.832 5.875zM30 20.75l-7-5.25 7-5.25v10.5zM17.199 18.602c-0.349 0.262-0.763 0.4-1.199 0.4s-0.851-0.139-1.2-0.4l-12.8-9.602c0-1.103 0.897-2 2-2h24c1.102 0 2 0.897 2 2l-12.801 9.602z"></path>
+</g>
+</defs></svg>
+
+	<?php echo $__env->yieldContent("title"); ?>
+</head>
+<body>
+	 <!-- <?php echo $__env->make("sidebarGuest", array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>-->
+
+
+	<?php echo $__env->yieldContent("content"); ?>
+
+
+	<!--<?php echo $__env->make("footer", array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>-->
+</body>
+
+
+</html>

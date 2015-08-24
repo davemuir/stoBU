@@ -1,0 +1,444 @@
+<script src="//code.jquery.com/jquery-1.11.1.js"></script>
+  <script src="/js/jquery.onepage-scroll.min.js"></script>
+  <script>
+    $(document).ready(function(){
+      var companyName = $('.companyNameSet');
+      companyName.hide();
+      $('#user-access-link').click(function(){
+        companyName.show();
+      });
+
+      $('#companyNameSubmit').click(function(){
+        var name = $('#companyName').val();
+        window.location.assign('/requestAccess/'+name);
+      });
+      $("#onePageScroll").onepage_scroll({
+   sectionContainer: "section",     // sectionContainer accepts any kind of selector in case you don't want to use section
+   easing: "linear",                  // Easing options accepts the CSS3 easing animation such "ease", "linear", "ease-in",
+                                    // "ease-out", "ease-in-out", or even cubic bezier value such as "cubic-bezier(0.175, 0.885, 0.420, 1.310)"
+   animationTime: 1000,             // AnimationTime let you define how long each section takes to animate
+   pagination: false,                // You can either show or hide the pagination. Toggle true for show, false for hide.
+   updateURL: false,                // Toggle this true if you want the URL to be updated automatically when the user scroll to each page.
+   beforeMove: function(index) {},  // This option accepts a callback function. The function will be called before the page moves.
+   afterMove: function(index) {},   // This option accepts a callback function. The function will be called after the page moves.
+   loop: false,                     // You can have the page loop back to the top/bottom when the user navigates at up/down on the first/last page.
+   keyboard: true,                  // You can activate the keyboard controls
+   responsiveFallback: false,        // You can fallback to normal page scroll by defining the width of the browser in which
+                                    // you want the responsive fallback to be triggered. For example, set this to 600 and whenever
+                                    // the browser's width is less than 600, the fallback will kick in.
+   direction: "vertical"            // You can now define the direction of the One Page Scroll animation. Options available are "vertical" and "horizontal". The default value is "vertical".  
+});
+
+  $( "#loginHeader" ).insertBefore( $( "#onePageScroll" ) );
+    });
+
+  </script>
+
+   <?php $__env->startSection("content"); ?>
+   <div id="onePageScroll">
+       
+        
+
+   
+    <section>
+      
+      <div class="row">
+      <div class="col-md-12">
+        <div id="wrapper" class="slide1">
+          <div class="col-md-1">
+          </div>
+          <div class="col-md-10">
+            <h1 class="openHeading">Introducing the World's Most Powerful Customer Engagement Platform</h1>
+          </div>
+          <div class="col-md-1">
+          </div>
+          <div class="col-md-6"></div>
+
+          <div id="loginContent" class="col-md-4">
+
+             <!-- <h3>Breaking Down the Barriers of Brick and Mortar</h3>
+          <div id="bodyLogo">
+              <img src='img/apengageBigLogo.png' id='frontBodyLogo'/>
+            </div>-->
+            <br>  
+            <p>We provide a turnkey solution that leverages smart phones to engage with smart spaces.</P>
+            <p>Register your organization to enhance the way you interact with your staff and target audience, using our secure web-based management system.  Register Today or scroll down to learn more.</p>
+            <div class="row">
+              <div class="col-md-6">
+             <div class="middle">
+                          <?php echo '<label class="link bttn">'. HTML::link(URL::to('/register'), 'Register') . '</label>'; ?>
+            </div>
+          </div>
+        
+          <div class="col-md-6">
+             <div class="middle">
+              <label id="user-access-link" style="background-color:#a7a7a7;" class="link bttn">Request User</label>
+             </div>
+          </div>
+          </div>
+
+            <div class="companyNameSet">
+
+              <div class="container">
+
+                <input id="companyName" ></input><a href="#" class="companyLink" id="companyNameSubmit">submit company</a>
+
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="col-md-2"></div>
+ 
+        </div>
+      </div>
+    </div>
+ 
+    </section>
+   
+    <section >
+
+      <div class="row">
+      <div class="col-md-12">
+        <div id="wrapper" class="slide2">
+            <div class="row">
+              <div class="col-md-1">
+          </div>
+          <div class="col-md-10">
+            <h1 class="openHeading">Software is what Really makes Beacons Shine</h1>
+          </div>
+          <div class="col-md-1">
+          </div>
+              <div class="col-md-7">
+                  <div class="row">
+                    <div class="col-md-2">
+                    </div>
+                     <div class="col-md-7 heading">
+                       <!-- <h1>Software is what Really Makes Beacons Shine</h1>-->
+                         <br>  
+                        <p>
+                          Introducing the world's most powerful customer engagement platform.  Leverage your physical location, social assets, and organic traffic through direct real-time engagement with your customers.
+                        </p>
+                        <p>
+                          Set up a virtual zone with beacons and engage your customers when they are in your proximity.  With the power of beacon hardware, our software can push custom html content, surveys, lists, offers and more to a user's smartphone when they come into range of a beacon.
+                        </p>
+
+                        <div class="middle">
+                          <?php echo '<label class="link bttn">'. HTML::link(URL::to('/register'), 'Register') . '</label>'; ?>
+                        </div>
+                     </div>
+                      <div class="col-md-3">
+                    </div>
+                  </div>
+              </div>
+              <div class="col-md-5">
+                    
+              </div>  
+            </div>
+              <img id="tabletHand" src="/img/tabletHand.png">
+        </div>
+
+      </div>
+    </div>
+    
+    </section>
+     <section >
+
+      <div class="row">
+      <div class="col-md-12">
+        <div id="wrapper" class="slide4">
+            <div class="row">
+                <h1 class="openHeading">Simple Setup. Invaluable Insights.</h1>
+            </div>
+             <div class="row pushTop">
+                <div class="col-md-2">
+                </div>
+                <div class="col-md-8">
+                  <div class="row">
+                     <div class="col-md-6">
+                        <div class="row">
+                          <div class="col-md-6">
+                               <img src="/img/computer.png" class="infoImg">
+                            </div>
+                          <div class="col-md-6 tableCell">
+                            <div class="infoImgContainerLeft">
+                              <img src="/img/arrow2.png" class="infoImg left">
+                            </div>
+                          </div>
+                          <div class="col-md-12">
+                                <div class="heading">
+                                  <p>
+                                    Content is created on your ApEngage Dashboard and assigned to the virtual areas you have set up using beacons.  Create surveys, offers, html data and more to reach your target.
+                                  </p>
+                                </div>
+                          </div>
+                        </div>
+                     </div>
+                     <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-6">
+                              <div class="infoImgContainerRight">
+                               <img src="/img/arrow22.png" class="infoImg right">
+                              </div>
+                          </div>
+                          <div class="col-md-6">
+                               <img src="/img/room.png" class="infoImg">
+                            </div>
+                        
+                          <div class="col-md-12">
+                                <div class="heading right">
+                                  <p>
+                                    Your beaconized space is awaiting a user's smartphone to enter proximity.  Set-up content to your beacons to deliver relative information in different areas of your space.
+                                  </p>
+                                </div>
+                          </div>
+                        </div>
+                     </div>
+                  </div>
+                   <div class="row">
+                     <div class="col-md-6">
+                        <div class="row">
+                          <div class="col-md-6">
+                               <img src="/img/phoneBeacon.png" class="infoImg">
+                            </div>
+                          <div class="col-md-6">
+                             <div class="infoImgContainerLeft">
+                              <img src="/img/arrow24.png" class="infoImg left">
+                            </div>
+                          </div>
+                          <div class="col-md-12">
+                                <div class="heading">
+                                  <p>
+                                    Gain valuable insights and analytics through all your interactions.  We track everything so you really don't need to.
+                                  </p>
+                                </div>
+                          </div>
+                        </div>
+                     </div>
+                     <div class="col-md-6">
+                        <div class="row">
+                          <div class="col-md-6">
+                             <div class="infoImgContainerRight">
+                               <img src="/img/arrow23.png" class="infoImg right">
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                               <img src="/img/apengagePhoneBeaconSilhouette.png" class="infoImg">
+                            </div>
+                        
+                          <div class="col-md-12">
+                                <div class="heading right">
+                                  <p>
+                                    A smartphone user comes in range with a beacon and is alerted with your content.
+                                  </p>
+                                </div>
+                          </div>
+                        </div>
+                     </div>
+                  </div>
+                </div>
+                <div class="col-md-2">
+                </div>
+                 
+            </div>
+        </div>
+
+      </div>
+    </div>
+    
+    </section>
+     <section>
+
+      <div class="row">
+      <div class="col-md-12">
+        <div id="wrapper" class="slide3">
+            <div class="row">
+              <div class="col-md-12">
+                  <h1 class="openHeading">Choose a Plan that suits You</h1>
+                  <p class="center">Scale your space at $1.00 per square foot and let us do the rest</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-1">
+              </div>
+              <div class="col-md-10" style="overflow-x:hidden;">
+
+                  <div id="table">
+                            <table id="plans">
+                                <tbody>
+                                    <tr class="top">
+                                        <td>
+                                             <div>
+                                                <h3>ApEngage Light</h3>
+                                                <h1>$69<span>/MO</span></h1>
+                                                 <div class="link">
+                                                <a href="#">Learn More</a>
+                                                    </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div>
+                                                <h3>ApEngage</h3>
+                                                <h1>$99<span>/MO</span></h1>
+                                                <div class="link">
+                                                    <a href="#">Learn More</a>
+                                                </div>
+                                             </div>
+                                        </td>
+                                        <td>
+                                            <div>
+                                                <h3>ApEngage WiFi</h3>
+                                                <h1>$175<span>/MO</span></h1>
+                                                 <div class="link">
+                                                <a href="#">Learn More</a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                              <div>
+                                                <h3>ApEngage Developers</h3>
+                                                <h1>$0<span>/MO</span></h1>
+                                                 <div class="link">
+                                                <a href="">Coming Soon</a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr class="bottom">
+                                       <td>
+                                             <div>
+                                                <ul>
+                                                    <li><svg class="icon icon-activeBeams" viewBox="0 0 32 32"><use xlink:href="#icon-activeBeams"></use></svg>1 Beacon (+1 Backup)</li>
+                                                    <li><svg class="icon icon-dashboard" viewBox="0 0 32 32"><use xlink:href="#icon-dashboard"></use></svg>Dashboard / Mobile App</li>
+
+                                                </ul>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div>
+                                                <ul>
+                                                    <li><svg class="icon icon-activeBeams" viewBox="0 0 32 32"><use xlink:href="#icon-activeBeams"></use></svg>4 Beacons (+1 Backup)</li>
+                                                    <li><svg class="icon icon-dashboard" viewBox="0 0 32 32"><use xlink:href="#icon-dashboard"></use></svg>Dashboard / Mobile App</li>
+
+                                                    <li><svg class="icon icon-stats" viewBox="0 0 32 32"><use xlink:href="#icon-stats"></use></svg>Social Media Analytics</li>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div>
+                                                <ul>
+                                                    <li><svg class="icon icon-activeBeams" viewBox="0 0 32 32"><use xlink:href="#icon-activeBeams"></use></svg>4 Beacons (+1 Backup)</li>
+                                                    <li><svg class="icon icon-activeBeams" viewBox="0 0 32 32"><use xlink:href="#icon-activeBeams"></use></svg>1 ApBeacon Pro</li>
+                                                    <li><svg class="icon icon-dashboard" viewBox="0 0 32 32"><use xlink:href="#icon-dashboard"></use></svg>Dashboard / Mobile App</li>
+                                                    <li><svg class="icon icon-stats" viewBox="0 0 32 32"><use xlink:href="#icon-stats"></use></svg>Advanced Analytics</li>
+                                                    <li><svg class="icon icon-file" style="background-image:none;" viewBox="0 0 32 32"><use xlink:href="#icon-file"></use></svg>Raw Data</li>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                        <td>
+                                             <div>
+                                                <ul>
+                                                    <li><svg class="icon icon-download" style="background-image:none;" viewBox="0 0 32 32"><use xlink:href="#icon-download"></use></svg>SDK</li>
+
+                                                </ul>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="afterFade">
+                            </div>
+                        </div>
+                </div>
+               <div class="col-md-1">
+              </div>
+        </div>
+        </div>
+      </div>
+    </div>
+    
+    </section>
+    <section >
+
+      <div class="row">
+      <div class="col-md-12">
+        <div id="wrapper" class="slide5">
+
+            <div class="row firstHalf">
+              <div class="row top">
+                <div class="col-md-12">
+                  <h1 class="openHeading" style="margin-bottom:40px;">Contact Us Today</h1>
+                </div>
+                <div class="col-md-6">
+                  <div class="row">
+                    <div class="col-md-6">
+                    </div>
+                    <div class="col-md-6">
+                      <div class="contactUs">
+                          <li><svg class="icon icon-mail" viewBox="0 0 32 32"><use xlink:href="#icon-mail"></use></svg><a href="mailto:info@ap1.io"> - info@ap1.io</a></li>
+                          <li><svg class="icon icon-phone" viewBox="0 0 32 32"><use xlink:href="#icon-phone"></use></svg><a href="tel:+4162736154"> - 416.273.6154</a></li>
+                          <li><svg class="icon icon-location" viewBox="0 0 32 32"><use xlink:href="#icon-location"></use></svg><a href="#"> - 366 Adelaide St. East 3rd Floor</a></li>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="row">
+                    <div class="col-md-6">
+                  
+                  <?php echo Form::open([
+                    'action'        =>  'UserController@homeEmailForm',
+                    "autocomplete"  =>  "off",
+                    "enctype"       =>  "multipart/form-data"
+                  ]); ?>
+
+
+                  
+                  <?php echo Form::text("name", Input::get("name"), ["placeholder" => "Full Name","class" =>"form-control reg"]); ?>
+
+                  
+                  <?php echo Form::text("subject", Input::get("subject"), ["placeholder" => "Subject","class" =>"form-control reg"]); ?>
+
+                  
+                  <?php echo Form::text("email", Input::get("email"), ["placeholder" => "Email Address","class" =>"form-control reg"]); ?>
+
+                  
+                  <?php echo Form::textarea("message", Input::get("message"), ["placeholder" => "Message","class" =>"form-control messageText",]); ?>
+
+                 
+                  <label> <?php echo Form::checkbox('check', 'check'); ?>Please Check this box to send your message</label>
+                   <br/>
+                    <?php echo Form::submit("Send", array('class' => '',"id"=>"submitEmail")); ?>
+
+                    <?php echo Form::close(); ?>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+             <div class="row secondHalf">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d1443.399838277286!2d-79.3682882!3d43.652336!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89d4cb3a1c98886f%3A0x7a57af2d781b6cd8!2s366+Adelaide+St+E%2C+Toronto%2C+ON+M5A+3X9!5e0!3m2!1sen!2sca!4v1418162292986"  frameborder="0" style="border:0;width: 100%;height: 100%;"></iframe>
+              </div>
+                 
+            </div>
+        </div>
+      </div>
+    </div>
+    
+    </section>
+  </div>
+  <?php echo $__env->make("sidebarGuest", array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+  <?php $__env->stopSection(); ?>
+
+<?php $__env->startSection("footer"); ?>
+    @parent
+<?php $__env->stopSection(); ?>
+
+           
+
+
+
+
+<?php echo $__env->make("layout", array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

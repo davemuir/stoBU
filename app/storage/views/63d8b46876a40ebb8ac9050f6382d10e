@@ -1,0 +1,147 @@
+<?php $__env->startSection("content"); ?>
+<?php echo $__env->make("header", array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+
+
+<script type="text/javascript">
+
+$(document).ready(function() {
+
+    $(".showKey").click(
+       function() {
+
+          if($(this).parents('.keyHolder:eq(0)').find('#secKey').hasClass('hideSecretKey')){
+
+             $(this).parents('.keyHolder:eq(0)').find('#secKey').removeClass('hideSecretKey').addClass('showSecretKey');
+          }
+          else
+          {
+             $(this).parents('.keyHolder:eq(0)').find('#secKey').removeClass('showSecretKey').addClass('hideSecretKey');
+          }
+
+        });
+    $(".mykeys").click(function(){
+
+
+    $(this).focus();
+     $(this).select();
+
+    });
+
+  });
+
+  
+  
+
+</script>
+
+<div class="innerContent">
+
+      <div class="row" >
+          <div class="col-md-12">
+
+              <ul id="surveyControls">
+                    <li>
+                         <button type="button" class="btn btn-primary clientBtn">
+                              <span class="glyphicon glyphicon-plus"></span>
+                              <a class="glyphLink" href="#"
+                              data-id='2'
+                              data-toggle="tooltip"
+                              data-placement="right"
+                              title="Create a new beam message"> Add New Platform </a>
+                         </button>
+                    </li>
+              </ul>
+         </div>
+     </div>
+
+     <div class="row" >
+          <?php echo Form::open(['route' => array('client.store')]); ?>
+
+          <div class="col-md-2">
+              <?php echo Form::submit('Regenerate Key', array('class'=>'btn btn-primary regenrateBtn'));; ?>
+
+
+         </div>
+         <div class="col-md-3">
+               <select name="os" class="col-md-6 clientSelect">
+                    <option>iOS</option>
+                    <option>AndroidOS</option>
+               </select>
+         </div>
+     </div>
+     <div class="row" >
+
+          <? $counter = 0; ?>
+         
+          <? foreach ($resp as $key => $value) { ?>
+
+               <div class="keyHolder">
+                     <div class="row clientRow">
+
+                         <div class="OsHeader col-md-3">
+                              <h2><?php echo $key; ?></h2>
+                              
+                         </div>
+                         <div class="col-md-1">
+                         </div>
+                         <div class="col-md-8 clientDate">
+                              Valid Until: <?php echo $value['valid_until']; ?>
+
+                         </div>
+                    </div>
+                    <div class="row ">
+                         <div class=" col-md-3 clientDate">
+                             Key
+                         </div>
+                    </div>
+                    <div class="row clientRow">
+                         <div class=" col-md-5 keyBackground">                           
+                            <input type="text"  class="form-control mykeys" value=" <?php echo $value['key']; ?>" readonly="readonly">
+                         </div>
+                    </div>
+                    <div class="row clientDate ">
+                         <div class=" col-md-3">
+                             Secret Key
+                         </div>
+                         <div class="col-md-3 ">
+                              <ul id="surveyControls">
+                                   <li>
+                                        <button id = "showKey" type="button" class="btn btn-primary btn-sm clientBtn showKey">
+                                             <span class=""></span>
+                                             <a class="glyphLink" href="#"
+                                             data-id='2'
+                                             data-toggle="tooltip"
+                                             data-placement="right"
+                                             title="Display Secret Key"> Show Secret Key </a>
+                                        </button>
+                                   </li>
+                              </ul>
+                             
+                         </div>
+                    </div>
+                    <div class="row">
+
+                      <div class="col-md-12 keyBackground hideSecretKey" id="secKey" > 
+                         
+                           <input type="text"  class="form-control mykeys"  value="<?php echo $value['secret']; ?>" readonly="readonly">
+                      </div> 
+
+                    </div>
+                    
+               </div>
+               <? $counter++; ?>
+
+          <? } ?>
+         
+    </div>
+          <?php echo Form::close(); ?>
+
+     
+
+      
+
+</div>
+
+
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make("layout_dash", array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
